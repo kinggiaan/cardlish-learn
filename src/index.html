@@ -24,47 +24,53 @@
 
   <!-- Main card area -->
   <main class="main-content" id="mainContent">
-    <div class="card-container" id="cardContainer" role="region" aria-label="Thẻ học flashcard">
-      <div class="card-flipper" id="cardFlipper">
-        <div class="card-face card-front">
-          <div class="card-image-shell">
-            <img id="frontImage" src="" alt="Mặt trước thẻ" draggable="false">
-          </div>
-        </div>
-        <div class="card-face card-back">
-          <div class="card-image-shell">
-            <img id="backImage" src="" alt="Mặt sau thẻ" draggable="false">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card info -->
+    <!-- Card info (above the card, with speaker button) -->
     <div class="card-info" id="cardInfo" aria-live="polite">
       <span class="card-label" id="cardLabel">Thẻ 001</span>
       <span class="card-side" id="cardSide">· Mặt trước</span>
+      <button class="audio-speaker-btn focusable" id="playAudio" data-action="play-audio" aria-label="Nghe âm thanh">
+        🔊
+      </button>
+    </div>
+
+    <!-- Study Layout (card centered, vocab and arrows on sides) -->
+    <div class="study-layout">
+      <!-- Prev Card Button -->
+      <button class="nav-arrow-btn prev-arrow focusable" id="prevCard" data-action="prev-card" aria-label="Thẻ trước">
+        ◀
+      </button>
+
+      <div class="vocab-side vocab-left" id="vocabLeft" aria-label="Từ vựng cột trái">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="card-container-wrapper">
+        <div class="card-container" id="cardContainer" role="region" aria-label="Thẻ học flashcard">
+          <div class="card-flipper" id="cardFlipper">
+            <div class="card-face card-front">
+              <div class="card-image-shell">
+                <img id="frontImage" src="" alt="Mặt trước thẻ" draggable="false">
+              </div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-image-shell">
+                <img id="backImage" src="" alt="Mặt sau thẻ" draggable="false">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vocab-side vocab-right" id="vocabRight" aria-label="Từ vựng cột phải">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Next Card Button -->
+      <button class="nav-arrow-btn next-arrow focusable" id="nextCard" data-action="next-card" aria-label="Thẻ sau">
+        ▶
+      </button>
     </div>
   </main>
-
-  <!-- Action buttons -->
-  <nav class="actions-bar" id="actionsBar" aria-label="Điều khiển thẻ">
-    <button class="action-btn btn-nav focusable" id="prevCard" data-action="prev-card" aria-label="Thẻ trước">
-      <span class="btn-icon" aria-hidden="true">◀</span>
-      <span class="btn-text">Trước</span>
-    </button>
-    <button class="action-btn btn-audio focusable" id="playAudio" data-action="play-audio" aria-label="Nghe âm thanh">
-      <span class="btn-icon" aria-hidden="true">🔊</span>
-      <span class="btn-text">Nghe âm</span>
-    </button>
-    <button class="action-btn btn-flip focusable" id="flipCard" data-action="flip-card" aria-label="Lật thẻ">
-      <span class="btn-icon" aria-hidden="true">🔄</span>
-      <span class="btn-text">Lật thẻ</span>
-    </button>
-    <button class="action-btn btn-nav focusable" id="nextCard" data-action="next-card" aria-label="Thẻ sau">
-      <span class="btn-icon" aria-hidden="true">▶</span>
-      <span class="btn-text">Sau</span>
-    </button>
-  </nav>
 
   <!-- Floating gallery button (top-right) -->
   <button class="gallery-fab focusable" id="galleryToggle" aria-label="Mở thư viện thẻ">
@@ -110,11 +116,44 @@
 
     <div class="gallery-summary" id="gallerySummary">
       <span class="gallery-summary-text" id="filteredCount">53 thẻ</span>
-      <button class="start-btn focusable" id="startStudying">🎓 Bắt đầu học</button>
+      <div class="gallery-summary-actions">
+        <button class="export-btn focusable" id="exportVocabJson" aria-label="Xuất file JSON từ vựng">📥 Xuất file JSON</button>
+        <button class="start-btn focusable" id="startStudying">🎓 Bắt đầu học</button>
+      </div>
     </div>
 
     <div class="gallery-grid" id="galleryGrid">
       <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- Vocabulary Edit Overlay -->
+  <div class="vocab-edit-overlay" id="vocabEditOverlay" hidden>
+    <div class="vocab-edit-modal">
+      <div class="vocab-edit-header">
+        <h3 id="vocabEditTitle">✏️ Sửa từ vựng - Thẻ 001</h3>
+        <button class="vocab-edit-close" id="vocabEditClose" aria-label="Đóng">&times;</button>
+      </div>
+      <div class="vocab-edit-body">
+        <div class="vocab-edit-section">
+          <h4>Mặt trước (Front)</h4>
+          <div class="vocab-edit-list" id="frontVocabList">
+            <!-- Dynamic rows -->
+          </div>
+          <button class="vocab-add-row-btn focusable" id="addFrontWord">+ Thêm từ mặt trước</button>
+        </div>
+        <div class="vocab-edit-section">
+          <h4>Mặt sau (Back)</h4>
+          <div class="vocab-edit-list" id="backVocabList">
+            <!-- Dynamic rows -->
+          </div>
+          <button class="vocab-add-row-btn focusable" id="addBackWord">+ Thêm từ mặt sau</button>
+        </div>
+      </div>
+      <div class="vocab-edit-footer">
+        <button class="vocab-btn vocab-cancel-btn focusable" id="vocabEditCancel">Hủy</button>
+        <button class="vocab-btn vocab-save-btn focusable" id="vocabEditSave">Lưu thay đổi</button>
+      </div>
     </div>
   </div>
 

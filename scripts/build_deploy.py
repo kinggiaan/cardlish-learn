@@ -75,7 +75,7 @@ def copy_audio(audio_src: Path, dist_dir: Path) -> None:
 
 
 def copy_data(data_src: Path, dist_dir: Path) -> None:
-    """Copy cards.json to dist/data/."""
+    """Copy cards.json and cards_vocab.json to dist/data/."""
     data_dst = dist_dir / "data"
     data_dst.mkdir(parents=True, exist_ok=True)
 
@@ -84,6 +84,13 @@ def copy_data(data_src: Path, dist_dir: Path) -> None:
         shutil.copy2(data_src, data_dst / "cards.json")
     else:
         print(f"[WARN] Manifest not found: {data_src}")
+
+    vocab_src = data_src.parent / "cards_vocab.json"
+    if vocab_src.exists():
+        print(f"[COPY] Vocab Data ({vocab_src} -> dist/data/cards_vocab.json)")
+        shutil.copy2(vocab_src, data_dst / "cards_vocab.json")
+    else:
+        print(f"[WARN] Vocabulary file not found: {vocab_src}")
 
 
 def rewrite_paths(dist_dir: Path) -> None:
@@ -109,6 +116,11 @@ def rewrite_paths(dist_dir: Path) -> None:
         (
             r"DATA_URL:\s*['\"].*?['\"]",
             "DATA_URL: 'data/cards.json'",
+        ),
+        # VOCAB_URL: local -> production
+        (
+            r"VOCAB_URL:\s*['\"].*?['\"]",
+            "VOCAB_URL: 'data/cards_vocab.json'",
         ),
         # CARDS_BASE_PATH: local -> production (empty = relative to root)
         (

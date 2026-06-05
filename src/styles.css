@@ -278,9 +278,50 @@ button {
   -webkit-user-drag: none;
 }
 
-/* Card entrance animation */
-.card-enter {
-  animation: bounceIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* Card transition animations */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeScaleIn {
+  0% {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.card-enter-next {
+  animation: slideInFromRight 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.card-enter-prev {
+  animation: slideInFromLeft 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.card-enter-fade {
+  animation: fadeScaleIn 0.3s ease-out forwards;
 }
 
 /* ── Card Info ───────────────────────────────────────────── */
@@ -306,99 +347,94 @@ button {
   color: var(--text-muted);
 }
 
-/* ── Action Buttons Bar ──────────────────────────────────── */
-.actions-bar {
+/* ── Navigation Arrow Buttons ────────────────────────────── */
+.nav-arrow-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 6px 16px;
-  flex-wrap: wrap;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 56px;
-  padding: 12px 20px;
-  border-radius: var(--border-radius-lg);
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  transition: all var(--transition-fast);
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  flex: 1;
-  max-width: 200px;
-}
-
-.action-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
-  pointer-events: none;
-}
-
-.btn-icon {
-  font-size: 20px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.btn-text {
-  font-weight: 700;
-}
-
-/* Button color variants */
-.btn-nav {
-  background: var(--accent-blue-light);
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 3px solid rgba(96, 165, 250, 0.3);
   color: var(--accent-blue-text);
+  font-size: 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(96, 165, 250, 0.1);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  z-index: 10;
 }
 
-.btn-audio {
-  background: var(--accent-green-light);
-  color: var(--accent-green-text);
+.nav-arrow-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--accent-blue);
+  background: var(--accent-blue-light);
+  box-shadow: 0 8px 24px rgba(96, 165, 250, 0.25);
 }
 
-.btn-flip {
-  background: var(--accent-purple-light);
-  color: var(--accent-purple-text);
+.nav-arrow-btn:active {
+  transform: scale(0.9);
 }
 
-/* Hover */
-.action-btn:hover {
-  transform: scale(1.04);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  filter: brightness(1.03);
+.nav-arrow-btn:focus-visible {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 4px;
 }
 
-/* Active / pressed */
-.action-btn:active {
-  transform: scale(0.97) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+/* ── Audio Speaker Button ─────────────────────────────────── */
+.audio-speaker-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  font-size: 24px;
+  color: var(--text-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-fast);
+  margin-left: 12px;
+  line-height: 1;
+  padding: 0;
+  vertical-align: middle;
 }
 
-/* Disabled */
-.action-btn:disabled {
-  opacity: 0.4;
+.audio-speaker-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--accent-green);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.2);
+}
+
+.audio-speaker-btn:active {
+  transform: scale(0.95);
+}
+
+.audio-speaker-btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-  filter: none !important;
+  border-color: var(--progress-track);
+  box-shadow: none;
 }
 
-/* Audio playing state */
-.action-btn.audio-playing {
-  animation: pulse 1.5s ease-in-out infinite;
-  background: var(--accent-green);
-  color: #ffffff;
+/* Pulsing glow animation for when audio is playing */
+@keyframes audioPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.audio-speaker-btn.audio-playing {
+  animation: audioPulse 1.5s infinite;
+  border-color: var(--accent-green);
+  background: var(--accent-green-light);
 }
 
 /* ── Focus System ────────────────────────────────────────── */
@@ -577,23 +613,7 @@ button {
     max-height: 78vh;
   }
 
-  .actions-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    padding: 4px 10px 4px;
-  }
 
-  .action-btn {
-    min-height: 46px;
-    padding: 8px 12px;
-    font-size: 14px;
-    max-width: none;
-  }
-
-  .btn-icon {
-    font-size: 18px;
-  }
 
   .card-info {
     margin-top: 6px;
@@ -625,17 +645,7 @@ button {
     max-height: 78vh;
   }
 
-  .actions-bar {
-    gap: 10px;
-    padding: 8px 24px;
-  }
 
-  .action-btn {
-    min-height: 52px;
-    padding: 10px 20px;
-    font-size: 16px;
-    max-width: 180px;
-  }
 }
 
 /* ── Desktop (>1024px) ───────────────────────────────────── */
@@ -668,21 +678,7 @@ button {
     max-height: 80vh;
   }
 
-  .actions-bar {
-    gap: 12px;
-    padding: 8px 32px;
-  }
 
-  .action-btn {
-    min-height: 54px;
-    padding: 10px 24px;
-    font-size: 17px;
-    max-width: 210px;
-  }
-
-  .btn-icon {
-    font-size: 22px;
-  }
 
   .card-label {
     font-size: 18px;
@@ -731,22 +727,7 @@ button {
     max-height: 82vh;
   }
 
-  .actions-bar {
-    gap: 14px;
-    padding: 10px 48px;
-  }
 
-  .action-btn {
-    min-height: 60px;
-    padding: 12px 28px;
-    font-size: 19px;
-    max-width: 240px;
-    border-radius: 22px;
-  }
-
-  .btn-icon {
-    font-size: 26px;
-  }
 
   .card-label {
     font-size: 22px;
@@ -770,6 +751,170 @@ button {
 
   :root {
     --header-height: 72px;
+  }
+}
+
+/* ============================================================
+   Vocabulary Display Feature & Side Layout
+   ============================================================ */
+.study-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1100px;
+  gap: 28px;
+  margin-top: 6px;
+  animation: fadeIn var(--transition-normal);
+}
+
+.card-container-wrapper {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.vocab-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 200px;
+  flex-shrink: 0;
+  transition: all var(--transition-normal);
+}
+
+.vocab-left {
+  align-items: flex-end;
+}
+
+.vocab-right {
+  align-items: flex-start;
+}
+
+.vocab-word-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--card-bg);
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  border-radius: var(--border-radius-md);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-fast);
+  width: fit-content;
+}
+
+.vocab-word-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: var(--accent-purple);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.12);
+}
+
+.vocab-word-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.vocab-word-text {
+  font-size: 18px;
+}
+
+.vocab-word-ipa {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.vocab-word-speaker {
+  font-size: 15px;
+  color: var(--accent-purple-text);
+  line-height: 1;
+}
+
+/* Adjust card info spacing for its new position above the card */
+.card-info {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+/* Mobile & Portrait Screen Fallback (<960px) */
+@media (max-width: 959px) {
+  .study-layout {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 16px 12px;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  #prevCard {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .card-container-wrapper {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  #nextCard {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .nav-arrow-btn {
+    width: 68px;
+    height: 68px;
+    font-size: 26px;
+  }
+
+  .vocab-side {
+    grid-column: 1 / span 3;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    padding: 0 8px;
+  }
+
+  .vocab-left {
+    grid-row: 2;
+  }
+
+  .vocab-right {
+    grid-row: 3;
+  }
+
+  .vocab-left, .vocab-right {
+    align-items: center;
+  }
+
+  .vocab-word-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .vocab-word-text {
+    font-size: 15px;
+  }
+
+  .vocab-word-ipa {
+    font-size: 11px;
+  }
+  
+  .card-info {
+    margin-top: 6px;
+    margin-bottom: 6px;
   }
 }
 
@@ -1194,12 +1339,32 @@ button {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
+.gallery-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 8px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
 .gallery-card-label {
-  text-align: center;
-  padding: 6px 4px 8px;
   font-size: 13px;
   font-weight: 700;
   color: var(--text-secondary);
+}
+
+.vocab-edit-trigger {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  padding: 2px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  z-index: 10;
+}
+
+.vocab-edit-trigger:hover {
+  transform: scale(1.25);
 }
 
 /* Selected card overlay checkmark */
@@ -1522,4 +1687,234 @@ button {
   .card-flipper {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── Vocabulary Edit Overlay & Modal ─────────────────────── */
+.vocab-edit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 41, 59, 0.5); /* backdrop glassmorphism */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999; /* Higher than everything else */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn var(--transition-fast);
+}
+
+.vocab-edit-overlay[hidden] {
+  display: none !important;
+}
+
+.vocab-edit-modal {
+  width: 90%;
+  max-width: 600px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--card-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow: hidden;
+  animation: bounceIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vocab-edit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 2px solid rgba(124, 140, 240, 0.1);
+}
+
+.vocab-edit-header h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.vocab-edit-close {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.vocab-edit-close:hover {
+  color: var(--text-primary);
+}
+
+.vocab-edit-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vocab-edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vocab-edit-section h4 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  border-left: 4px solid var(--accent-purple);
+  padding-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vocab-edit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vocab-edit-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.vocab-edit-row input {
+  padding: 10px 14px;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: #fafafa;
+  transition: all var(--transition-fast);
+}
+
+.vocab-edit-row input:focus {
+  border-color: var(--accent-purple);
+  background: #ffffff;
+  outline: none;
+}
+
+.vocab-edit-row .word-input {
+  flex: 1.5;
+}
+
+.vocab-edit-row .ipa-input {
+  flex: 1;
+}
+
+.vocab-delete-row-btn {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vocab-delete-row-btn:hover {
+  background: #fca5a5;
+  transform: scale(1.05);
+}
+
+.vocab-add-row-btn {
+  align-self: flex-start;
+  padding: 8px 16px;
+  background: var(--accent-purple-light);
+  color: var(--accent-purple-text);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vocab-add-row-btn:hover {
+  background: #ddd6fe;
+  transform: translateY(-1px);
+}
+
+.vocab-edit-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 18px 24px;
+  border-top: 2px solid rgba(124, 140, 240, 0.1);
+  background: #fafafa;
+}
+
+.vocab-btn {
+  padding: 12px 24px;
+  border-radius: var(--border-radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vocab-cancel-btn {
+  background: #e2e8f0;
+  color: #475569;
+  border: none;
+}
+
+.vocab-cancel-btn:hover {
+  background: #cbd5e1;
+}
+
+.vocab-save-btn {
+  background: var(--accent-green);
+  color: #ffffff;
+  border: none;
+}
+
+.vocab-save-btn:hover {
+  background: #16a34a;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+}
+
+/* ── Export JSON Button inside Gallery Summary ────────────────── */
+.gallery-summary-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.export-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent-blue-text);
+  background: var(--accent-blue-light);
+  border: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  background: #bfdbfe;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.export-btn:active {
+  transform: translateY(0);
 }

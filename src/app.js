@@ -7,10 +7,11 @@
 // ── Configuration ───────────────────────────────────────────
 const CONFIG = {
   DATA_URL: '../public/data/cards.json',
+  VOCAB_URL: '../public/data/cards_vocab.json',
   CARDS_BASE_PATH: '../unified_db/',
   AUDIO_BASE_PATH: '../public/',
   STORAGE_KEY: 'cardlish_current_index',
-  CONTROLS: ['prev-card', 'play-audio', 'flip-card', 'next-card'],
+  CONTROLS: ['prev-card', 'play-audio', 'next-card'],
   POINTER_HIDE_DELAY: 3000,
   SWIPE_THRESHOLD: 50,
 };
@@ -18,11 +19,13 @@ const CONFIG = {
 // ── Application State ───────────────────────────────────────
 const state = {
   cards: [],
+  vocab: {},
   currentIndex: 0,
   showingFront: true,
   activeControlIndex: 1, // play-audio by default
   audioPlaying: false,
   audioElement: null,
+  navigationDirection: 'fade',
 };
 
 // ── Gallery State ───────────────────────────────────────────
@@ -67,13 +70,11 @@ function cacheDom() {
   dom.cardInfo = document.getElementById('cardInfo');
   dom.prevCard = document.getElementById('prevCard');
   dom.playAudio = document.getElementById('playAudio');
-  dom.flipCard = document.getElementById('flipCard');
   dom.nextCard = document.getElementById('nextCard');
-  dom.actionsBar = document.getElementById('actionsBar');
-  dom.statusBar = document.getElementById('statusBar');
-  dom.activeLabel = document.getElementById('activeLabel');
   dom.loadingOverlay = document.getElementById('loadingOverlay');
   dom.mainContent = document.getElementById('mainContent');
+  dom.vocabLeft = document.getElementById('vocabLeft');
+  dom.vocabRight = document.getElementById('vocabRight');
 
   // Gallery DOM elements
   dom.galleryToggle = document.getElementById('galleryToggle');
@@ -87,16 +88,58 @@ function cacheDom() {
   dom.filteredCount = document.getElementById('filteredCount');
   dom.startStudying = document.getElementById('startStudying');
   dom.galleryGrid = document.getElementById('galleryGrid');
+
+  // Vocabulary Editor DOM elements
+  dom.vocabEditOverlay = document.getElementById('vocabEditOverlay');
+  dom.vocabEditClose = document.getElementById('vocabEditClose');
+  dom.vocabEditCancel = document.getElementById('vocabEditCancel');
+  dom.vocabEditSave = document.getElementById('vocabEditSave');
+  dom.frontVocabList = document.getElementById('frontVocabList');
+  dom.backVocabList = document.getElementById('backVocabList');
+  dom.addFrontWord = document.getElementById('addFrontWord');
+  dom.addBackWord = document.getElementById('addBackWord');
+  dom.vocabEditTitle = document.getElementById('vocabEditTitle');
+  dom.exportVocabJson = document.getElementById('exportVocabJson');
 }
 
 // ── Data Loader ─────────────────────────────────────────────
 async function loadCards() {
-  const response = await fetch(CONFIG.DATA_URL);
-  if (!response.ok) {
-    throw new Error(`Không thể tải dữ liệu thẻ (HTTP ${response.status})`);
+  // Load both cards list and vocab list in parallel
+  const [cardsResp, vocabResp] = await Promise.all([
+    fetch(CONFIG.DATA_URL),
+    fetch(CONFIG.VOCAB_URL).catch(e => {
+      console.warn('Failed to load cards_vocab.json, fallback to empty:', e);
+      return null;
+    })
+  ]);
+
+  if (!cardsResp.ok) {
+    throw new Error(`Không thể tải dữ liệu thẻ (HTTP ${cardsResp.status})`);
   }
 
-  const data = await response.json();
+  const data = await cardsResp.json();
+  
+  if (vocabResp && vocabResp.ok) {
+    try {
+      state.vocab = await vocabResp.json();
+    } catch (e) {
+      console.warn('Failed to parse cards_vocab.json:', e);
+      state.vocab = {};
+    }
+  } else {
+    state.vocab = {};
+  }
+
+  // Merge vocabulary overrides from localStorage
+  try {
+    const localEdits = localStorage.getItem('cardlish_vocab_edits');
+    if (localEdits) {
+      const parsedEdits = JSON.parse(localEdits);
+      state.vocab = { ...state.vocab, ...parsedEdits };
+    }
+  } catch (err) {
+    console.warn('Failed to load local vocab edits:', err);
+  }
 
   // Handle both array and object-with-cards formats
   let rawCards = Array.isArray(data) ? data : (data.cards || []);
@@ -174,14 +217,16 @@ function renderCard() {
   updateSideText();
 
   // Entrance animation
-  dom.cardContainer.classList.remove('card-enter');
+  dom.cardContainer.classList.remove('card-enter-next', 'card-enter-prev', 'card-enter-fade');
   // Force reflow to restart animation
   void dom.cardContainer.offsetWidth;
-  dom.cardContainer.classList.add('card-enter');
+  
+  const animClass = `card-enter-${state.navigationDirection || 'fade'}`;
+  dom.cardContainer.classList.add(animClass);
 
   // Remove animation class after it finishes
   dom.cardContainer.addEventListener('animationend', () => {
-    dom.cardContainer.classList.remove('card-enter');
+    dom.cardContainer.classList.remove(animClass);
   }, { once: true });
 
   // Preload next card images
@@ -192,6 +237,9 @@ function renderCard() {
 
   // Save position
   savePosition();
+
+  // Render vocabulary pills for the active card face
+  renderVocab();
 }
 
 function updateSideText() {
@@ -217,13 +265,11 @@ function updateAudioButton() {
 
   if (hasAudio) {
     dom.playAudio.disabled = false;
-    dom.playAudio.querySelector('.btn-text').textContent = 'Nghe âm';
-    dom.playAudio.querySelector('.btn-icon').textContent = '🔊';
+    dom.playAudio.textContent = '🔊';
     dom.playAudio.setAttribute('aria-label', 'Nghe âm thanh');
   } else {
     dom.playAudio.disabled = true;
-    dom.playAudio.querySelector('.btn-text').textContent = 'Chưa có âm';
-    dom.playAudio.querySelector('.btn-icon').textContent = '🔇';
+    dom.playAudio.textContent = '🔇';
     dom.playAudio.setAttribute('aria-label', 'Chưa có âm thanh');
   }
 }
@@ -233,9 +279,12 @@ function flipCard() {
   state.showingFront = !state.showingFront;
   dom.cardContainer.classList.toggle('flipped');
   updateSideText();
+  renderVocab();
+  playAudioAuto();
 }
 
 function prevCard() {
+  state.navigationDirection = 'prev';
   stopAudio();
   if (galleryState.studySetActive && galleryState.studySet.length > 0) {
     const pos = galleryState.studySet.indexOf(state.currentIndex);
@@ -248,6 +297,7 @@ function prevCard() {
 }
 
 function nextCard() {
+  state.navigationDirection = 'next';
   stopAudio();
   if (galleryState.studySetActive && galleryState.studySet.length > 0) {
     const pos = galleryState.studySet.indexOf(state.currentIndex);
@@ -302,6 +352,44 @@ function playAudio() {
   }
 }
 
+function playAudioAuto() {
+  const card = state.cards[state.currentIndex];
+  if (!card.audio || card.audio.status !== 'downloaded' || !card.audio.local_path) {
+    return;
+  }
+
+  // Stop current audio first
+  stopAudio();
+
+  const audioPath = CONFIG.AUDIO_BASE_PATH + card.audio.local_path;
+
+  try {
+    if (!state.audioElement) {
+      state.audioElement = new Audio();
+    }
+
+    state.audioElement.src = audioPath;
+    state.audioElement.currentTime = 0;
+    state.audioPlaying = true;
+    dom.playAudio.classList.add('audio-playing');
+
+    state.audioElement.play().catch((err) => {
+      console.warn('Auto play audio failed:', err);
+      stopAudio();
+    });
+
+    state.audioElement.onended = () => {
+      stopAudio();
+    };
+
+    state.audioElement.onerror = () => {
+      stopAudio();
+    };
+  } catch (err) {
+    stopAudio();
+  }
+}
+
 function stopAudio() {
   if (state.audioElement) {
     state.audioElement.pause();
@@ -344,11 +432,6 @@ function setActiveControl(index) {
   if (target) {
     target.setAttribute('data-active', 'true');
     target.focus({ preventScroll: true });
-
-    // Update status bar
-    const label = target.querySelector('.btn-icon').textContent + ' ' +
-                  target.querySelector('.btn-text').textContent;
-    if (dom.activeLabel) dom.activeLabel.textContent = label;
   }
 }
 
@@ -476,6 +559,14 @@ function setupEventListeners() {
 
   // Gallery card clicks (delegated)
   dom.galleryGrid.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.vocab-edit-trigger');
+    if (editBtn) {
+      e.stopPropagation();
+      const idx = parseInt(editBtn.dataset.index, 10);
+      if (!isNaN(idx)) openVocabEditor(idx);
+      return;
+    }
+
     const card = e.target.closest('.gallery-card');
     if (!card) return;
 
@@ -484,6 +575,8 @@ function setupEventListeners() {
 
     goToCard(idx);
   });
+
+  setupVocabEditorListeners();
 }
 
 function setupKeyboardNavigation() {
@@ -494,49 +587,28 @@ function setupKeyboardNavigation() {
     switch (e.key) {
       case 'ArrowLeft':
         e.preventDefault();
-        if (state.activeControlIndex > 0) {
-          setActiveControl(state.activeControlIndex - 1);
-        } else {
-          prevCard();
-        }
+        prevCard();
         break;
 
       case 'ArrowRight':
         e.preventDefault();
-        if (state.activeControlIndex < CONFIG.CONTROLS.length - 1) {
-          setActiveControl(state.activeControlIndex + 1);
-        } else {
-          nextCard();
-        }
-        break;
-
-      case 'ArrowUp':
-        e.preventDefault();
-        flipCard();
-        break;
-
-      case 'ArrowDown':
-        e.preventDefault();
-        // Focus on buttons area – set to current active
-        setActiveControl(state.activeControlIndex);
-        break;
-
-      case 'Enter':
-        e.preventDefault();
-        executeActiveControl();
+        nextCard();
         break;
 
       case ' ':
         e.preventDefault(); // Prevent page scroll
-        executeActiveControl();
+        flipCard();
+        break;
+
+      case 'Enter':
+        e.preventDefault();
+        playAudio();
         break;
 
       case 'Escape':
         e.preventDefault();
         if (galleryState.isOpen) {
           closeGallery();
-        } else {
-          setActiveControl(1); // Reset to play-audio
         }
         break;
 
@@ -815,7 +887,10 @@ function buildGalleryGrid() {
         <img src="${imgSrc}" alt="Thẻ ${cardNo}" loading="lazy" draggable="false">
         <div class="gallery-color-dot" style="background: ${colorHex};" title="${colorGroup}"></div>
       </div>
-      <div class="gallery-card-label">${cardNo}</div>
+      <div class="gallery-card-footer">
+        <span class="gallery-card-label">Thẻ ${cardNo}</span>
+        <button class="vocab-edit-trigger focusable" data-index="${realIndex}" aria-label="Sửa từ vựng" title="Sửa từ vựng">✏️</button>
+      </div>
     </div>`;
   });
 
@@ -881,6 +956,7 @@ function applyStudySelection() {
 function goToCard(index) {
   if (index < 0 || index >= state.cards.length) return;
 
+  state.navigationDirection = 'fade';
   stopAudio();
 
   // If going to a specific card via gallery click, disable study set constraint
@@ -893,6 +969,231 @@ function goToCard(index) {
   state.currentIndex = index;
   renderCard();
   closeGallery();
+}
+
+// ── Vocabulary Display & Pronunciation Speech ───────────────
+function renderVocab() {
+  if (!dom.vocabLeft || !dom.vocabRight) return;
+
+  const card = state.cards[state.currentIndex];
+  if (!card) {
+    dom.vocabLeft.innerHTML = '';
+    dom.vocabRight.innerHTML = '';
+    return;
+  }
+
+  const cardVocab = state.vocab[card.pair_id];
+  if (!cardVocab) {
+    dom.vocabLeft.innerHTML = '';
+    dom.vocabRight.innerHTML = '';
+    return;
+  }
+
+  const words = state.showingFront ? (cardVocab.front || []) : (cardVocab.back || []);
+
+  if (words.length === 0) {
+    dom.vocabLeft.innerHTML = '';
+    dom.vocabRight.innerHTML = '';
+    return;
+  }
+
+  // Split words: left column gets the first half, right column gets the second half
+  const mid = Math.ceil(words.length / 2);
+  const leftWords = words.slice(0, mid);
+  const rightWords = words.slice(mid);
+
+  const makeButtonsHtml = (wordList) => {
+    let html = '';
+    wordList.forEach((item) => {
+      const wordText = escapeHtml(item.word);
+      const ipaText = item.ipa ? `<span class="vocab-word-ipa">${escapeHtml(item.ipa)}</span>` : '';
+      html += `
+        <button class="vocab-word-btn focusable" data-word="${wordText}" aria-label="Đọc từ ${wordText}">
+          <span class="vocab-word-text">${wordText}</span>
+          ${ipaText}
+          <span class="vocab-word-speaker">🔊</span>
+        </button>
+      `;
+    });
+    return html;
+  };
+
+  dom.vocabLeft.innerHTML = makeButtonsHtml(leftWords);
+  dom.vocabRight.innerHTML = makeButtonsHtml(rightWords);
+
+  // Setup click listeners on all the newly rendered vocabulary buttons on both sides
+  const setupBtnListeners = (container) => {
+    container.querySelectorAll('.vocab-word-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent card flipping
+        const word = btn.dataset.word;
+        speakWord(word);
+      });
+    });
+  };
+
+  setupBtnListeners(dom.vocabLeft);
+  setupBtnListeners(dom.vocabRight);
+}
+
+function speakWord(word) {
+  if (!word) return;
+
+  try {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'en-US';
+    utterance.volume = 1.0; // Max volume
+    utterance.rate = 0.85; // Natural rate for children
+
+    const voices = window.speechSynthesis.getVoices();
+    const enVoice = voices.find(voice => voice.lang.startsWith('en-'));
+    if (enVoice) {
+      utterance.voice = enVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('Speech synthesis error:', err);
+  }
+}
+
+// ── Vocabulary Editor Feature ────────────────────────────────
+let activeEditingCardIndex = null;
+
+function openVocabEditor(index) {
+  const card = state.cards[index];
+  if (!card) return;
+
+  activeEditingCardIndex = index;
+  const cardNo = card.card_no || `#${index + 1}`;
+  dom.vocabEditTitle.textContent = `✏️ Sửa từ vựng - Thẻ ${cardNo}`;
+
+  const cardVocab = state.vocab[card.pair_id] || { front: [], back: [] };
+  
+  // Render Front & Back lists
+  renderEditorList(dom.frontVocabList, cardVocab.front || []);
+  renderEditorList(dom.backVocabList, cardVocab.back || []);
+
+  // Show overlay
+  dom.vocabEditOverlay.removeAttribute('hidden');
+}
+
+function renderEditorList(container, words) {
+  container.innerHTML = '';
+  words.forEach(item => {
+    addEditorRow(container, item.word, item.ipa);
+  });
+}
+
+function addEditorRow(container, word = '', ipa = '') {
+  const row = document.createElement('div');
+  row.className = 'vocab-edit-row';
+  
+  row.innerHTML = `
+    <input type="text" class="word-input focusable" placeholder="Từ vựng (ví dụ: apple)" value="${escapeHtml(word)}">
+    <input type="text" class="ipa-input focusable" placeholder="Phiên âm (ví dụ: /æpl/)" value="${escapeHtml(ipa)}">
+    <button class="vocab-delete-row-btn focusable" aria-label="Xóa dòng" title="Xóa dòng">🗑️</button>
+  `;
+
+  // Bind delete button
+  row.querySelector('.vocab-delete-row-btn').addEventListener('click', () => {
+    row.remove();
+  });
+
+  container.appendChild(row);
+}
+
+function closeVocabEditor() {
+  dom.vocabEditOverlay.setAttribute('hidden', 'true');
+  activeEditingCardIndex = null;
+}
+
+function saveVocabEdits() {
+  if (activeEditingCardIndex === null) return;
+  const card = state.cards[activeEditingCardIndex];
+  if (!card) return;
+
+  const getWordsFromList = (container) => {
+    const words = [];
+    container.querySelectorAll('.vocab-edit-row').forEach(row => {
+      const wordInput = row.querySelector('.word-input');
+      const ipaInput = row.querySelector('.ipa-input');
+      const word = wordInput.value.trim();
+      const ipa = ipaInput.value.trim();
+      if (word) {
+        words.push({ word, ipa });
+      }
+    });
+    return words;
+  };
+
+  const frontWords = getWordsFromList(dom.frontVocabList);
+  const backWords = getWordsFromList(dom.backVocabList);
+
+  // Update in state
+  state.vocab[card.pair_id] = {
+    front: frontWords,
+    back: backWords
+  };
+
+  // Save to localStorage
+  try {
+    localStorage.setItem('cardlish_vocab_edits', JSON.stringify(state.vocab));
+  } catch (e) {
+    console.warn('Failed to save vocab edits to localStorage:', e);
+  }
+
+  // If we're editing the current card, re-render the study screen vocabulary list
+  if (activeEditingCardIndex === state.currentIndex) {
+    renderVocab();
+  }
+
+  closeVocabEditor();
+}
+
+function exportVocabJson() {
+  try {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.vocab, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", "cards_vocab.json");
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  } catch (err) {
+    alert('Không thể xuất file JSON: ' + err.message);
+  }
+}
+
+// Helper to setup event listeners for the editor
+function setupVocabEditorListeners() {
+  // Add row listeners
+  dom.addFrontWord.addEventListener('click', () => {
+    addEditorRow(dom.frontVocabList);
+  });
+
+  dom.addBackWord.addEventListener('click', () => {
+    addEditorRow(dom.backVocabList);
+  });
+
+  // Cancel & Close listeners
+  dom.vocabEditClose.addEventListener('click', closeVocabEditor);
+  dom.vocabEditCancel.addEventListener('click', closeVocabEditor);
+  dom.vocabEditOverlay.addEventListener('click', (e) => {
+    if (e.target === dom.vocabEditOverlay) {
+      closeVocabEditor();
+    }
+  });
+
+  // Save listener
+  dom.vocabEditSave.addEventListener('click', saveVocabEdits);
+
+  // Export JSON listener
+  dom.exportVocabJson.addEventListener('click', exportVocabJson);
 }
 
 // ── Initialization ──────────────────────────────────────────
