@@ -111,16 +111,20 @@
             <button class="count-btn" data-count="20">20</button>
             <button class="count-btn" data-count="50">50</button>
             <button class="count-btn active" data-count="all">Tất cả</button>
+            <button class="count-btn" data-count="0" id="deselectAllBtn">Bỏ chọn</button>
           </div>
           <div class="custom-count-container">
-            <input type="number" class="custom-count-input" id="customCountInput" placeholder="Tự nhập..." min="1" max="150" autocomplete="off">
+            <input type="text" class="custom-count-input" id="customCountInput" placeholder="Tự nhập (vd: 1, 3, 5-8)" autocomplete="off">
           </div>
         </div>
       </div>
     </div>
 
     <div class="gallery-summary" id="gallerySummary">
-      <span class="gallery-summary-text" id="filteredCount">53 thẻ</span>
+      <div class="gallery-summary-info">
+        <span class="gallery-summary-text" id="filteredCount">Đã chọn 0 / 53 thẻ</span>
+        <div class="selected-cards-list" id="selectedCardsList">Danh sách: (trống)</div>
+      </div>
       <div class="gallery-summary-actions">
         <button class="export-btn focusable" id="exportVocabJson" aria-label="Xuất file JSON từ vựng">📥 Xuất file JSON</button>
         <button class="start-btn focusable" id="startStudying">🎓 Bắt đầu học</button>

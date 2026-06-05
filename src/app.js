@@ -88,6 +88,7 @@ function cacheDom() {
   dom.customCountInput = document.getElementById('customCountInput');
   dom.gallerySummary = document.getElementById('gallerySummary');
   dom.filteredCount = document.getElementById('filteredCount');
+  dom.selectedCardsList = document.getElementById('selectedCardsList');
   dom.startStudying = document.getElementById('startStudying');
   dom.galleryGrid = document.getElementById('galleryGrid');
 
@@ -472,6 +473,99 @@ function autoSelectFiltered(count) {
   }
 }
 
+// Parse custom card selection input string (supporting spaces, commas, periods, slashes, semicolons, and dashes)
+function parseCardNumbers(str) {
+  const selectedNumbers = new Set();
+  if (!str) return selectedNumbers;
+
+  // Normalize range dashes (remove whitespace around them)
+  let sanitized = str.replace(/\s*-\s*/g, '-');
+  
+  // Replace delimiters with spaces
+  sanitized = sanitized.replace(/[\s,./;]+/g, ' ');
+  
+  // Split to tokens
+  const tokens = sanitized.trim().split(/\s+/);
+  
+  for (const token of tokens) {
+    if (!token) continue;
+    
+    if (token.includes('-')) {
+      const parts = token.split('-');
+      if (parts.length === 2) {
+        const start = parseInt(parts[0], 10);
+        const end = parseInt(parts[1], 10);
+        if (!isNaN(start) && !isNaN(end)) {
+          const min = Math.min(start, end);
+          const max = Math.max(start, end);
+          for (let i = min; i <= max; i++) {
+            selectedNumbers.add(i);
+          }
+        }
+      }
+    } else {
+      const num = parseInt(token, 10);
+      if (!isNaN(num)) {
+        selectedNumbers.add(num);
+      }
+    }
+  }
+  return selectedNumbers;
+}
+
+// Select cards based on a Set of card numbers
+function selectCardsByNumbers(numberSet) {
+  galleryState.selectedCardIndices.clear();
+  state.cards.forEach((card, idx) => {
+    const cardNum = parseInt(String(card.card_no || '').replace(/\D/g, ''), 10) || (idx + 1);
+    if (numberSet.has(cardNum)) {
+      galleryState.selectedCardIndices.add(idx);
+    }
+  });
+}
+
+// Get sorted array of selected card numbers (1-based)
+function getSelectedCardNumbers() {
+  const numbers = [];
+  galleryState.selectedCardIndices.forEach((idx) => {
+    const card = state.cards[idx];
+    if (card) {
+      const cardNum = parseInt(String(card.card_no || '').replace(/\D/g, ''), 10) || (idx + 1);
+      numbers.push(cardNum);
+    }
+  });
+  return numbers.sort((a, b) => a - b);
+}
+
+// Compress array of numbers into range expression string (e.g. 1, 3, 5-8)
+function compressRanges(numbers) {
+  if (numbers.length === 0) return '';
+  const ranges = [];
+  let start = numbers[0];
+  let prev = numbers[0];
+  
+  for (let i = 1; i <= numbers.length; i++) {
+    const current = numbers[i];
+    if (current === prev + 1) {
+      prev = current;
+    } else {
+      if (start === prev) {
+        ranges.push(String(start));
+      } else if (prev === start + 1) {
+        ranges.push(String(start));
+        ranges.push(String(prev));
+      } else {
+        ranges.push(`${start}-${prev}`);
+      }
+      if (current !== undefined) {
+        start = current;
+        prev = current;
+      }
+    }
+  }
+  return ranges.join(', ');
+}
+
 // ── Event Listeners ─────────────────────────────────────────
 function setupEventListeners() {
   // Button clicks
@@ -558,15 +652,20 @@ function setupEventListeners() {
     const countVal = btn.dataset.count;
     galleryState.selectedCount = countVal === 'all' ? 'all' : parseInt(countVal, 10);
 
-    // Clear custom input
-    if (dom.customCountInput) dom.customCountInput.value = '';
-
-    // Update active state
-    dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
-      b.classList.toggle('active', b === btn);
-    });
-
     autoSelectFiltered(galleryState.selectedCount);
+    
+    // Sync active state
+    syncCountButtons();
+
+    // Populate custom input with current selection ranges
+    if (dom.customCountInput) {
+      if (galleryState.selectedCardIndices.size === 0) {
+        dom.customCountInput.value = '';
+      } else {
+        dom.customCountInput.value = compressRanges(getSelectedCardNumbers());
+      }
+    }
+
     buildGalleryGrid();
     updateGallerySummary();
   });
@@ -574,20 +673,21 @@ function setupEventListeners() {
   // Custom count input change
   if (dom.customCountInput) {
     dom.customCountInput.addEventListener('input', () => {
-      const val = parseInt(dom.customCountInput.value, 10);
-      if (isNaN(val) || val <= 0) {
-        galleryState.selectedCount = 'all';
-        dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
-          b.classList.toggle('active', b.dataset.count === 'all');
-        });
-      } else {
-        galleryState.selectedCount = val;
-        dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
-          b.classList.remove('active');
-        });
+      const valStr = dom.customCountInput.value.trim();
+      if (!valStr) {
+        galleryState.selectedCardIndices.clear();
+        galleryState.selectedCount = 0;
+        syncCountButtons();
+        buildGalleryGrid();
+        updateGallerySummary();
+        return;
       }
 
-      autoSelectFiltered(galleryState.selectedCount);
+      const numberSet = parseCardNumbers(valStr);
+      selectCardsByNumbers(numberSet);
+      galleryState.selectedCount = 'custom';
+      
+      syncCountButtons();
       buildGalleryGrid();
       updateGallerySummary();
     });
@@ -624,12 +724,15 @@ function setupEventListeners() {
     }
 
     // Set count to custom since selection changed manually
-    galleryState.selectedCount = 'custom';
-    dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
-      b.classList.remove('active');
-    });
+    if (galleryState.selectedCardIndices.size === 0) {
+      galleryState.selectedCount = 0;
+    } else {
+      galleryState.selectedCount = 'custom';
+    }
+    syncCountButtons();
+
     if (dom.customCountInput) {
-      dom.customCountInput.value = galleryState.selectedCardIndices.size;
+      dom.customCountInput.value = compressRanges(getSelectedCardNumbers());
     }
 
     updateGallerySummary();
@@ -811,14 +914,18 @@ function openGallery() {
   if (galleryState.studySetActive && galleryState.studySet.length > 0) {
     galleryState.studySet.forEach(idx => galleryState.selectedCardIndices.add(idx));
     galleryState.selectedCount = 'custom';
-    if (dom.customCountInput) dom.customCountInput.value = galleryState.studySet.length;
+    if (dom.customCountInput) {
+      dom.customCountInput.value = compressRanges(getSelectedCardNumbers());
+    }
   } else {
     // Select all cards by default
     galleryState.selectedCount = 'all';
     for (let i = 0; i < state.cards.length; i++) {
       galleryState.selectedCardIndices.add(i);
     }
-    if (dom.customCountInput) dom.customCountInput.value = '';
+    if (dom.customCountInput) {
+      dom.customCountInput.value = compressRanges(getSelectedCardNumbers());
+    }
   }
 
   // Build color filter chips (once, or rebuild if needed)
@@ -977,6 +1084,26 @@ function updateGallerySummary() {
   const selectedCount = galleryState.selectedCardIndices.size;
   const totalCards = state.cards.length;
   dom.filteredCount.textContent = `Đã chọn ${selectedCount} / ${totalCards} thẻ`;
+
+  if (dom.selectedCardsList) {
+    const selectedNos = [];
+    galleryState.selectedCardIndices.forEach((idx) => {
+      const card = state.cards[idx];
+      if (card) {
+        selectedNos.push(card.card_no || String(idx + 1).padStart(3, '0'));
+      }
+    });
+    
+    selectedNos.sort((a, b) => {
+      const numA = parseInt(a.replace(/\D/g, ''), 10) || 0;
+      const numB = parseInt(b.replace(/\D/g, ''), 10) || 0;
+      return numA - numB;
+    });
+
+    dom.selectedCardsList.textContent = selectedNos.length > 0 
+      ? `Danh sách: ${selectedNos.join(', ')}` 
+      : 'Danh sách: (trống)';
+  }
 }
 
 // ── Sync Count Buttons ──────────────────────────────────────

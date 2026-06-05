@@ -1224,23 +1224,29 @@ button {
 }
 
 .custom-count-input {
-  width: 90px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  border: 2px solid rgba(124, 140, 240, 0.15);
+  width: 190px;
+  padding: 6px 16px;
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 700;
   color: var(--text-primary);
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.85);
   outline: none;
   transition: all var(--transition-fast);
   text-align: center;
+  box-sizing: border-box;
+}
+
+.custom-count-input:hover {
+  border-color: var(--accent-blue);
 }
 
 .custom-count-input:focus {
-  border-color: var(--accent-purple);
-  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+  border-color: var(--accent-blue);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 /* Chrome, Safari, Edge, Opera: Remove spin arrows */
@@ -1296,10 +1302,28 @@ button {
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.gallery-summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
 .gallery-summary-text {
   font-size: 15px;
   font-weight: 700;
   color: var(--text-secondary);
+}
+
+.selected-cards-list {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  max-width: 380px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .start-btn {
@@ -1512,6 +1536,13 @@ button {
     font-size: 13px;
   }
 
+  .custom-count-input {
+    padding: 5px 12px;
+    font-size: 13px;
+    border-radius: 16px;
+    width: 170px;
+  }
+
   .gallery-summary {
     margin: 0 12px;
     padding: 8px 12px;
@@ -1597,6 +1628,13 @@ button {
     font-size: 15px;
   }
 
+  .custom-count-input {
+    padding: 7px 20px;
+    font-size: 15px;
+    border-radius: 16px;
+    width: 210px;
+  }
+
   .gallery-summary {
     margin: 4px 32px;
     padding: 12px 20px;
@@ -1677,6 +1715,13 @@ button {
     padding: 8px 24px;
     font-size: 17px;
     border-radius: 18px;
+  }
+
+  .custom-count-input {
+    padding: 8px 24px;
+    font-size: 17px;
+    border-radius: 18px;
+    width: 240px;
   }
 
   .gallery-summary {
