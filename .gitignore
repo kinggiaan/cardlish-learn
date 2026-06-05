@@ -1,0 +1,26 @@
+# Dependencies
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build output
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large scans / test files
+test_scan.pdf
+test_output/
+scan*.pdf
+review_contact_sheet.png
+unified_db/review_contact_sheet_*.png
