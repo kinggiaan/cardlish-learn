@@ -105,11 +105,16 @@
 
       <div class="card-count-selector" id="cardCountSelector">
         <span class="count-label">Số thẻ học:</span>
-        <div class="count-buttons">
-          <button class="count-btn" data-count="10">10</button>
-          <button class="count-btn" data-count="20">20</button>
-          <button class="count-btn" data-count="50">50</button>
-          <button class="count-btn active" data-count="all">Tất cả</button>
+        <div class="count-buttons-wrapper">
+          <div class="count-buttons">
+            <button class="count-btn" data-count="10">10</button>
+            <button class="count-btn" data-count="20">20</button>
+            <button class="count-btn" data-count="50">50</button>
+            <button class="count-btn active" data-count="all">Tất cả</button>
+          </div>
+          <div class="custom-count-container">
+            <input type="number" class="custom-count-input" id="customCountInput" placeholder="Tự nhập..." min="1" max="150" autocomplete="off">
+          </div>
         </div>
       </div>
     </div>

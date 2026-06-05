@@ -37,6 +37,7 @@ const galleryState = {
   filteredCards: [],              // result of search + color filter
   studySet: [],                   // indices into state.cards for current session
   studySetActive: false,          // whether we're constraining to a study set
+  selectedCardIndices: new Set(), // Set of selected indices in state.cards
 };
 
 // ── Color Mapping ───────────────────────────────────────────
@@ -84,6 +85,7 @@ function cacheDom() {
   dom.searchClear = document.getElementById('searchClear');
   dom.colorFilters = document.getElementById('colorFilters');
   dom.cardCountSelector = document.getElementById('cardCountSelector');
+  dom.customCountInput = document.getElementById('customCountInput');
   dom.gallerySummary = document.getElementById('gallerySummary');
   dom.filteredCount = document.getElementById('filteredCount');
   dom.startStudying = document.getElementById('startStudying');
@@ -457,6 +459,19 @@ function triggerAction(action) {
   }
 }
 
+// Helper to auto-select first N filtered cards
+function autoSelectFiltered(count) {
+  galleryState.selectedCardIndices.clear();
+  const filtered = galleryState.filteredCards;
+  const limit = count === 'all' ? filtered.length : count;
+  for (let i = 0; i < Math.min(limit, filtered.length); i++) {
+    const realIndex = state.cards.indexOf(filtered[i]);
+    if (realIndex !== -1) {
+      galleryState.selectedCardIndices.add(realIndex);
+    }
+  }
+}
+
 // ── Event Listeners ─────────────────────────────────────────
 function setupEventListeners() {
   // Button clicks
@@ -540,17 +555,43 @@ function setupEventListeners() {
     const btn = e.target.closest('.count-btn');
     if (!btn) return;
 
-    const count = btn.dataset.count;
-    galleryState.selectedCount = count === 'all' ? 'all' : parseInt(count, 10);
+    const countVal = btn.dataset.count;
+    galleryState.selectedCount = countVal === 'all' ? 'all' : parseInt(countVal, 10);
+
+    // Clear custom input
+    if (dom.customCountInput) dom.customCountInput.value = '';
 
     // Update active state
     dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
-      b.classList.remove('active');
+      b.classList.toggle('active', b === btn);
     });
-    btn.classList.add('active');
 
+    autoSelectFiltered(galleryState.selectedCount);
+    buildGalleryGrid();
     updateGallerySummary();
   });
+
+  // Custom count input change
+  if (dom.customCountInput) {
+    dom.customCountInput.addEventListener('input', () => {
+      const val = parseInt(dom.customCountInput.value, 10);
+      if (isNaN(val) || val <= 0) {
+        galleryState.selectedCount = 'all';
+        dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
+          b.classList.toggle('active', b.dataset.count === 'all');
+        });
+      } else {
+        galleryState.selectedCount = val;
+        dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
+          b.classList.remove('active');
+        });
+      }
+
+      autoSelectFiltered(galleryState.selectedCount);
+      buildGalleryGrid();
+      updateGallerySummary();
+    });
+  }
 
   // Start studying button
   dom.startStudying.addEventListener('click', () => {
@@ -573,7 +614,25 @@ function setupEventListeners() {
     const idx = parseInt(card.dataset.index, 10);
     if (isNaN(idx)) return;
 
-    goToCard(idx);
+    // Toggle selection
+    if (galleryState.selectedCardIndices.has(idx)) {
+      galleryState.selectedCardIndices.delete(idx);
+      card.classList.remove('selected');
+    } else {
+      galleryState.selectedCardIndices.add(idx);
+      card.classList.add('selected');
+    }
+
+    // Set count to custom since selection changed manually
+    galleryState.selectedCount = 'custom';
+    dom.cardCountSelector.querySelectorAll('.count-btn').forEach((b) => {
+      b.classList.remove('active');
+    });
+    if (dom.customCountInput) {
+      dom.customCountInput.value = galleryState.selectedCardIndices.size;
+    }
+
+    updateGallerySummary();
   });
 
   setupVocabEditorListeners();
@@ -747,6 +806,21 @@ function openGallery() {
   galleryState.searchQuery = '';
   dom.searchClear.hidden = true;
 
+  // Initialize selected indices from current session studySet if active
+  galleryState.selectedCardIndices.clear();
+  if (galleryState.studySetActive && galleryState.studySet.length > 0) {
+    galleryState.studySet.forEach(idx => galleryState.selectedCardIndices.add(idx));
+    galleryState.selectedCount = 'custom';
+    if (dom.customCountInput) dom.customCountInput.value = galleryState.studySet.length;
+  } else {
+    // Select all cards by default
+    galleryState.selectedCount = 'all';
+    for (let i = 0; i < state.cards.length; i++) {
+      galleryState.selectedCardIndices.add(i);
+    }
+    if (dom.customCountInput) dom.customCountInput.value = '';
+  }
+
   // Build color filter chips (once, or rebuild if needed)
   buildColorFilterChips();
 
@@ -877,11 +951,12 @@ function buildGalleryGrid() {
     const cardNo = card.card_no || `#${realIndex + 1}`;
     const colorHex = card.color && card.color.hex ? card.color.hex : '#cccccc';
     const colorGroup = card.color && card.color.group ? card.color.group : '';
+    const isSelected = galleryState.selectedCardIndices.has(realIndex);
 
     // Determine border color from the card's color
     const borderColor = colorHex;
 
-    html += `<div class="gallery-card" data-index="${realIndex}" style="border-color: ${borderColor}40;">
+    html += `<div class="gallery-card ${isSelected ? 'selected' : ''}" data-index="${realIndex}" style="border-color: ${borderColor}40;">
       <div class="check-overlay" aria-hidden="true">✓</div>
       <div class="gallery-card-img">
         <img src="${imgSrc}" alt="Thẻ ${cardNo}" loading="lazy" draggable="false">
@@ -899,17 +974,9 @@ function buildGalleryGrid() {
 
 // ── Update Gallery Summary ──────────────────────────────────
 function updateGallerySummary() {
-  const totalFiltered = galleryState.filteredCards.length;
-  const count = galleryState.selectedCount;
-  let studyCount;
-
-  if (count === 'all' || count >= totalFiltered) {
-    studyCount = totalFiltered;
-  } else {
-    studyCount = Math.min(count, totalFiltered);
-  }
-
-  dom.filteredCount.textContent = `Đã chọn ${studyCount} / ${totalFiltered} thẻ`;
+  const selectedCount = galleryState.selectedCardIndices.size;
+  const totalCards = state.cards.length;
+  dom.filteredCount.textContent = `Đã chọn ${selectedCount} / ${totalCards} thẻ`;
 }
 
 // ── Sync Count Buttons ──────────────────────────────────────
@@ -925,25 +992,13 @@ function syncCountButtons() {
 
 // ── Apply Study Selection ───────────────────────────────────
 function applyStudySelection() {
-  const filtered = galleryState.filteredCards;
-  const count = galleryState.selectedCount;
-
-  let selectedCards;
-  if (count === 'all' || count >= filtered.length) {
-    selectedCards = filtered;
-  } else {
-    selectedCards = filtered.slice(0, count);
-  }
-
-  // Build study set as array of indices into state.cards
-  galleryState.studySet = selectedCards.map((card) => state.cards.indexOf(card));
+  // Sort the selected indices so cards are studied in order
+  galleryState.studySet = Array.from(galleryState.selectedCardIndices).sort((a, b) => a - b);
 
   if (galleryState.studySet.length > 0 && galleryState.studySet.length < state.cards.length) {
     galleryState.studySetActive = true;
-    // Start at the first card of the study set
     state.currentIndex = galleryState.studySet[0];
   } else {
-    // Studying all cards — no constraint
     galleryState.studySetActive = false;
     galleryState.studySet = [];
   }

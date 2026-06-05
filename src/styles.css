@@ -1211,6 +1211,50 @@ button {
   gap: 6px;
 }
 
+.count-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.custom-count-container {
+  display: flex;
+  align-items: center;
+}
+
+.custom-count-input {
+  width: 90px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.custom-count-input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+}
+
+/* Chrome, Safari, Edge, Opera: Remove spin arrows */
+.custom-count-input::-webkit-outer-spin-button,
+.custom-count-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox: Remove spin arrows */
+.custom-count-input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .count-btn {
   padding: 6px 16px;
   border-radius: 16px;
