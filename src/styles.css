@@ -159,61 +159,23 @@ button {
   75%      { transform: translateY(3px) rotate(3deg); }
 }
 
-/* ── Header ──────────────────────────────────────────────── */
+/* ── Header (hidden — maximise card area) ───────────────── */
 .app-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--header-height);
-  padding: 0 16px;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  font-size: 28px;
-  line-height: 1;
-  animation: floatEmoji 3s ease-in-out infinite;
-}
-
-.app-title {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
+  display: none;
 }
 
 .card-counter {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-secondary);
-  background: var(--accent-blue-light);
-  padding: 4px 14px;
-  border-radius: 20px;
 }
 
 /* ── Progress Bar ────────────────────────────────────────── */
 .progress-bar-container {
-  height: 8px;
+  height: 6px;
   background: var(--progress-track);
   position: sticky;
-  top: var(--header-height);
+  top: 0;
   z-index: 99;
   overflow: hidden;
 }
@@ -453,8 +415,8 @@ button {
 /* ── Status Bar ──────────────────────────────────────────── */
 .status-bar {
   text-align: center;
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 6px 16px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.45);
@@ -464,12 +426,35 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
 }
 
 #activeLabel {
   color: var(--text-secondary);
   font-weight: 700;
+}
+
+.status-divider {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Mini gallery button in status bar */
+.gallery-toggle-btn-mini {
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: var(--accent-purple-light);
+  color: var(--accent-purple-text);
+  margin-left: auto;
+  transition: all var(--transition-fast);
+}
+
+.gallery-toggle-btn-mini:hover {
+  transform: scale(1.1);
+  background: var(--accent-purple);
+  color: #fff;
 }
 
 /* ── Pointer Indicator ───────────────────────────────────── */

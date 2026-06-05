@@ -17,22 +17,8 @@
   <!-- Pointer indicator for desktop/TV -->
   <div class="pointer-indicator" id="pointerIndicator"></div>
 
-  <!-- Header with progress -->
-  <header class="app-header" id="appHeader">
-    <div class="header-left">
-      <span class="logo" aria-hidden="true">🎴</span>
-      <h1 class="app-title">Cardlish Learn</h1>
-    </div>
-    <div class="header-right">
-      <button class="gallery-toggle-btn focusable" id="galleryToggle" aria-label="Mở thư viện thẻ">
-        <span>📚</span> Thư viện
-      </button>
-      <span class="card-counter" id="cardCounter" aria-live="polite">Thẻ 1 / 57</span>
-    </div>
-  </header>
-
-  <!-- Progress bar -->
-  <div class="progress-bar-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBarContainer">
+  <!-- Progress bar (top, no header) -->
+  <div class="progress-bar-container progress-bar-top" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBarContainer">
     <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
   </div>
 
@@ -80,9 +66,14 @@
     </button>
   </nav>
 
-  <!-- Status bar -->
+  <!-- Status bar with gallery toggle + card counter -->
   <div class="status-bar" id="statusBar" aria-live="polite">
-    Đang chọn: <span id="activeLabel">🔊 Nghe âm</span>
+    <span class="card-counter" id="cardCounter" aria-live="polite">Thẻ 1 / 53</span>
+    <span class="status-divider">·</span>
+    <span id="activeLabel">🔊 Nghe âm</span>
+    <button class="gallery-toggle-btn-mini focusable" id="galleryToggle" aria-label="Mở thư viện thẻ">
+      📚
+    </button>
   </div>
 
   <!-- Loading overlay -->
