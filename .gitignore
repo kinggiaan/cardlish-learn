@@ -1,11 +1,35 @@
-# Dependencies
+# Python
 .venv/
 __pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
 
 # Build output
 dist/
+
+# Local input/output
+input/
+work/
+output/
+cardlish_output/
+
+# Generated/intermediate pipeline output
+unified_db/raw_cells/
+unified_db/rendered_pages/
+unified_db/viewer/
+
+# Raw scans & test files
+scan*.pdf
+!scan0001.pdf
+test_scan.pdf
+test_output/
+*.tif
+*.tiff
+
+# Review artifacts
+review_contact_sheet*.png
+unified_db/review_contact_sheet_*.png
 
 # OS
 .DS_Store
@@ -18,10 +42,5 @@ desktop.ini
 *.swp
 *.swo
 
-# Large scans / test files
-test_scan.pdf
-test_output/
-scan*.pdf
-!scan0001.pdf
-review_contact_sheet.png
-unified_db/review_contact_sheet_*.png
+# Logs
+*.log

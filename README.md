@@ -3,6 +3,26 @@
 Ứng dụng tách thẻ flashcard từ file PDF scan, tự động nhận dạng mặt trước/sau,
 gắn ID bằng OCR, và hiển thị trên trình duyệt với giao diện 3D premium.
 
+**Live**: [cardlish-learn.pages.dev](https://cardlish-learn.pages.dev) *(sau khi deploy)*
+
+---
+
+## 📁 Cấu trúc dự án
+
+```text
+cardlish-learn/
+  docs/                 # Tài liệu dự án
+  experiments/          # Scripts thử nghiệm, debug
+  src/                  # Source code web app (HTML/CSS/JS)
+  core/                 # Python modules pipeline xử lý PDF
+  scripts/              # Scripts production (build, manifest, audio)
+  public/               # Assets runtime (audio, manifest)
+    audio/              # MP3 files
+    data/cards.json     # Web-ready manifest
+  unified_db/           # Database ảnh thẻ (cards/ + data/)
+  dist/                 # Build output cho Cloudflare (gitignored)
+```
+
 ---
 
 ## 🚀 Bắt đầu nhanh
@@ -36,15 +56,17 @@ python split_cardlish_pdf.py scan0001.pdf --out unified_db --dpi 200
 | `--out` | Thư mục lưu database ảnh | `cardlish_output` |
 | `--dpi` | Độ phân giải render PDF | `200` |
 
-### 3. Xem thẻ trên trình duyệt
-
-Khởi động web server:
+### 3. Build & xem trên trình duyệt
 
 ```bash
-python -m http.server 8000
+# Build dist/
+python scripts/build_deploy.py --output dist
+
+# Khởi động web server
+python -m http.server 8000 -d dist
 ```
 
-Mở trình duyệt: **http://localhost:8000/dist/index.html**
+Mở trình duyệt: **http://localhost:8000**
 
 ---
 
@@ -57,31 +79,23 @@ Chạy lần lượt từng file — database tự động gộp:
 ```bash
 python split_cardlish_pdf.py scan0001.pdf --out unified_db --dpi 200
 python split_cardlish_pdf.py scan0002.pdf --out unified_db --dpi 200
-python split_cardlish_pdf.py scan0003.pdf --out unified_db --dpi 200
 ```
 
-Mỗi lần chạy:
-- Thẻ mới được thêm vào database
-- Thẻ trùng ID sẽ được cập nhật
-- Ảnh tự động sync sang `dist/`
-- Viewer tự cập nhật dữ liệu mới
+### Validate assets trước deploy
 
-### Xem lại kết quả
+```bash
+python scripts/validate_assets.py --manifest public/data/cards.json --cards-dir unified_db/cards --audio-dir public/audio
+```
 
-Sau mỗi lần xử lý, kiểm tra:
+### Deploy lên Cloudflare Pages
 
-- **Contact sheet** — `unified_db/review_contact_sheet_[tên_pdf].png`
-  Hiển thị tất cả thẻ vừa xử lý, dạng lưới mặt trước/mặt sau cạnh nhau.
+```bash
+# Build
+python scripts/build_deploy.py --output dist
 
-- **Viewer** — `http://localhost:8000/dist/index.html`
-  Giao diện 3D lật thẻ, thư viện, tìm kiếm, nghe audio.
-
-### Yêu cầu về file PDF scan
-
-- Mỗi trang chứa lưới **3×3** thẻ (tối đa 9 thẻ/trang)
-- Hai trang liên tiếp là mặt trước/mặt sau của cùng bộ 9 thẻ
-- Mặt trước có mã **QR code** (dùng để phân biệt mặt)
-- Số thẻ thực tế có thể ít hơn 9 (ô trống sẽ tự động bỏ qua)
+# Deploy (cần Wrangler CLI)
+npx wrangler pages deploy dist --project-name cardlish-learn
+```
 
 ---
 
@@ -96,6 +110,16 @@ Sau mỗi lần xử lý, kiểm tra:
 | 🔊 Nghe âm | Phát audio phát âm (nếu có) |
 | 📱 Touch | Vuốt trái/phải để chuyển thẻ |
 | ⌨️ Keyboard | Điều hướng bằng phím mũi tên + Enter |
+
+---
+
+## 📚 Tài liệu thêm
+
+- [Developer Guide](docs/developer-guide.md) — Hướng dẫn kỹ thuật chi tiết
+- [Lessons Learned](docs/lessons-learned.md) — Ghi chú lỗi thực tế đã gặp
+- [MVP Roadmap](docs/roadmap-mvp.md) — Plan phát triển MVP
+- [Repo Review Plan](docs/repo-review-plan.md) — Review & chuẩn hóa repo
+- [Structure](docs/structure.md) — Mô tả cấu trúc thư mục
 
 ---
 
