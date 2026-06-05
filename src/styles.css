@@ -807,6 +807,7 @@ button {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Center rows horizontally */
   gap: 14px;
   transition: all var(--transition-normal);
 }
@@ -814,27 +815,31 @@ button {
 .sentence-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
-  padding: 4px 0;
+  padding: 6px 0;
+  max-width: 100%;
 }
 
 .sentence-bullet {
-  font-size: 18px;
+  font-size: 20px;
   user-select: none;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .sentence-text-group {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center; /* Center English and Vietnamese text */
+  text-align: center;
+  gap: 6px;
   min-width: 0;
 }
 
 .sentence-en {
-  font-size: 17px;
+  font-size: 19px; /* Enlarged font size */
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.4;
@@ -850,7 +855,7 @@ button {
 }
 
 .sentence-vi {
-  font-size: 14.5px;
+  font-size: 15.5px; /* Enlarged font size */
   font-weight: 600;
   color: var(--text-muted);
   line-height: 1.35;
@@ -860,13 +865,13 @@ button {
   background: rgba(255, 255, 255, 0.9);
   border: 1.5px solid #e2e8f0;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 34px; /* Enlarged width/height */
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   transition: all var(--transition-fast);
   flex-shrink: 0;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
@@ -881,6 +886,32 @@ button {
 
 .sentence-speaker-btn:active {
   transform: scale(0.95);
+}
+
+/* Responsive sizes for sentences */
+@media (max-width: 959px) {
+  .sentences-container {
+    padding: 12px 16px;
+    margin: 16px auto 0;
+    width: 95%;
+  }
+  .sentence-row {
+    gap: 10px;
+  }
+  .sentence-bullet {
+    font-size: 16px;
+  }
+  .sentence-en {
+    font-size: 16px;
+  }
+  .sentence-vi {
+    font-size: 13.5px;
+  }
+  .sentence-speaker-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
 }
 
 .vocab-word-btn {
