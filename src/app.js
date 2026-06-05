@@ -160,7 +160,7 @@ function renderCard() {
     current = state.currentIndex + 1;
     total = state.cards.length;
   }
-  dom.cardCounter.textContent = `Thẻ ${current} / ${total}`;
+  if (dom.cardCounter) dom.cardCounter.textContent = `Thẻ ${current} / ${total}`;
 
   // Update progress bar
   const pct = (current / total) * 100;
@@ -348,7 +348,7 @@ function setActiveControl(index) {
     // Update status bar
     const label = target.querySelector('.btn-icon').textContent + ' ' +
                   target.querySelector('.btn-text').textContent;
-    dom.activeLabel.textContent = label;
+    if (dom.activeLabel) dom.activeLabel.textContent = label;
   }
 }
 
