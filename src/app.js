@@ -64,6 +64,7 @@ function cacheDom() {
   dom.progressBar = document.getElementById('progressBarContainer');
   dom.cardContainer = document.getElementById('cardContainer');
   dom.cardFlipper = document.getElementById('cardFlipper');
+  dom.sentencesContainer = document.getElementById('sentencesContainer');
   dom.frontImage = document.getElementById('frontImage');
   dom.backImage = document.getElementById('backImage');
   dom.cardLabel = document.getElementById('cardLabel');
@@ -1161,6 +1162,7 @@ function renderVocab() {
   if (!card) {
     dom.vocabLeft.innerHTML = '';
     dom.vocabRight.innerHTML = '';
+    if (dom.sentencesContainer) dom.sentencesContainer.style.display = 'none';
     return;
   }
 
@@ -1168,6 +1170,7 @@ function renderVocab() {
   if (!cardVocab) {
     dom.vocabLeft.innerHTML = '';
     dom.vocabRight.innerHTML = '';
+    if (dom.sentencesContainer) dom.sentencesContainer.style.display = 'none';
     return;
   }
 
@@ -1176,6 +1179,7 @@ function renderVocab() {
   if (words.length === 0) {
     dom.vocabLeft.innerHTML = '';
     dom.vocabRight.innerHTML = '';
+    if (dom.sentencesContainer) dom.sentencesContainer.style.display = 'none';
     return;
   }
 
@@ -1216,6 +1220,90 @@ function renderVocab() {
 
   setupBtnListeners(dom.vocabLeft);
   setupBtnListeners(dom.vocabRight);
+
+  // Render sentences below the card
+  if (dom.sentencesContainer) {
+    const sentences = state.showingFront ? (cardVocab.front_sentences || []) : (cardVocab.back_sentences || []);
+    if (sentences.length === 0) {
+      dom.sentencesContainer.style.display = 'none';
+    } else {
+      dom.sentencesContainer.style.display = 'flex';
+      let sentencesHtml = '';
+      sentences.forEach((s) => {
+        // Strip out the HTML tags (like <b>) for text speech synthesis
+        const plainText = s.en.replace(/<\/?b>/g, '');
+        
+        sentencesHtml += `
+          <div class="sentence-row">
+            <span class="sentence-bullet">💡</span>
+            <div class="sentence-text-group">
+              <span class="sentence-en">${s.en}</span>
+              <span class="sentence-vi">${escapeHtml(s.vi)}</span>
+            </div>
+            <button class="sentence-speaker-btn focusable" data-text="${escapeHtml(plainText)}" aria-label="Đọc câu ví dụ" title="Nghe đọc câu">🔊</button>
+          </div>
+        `;
+      });
+      dom.sentencesContainer.innerHTML = sentencesHtml;
+
+      // Setup sentence speaker click listeners
+      dom.sentencesContainer.querySelectorAll('.sentence-speaker-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent card flipping
+          const text = btn.dataset.text;
+          speakSentence(text);
+        });
+      });
+    }
+  }
+}
+
+function getBestVoice() {
+  if (typeof window === 'undefined' || !window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  
+  const preferences = [
+    'Google US English', 
+    'Microsoft Aria Online',
+    'Samantha',
+    'Siri',
+    'Microsoft Zira',
+    'Google UK English Female',
+    'en-US',
+    'en-GB'
+  ];
+
+  for (const pref of preferences) {
+    const voice = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes(pref.toLowerCase()));
+    if (voice) return voice;
+  }
+
+  return voices.find(v => v.lang.startsWith('en')) || null;
+}
+
+function speakSentence(text) {
+  if (!text) return;
+
+  try {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.volume = 1.0;
+    utterance.rate = 0.80; // Slower, clearer rate for children
+    utterance.pitch = 1.15; // Higher, more cheerful child-friendly pitch
+
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } catch (error) {
+    console.error('TTS speakSentence error:', error);
+  }
 }
 
 function speakWord(word) {
@@ -1228,13 +1316,13 @@ function speakWord(word) {
 
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = 'en-US';
-    utterance.volume = 1.0; // Max volume
-    utterance.rate = 0.85; // Natural rate for children
+    utterance.volume = 1.0;
+    utterance.rate = 0.78; // Slightly slower rate for clean phonics
+    utterance.pitch = 1.15; // Higher, gentle child-friendly pitch
 
-    const voices = window.speechSynthesis.getVoices();
-    const enVoice = voices.find(voice => voice.lang.startsWith('en-'));
-    if (enVoice) {
-      utterance.voice = enVoice;
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
     }
 
     window.speechSynthesis.speak(utterance);
