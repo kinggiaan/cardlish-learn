@@ -41,7 +41,7 @@ const lessonState = {
 
 // ── Vocab Audio Map (pre-generated MP3s) ────────────────────
 let vocabAudioMap = null; // { words: { word: path }, sentences: { text: path } }
-let ttsAudioElement = null; // Separate audio element for TTS (avoids conflict with card audio)
+let sharedAudio = null;   // Single shared Audio element (TV only allows one)
 
 // ── Throttle Lock ───────────────────────────────────────────
 let actionLocked = false;
@@ -377,34 +377,7 @@ function playAudio() {
   }
 
   const audioPath = CONFIG.AUDIO_BASE_PATH + card.audio.local_path;
-
-  try {
-    if (!state.audioElement) {
-      state.audioElement = new Audio();
-    }
-
-    state.audioElement.src = audioPath;
-    state.audioElement.currentTime = 0;
-    state.audioPlaying = true;
-    dom.playAudio.classList.add('audio-playing');
-
-    state.audioElement.play().catch((err) => {
-      console.warn('Audio playback failed:', err);
-      stopAudio();
-    });
-
-    state.audioElement.onended = () => {
-      stopAudio();
-    };
-
-    state.audioElement.onerror = () => {
-      console.warn('Audio file error');
-      stopAudio();
-    };
-  } catch (err) {
-    console.warn('Audio error:', err);
-    stopAudio();
-  }
+  playSharedAudio(audioPath, true);
 }
 
 function playAudioAuto() {
@@ -417,41 +390,51 @@ function playAudioAuto() {
   stopAudio();
 
   const audioPath = CONFIG.AUDIO_BASE_PATH + card.audio.local_path;
+  playSharedAudio(audioPath, true);
+}
 
+// ── Shared Audio Engine (TV: only 1 Audio element allowed) ──
+function getSharedAudio() {
+  if (!sharedAudio) {
+    sharedAudio = new Audio();
+  }
+  return sharedAudio;
+}
+
+function playSharedAudio(src, isCardAudio) {
   try {
-    if (!state.audioElement) {
-      state.audioElement = new Audio();
+    const audio = getSharedAudio();
+    audio.pause();
+    audio.src = src;
+    audio.currentTime = 0;
+
+    if (isCardAudio) {
+      state.audioPlaying = true;
+      if (dom.playAudio) dom.playAudio.classList.add('audio-playing');
+      audio.onended = () => stopAudio();
+      audio.onerror = () => stopAudio();
+    } else {
+      audio.onended = null;
+      audio.onerror = null;
     }
 
-    state.audioElement.src = audioPath;
-    state.audioElement.currentTime = 0;
-    state.audioPlaying = true;
-    dom.playAudio.classList.add('audio-playing');
-
-    state.audioElement.play().catch((err) => {
-      console.warn('Auto play audio failed:', err);
-      stopAudio();
+    audio.play().catch(err => {
+      console.warn('Audio playback failed:', err);
+      if (isCardAudio) stopAudio();
     });
-
-    state.audioElement.onended = () => {
-      stopAudio();
-    };
-
-    state.audioElement.onerror = () => {
-      stopAudio();
-    };
   } catch (err) {
-    stopAudio();
+    console.warn('Audio error:', err);
+    if (isCardAudio) stopAudio();
   }
 }
 
 function stopAudio() {
-  if (state.audioElement) {
-    state.audioElement.pause();
-    state.audioElement.currentTime = 0;
+  if (sharedAudio) {
+    sharedAudio.pause();
+    sharedAudio.currentTime = 0;
   }
   state.audioPlaying = false;
-  dom.playAudio.classList.remove('audio-playing');
+  if (dom.playAudio) dom.playAudio.classList.remove('audio-playing');
 }
 
 // ── Persistence ─────────────────────────────────────────────
@@ -1345,27 +1328,14 @@ function getBestVoice() {
   return voices.find(v => v.lang.startsWith('en')) || null;
 }
 
-// ── TTS Audio Preload Cache (TV Performance) ────────────────
-const audioPreloadCache = new Map(); // src -> Audio element (preloaded)
-const AUDIO_CACHE_MAX = 500;
+// ── TTS Audio Preload Cache (TV: warm browser cache via fetch) ─
+const audioPreloadedSet = new Set(); // Track which URLs we've preloaded
 
 function preloadAudioFile(src) {
-  if (!src || audioPreloadCache.has(src)) return;
-  try {
-    const audio = new Audio();
-    audio.preload = 'auto';
-    audio.src = src;
-    // Start loading immediately
-    audio.load();
-    // Evict oldest if cache full
-    if (audioPreloadCache.size >= AUDIO_CACHE_MAX) {
-      const firstKey = audioPreloadCache.keys().next().value;
-      audioPreloadCache.delete(firstKey);
-    }
-    audioPreloadCache.set(src, audio);
-  } catch (e) {
-    // Silently ignore preload errors
-  }
+  if (!src || audioPreloadedSet.has(src)) return;
+  audioPreloadedSet.add(src);
+  // Use fetch to warm the browser HTTP cache (no Audio elements needed)
+  fetch(src).catch(() => {});
 }
 
 function preloadCardAudio() {
@@ -1402,24 +1372,9 @@ function preloadCardAudio() {
 
 // ── TTS Audio Playback (pre-generated MP3) ──────────────────
 function playTTSAudio(src) {
-  try {
-    // Use preloaded audio if available (instant playback on TV!)
-    if (audioPreloadCache.has(src)) {
-      const cached = audioPreloadCache.get(src);
-      cached.currentTime = 0;
-      cached.play().catch(err => console.warn('TTS cached audio failed:', err));
-      return;
-    }
-    // Fallback: create new audio element
-    if (!ttsAudioElement) {
-      ttsAudioElement = new Audio();
-    }
-    ttsAudioElement.src = src;
-    ttsAudioElement.currentTime = 0;
-    ttsAudioElement.play().catch(err => console.warn('TTS audio playback failed:', err));
-  } catch (err) {
-    console.warn('TTS audio error:', err);
-  }
+  // Use the same shared Audio element as card audio (TV compatibility)
+  stopAudio();
+  playSharedAudio(src, false);
 }
 
 function speakSentence(text) {
@@ -1825,29 +1780,21 @@ function preloadLessonAudio(cardIndices) {
     }, 8000);
 
     uniqueSources.forEach(src => {
-      if (audioPreloadCache.has(src)) {
+      if (audioPreloadedSet.has(src)) {
         loaded++;
         if (loaded >= total) { clearTimeout(timeout); resolve(); }
         return;
       }
-      try {
-        const audio = new Audio();
-        audio.preload = 'auto';
-        audio.src = src;
-
-        const onReady = () => {
-          audioPreloadCache.set(src, audio);
+      audioPreloadedSet.add(src);
+      fetch(src)
+        .then(() => {
           loaded++;
           if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        };
-
-        audio.addEventListener('canplaythrough', onReady, { once: true });
-        audio.addEventListener('error', onReady, { once: true }); // Don't block on errors
-        audio.load();
-      } catch (e) {
-        loaded++;
-        if (loaded >= total) { clearTimeout(timeout); resolve(); }
-      }
+        })
+        .catch(() => {
+          loaded++;
+          if (loaded >= total) { clearTimeout(timeout); resolve(); }
+        });
     });
   });
 }
@@ -1922,10 +1869,6 @@ function renderLessonGrid() {
 // ── Screen Switching ────────────────────────────────────────
 function showHomeScreen() {
   stopAudio();
-  if (ttsAudioElement) {
-    ttsAudioElement.pause();
-    ttsAudioElement.currentTime = 0;
-  }
   dom.homeScreen.hidden = false;
   dom.studyScreen.hidden = true;
   lessonState.activeLessonId = null;
