@@ -75,7 +75,7 @@ def copy_audio(audio_src: Path, dist_dir: Path) -> None:
 
 
 def copy_data(data_src: Path, dist_dir: Path) -> None:
-    """Copy cards.json, cards_vocab.json, lessons.json, and vocab_audio_map.json to dist/data/."""
+    """Copy cards.json and cards_vocab.json to dist/data/."""
     data_dst = dist_dir / "data"
     data_dst.mkdir(parents=True, exist_ok=True)
 
@@ -91,20 +91,6 @@ def copy_data(data_src: Path, dist_dir: Path) -> None:
         shutil.copy2(vocab_src, data_dst / "cards_vocab.json")
     else:
         print(f"[WARN] Vocabulary file not found: {vocab_src}")
-
-    lessons_src = data_src.parent / "lessons.json"
-    if lessons_src.exists():
-        print(f"[COPY] Lessons ({lessons_src} -> dist/data/lessons.json)")
-        shutil.copy2(lessons_src, data_dst / "lessons.json")
-    else:
-        print(f"[WARN] Lessons file not found: {lessons_src}")
-
-    vocab_audio_map_src = data_src.parent / "vocab_audio_map.json"
-    if vocab_audio_map_src.exists():
-        print(f"[COPY] Vocab Audio Map ({vocab_audio_map_src} -> dist/data/vocab_audio_map.json)")
-        shutil.copy2(vocab_audio_map_src, data_dst / "vocab_audio_map.json")
-    else:
-        print(f"[WARN] Vocab Audio Map file not found: {vocab_audio_map_src}")
 
 
 def rewrite_paths(dist_dir: Path) -> None:
@@ -135,16 +121,6 @@ def rewrite_paths(dist_dir: Path) -> None:
         (
             r"VOCAB_URL:\s*['\"].*?['\"]",
             "VOCAB_URL: 'data/cards_vocab.json'",
-        ),
-        # LESSONS_URL: local -> production
-        (
-            r"LESSONS_URL:\s*['\"].*?['\"]",
-            "LESSONS_URL: 'data/lessons.json'",
-        ),
-        # VOCAB_AUDIO_MAP_URL: local -> production
-        (
-            r"VOCAB_AUDIO_MAP_URL:\s*['\"].*?['\"]",
-            "VOCAB_AUDIO_MAP_URL: 'data/vocab_audio_map.json'",
         ),
         # CARDS_BASE_PATH: local -> production (empty = relative to root)
         (
