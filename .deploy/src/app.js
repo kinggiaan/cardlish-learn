@@ -1282,9 +1282,6 @@ function renderVocab() {
   setupBtnListeners(dom.vocabLeft);
   setupBtnListeners(dom.vocabRight);
 
-  // Preload audio for all words and sentences on this card (TV: instant playback)
-  preloadCardAudio();
-
   // Render sentences below the card
   if (dom.sentencesContainer) {
     const sentences = state.showingFront ? (cardVocab.front_sentences || []) : (cardVocab.back_sentences || []);
@@ -1345,72 +1342,9 @@ function getBestVoice() {
   return voices.find(v => v.lang.startsWith('en')) || null;
 }
 
-// ── TTS Audio Preload Cache (TV Performance) ────────────────
-const audioPreloadCache = new Map(); // src -> Audio element (preloaded)
-const AUDIO_CACHE_MAX = 500;
-
-function preloadAudioFile(src) {
-  if (!src || audioPreloadCache.has(src)) return;
-  try {
-    const audio = new Audio();
-    audio.preload = 'auto';
-    audio.src = src;
-    // Start loading immediately
-    audio.load();
-    // Evict oldest if cache full
-    if (audioPreloadCache.size >= AUDIO_CACHE_MAX) {
-      const firstKey = audioPreloadCache.keys().next().value;
-      audioPreloadCache.delete(firstKey);
-    }
-    audioPreloadCache.set(src, audio);
-  } catch (e) {
-    // Silently ignore preload errors
-  }
-}
-
-function preloadCardAudio() {
-  if (!vocabAudioMap) return;
-  const card = state.cards[state.currentIndex];
-  if (!card) return;
-  const cardVocab = state.vocab[card.pair_id];
-  if (!cardVocab) return;
-
-  // Preload vocab word audio for current side
-  const words = state.showingFront ? (cardVocab.front || []) : (cardVocab.back || []);
-  words.forEach(item => {
-    if (item.word && vocabAudioMap.words) {
-      const key = item.word.toLowerCase();
-      if (vocabAudioMap.words[key]) {
-        preloadAudioFile(CONFIG.AUDIO_BASE_PATH + vocabAudioMap.words[key]);
-      }
-    }
-  });
-
-  // Preload sentence audio for current side
-  const sentences = state.showingFront
-    ? (cardVocab.front_sentences || [])
-    : (cardVocab.back_sentences || []);
-  sentences.forEach(s => {
-    if (s.en && vocabAudioMap.sentences) {
-      const plainText = s.en.replace(/<\/?b>/g, '');
-      if (vocabAudioMap.sentences[plainText]) {
-        preloadAudioFile(CONFIG.AUDIO_BASE_PATH + vocabAudioMap.sentences[plainText]);
-      }
-    }
-  });
-}
-
 // ── TTS Audio Playback (pre-generated MP3) ──────────────────
 function playTTSAudio(src) {
   try {
-    // Use preloaded audio if available (instant playback on TV!)
-    if (audioPreloadCache.has(src)) {
-      const cached = audioPreloadCache.get(src);
-      cached.currentTime = 0;
-      cached.play().catch(err => console.warn('TTS cached audio failed:', err));
-      return;
-    }
-    // Fallback: create new audio element
     if (!ttsAudioElement) {
       ttsAudioElement = new Audio();
     }
@@ -1720,22 +1654,16 @@ function deleteLesson(id) {
 }
 
 // ── Select Lesson → Start Studying ──────────────────────────
-async function selectLesson(id) {
+function selectLesson(id) {
   const lesson = lessonState.lessons.find(l => l.id === id);
   if (!lesson) return;
 
   lessonState.activeLessonId = id;
 
-  // Show loading overlay while preloading audio
-  dom.loadingOverlay.style.display = 'flex';
-  dom.loadingOverlay.classList.remove('hidden');
-
   // Build study set from lesson card numbers
-  let studyIndices = [];
   if (lesson.cards === 'all') {
     galleryState.studySetActive = false;
     galleryState.studySet = [];
-    studyIndices = state.cards.map((_, i) => i);
   } else {
     const cardNumbers = new Set(lesson.cards);
     const indices = [];
@@ -1750,7 +1678,6 @@ async function selectLesson(id) {
       galleryState.studySet = indices;
       galleryState.studySetActive = true;
       state.currentIndex = indices[0];
-      studyIndices = indices;
     } else {
       galleryState.studySetActive = false;
       galleryState.studySet = [];
@@ -1758,98 +1685,8 @@ async function selectLesson(id) {
     }
   }
 
-  // Preload ALL audio for this lesson's cards
-  await preloadLessonAudio(studyIndices);
-
-  // Done loading — show study screen
   renderCard();
   showStudyScreen();
-  hideLoading();
-}
-
-// ── Preload All Audio for a Lesson ──────────────────────────
-function preloadLessonAudio(cardIndices) {
-  return new Promise((resolve) => {
-    if (!vocabAudioMap) { resolve(); return; }
-
-    const audioSources = [];
-
-    cardIndices.forEach(idx => {
-      const card = state.cards[idx];
-      if (!card) return;
-
-      // Preload card's main audio
-      if (card.audio && card.audio.status === 'downloaded' && card.audio.local_path) {
-        audioSources.push(CONFIG.AUDIO_BASE_PATH + card.audio.local_path);
-      }
-
-      // Preload vocab word audio (both sides)
-      const cardVocab = state.vocab[card.pair_id];
-      if (!cardVocab) return;
-
-      ['front', 'back'].forEach(side => {
-        (cardVocab[side] || []).forEach(item => {
-          if (item.word && vocabAudioMap.words) {
-            const key = item.word.toLowerCase();
-            if (vocabAudioMap.words[key]) {
-              audioSources.push(CONFIG.AUDIO_BASE_PATH + vocabAudioMap.words[key]);
-            }
-          }
-        });
-      });
-
-      // Preload sentence audio (both sides)
-      ['front_sentences', 'back_sentences'].forEach(side => {
-        (cardVocab[side] || []).forEach(s => {
-          if (s.en && vocabAudioMap.sentences) {
-            const plainText = s.en.replace(/<\/?b>/g, '');
-            if (vocabAudioMap.sentences[plainText]) {
-              audioSources.push(CONFIG.AUDIO_BASE_PATH + vocabAudioMap.sentences[plainText]);
-            }
-          }
-        });
-      });
-    });
-
-    // Deduplicate
-    const uniqueSources = [...new Set(audioSources)];
-
-    if (uniqueSources.length === 0) { resolve(); return; }
-
-    let loaded = 0;
-    const total = uniqueSources.length;
-    const timeout = setTimeout(() => {
-      // Safety: resolve after 8 seconds max even if not all loaded
-      console.warn(`Audio preload timeout: ${loaded}/${total} loaded`);
-      resolve();
-    }, 8000);
-
-    uniqueSources.forEach(src => {
-      if (audioPreloadCache.has(src)) {
-        loaded++;
-        if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        return;
-      }
-      try {
-        const audio = new Audio();
-        audio.preload = 'auto';
-        audio.src = src;
-
-        const onReady = () => {
-          audioPreloadCache.set(src, audio);
-          loaded++;
-          if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        };
-
-        audio.addEventListener('canplaythrough', onReady, { once: true });
-        audio.addEventListener('error', onReady, { once: true }); // Don't block on errors
-        audio.load();
-      } catch (e) {
-        loaded++;
-        if (loaded >= total) { clearTimeout(timeout); resolve(); }
-      }
-    });
-  });
 }
 
 // ── Render Lesson Grid ──────────────────────────────────────

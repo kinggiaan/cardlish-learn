@@ -1,0 +1,1541 @@
+[
+  {
+    "pair_id": "001_card",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "001",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-a/",
+    "front_image": "cards/001_card_front.png",
+    "back_image": "cards/001_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1159,
+      879,
+      1691,
+      1619
+    ],
+    "back_bbox_xyxy": [
+      1168,
+      856,
+      1699,
+      1583
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "002_card",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "002",
+    "label": "",
+    "qr_url": "https://cardlish.com/ab/",
+    "front_image": "cards/002_card_front.png",
+    "back_image": "cards/002_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      526,
+      1647,
+      1083,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      570,
+      1648,
+      1112,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "003_card",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "003",
+    "label": "",
+    "qr_url": "https://cardlish.com/ack/",
+    "front_image": "cards/003_card_front.png",
+    "back_image": "cards/003_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      526,
+      879,
+      1083,
+      1619
+    ],
+    "back_bbox_xyxy": [
+      570,
+      856,
+      1112,
+      1583
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "004_card",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "004",
+    "label": "",
+    "qr_url": "https://cardlish.com/ad/",
+    "front_image": "cards/004_card_front.png",
+    "back_image": "cards/004_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      526,
+      111,
+      1083,
+      842
+    ],
+    "back_bbox_xyxy": [
+      570,
+      89,
+      1112,
+      812
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "005_card",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "005",
+    "label": "",
+    "qr_url": "https://cardlish.com/ag/",
+    "front_image": "cards/005_card_front.png",
+    "back_image": "cards/005_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      111,
+      514,
+      842
+    ],
+    "back_bbox_xyxy": [
+      0,
+      89,
+      501,
+      812
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "006_card",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "006",
+    "label": "",
+    "qr_url": "https://cardlish.com/am/",
+    "front_image": "cards/006_card_front.png",
+    "back_image": "cards/006_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      879,
+      514,
+      1619
+    ],
+    "back_bbox_xyxy": [
+      0,
+      856,
+      501,
+      1583
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "007_card",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "007",
+    "label": "",
+    "qr_url": "https://cardlish.com/an/",
+    "front_image": "cards/007_card_front.png",
+    "back_image": "cards/007_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      1647,
+      514,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1648,
+      501,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "008_card",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "008",
+    "label": "",
+    "qr_url": "https://cardlish.com/ap/",
+    "front_image": "cards/008_card_front.png",
+    "back_image": "cards/008_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      111,
+      1699,
+      858
+    ],
+    "back_bbox_xyxy": [
+      1112,
+      116,
+      1659,
+      848
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "009_card",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "009",
+    "label": "",
+    "qr_url": "https://cardlish.com/as/",
+    "front_image": "cards/009_card_front.png",
+    "back_image": "cards/009_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      888,
+      1699,
+      1640
+    ],
+    "back_bbox_xyxy": [
+      1112,
+      881,
+      1659,
+      1611
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "010_card",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "010",
+    "label": "",
+    "qr_url": "https://cardlish.com/at/",
+    "front_image": "cards/010_card_front.png",
+    "back_image": "cards/010_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      1643,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1112,
+      1646,
+      1659,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "011_card",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "011",
+    "label": "",
+    "qr_url": "https://cardlish.com/ax/",
+    "front_image": "cards/011_card_front.png",
+    "back_image": "cards/011_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      561,
+      111,
+      1156,
+      858
+    ],
+    "back_bbox_xyxy": [
+      529,
+      116,
+      1063,
+      848
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "012_card",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "012",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-e/",
+    "front_image": "cards/012_card_front.png",
+    "back_image": "cards/012_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      111,
+      527,
+      858
+    ],
+    "back_bbox_xyxy": [
+      0,
+      116,
+      504,
+      848
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "013_card",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "013",
+    "label": "",
+    "qr_url": "https://cardlish.com/eck/",
+    "front_image": "cards/013_card_front.png",
+    "back_image": "cards/013_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      888,
+      527,
+      1640
+    ],
+    "back_bbox_xyxy": [
+      0,
+      881,
+      504,
+      1611
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "014_card",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "014",
+    "label": "",
+    "qr_url": "https://cardlish.com/ed/",
+    "front_image": "cards/014_card_front.png",
+    "back_image": "cards/014_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      1643,
+      527,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1646,
+      504,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "023_card",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "023",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-e/",
+    "front_image": "cards/023_card_front.png",
+    "back_image": "cards/023_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      561,
+      1643,
+      1156,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      529,
+      1646,
+      1063,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "026_card",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "026",
+    "label": "",
+    "qr_url": "https://cardlish.com/ick/",
+    "front_image": "cards/026_card_front.png",
+    "back_image": "cards/026_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      1174,
+      63,
+      1699,
+      794
+    ],
+    "back_bbox_xyxy": [
+      1145,
+      64,
+      1685,
+      787
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "027_card",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "027",
+    "label": "",
+    "qr_url": "https://cardlish.com/id/",
+    "front_image": "cards/027_card_front.png",
+    "back_image": "cards/027_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      1174,
+      891,
+      1699,
+      1615
+    ],
+    "back_bbox_xyxy": [
+      1145,
+      856,
+      1685,
+      1581
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "028_card",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "028",
+    "label": "",
+    "qr_url": "https://cardlish.com/ig/",
+    "front_image": "cards/028_card_front.png",
+    "back_image": "cards/028_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      1174,
+      1644,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1145,
+      1640,
+      1685,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "029_card",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "029",
+    "label": "",
+    "qr_url": "https://cardlish.com/ill/",
+    "front_image": "cards/029_card_front.png",
+    "back_image": "cards/029_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      555,
+      63,
+      1112,
+      794
+    ],
+    "back_bbox_xyxy": [
+      558,
+      64,
+      1102,
+      787
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "030_card",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "030",
+    "label": "",
+    "qr_url": "https://cardlish.com/im/",
+    "front_image": "cards/030_card_front.png",
+    "back_image": "cards/030_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      555,
+      891,
+      1112,
+      1615
+    ],
+    "back_bbox_xyxy": [
+      558,
+      856,
+      1102,
+      1581
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "031_card",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "031",
+    "label": "",
+    "qr_url": "https://cardlish.com/in/",
+    "front_image": "cards/031_card_front.png",
+    "back_image": "cards/031_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      555,
+      1644,
+      1112,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      558,
+      1640,
+      1102,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "032_card",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "032",
+    "label": "",
+    "qr_url": "https://cardlish.com/ip/",
+    "front_image": "cards/032_card_front.png",
+    "back_image": "cards/032_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      1644,
+      504,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1640,
+      501,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "033_card",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "033",
+    "label": "",
+    "qr_url": "https://cardlish.com/it/",
+    "front_image": "cards/033_card_front.png",
+    "back_image": "cards/033_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      891,
+      504,
+      1615
+    ],
+    "back_bbox_xyxy": [
+      0,
+      856,
+      501,
+      1581
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "034_card",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "034",
+    "label": "",
+    "qr_url": "https://cardlish.com/ix/",
+    "front_image": "cards/034_card_front.png",
+    "back_image": "cards/034_card_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      63,
+      504,
+      794
+    ],
+    "back_bbox_xyxy": [
+      0,
+      64,
+      501,
+      787
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "049_card",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "049",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-u/",
+    "front_image": "cards/049_card_front.png",
+    "back_image": "cards/049_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1212,
+      74,
+      1699,
+      803
+    ],
+    "back_bbox_xyxy": [
+      1210,
+      66,
+      1699,
+      822
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "050_card",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "050",
+    "label": "",
+    "qr_url": "https://cardlish.com/ub/",
+    "front_image": "cards/050_card_front.png",
+    "back_image": "cards/050_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1212,
+      878,
+      1699,
+      1599
+    ],
+    "back_bbox_xyxy": [
+      1210,
+      847,
+      1699,
+      1591
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "051_card",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "051",
+    "label": "",
+    "qr_url": "https://cardlish.com/uck/",
+    "front_image": "cards/051_card_front.png",
+    "back_image": "cards/051_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1212,
+      1646,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1210,
+      1644,
+      1699,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "052_card",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "052",
+    "label": "",
+    "qr_url": "https://cardlish.com/ud/",
+    "front_image": "cards/052_card_front.png",
+    "back_image": "cards/052_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      574,
+      74,
+      1113,
+      803
+    ],
+    "back_bbox_xyxy": [
+      570,
+      66,
+      1110,
+      822
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "053_card",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "053",
+    "label": "",
+    "qr_url": "https://cardlish.com/uff/",
+    "front_image": "cards/053_card_front.png",
+    "back_image": "cards/053_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      574,
+      878,
+      1113,
+      1599
+    ],
+    "back_bbox_xyxy": [
+      570,
+      847,
+      1110,
+      1591
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "054_card",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "054",
+    "label": "",
+    "qr_url": "https://cardlish.com/ug/",
+    "front_image": "cards/054_card_front.png",
+    "back_image": "cards/054_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      574,
+      1646,
+      1113,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      570,
+      1644,
+      1110,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "055_card",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "055",
+    "label": "",
+    "qr_url": "https://cardlish.com/ull/",
+    "front_image": "cards/055_card_front.png",
+    "back_image": "cards/055_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      74,
+      502,
+      803
+    ],
+    "back_bbox_xyxy": [
+      0,
+      66,
+      502,
+      822
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "056_card",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "056",
+    "label": "",
+    "qr_url": "https://cardlish.com/um/",
+    "front_image": "cards/056_card_front.png",
+    "back_image": "cards/056_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      878,
+      502,
+      1599
+    ],
+    "back_bbox_xyxy": [
+      0,
+      847,
+      502,
+      1591
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "057_card",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "057",
+    "label": "",
+    "qr_url": "https://cardlish.com/un/",
+    "front_image": "cards/057_card_front.png",
+    "back_image": "cards/057_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      1646,
+      502,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1644,
+      502,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "058_card",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "058",
+    "label": "",
+    "qr_url": "https://cardlish.com/ut/",
+    "front_image": "cards/058_card_front.png",
+    "back_image": "cards/058_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1159,
+      1647,
+      1691,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1168,
+      1648,
+      1699,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "212_b",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "212",
+    "label": "b-",
+    "qr_url": "https://cardlish.com/b/",
+    "front_image": "cards/212_b_front.png",
+    "back_image": "cards/212_b_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1207,
+      59,
+      1699,
+      791
+    ],
+    "back_bbox_xyxy": [
+      1211,
+      58,
+      1699,
+      785
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "213_d",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "213",
+    "label": "d-",
+    "qr_url": "https://cardlish.com/d/",
+    "front_image": "cards/213_d_front.png",
+    "back_image": "cards/213_d_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      530,
+      59,
+      1093,
+      791
+    ],
+    "back_bbox_xyxy": [
+      552,
+      58,
+      1086,
+      785
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "214_f",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "214",
+    "label": "f-",
+    "qr_url": "https://cardlish.com/f/",
+    "front_image": "cards/214_f_front.png",
+    "back_image": "cards/214_f_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      59,
+      502,
+      791
+    ],
+    "back_bbox_xyxy": [
+      0,
+      58,
+      504,
+      785
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "215_ph",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "215",
+    "label": "ph-",
+    "qr_url": "https://cardlish.com/f/",
+    "front_image": "cards/215_ph_front.png",
+    "back_image": "cards/215_ph_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1207,
+      880,
+      1699,
+      1600
+    ],
+    "back_bbox_xyxy": [
+      1211,
+      837,
+      1699,
+      1562
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "216_g",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "216",
+    "label": "g-",
+    "qr_url": "https://cardlish.com/g/",
+    "front_image": "cards/216_g_front.png",
+    "back_image": "cards/216_g_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1207,
+      1647,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1211,
+      1648,
+      1699,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "217_card",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "217",
+    "label": "",
+    "qr_url": "https://cardlish.com/h/",
+    "front_image": "cards/217_card_front.png",
+    "back_image": "cards/217_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      530,
+      1647,
+      1093,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      552,
+      1648,
+      1086,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "218_card",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "218",
+    "label": "",
+    "qr_url": "https://cardlish.com/d%ca%92/",
+    "front_image": "cards/218_card_front.png",
+    "back_image": "cards/218_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      530,
+      880,
+      1093,
+      1600
+    ],
+    "back_bbox_xyxy": [
+      552,
+      837,
+      1086,
+      1562
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "219_g",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "219",
+    "label": "g-",
+    "qr_url": "https://cardlish.com/dʒ/",
+    "front_image": "cards/219_g_front.png",
+    "back_image": "cards/219_g_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      880,
+      502,
+      1600
+    ],
+    "back_bbox_xyxy": [
+      0,
+      837,
+      504,
+      1562
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "220_k",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "220",
+    "label": "k-",
+    "qr_url": "https://cardlish.com/k/",
+    "front_image": "cards/220_k_front.png",
+    "back_image": "cards/220_k_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      1647,
+      502,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1648,
+      504,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "227_card",
+    "cell": "C1",
+    "row": 3,
+    "col": 1,
+    "card_no": "227",
+    "label": "",
+    "qr_url": "https://cardlish.com/r/",
+    "front_image": "cards/227_card_front.png",
+    "back_image": "cards/227_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      0,
+      1642,
+      518,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      0,
+      1649,
+      526,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "228_wr",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "228",
+    "label": "wr-",
+    "qr_url": "https://cardlish.com/r/",
+    "front_image": "cards/228_wr_front.png",
+    "back_image": "cards/228_wr_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      564,
+      1642,
+      1132,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      564,
+      1649,
+      1148,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "229_s",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "229",
+    "label": "S-",
+    "qr_url": "https://cardlish.com/s/",
+    "front_image": "cards/229_s_front.png",
+    "back_image": "cards/229_s_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1189,
+      1642,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1187,
+      1649,
+      1699,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "230_card",
+    "cell": "B3",
+    "row": 2,
+    "col": 3,
+    "card_no": "230",
+    "label": "",
+    "qr_url": "https://cardlish.com/s/",
+    "front_image": "cards/230_card_front.png",
+    "back_image": "cards/230_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      853,
+      1699,
+      1572
+    ],
+    "back_bbox_xyxy": [
+      1190,
+      835,
+      1699,
+      1554
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "231_card",
+    "cell": "C3",
+    "row": 3,
+    "col": 3,
+    "card_no": "231",
+    "label": "",
+    "qr_url": "https://cardlish.com/t/",
+    "front_image": "cards/231_card_front.png",
+    "back_image": "cards/231_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      1651,
+      1699,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      1190,
+      1631,
+      1699,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "232_v",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "232",
+    "label": "V-",
+    "qr_url": "https://cardlish.com/v/",
+    "front_image": "cards/232_v_front.png",
+    "back_image": "cards/232_v_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1190,
+      82,
+      1699,
+      801
+    ],
+    "back_bbox_xyxy": [
+      1190,
+      53,
+      1699,
+      793
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "233_w",
+    "cell": "A3",
+    "row": 1,
+    "col": 3,
+    "card_no": "233",
+    "label": "W-",
+    "qr_url": "https://cardlish.com/w/",
+    "front_image": "cards/233_w_front.png",
+    "back_image": "cards/233_w_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      1159,
+      111,
+      1691,
+      842
+    ],
+    "back_bbox_xyxy": [
+      1168,
+      89,
+      1699,
+      812
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "234_y",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "234",
+    "label": "y-",
+    "qr_url": "https://cardlish.com/y/",
+    "front_image": "cards/234_y_front.png",
+    "back_image": "cards/234_y_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      561,
+      82,
+      1156,
+      801
+    ],
+    "back_bbox_xyxy": [
+      561,
+      53,
+      1156,
+      793
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "235_z",
+    "cell": "C2",
+    "row": 3,
+    "col": 2,
+    "card_no": "235",
+    "label": "Z-",
+    "qr_url": "https://cardlish.com/z/",
+    "front_image": "cards/235_z_front.png",
+    "back_image": "cards/235_z_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      561,
+      1631,
+      1156,
+      2341
+    ],
+    "back_bbox_xyxy": [
+      561,
+      1651,
+      1156,
+      2341
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "277_card",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "277",
+    "label": "",
+    "qr_url": "https://cardlish.com/dark_l/",
+    "front_image": "cards/277_card_front.png",
+    "back_image": "cards/277_card_back.png",
+    "front_page": 2,
+    "back_page": 1,
+    "front_bbox_xyxy": [
+      561,
+      888,
+      1156,
+      1640
+    ],
+    "back_bbox_xyxy": [
+      529,
+      881,
+      1063,
+      1611
+    ],
+    "needs_review": false,
+    "review_note": ""
+  },
+  {
+    "pair_id": "batch001_B2",
+    "cell": "B2",
+    "row": 2,
+    "col": 2,
+    "card_no": "",
+    "label": "",
+    "qr_url": "",
+    "front_image": "cards/batch001_B2_front.png",
+    "back_image": "cards/batch001_B2_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      561,
+      835,
+      1156,
+      1554
+    ],
+    "back_bbox_xyxy": [
+      561,
+      853,
+      1156,
+      1572
+    ],
+    "needs_review": true,
+    "review_note": "No QR detected; please review front/back assignment."
+  },
+  {
+    "pair_id": "batch002_A1",
+    "cell": "A1",
+    "row": 1,
+    "col": 1,
+    "card_no": "",
+    "label": "",
+    "qr_url": "",
+    "front_image": "cards/batch002_A1_front.png",
+    "back_image": "cards/batch002_A1_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      0,
+      527,
+      726
+    ],
+    "back_bbox_xyxy": [
+      0,
+      0,
+      527,
+      726
+    ],
+    "needs_review": true,
+    "review_note": "No QR detected; please review front/back assignment."
+  },
+  {
+    "pair_id": "batch002_A2",
+    "cell": "A2",
+    "row": 1,
+    "col": 2,
+    "card_no": "",
+    "label": "",
+    "qr_url": "",
+    "front_image": "cards/batch002_A2_front.png",
+    "back_image": "cards/batch002_A2_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      561,
+      0,
+      1156,
+      726
+    ],
+    "back_bbox_xyxy": [
+      561,
+      0,
+      1156,
+      726
+    ],
+    "needs_review": true,
+    "review_note": "No QR detected; please review front/back assignment."
+  },
+  {
+    "pair_id": "batch002_B1",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-i/",
+    "front_image": "cards/batch002_B1_front.png",
+    "back_image": "cards/batch002_B1_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      772,
+      527,
+      1545
+    ],
+    "back_bbox_xyxy": [
+      0,
+      772,
+      527,
+      1545
+    ],
+    "needs_review": false,
+    "review_note": ""
+  }
+]
