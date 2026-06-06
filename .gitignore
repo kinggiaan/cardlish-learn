@@ -47,3 +47,5 @@ desktop.ini
 
 # Wrangler cache
 .wrangler/
+
+.deploy/
