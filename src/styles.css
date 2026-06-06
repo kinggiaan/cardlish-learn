@@ -2485,6 +2485,43 @@ button {
     font-size: 18px;
     padding: 12px 24px;
   }
+
+  /* Vocab words — larger for TV viewing distance */
+  .vocab-word-btn {
+    padding: 18px 30px;
+    gap: 12px;
+  }
+
+  .vocab-word-text {
+    font-size: 28px;
+  }
+
+  .vocab-word-ipa {
+    font-size: 20px;
+  }
+
+  .vocab-word-speaker {
+    font-size: 24px;
+  }
+
+  /* Sentences — larger for TV */
+  .sentence-en {
+    font-size: 26px;
+  }
+
+  .sentence-vi {
+    font-size: 22px;
+  }
+
+  .sentence-speaker-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .sentence-bullet {
+    font-size: 24px;
+  }
 }
 
 /* ============================================================
