@@ -1,6 +1,7 @@
 /* ============================================================
-   Cardlish Learn — App v0.1
+   Cardlish Learn — App v2.0
    Flashcard learning app for elementary school students
+   TV-optimized · Lesson management · Pre-generated TTS audio
    Vanilla JavaScript · No dependencies
    ============================================================ */
 
@@ -8,12 +9,16 @@
 const CONFIG = {
   DATA_URL: '../public/data/cards.json',
   VOCAB_URL: '../public/data/cards_vocab.json',
+  LESSONS_URL: '../public/data/lessons.json',
+  VOCAB_AUDIO_MAP_URL: '../public/data/vocab_audio_map.json',
   CARDS_BASE_PATH: '../unified_db/',
   AUDIO_BASE_PATH: '../public/',
   STORAGE_KEY: 'cardlish_current_index',
+  LESSONS_STORAGE_KEY: 'cardlish_lessons',
   CONTROLS: ['prev-card', 'play-audio', 'next-card'],
   POINTER_HIDE_DELAY: 3000,
   SWIPE_THRESHOLD: 50,
+  ACTION_THROTTLE_MS: 300,
 };
 
 // ── Application State ───────────────────────────────────────
@@ -27,6 +32,19 @@ const state = {
   audioElement: null,
   navigationDirection: 'fade',
 };
+
+// ── Lesson State ────────────────────────────────────────────
+const lessonState = {
+  lessons: [],           // Merged: default (from file) + custom (from localStorage)
+  activeLessonId: null,  // Currently selected lesson ID
+};
+
+// ── Vocab Audio Map (pre-generated MP3s) ────────────────────
+let vocabAudioMap = null; // { words: { word: path }, sentences: { text: path } }
+let ttsAudioElement = null; // Separate audio element for TTS (avoids conflict with card audio)
+
+// ── Throttle Lock ───────────────────────────────────────────
+let actionLocked = false;
 
 // ── Gallery State ───────────────────────────────────────────
 const galleryState = {
@@ -104,6 +122,25 @@ function cacheDom() {
   dom.addBackWord = document.getElementById('addBackWord');
   dom.vocabEditTitle = document.getElementById('vocabEditTitle');
   dom.exportVocabJson = document.getElementById('exportVocabJson');
+
+  // Home Screen DOM elements
+  dom.homeScreen = document.getElementById('homeScreen');
+  dom.studyScreen = document.getElementById('studyScreen');
+  dom.lessonGrid = document.getElementById('lessonGrid');
+  dom.backToHome = document.getElementById('backToHome');
+
+  // Lesson action buttons
+  dom.createLessonBtn = document.getElementById('createLessonBtn');
+  dom.importLessonBtn = document.getElementById('importLessonBtn');
+  dom.exportLessonBtn = document.getElementById('exportLessonBtn');
+  dom.importLessonFile = document.getElementById('importLessonFile');
+
+  // Create Lesson Modal
+  dom.createLessonOverlay = document.getElementById('createLessonOverlay');
+  dom.lessonNameInput = document.getElementById('lessonNameInput');
+  dom.lessonCardsInput = document.getElementById('lessonCardsInput');
+  dom.cancelCreateLesson = document.getElementById('cancelCreateLesson');
+  dom.confirmCreateLesson = document.getElementById('confirmCreateLesson');
 }
 
 // ── Data Loader ─────────────────────────────────────────────
@@ -278,6 +315,20 @@ function updateAudioButton() {
   }
 }
 
+// ── Throttle Utility (TV Performance) ───────────────────────
+function throttledAction(fn) {
+  if (actionLocked) return;
+  actionLocked = true;
+  fn();
+  setTimeout(() => { actionLocked = false; }, CONFIG.ACTION_THROTTLE_MS);
+}
+
+function addPressedFeedback(btn) {
+  if (!btn) return;
+  btn.classList.add('btn-pressed');
+  setTimeout(() => btn.classList.remove('btn-pressed'), 150);
+}
+
 // ── Card Actions ────────────────────────────────────────────
 function flipCard() {
   state.showingFront = !state.showingFront;
@@ -445,18 +496,19 @@ function executeActiveControl() {
 }
 
 function triggerAction(action) {
+  // Wrap navigation in throttle to prevent TV UI freezing
   switch (action) {
     case 'prev-card':
-      prevCard();
+      throttledAction(() => { addPressedFeedback(dom.prevCard); prevCard(); });
       break;
     case 'play-audio':
-      playAudio();
+      throttledAction(() => { addPressedFeedback(dom.playAudio); playAudio(); });
       break;
     case 'flip-card':
-      flipCard();
+      throttledAction(flipCard);
       break;
     case 'next-card':
-      nextCard();
+      throttledAction(() => { addPressedFeedback(dom.nextCard); nextCard(); });
       break;
   }
 }
@@ -747,32 +799,41 @@ function setupKeyboardNavigation() {
     // Ignore if typing in an input
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+    // Handle Escape globally
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      if (galleryState.isOpen) {
+        closeGallery();
+      } else if (dom.createLessonOverlay && !dom.createLessonOverlay.hidden) {
+        closeCreateLessonModal();
+      } else if (!dom.studyScreen.hidden) {
+        showHomeScreen();
+      }
+      return;
+    }
+
+    // Only handle study-mode keys when study screen is visible
+    if (dom.studyScreen.hidden) return;
+
     switch (e.key) {
       case 'ArrowLeft':
         e.preventDefault();
-        prevCard();
+        triggerAction('prev-card');
         break;
 
       case 'ArrowRight':
         e.preventDefault();
-        nextCard();
+        triggerAction('next-card');
         break;
 
       case ' ':
         e.preventDefault(); // Prevent page scroll
-        flipCard();
+        triggerAction('flip-card');
         break;
 
       case 'Enter':
         e.preventDefault();
-        playAudio();
-        break;
-
-      case 'Escape':
-        e.preventDefault();
-        if (galleryState.isOpen) {
-          closeGallery();
-        }
+        triggerAction('play-audio');
         break;
 
       default:
@@ -1281,51 +1342,85 @@ function getBestVoice() {
   return voices.find(v => v.lang.startsWith('en')) || null;
 }
 
+// ── TTS Audio Playback (pre-generated MP3) ──────────────────
+function playTTSAudio(src) {
+  try {
+    if (!ttsAudioElement) {
+      ttsAudioElement = new Audio();
+    }
+    ttsAudioElement.src = src;
+    ttsAudioElement.currentTime = 0;
+    ttsAudioElement.play().catch(err => console.warn('TTS audio playback failed:', err));
+  } catch (err) {
+    console.warn('TTS audio error:', err);
+  }
+}
+
 function speakSentence(text) {
   if (!text) return;
 
+  // Strategy 1: Pre-generated MP3 (works on TV + everywhere)
+  if (vocabAudioMap && vocabAudioMap.sentences && vocabAudioMap.sentences[text]) {
+    const src = CONFIG.AUDIO_BASE_PATH + vocabAudioMap.sentences[text];
+    playTTSAudio(src);
+    return;
+  }
+
+  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only)
   try {
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.volume = 1.0;
+      utterance.rate = 0.80; // Slower, clearer rate for children
+      utterance.pitch = 1.15; // Higher, more cheerful child-friendly pitch
+
+      const voice = getBestVoice();
+      if (voice) {
+        utterance.voice = voice;
+      }
+
+      window.speechSynthesis.speak(utterance);
     }
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.volume = 1.0;
-    utterance.rate = 0.80; // Slower, clearer rate for children
-    utterance.pitch = 1.15; // Higher, more cheerful child-friendly pitch
-
-    const voice = getBestVoice();
-    if (voice) {
-      utterance.voice = voice;
-    }
-
-    window.speechSynthesis.speak(utterance);
   } catch (error) {
-    console.error('TTS speakSentence error:', error);
+    console.warn('TTS speakSentence error:', error);
   }
 }
 
 function speakWord(word) {
   if (!word) return;
 
+  // Strategy 1: Pre-generated MP3 (works on TV + everywhere)
+  if (vocabAudioMap && vocabAudioMap.words && vocabAudioMap.words[word.toLowerCase()]) {
+    const src = CONFIG.AUDIO_BASE_PATH + vocabAudioMap.words[word.toLowerCase()];
+    playTTSAudio(src);
+    return;
+  }
+
+  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only)
   try {
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      utterance.volume = 1.0;
+      utterance.rate = 0.78; // Slightly slower rate for clean phonics
+      utterance.pitch = 1.15; // Higher, gentle child-friendly pitch
+
+      const voice = getBestVoice();
+      if (voice) {
+        utterance.voice = voice;
+      }
+
+      window.speechSynthesis.speak(utterance);
     }
-
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'en-US';
-    utterance.volume = 1.0;
-    utterance.rate = 0.78; // Slightly slower rate for clean phonics
-    utterance.pitch = 1.15; // Higher, gentle child-friendly pitch
-
-    const voice = getBestVoice();
-    if (voice) {
-      utterance.voice = voice;
-    }
-
-    window.speechSynthesis.speak(utterance);
   } catch (err) {
     console.warn('Speech synthesis error:', err);
   }
@@ -1466,18 +1561,379 @@ function setupVocabEditorListeners() {
   dom.exportVocabJson.addEventListener('click', exportVocabJson);
 }
 
+// ============================================================
+//  Lesson Management Module
+// ============================================================
+
+// ── Load Lessons ────────────────────────────────────────────
+async function loadLessons() {
+  let defaultLessons = [];
+  let localLessons = [];
+
+  // Load default lessons from static file
+  try {
+    const resp = await fetch(CONFIG.LESSONS_URL);
+    if (resp.ok) {
+      defaultLessons = await resp.json();
+      // Mark default lessons
+      defaultLessons.forEach(l => { l._source = 'default'; });
+    }
+  } catch (e) {
+    console.warn('Failed to load default lessons:', e);
+  }
+
+  // Load custom lessons from localStorage
+  try {
+    const stored = localStorage.getItem(CONFIG.LESSONS_STORAGE_KEY);
+    if (stored) {
+      localLessons = JSON.parse(stored);
+      localLessons.forEach(l => { l._source = 'local'; });
+    }
+  } catch (e) {
+    console.warn('Failed to load local lessons:', e);
+  }
+
+  // Merge: local lessons override defaults with same ID
+  const merged = new Map();
+  defaultLessons.forEach(l => merged.set(l.id, l));
+  localLessons.forEach(l => merged.set(l.id, l));
+  
+  lessonState.lessons = Array.from(merged.values());
+  
+  // Sort: custom lessons first (newest first), then defaults
+  lessonState.lessons.sort((a, b) => {
+    if (a._source !== b._source) {
+      return a._source === 'local' ? -1 : 1;
+    }
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+}
+
+// ── Save Lessons to localStorage ────────────────────────────
+function saveLessonsLocal() {
+  try {
+    const localOnly = lessonState.lessons.filter(l => l._source === 'local');
+    localStorage.setItem(CONFIG.LESSONS_STORAGE_KEY, JSON.stringify(localOnly));
+  } catch (e) {
+    console.warn('Failed to save lessons:', e);
+  }
+}
+
+// ── Create Lesson ───────────────────────────────────────────
+function createLesson(name, cardsStr) {
+  if (!name || !name.trim()) return;
+
+  const cardNumbers = parseCardNumbers(cardsStr);
+  if (cardNumbers.size === 0) return;
+
+  const id = 'lesson_' + Date.now().toString(36);
+  const lesson = {
+    id,
+    name: name.trim(),
+    cards: Array.from(cardNumbers).sort((a, b) => a - b),
+    createdAt: new Date().toISOString(),
+    _source: 'local',
+  };
+
+  lessonState.lessons.unshift(lesson);
+  saveLessonsLocal();
+  renderLessonGrid();
+}
+
+// ── Delete Lesson ───────────────────────────────────────────
+function deleteLesson(id) {
+  const lesson = lessonState.lessons.find(l => l.id === id);
+  if (!lesson) return;
+
+  const confirmMsg = `Xóa bài học "${lesson.name}"?`;
+  if (!confirm(confirmMsg)) return;
+
+  lessonState.lessons = lessonState.lessons.filter(l => l.id !== id);
+  saveLessonsLocal();
+  renderLessonGrid();
+}
+
+// ── Select Lesson → Start Studying ──────────────────────────
+function selectLesson(id) {
+  const lesson = lessonState.lessons.find(l => l.id === id);
+  if (!lesson) return;
+
+  lessonState.activeLessonId = id;
+
+  // Build study set from lesson card numbers
+  if (lesson.cards === 'all') {
+    galleryState.studySetActive = false;
+    galleryState.studySet = [];
+  } else {
+    const cardNumbers = new Set(lesson.cards);
+    const indices = [];
+    state.cards.forEach((card, idx) => {
+      const cardNum = parseInt(String(card.card_no || '').replace(/\D/g, ''), 10) || (idx + 1);
+      if (cardNumbers.has(cardNum)) {
+        indices.push(idx);
+      }
+    });
+
+    if (indices.length > 0) {
+      galleryState.studySet = indices;
+      galleryState.studySetActive = true;
+      state.currentIndex = indices[0];
+    } else {
+      galleryState.studySetActive = false;
+      galleryState.studySet = [];
+      state.currentIndex = 0;
+    }
+  }
+
+  renderCard();
+  showStudyScreen();
+}
+
+// ── Render Lesson Grid ──────────────────────────────────────
+function renderLessonGrid() {
+  if (!dom.lessonGrid) return;
+
+  if (lessonState.lessons.length === 0) {
+    dom.lessonGrid.innerHTML = `
+      <div class="lesson-empty">
+        <div class="lesson-empty-emoji">📭</div>
+        <p>Chưa có bài học nào. Hãy tạo bài học mới!</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  lessonState.lessons.forEach(lesson => {
+    const isAll = lesson.cards === 'all';
+    const cardCount = isAll ? state.cards.length : lesson.cards.length;
+    const dateStr = lesson.createdAt 
+      ? new Date(lesson.createdAt).toLocaleDateString('vi-VN')
+      : '';
+    const isLocal = lesson._source === 'local';
+    const extraClass = isAll ? ' lesson-card--all' : '';
+
+    html += `
+      <div class="lesson-card${extraClass}" data-lesson-id="${lesson.id}">
+        <div class="lesson-card-name">${escapeHtml(lesson.name)}</div>
+        <div class="lesson-card-meta">
+          <span>📇 ${cardCount} thẻ</span>
+          ${dateStr ? `<span>📅 ${dateStr}</span>` : ''}
+          ${isLocal ? '<span>✏️ Tự tạo</span>' : ''}
+        </div>
+        <div class="lesson-card-actions">
+          <button class="lesson-card-study-btn focusable" data-lesson-id="${lesson.id}">
+            🎓 Học bài này
+          </button>
+          ${isLocal ? `<button class="lesson-card-delete-btn focusable" data-lesson-id="${lesson.id}" aria-label="Xóa bài học">🗑️</button>` : ''}
+        </div>
+      </div>
+    `;
+  });
+
+  dom.lessonGrid.innerHTML = html;
+
+  // Setup click listeners
+  dom.lessonGrid.querySelectorAll('.lesson-card-study-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectLesson(btn.dataset.lessonId);
+    });
+  });
+
+  dom.lessonGrid.querySelectorAll('.lesson-card-delete-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteLesson(btn.dataset.lessonId);
+    });
+  });
+
+  // Clicking the card itself also starts studying
+  dom.lessonGrid.querySelectorAll('.lesson-card').forEach(card => {
+    card.addEventListener('click', () => {
+      selectLesson(card.dataset.lessonId);
+    });
+  });
+}
+
+// ── Screen Switching ────────────────────────────────────────
+function showHomeScreen() {
+  stopAudio();
+  if (ttsAudioElement) {
+    ttsAudioElement.pause();
+    ttsAudioElement.currentTime = 0;
+  }
+  dom.homeScreen.hidden = false;
+  dom.studyScreen.hidden = true;
+  lessonState.activeLessonId = null;
+  renderLessonGrid();
+}
+
+function showStudyScreen() {
+  dom.homeScreen.hidden = true;
+  dom.studyScreen.hidden = false;
+  setActiveControl(1); // Default to play-audio
+}
+
+// ── Create Lesson Modal ─────────────────────────────────────
+function openCreateLessonModal() {
+  dom.createLessonOverlay.hidden = false;
+  dom.lessonNameInput.value = '';
+  dom.lessonCardsInput.value = '';
+  setTimeout(() => dom.lessonNameInput.focus(), 100);
+}
+
+function closeCreateLessonModal() {
+  dom.createLessonOverlay.hidden = true;
+}
+
+function handleCreateLesson() {
+  const name = dom.lessonNameInput.value.trim();
+  const cardsStr = dom.lessonCardsInput.value.trim();
+
+  if (!name) {
+    dom.lessonNameInput.focus();
+    return;
+  }
+  if (!cardsStr) {
+    dom.lessonCardsInput.focus();
+    return;
+  }
+
+  createLesson(name, cardsStr);
+  closeCreateLessonModal();
+}
+
+// ── Export/Import Lessons ───────────────────────────────────
+function exportLessonsJSON() {
+  try {
+    // Export all lessons (without internal _source field)
+    const exportData = lessonState.lessons.map(l => {
+      const { _source, ...rest } = l;
+      return rest;
+    });
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+    const anchor = document.createElement('a');
+    anchor.setAttribute("href", dataStr);
+    anchor.setAttribute("download", "lessons.json");
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+  } catch (err) {
+    alert('Không thể xuất file: ' + err.message);
+  }
+}
+
+function importLessonsJSON(file) {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!Array.isArray(imported)) {
+        alert('File JSON không hợp lệ. Cần là một mảng bài học.');
+        return;
+      }
+
+      // Mark imported lessons as local
+      imported.forEach(l => {
+        l._source = 'local';
+        if (!l.id) l.id = 'lesson_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 4);
+      });
+
+      // Merge with existing
+      const merged = new Map();
+      lessonState.lessons.forEach(l => merged.set(l.id, l));
+      imported.forEach(l => merged.set(l.id, l));
+      lessonState.lessons = Array.from(merged.values());
+
+      saveLessonsLocal();
+      renderLessonGrid();
+      alert(`Đã nhập ${imported.length} bài học thành công!`);
+    } catch (err) {
+      alert('Lỗi đọc file JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ── Load Vocab Audio Map ────────────────────────────────────
+async function loadVocabAudioMap() {
+  try {
+    const resp = await fetch(CONFIG.VOCAB_AUDIO_MAP_URL);
+    if (resp.ok) {
+      vocabAudioMap = await resp.json();
+      console.log(`Vocab audio map loaded: ${Object.keys(vocabAudioMap.words || {}).length} words, ${Object.keys(vocabAudioMap.sentences || {}).length} sentences`);
+    }
+  } catch (e) {
+    console.warn('Failed to load vocab audio map (TTS will fall back to speechSynthesis):', e);
+  }
+}
+
+// ── Setup Home Screen Listeners ─────────────────────────────
+function setupHomeScreenListeners() {
+  // Back to home button
+  dom.backToHome.addEventListener('click', () => {
+    showHomeScreen();
+  });
+
+  // Create lesson
+  dom.createLessonBtn.addEventListener('click', () => {
+    openCreateLessonModal();
+  });
+
+  // Create lesson modal
+  dom.cancelCreateLesson.addEventListener('click', closeCreateLessonModal);
+  dom.confirmCreateLesson.addEventListener('click', handleCreateLesson);
+  dom.createLessonOverlay.addEventListener('click', (e) => {
+    if (e.target === dom.createLessonOverlay) closeCreateLessonModal();
+  });
+
+  // Enter key in lesson cards input → create
+  dom.lessonCardsInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleCreateLesson();
+    }
+  });
+
+  // Export lessons
+  dom.exportLessonBtn.addEventListener('click', exportLessonsJSON);
+
+  // Import lessons
+  dom.importLessonBtn.addEventListener('click', () => {
+    dom.importLessonFile.click();
+  });
+  dom.importLessonFile.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      importLessonsJSON(e.target.files[0]);
+      e.target.value = ''; // Reset for re-import
+    }
+  });
+}
+
 // ── Initialization ──────────────────────────────────────────
 async function init() {
   cacheDom();
 
   try {
-    await loadCards();
+    // Load all data in parallel
+    await Promise.all([
+      loadCards(),
+      loadLessons(),
+      loadVocabAudioMap(),
+    ]);
+
+    // Setup all event listeners
     setupEventListeners();
     setupKeyboardNavigation();
     setupPointerIndicator();
     setupSwipeGestures();
-    renderCard();
-    setActiveControl(1); // Default to play-audio
+    setupHomeScreenListeners();
+
+    // Show home screen (lesson selection) as landing page
+    showHomeScreen();
     hideLoading();
   } catch (error) {
     console.error('Cardlish Learn init error:', error);

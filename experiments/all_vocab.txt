@@ -1,0 +1,160 @@
+Total cards: 53
+001_card:
+  Front: ['apple /lepll/', 'bat /baet/']
+  Back:  ['bag /baeg/', 'hammer /heme/', 'map /maepl/', 'flag /flaeg/', 'cat /kaet/']
+002_card:
+  Front: ['cab /kaeb/', 'crab /kraeb/']
+  Back:  ['slab /slaeb/', 'grab /graeb/', 'jab /d3aebl/', 'stab /staeb/', 'scab /skaeb/', 'blab /blaeb/']
+003_card:
+  Front: ['snack /Isnaek/', 'sack /saek/']
+  Back:  ['tack /taek/', 'pack /paek/', 'back /baek/', 'track /traek/', 'crack /kraek/']
+004_card:
+  Front: ['glad /Iglaed/', 'dad /daed/']
+  Back:  ['sad /seed/', 'mad /maed/', 'add /laed/', 'notepad /nootpaed/', 'pad /peed/', 'bad /baed/']
+005_card:
+  Front: ['flag /Iflaeg/', 'stag /staegl/']
+  Back:  ['gag /gaeg/', 'bag /baeg/', 'wag /waeg/', 'tag /taeg/', 'hag /haeg/', 'rag /raegl/']
+006_card:
+  Front: ['clam /Iklaem/', 'ham /haem/']
+  Back:  ['ram /raem/', 'dam /daem/', 'jam /d3aeml/', 'spam /spaem/', 'cram /kraem/', 'yam /jem/']
+007_card:
+  Front: ['van /væn/', 'can /kaen/']
+  Back:  ['snowman /snao.maen/', 'ran /raen/', 'man /maen/', 'fan /faen/', 'pan /paen/', 'scan /ɪskaen/']
+008_card:
+  Front: ['clap /Iklaep/', 'trap /træp/']
+  Back:  ['slap /slaepl/', 'wrap /ɪraepl/', 'rap /raep/', 'map /maepl/', 'strap /straep/', 'cap /kaep/']
+009_card:
+  Front: ['grass /graes/', 'lass /Ilaes/']
+  Back:  ['brass /braes/', 'glass /glaes/', 'mass /ɪmaes/', 'class /klaes/', 'pass /paes/']
+010_card:
+  Front: ['cat /Ikaet/', 'rat /raet/']
+  Back:  ['sat /saet/', 'hat /haet/', 'bat /baet/', 'fat /faet/', 'mat /ɪmaet/', 'doormat /do:maet/']
+011_card:
+  Front: ['tax /Itaeks/', 'flax /flaeks/']
+  Back:  ["climax /'klaimaeks/", 'ax /aeks/', "relax /ri'laeks/", 'wax /waeks/', 'fax /lfaeks/']
+012_card:
+  Front: ['bed /bed/', 'jet /Id3et/']
+  Back:  ['hen /hen/', 'web /web/', 'egg /eg/', 'keg /keg/', 'red /red/', 'gem /d3eml/']
+013_card:
+  Front: ['neck /nek/', 'speck /spek/']
+  Back:  ['deck /dek/', 'wreck /rek/', "turtleneck /'t3:telnek/", 'peck /pek/']
+014_card:
+  Front: ['bed /bed/', 'led /led/']
+  Back:  ['shred /fred/', 'wed /wed/', "teddy /'tedil/", 'pedal /ped/', 'sled /sled/']
+023_card:
+  Front: ['merry /Imeril/', 'raspberry /raezberil/']
+  Back:  ['strawberry /`stra:ber.il/', "berry /'ber.i/", "ferry /r'fer.il/", "heron /'her.an/", "cherry /'tfer.i/", 'blackberry /`blaek.ber.i/']
+026_card:
+  Front: ['stick /stik/', 'kick /kik/']
+  Back:  ['click /klik/', 'flick /flik/', 'brick /brik/', 'lick /Mik/', 'sick /sik/']
+027_card:
+  Front: ['kid /kid/', 'lid /lid/']
+  Back:  ['bid /bid/', 'grid /grid/', 'squid /skwid/', 'skid /skid/', "middle /ɪ'mid.all/"]
+028_card:
+  Front: ['rig /rig/']
+  Back:  ['brig /bnig/', 'zig /zɪɡ/', 'fig /fig/', 'wig /wigl/', 'pig /pig/']
+029_card:
+  Front: ['dill /dil/', 'drill /dril/']
+  Back:  ['fill /filV/', 'frill /frl/', 'quill /kwɪl/', 'pill /pil/']
+030_card:
+  Front: ['brim /brim/', 'trim /trm/']
+  Back:  ['sim /sim/', 'rim /rim/', 'him /him/', 'slim /slim/', 'swim /swim/']
+031_card:
+  Front: ['pin /pin/', 'tin /tin/']
+  Back:  ['fin /fin/', 'bin /bin/', 'spin /spin/', 'win /win/', 'twin /twin/']
+032_card:
+  Front: ['slip /slip/']
+  Back:  ['snip /snipl/', 'hip /hip/', 'grip /grip/', 'zip /zip/', 'ship /ip/']
+033_card:
+  Front: ['slit /slit/', 'split /split/']
+  Back:  ['hit /hit/', 'sit /sit/', 'nit /ɪnit/', 'fit /fit/']
+034_card:
+  Front: ['six /siks/', 'helix /hi:liks/']
+  Back:  ["affix /le'fiks/", 'mix /miks/', "sixteen /sik'sti:n/", 'fix /fiks/', 'matrix /meitriks/']
+049_card:
+  Front: ['cub /k<b/', 'bus /bAS/']
+  Back:  ['sun /ɪSAnl/', 'mug /mAgl/', 'gun /ɪgAnl/', 'up /ʌp/', 'hut /hAt/']
+050_card:
+  Front: ['club /klAb/', 'rub /rAb/']
+  Back:  ['scrub /skrAb/', 'stub /stʌb/', 'cub /kAb/', 'hub /hʌb/', 'tub /tAb/']
+051_card:
+  Front: ['buck /bAk/', 'duck /drk/']
+  Back:  ['puck /pnk/', 'cluck /KɪAk/', 'suck /SAK/', 'truck /trAk/']
+052_card:
+  Front: ['mud /mAd/', 'bud /bAd/']
+  Back:  ['suds /sAdz/', 'stud /stAd/', 'cud /kAd/']
+053_card:
+  Front: ['cuff /kAf/', 'stuff /IstAf/']
+  Back:  ["cufflink /'kAf.link/", 'handcuff /ɪhaendkAf/', 'buff /bAf/']
+054_card:
+  Front: ['pug /6vd/', 'mug /m^g/']
+  Back:  ['bug /6vq/', 'jug /ɪd3g/', 'hug /hʌg/', 'drug /ɪdragl/', 'tug /bv/']
+055_card:
+  Front: ['skull /skAll/', 'mull /mAll/']
+  Back:  ['gull /ɡʌl/', 'dull /ɪdAll/', 'scull /skA/', 'null /nʌl/']
+056_card:
+  Front: ['drum /drAm/', 'mum /mAm/']
+  Back:  ['plum /plsm/', 'rum /ɪrAml/', 'gum /TgAml/', 'bum /bAm/', 'slum /slAm/']
+057_card:
+  Front: ['fun /IfAn/', 'sun /ISAn/']
+  Back:  ['unplug /bvid,uv/', 'nun /ɪnAn/', 'gun /gAn/', 'bun /bAn/', 'stun /stAn/']
+058_card:
+  Front: ['nut /InAt/']
+  Back:  ['donut /vunop./', 'cut /kAt/', 'jut /d3At/', 'peanut /Tpi:nat/', 'hut /ThAt/']
+212_b:
+  Front: ['ball /ba:/', 'boat /bout/']
+  Back:  ['bubble /brb.ell/', 'back /baek/', 'bus /bAs/', 'bee /bi:/', 'bear /berl/']
+213_d:
+  Front: ['deer /dɪər/', 'dog /dog/']
+  Back:  ['dome /doum/', 'doll /da:l/', 'desk /desk/', 'dive /daiv/', 'duck /dAk/']
+214_f:
+  Front: ['fig /figr/']
+  Back:  ['fish /f/', 'five /lfaivl/', 'farm /fa:rm/', 'foot /fu:t/', 'fox /lfa:ks/']
+215_ph:
+  Front: ['photo /fou.tou/', 'phone /founl/']
+  Back:  ['elephant /relafant/', "physics /ɪ'fiziks/", 'phantom /m/', 'physician /juefiz./', "trophy /'troofil/"]
+216_g:
+  Front: ['girl /g3:1/', 'game /geim/']
+  Back:  ['chewing gum /Chewing Gun/', 'gum /TgAml/', 'goat /lgout/', 'gold /lgould/', 'gun /TgAn/']
+217_card:
+  Front: ['hand /hænd/', 'horse /ho:s/']
+  Back:  ['hammer /haemarl/', 'heart /ha:rt/', 'hook /huk/', 'head /hedl/', 'hill /hil/']
+218_card:
+  Front: ['jeans /d3i:nzl/', 'jack /d3aek/']
+  Back:  ['jaw /d3a:/', 'jar /d3a:rl/', 'jail /d3ell/', 'jacket /d3aekit/', 'juice /ld3u:s/']
+219_g:
+  Front: ["giraffe /d3i'ra:f/", 'ginger /dʒɪndʒər/', 'chugkhiviettruocchu /e,ihoacyphatamla/']
+  Back:  ['gym /d3im/', 'gem /d3em/', "gymnastic /d3im'naestik/"]
+220_k:
+  Front: ['key /ki:/', 'kid /kid/']
+  Back:  ["kangaroo /kaenge'ru:/", 'kite /kait/', 'king /kin/', 'kelp /kelpl/', "kitten /ɪ'kiten/", 'kale /keil/']
+227_card:
+  Front: ['rose /rouzl/', 'red /red/']
+  Back:  ['rack /ɪraek/', 'rocket /lra:kit/', "rabbit /ɪ'raebit/", 'rain /lreinl/', 'ring /rin/']
+228_wr:
+  Front: ['wrist /rist/', 'wrench /lrentf/']
+  Back:  ['wreck /rek/', "wrinkle /ɪ'rinkall/", 'wrap /raepl/', 'wreath /ri:0/', 'write /lrait/']
+229_s:
+  Front: ['sock /sa:k/', 'sink /sink/']
+  Back:  ['soap /soupl/', 'saw /sa:/', 'sew /sou/', 'sit /sit/', 'surf /s3:f/']
+230_card:
+  Front: ["cigar /sa'ga:r/", 'cinema /jeweuis,/']
+  Back:  ["circle /'s3:kal/", 'cyan /`saien/', "center /'sentel/", "bicycle /'baisekel/"]
+231_card:
+  Front: ["table /'teibal/", 'tape /teipl/']
+  Back:  ['toad /ɪtoud/', 'tea /ti:/']
+232_v:
+  Front: ['vault /va:lt/']
+  Back:  ['vine /ɪvain/', 'vein /ɪveinl/', "violin /.vala'lin/", 'vase /veis/', 'veal /vi:1/']
+233_w:
+  Front: ['waist /weist/', 'wood /wud/']
+  Back:  ['wagon /wagen/', 'watch /:DM/', 'wig /wig/', 'weigh /wei/']
+234_y:
+  Front: ['yoyo /ljoujou/', 'yam /ljaem/']
+  Back:  ['yoke /jouk/', "yellow /'jeloul/", 'yawn /ja:n/', 'yarn /ja:rnl/', 'yacht /ja:t/']
+235_z:
+  Front: ['zigzag /beezbiz./', 'zebra /`zi:bral/']
+  Back:  ['zoom /zuːm/', 'zoo /zu:/', 'zip /zɪp/', "zero /'zirou/"]
+277_card:
+  Front: ['doll /Ida:l/', 'mail /Imel/']
+  Back:  ['bell /bell/', 'owl /aʊl/', 'pill /pil/', 'bull /bʊl/']

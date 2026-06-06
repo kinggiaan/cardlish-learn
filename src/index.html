@@ -11,11 +11,46 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.0.3">
+  <link rel="stylesheet" href="styles.css?v=2.0.0">
 </head>
 <body>
   <!-- Pointer indicator for desktop/TV -->
   <div class="pointer-indicator" id="pointerIndicator"></div>
+
+  <!-- ============================================================ -->
+  <!--  HOME SCREEN: Lesson Selection (Landing Page)                 -->
+  <!-- ============================================================ -->
+  <div class="home-screen" id="homeScreen">
+    <div class="home-header">
+      <h1 class="home-title">📚 Cardlish Learn</h1>
+      <p class="home-subtitle">Chọn bài học để bắt đầu</p>
+    </div>
+
+    <div class="lesson-actions">
+      <button class="lesson-action-btn create-lesson-btn focusable" id="createLessonBtn" aria-label="Tạo bài học mới">
+        ➕ Tạo bài học mới
+      </button>
+      <button class="lesson-action-btn import-lesson-btn focusable" id="importLessonBtn" aria-label="Nhập file bài học">
+        📤 Nhập JSON
+      </button>
+      <button class="lesson-action-btn export-lesson-btn focusable" id="exportLessonBtn" aria-label="Xuất file bài học">
+        📥 Xuất JSON
+      </button>
+      <input type="file" id="importLessonFile" accept=".json" hidden>
+    </div>
+
+    <div class="lesson-grid" id="lessonGrid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  STUDY SCREEN: Flashcard Learning (hidden by default)         -->
+  <!-- ============================================================ -->
+  <div class="study-screen" id="studyScreen" hidden>
+
+  <!-- Back to Home button -->
+  <button class="back-to-home-btn focusable" id="backToHome" aria-label="Về trang bài học">← Về bài học</button>
 
   <!-- Progress bar (top, no header) -->
   <div class="progress-bar-container progress-bar-top" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBarContainer">
@@ -81,6 +116,8 @@
   <button class="gallery-fab focusable" id="galleryToggle" aria-label="Mở thư viện thẻ">
     📚
   </button>
+
+  </div><!-- /study-screen -->
 
   <!-- Loading overlay -->
   <div class="loading-overlay" id="loadingOverlay" role="alert" aria-busy="true">
@@ -167,6 +204,21 @@
       <div class="vocab-edit-footer">
         <button class="vocab-btn vocab-cancel-btn focusable" id="vocabEditCancel">Hủy</button>
         <button class="vocab-btn vocab-save-btn focusable" id="vocabEditSave">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Lesson Modal -->
+  <div class="create-lesson-overlay" id="createLessonOverlay" hidden>
+    <div class="create-lesson-modal">
+      <h3>➕ Tạo bài học mới</h3>
+      <label class="create-lesson-label" for="lessonNameInput">Tên bài học</label>
+      <input type="text" class="create-lesson-input focusable" id="lessonNameInput" placeholder="Ví dụ: Short A — Nguyên âm ngắn A" autocomplete="off">
+      <label class="create-lesson-label" for="lessonCardsInput">Số thẻ (dùng dấu phẩy hoặc gạch ngang)</label>
+      <input type="text" class="create-lesson-input focusable" id="lessonCardsInput" placeholder="Ví dụ: 1-11, 23, 26-34" autocomplete="off">
+      <div class="create-lesson-actions">
+        <button class="create-lesson-cancel focusable" id="cancelCreateLesson">Hủy</button>
+        <button class="create-lesson-confirm focusable" id="confirmCreateLesson">✅ Tạo bài</button>
       </div>
     </div>
   </div>
