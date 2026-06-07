@@ -32,6 +32,7 @@ def load_existing_pairs(out_dir: Path) -> List[CardPair]:
                     back_bbox_xyxy=tuple(d["back_bbox_xyxy"]),
                     needs_review=d["needs_review"],
                     review_note=d.get("review_note", ""),
+                    created_at=d.get("created_at", "04/06/2026"),
                 )
             )
         return pairs

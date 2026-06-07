@@ -5,6 +5,7 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import List, Tuple
 from PIL import Image
+from datetime import datetime
 from core.grid import CropInfo, CELL_NAMES
 from core.ocr import CardOCRExtractor
 
@@ -25,6 +26,7 @@ class CardPair:
     back_bbox_xyxy: Tuple[int, int, int, int]
     needs_review: bool
     review_note: str
+    created_at: str
 
 def safe_name(s: str) -> str:
     s = s.strip().lower()
@@ -159,12 +161,15 @@ def build_pairs(
                 back_bbox_xyxy=back.bbox_xyxy,
                 needs_review=needs_review,
                 review_note=note,
+                created_at=datetime.now().strftime("%d/%m/%Y"),
             )
             new_pairs.append(pair)
             
     # Merge existing pairs with new ones, letting new ones overwrite existing if matching pair_id
     merged_dict = {p.pair_id: p for p in (existing_pairs or [])}
     for p in new_pairs:
+        if p.pair_id in merged_dict:
+            p.created_at = merged_dict[p.pair_id].created_at
         merged_dict[p.pair_id] = p
         
     # Convert back to list and sort by card number / pair_id

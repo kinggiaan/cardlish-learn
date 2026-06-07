@@ -470,6 +470,16 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
         <button class="btn" id="size-large" onclick="setSize('large')">Lớn</button>
       </div>
 
+      <div class="sort-group" style="display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.5); padding: 4px 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+        <label for="sort-select" style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Sắp xếp:</label>
+        <select id="sort-select" class="btn" style="padding: 6px 12px; font-size: 0.85rem; border: none; background: transparent; cursor: pointer; outline: none;" onchange="handleSortChange()">
+          <option value="card_no-asc" style="background: #1e293b;">Số thẻ (Tăng)</option>
+          <option value="card_no-desc" style="background: #1e293b;">Số thẻ (Giảm)</option>
+          <option value="date-desc" style="background: #1e293b;" selected>Mới nhất</option>
+          <option value="date-asc" style="background: #1e293b;">Cũ nhất</option>
+        </select>
+      </div>
+
       <div>
         <button class="btn btn-action" onclick="flipAll()">Lật tất cả</button>
       </div>
@@ -558,6 +568,7 @@ function initGrid() {{
     details.innerHTML = `
       <span>Tọa độ ô: Dòng ${{c.row}}, Cột ${{c.col}}</span>
       <span>Nguồn: Trang trước p${{c.front_page}} / Trang sau p${{c.back_page}}</span>
+      <span>Ngày tách: ${{c.created_at || '04/06/2026'}}</span>
     `;
     
     meta.append(title, details);
@@ -702,10 +713,48 @@ function applyFilter() {{
   }});
 }}
 
+function parseDate(dateStr) {{
+  if (!dateStr) return new Date(2026, 5, 4);
+  const parts = dateStr.split('/');
+  if (parts.length === 3) {{
+    return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+  }}
+  return new Date(2026, 5, 4);
+}}
+
+function handleSortChange() {{
+  const sortVal = document.getElementById('sort-select').value;
+  
+  if (sortVal === 'card_no-asc') {{
+    cards.sort((a, b) => {{
+      const numA = parseInt(String(a.card_no).replace(/\D/g, ''), 10) || 9999;
+      const numB = parseInt(String(b.card_no).replace(/\D/g, ''), 10) || 9999;
+      return numA - numB;
+    }});
+  }} else if (sortVal === 'card_no-desc') {{
+    cards.sort((a, b) => {{
+      const numA = parseInt(String(a.card_no).replace(/\D/g, ''), 10) || 9999;
+      const numB = parseInt(String(b.card_no).replace(/\D/g, ''), 10) || 9999;
+      return numB - numA;
+    }});
+  }} else if (sortVal === 'date-desc') {{
+    cards.sort((a, b) => {{
+      return parseDate(b.created_at) - parseDate(a.created_at) || (parseInt(a.card_no) - parseInt(b.card_no));
+    }});
+  }} else if (sortVal === 'date-asc') {{
+    cards.sort((a, b) => {{
+      return parseDate(a.created_at) - parseDate(b.created_at) || (parseInt(a.card_no) - parseInt(b.card_no));
+    }});
+  }}
+  
+  initGrid();
+  applyFilter();
+}}
+
 document.getElementById('search').addEventListener('input', applyFilter);
 
 // Initialize
-initGrid();
+handleSortChange();
 </script>
 </body>
 </html>

@@ -72,7 +72,7 @@ def sync_to_dist(pairs: List[CardPair], unified_dir: Path, dist_dir: Path) -> No
                 "qr_url", "front_image", "back_image",
                 "front_page", "back_page",
                 "front_bbox_xyxy", "back_bbox_xyxy",
-                "needs_review", "review_note",
+                "needs_review", "review_note", "created_at",
             ):
                 record[key] = pair_dict[key]
         else:
