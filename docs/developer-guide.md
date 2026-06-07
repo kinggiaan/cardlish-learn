@@ -221,6 +221,12 @@ make_review_contact_sheet(pairs, out_dir, pdf_name) -> None
 
 Generates a visual QA image showing each card's front and back side-by-side.
 
+## Developer Review Page (Trang duyệt kho thẻ cho Dev)
+
+Để kiểm tra nhanh và chính xác toàn bộ danh sách thẻ sau khi chạy pipeline tách thẻ (bao gồm cả các thẻ bị gắn nhãn lỗi OCR hoặc cần review):
+- **Bản Live (Production):** [https://cardlish-learn.pages.dev/unified_db/viewer/index.html](https://cardlish-learn.pages.dev/unified_db/viewer/index.html)
+- **Bản Thử nghiệm (Dev):** [https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html](https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html)
+
 ---
 
 ## dist/ web app

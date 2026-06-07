@@ -1,9 +1,14 @@
 # 🎴 Cardlish Learn — Tách & Học Flashcard
 
-Ứng dụng tách thẻ flashcard từ file PDF scan, tự động nhận dạng mặt trước/sau,
-gắn ID bằng OCR, và hiển thị trên trình duyệt với giao diện 3D premium.
+Ứng dụng tách thẻ flashcard từ file PDF scan, tự động nhận dạng mặt trước/sau, gắn ID bằng OCR, và hiển thị trên trình duyệt với giao diện 3D premium.
 
-**Live**: [cardlish-learn.pages.dev](https://cardlish-learn.pages.dev) *(sau khi deploy)*
+## 🔗 Liên kết ứng dụng (Web Links)
+*   🎓 **Trang học flashcard (Học sinh/Người dùng):**
+    *   **Bản Live (Production):** [https://cardlish-learn.pages.dev/src/](https://cardlish-learn.pages.dev/src/)
+    *   **Bản Thử nghiệm (Dev):** [https://dev.cardlish-learn.pages.dev/src/](https://dev.cardlish-learn.pages.dev/src/)
+*   🔍 **Trang xem & duyệt kho thẻ (Dành cho Developer/Kiểm tra OCR):**
+    *   **Bản Live (Production):** [https://cardlish-learn.pages.dev/unified_db/viewer/index.html](https://cardlish-learn.pages.dev/unified_db/viewer/index.html)
+    *   **Bản Thử nghiệm (Dev):** [https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html](https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html)
 
 ---
 
