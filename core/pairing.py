@@ -82,6 +82,9 @@ def build_pairs(
     ]
     batch_offset = max(existing_batches) if existing_batches else 0
 
+    # Track processed pair_ids to handle collisions
+    processed_ids = {p.pair_id: p for p in (existing_pairs or [])}
+
     for page_a, page_b in zip(pages[0::2], pages[1::2]):
         pair_batch_no += 1
         for cell in CELL_NAMES:
@@ -139,6 +142,22 @@ def build_pairs(
             # Fallback naming if OCR didn't find card_no
             base = f"{card_no}_{safe_name(label)}" if card_no or label else f"batch{pair_batch_no + batch_offset:03d}_{cell}"
             
+            # Check for ID collision
+            if base in processed_ids:
+                existing_match = processed_ids[base]
+                is_same_slot = (
+                    existing_match.front_page == front.page_index and
+                    existing_match.back_page == back.page_index and
+                    existing_match.cell == cell
+                )
+                if not is_same_slot:
+                    # Different slot but same ID! Append slot suffix to make it unique
+                    col_id = f"{base}_dup_p{front.page_index}_{cell}"
+                    needs_review = True
+                    note = f"Trùng ID với thẻ ở Trang {existing_match.front_page} Ô {existing_match.cell}. Đã tự động đổi tên để tránh ghi đè."
+                    print(f"  Warning: Collision detected for ID '{base}'. Renamed new crop to '{col_id}' to prevent overwrite.")
+                    base = col_id
+            
             front_out = cards_dir / f"{base}_front.png"
             back_out = cards_dir / f"{base}_back.png"
             
@@ -164,6 +183,7 @@ def build_pairs(
                 created_at=datetime.now().strftime("%d/%m/%Y"),
             )
             new_pairs.append(pair)
+            processed_ids[base] = pair
             
     # Merge existing pairs with new ones, letting new ones overwrite existing if matching pair_id
     merged_dict = {p.pair_id: p for p in (existing_pairs or [])}
