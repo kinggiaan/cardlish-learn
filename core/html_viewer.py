@@ -8,7 +8,29 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
     """Generate the premium interactive HTML viewer for the cards."""
     viewer_dir = out_dir / "viewer"
     viewer_dir.mkdir(parents=True, exist_ok=True)
-    data = [asdict(p) for p in pairs]
+    
+    # Load vocabulary mapping
+    vocab_path = Path("public/data/cards_vocab.json")
+    vocab_data = {}
+    if vocab_path.exists():
+        try:
+            with vocab_path.open("r", encoding="utf-8") as f:
+                vocab_data = json.load(f)
+        except Exception as e:
+            print(f"Warning: Failed to load cards_vocab.json: {e}")
+            
+    data = []
+    for p in pairs:
+        p_dict = asdict(p)
+        card_no = p_dict.get("card_no")
+        if card_no:
+            # Padded to 3 digits (e.g. '1' -> '001')
+            card_no_padded = card_no.zfill(3) if card_no.isdigit() else card_no
+            vocab_key = f"{card_no_padded}_card"
+            p_dict["vocab"] = vocab_data.get(vocab_key, None)
+        else:
+            p_dict["vocab"] = None
+        data.append(p_dict)
     
     html = f"""<!doctype html>
 <html lang="vi">
@@ -525,6 +547,47 @@ function initGrid() {{
     item.setAttribute('data-row', c.row || '');
     item.setAttribute('data-col', c.col || '');
     
+    // Plain text for searching
+    let vocabSearchText = '';
+    let vocabHtml = '';
+    if (c.vocab) {{
+      const frontWords = (c.vocab.front || []).map(w => `${{w.word}} <span style="color:var(--text-muted); font-size:0.8rem;">${{w.ipa}}</span>`).join(', ');
+      const backWords = (c.vocab.back || []).map(w => `${{w.word}} <span style="color:var(--text-muted); font-size:0.8rem;">${{w.ipa}}</span>`).join(', ');
+      
+      const frontSentEn = (c.vocab.front_sentences || []).map(s => s.en).join('<br>');
+      const frontSentVi = (c.vocab.front_sentences || []).map(s => s.vi).join('<br>');
+      
+      const backSentEn = (c.vocab.back_sentences || []).map(s => s.en).join('<br>');
+      const backSentVi = (c.vocab.back_sentences || []).map(s => s.vi).join('<br>');
+      
+      const searchFrontWords = (c.vocab.front || []).map(w => w.word).join(' ');
+      const searchBackWords = (c.vocab.back || []).map(w => w.word).join(' ');
+      const searchFrontSents = (c.vocab.front_sentences || []).map(s => s.en + ' ' + s.vi).join(' ');
+      const searchBackSents = (c.vocab.back_sentences || []).map(s => s.en + ' ' + s.vi).join(' ');
+      vocabSearchText = `${{searchFrontWords}} ${{searchBackWords}} ${{searchFrontSents}} ${{searchBackSents}}`.toLowerCase();
+      
+      vocabHtml = `
+        <div class="card-vocab" style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+          \${{frontWords ? `
+          <div>
+            <span style="color: #a5b4fc; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;">Mặt trước (Front)</span>
+            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">\${{frontWords}}</div>
+            \${{frontSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">\${{frontSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">\${{frontSentVi}}</span></div>` : ''}}
+          </div>
+          ` : ''}}
+          
+          \${{backWords ? `
+          <div>
+            <span style="color: #ec4899; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;">Mặt sau (Back)</span>
+            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">\${{backWords}}</div>
+            \${{backSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">\${{backSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">\${{backSentVi}}</span></div>` : ''}}
+          </div>
+          ` : ''}}
+        </div>
+      `;
+    }}
+    item.setAttribute('data-vocab', vocabSearchText);
+    
     // 3D wrapper
     const wrapper = document.createElement('div');
     wrapper.className = 'card-view-wrapper';
@@ -584,6 +647,12 @@ function initGrid() {{
     `;
     
     meta.append(title, details);
+    
+    if (vocabHtml) {{
+      const vocabDiv = document.createElement('div');
+      vocabDiv.innerHTML = vocabHtml;
+      meta.append(vocabDiv);
+    }}
     
     if (c.needs_review) {{
       const warning = document.createElement('div');
@@ -705,9 +774,10 @@ function applyFilter() {{
     const cell = item.getAttribute('data-cell').toLowerCase();
     const row = item.getAttribute('data-row');
     const col = item.getAttribute('data-col');
+    const vocab = (item.getAttribute('data-vocab') || '').toLowerCase();
     
     // Search check
-    const matchesSearch = !query || no.includes(query) || label.includes(query) || cell.includes(query);
+    const matchesSearch = !query || no.includes(query) || label.includes(query) || cell.includes(query) || vocab.includes(query);
     
     // Layout filter check
     let matchesLayout = true;
