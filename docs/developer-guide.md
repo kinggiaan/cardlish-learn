@@ -178,8 +178,10 @@ Core logic:
 3. For each cell: checks QR on both sides → determines front/back
 4. Skips blank cells (both sides have `mean > 240` and `std < 30`)
 5. Runs OCR on front image → extracts card number and label
-6. Copies images to `cards/` with OCR-based names
-7. Merges with existing database (new entries overwrite by `pair_id`)
+6. Kiểm tra trùng lặp ID (Collision Detection):
+   - Nếu `pair_id` (ví dụ: `001_card`) đã tồn tại ở **cùng vị trí (cùng trang, cùng ô)**: Ghi đè cập nhật ảnh và không báo lỗi.
+   - Nếu `pair_id` trùng nhưng ở **vị trí khác (khác trang hoặc khác ô)**: Tự động đổi tên mới bằng cách thêm hậu tố (ví dụ: `001_card_dup_p3_A2`) để tránh ghi đè làm mất ảnh thẻ cũ, đồng thời gán `needs_review = True` và ghi lý do lỗi trùng vị trí vào `review_note`.
+7. Lưu ảnh vào `cards/` theo ID đã tối ưu và gộp với cơ sở dữ liệu manifest hiện có.
 
 **Front/back decision matrix:**
 
