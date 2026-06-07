@@ -462,6 +462,52 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
       color: var(--text-main);
       z-index: 1001;
     }}
+
+    /* Tabs styling */
+    .tabs {{
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }}
+    .tab-btn {{
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: rgba(30, 41, 59, 0.4);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .tab-btn:hover {{
+      background: rgba(51, 65, 85, 0.6);
+      color: var(--text-main);
+    }}
+    .tab-btn.active {{
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: var(--text-main);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+    }}
+    .tab-btn#tab-error.active {{
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.15);
+    }}
+    .tab-btn#tab-valid.active {{
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #a7f3d0;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+    }}
   </style>
 </head>
 <body>
@@ -505,9 +551,18 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
       <div class="export-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="btn" onclick="selectAllCards(true)">Chọn tất cả</button>
         <button class="btn" onclick="selectAllCards(false)">Bỏ chọn</button>
+        <button class="btn btn-action" onclick="triggerImportJSON()" style="background: var(--accent); border-color: var(--accent); box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);">Nhập JSON</button>
+        <input type="file" id="import-json-file" accept=".json" style="display: none;" onchange="handleImportJSON(event)" />
         <button class="btn btn-action" onclick="exportSelectedJSON()" style="background: var(--success); border-color: var(--success); box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);">Xuất JSON (<span id="select-count">0</span>)</button>
         <button class="btn btn-action" onclick="flipAll()">Lật tất cả</button>
       </div>
+    </div>
+
+    <!-- Tabs for filtering and counting review status -->
+    <div class="tabs" id="tabs-container">
+      <button class="tab-btn active" id="tab-all" onclick="switchTab('all')">Tất cả (<span id="count-all">0</span>)</button>
+      <button class="tab-btn" id="tab-valid" onclick="switchTab('valid')">Đúng & Đủ (<span id="count-valid">0</span>)</button>
+      <button class="tab-btn" id="tab-error" onclick="switchTab('error')">Thẻ lỗi / Cần duyệt (<span id="count-error">0</span>)</button>
     </div>
 
     <div class="grid size-normal" id="grid"></div>
@@ -534,6 +589,32 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
 const cards = {json.dumps(data, ensure_ascii=False)};
 const grid = document.getElementById('grid');
 
+// Pre-process cards on load
+cards.forEach(c => {{
+  // Check if saved state exists in localStorage
+  const savedState = localStorage.getItem(`review_${{c.pair_id}}`);
+  if (savedState !== null) {{
+    try {{
+      const stateObj = JSON.parse(savedState);
+      c.needs_review = stateObj.needs_review;
+      c.review_note = stateObj.review_note;
+      if (stateObj.card_no !== undefined) c.card_no = stateObj.card_no;
+      if (stateObj.label !== undefined) c.label = stateObj.label;
+      if (stateObj.qr_url !== undefined) c.qr_url = stateObj.qr_url;
+    }} catch(e) {{}}
+  }} else {{
+    // Auto-detect errors if fields are missing
+    if (!c.card_no || !c.qr_url) {{
+      c.needs_review = true;
+      if (!c.review_note) {{
+        c.review_note = !c.card_no && !c.qr_url 
+          ? "Thiếu Số thẻ và Link QR" 
+          : (!c.card_no ? "Thiếu Số thẻ (OCR thất bại)" : "Thiếu Link QR (Không phát hiện QR)");
+      }}
+    }}
+  }}
+}});
+
 // Build UI
 function initGrid() {{
   grid.innerHTML = '';
@@ -541,6 +622,7 @@ function initGrid() {{
     const item = document.createElement('div');
     item.className = 'card-item';
     item.id = `card-item-${{index}}`;
+    item.setAttribute('data-id', c.pair_id || '');
     item.setAttribute('data-no', c.card_no || '');
     item.setAttribute('data-label', c.label || '');
     item.setAttribute('data-cell', c.cell || '');
@@ -681,8 +763,31 @@ function initGrid() {{
       e.stopPropagation();
       toggleFlip(index);
     }};
-    
     actions.append(flipBtn);
+
+    // Review status action button
+    const reviewBtn = document.createElement('button');
+    reviewBtn.className = 'btn';
+    if (c.needs_review) {{
+      reviewBtn.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
+      reviewBtn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      reviewBtn.style.color = '#a7f3d0';
+      reviewBtn.innerHTML = '✅ Duyệt';
+      reviewBtn.onclick = (e) => {{
+        e.stopPropagation();
+        approveCard(c.pair_id);
+      }};
+    }} else {{
+      reviewBtn.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+      reviewBtn.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+      reviewBtn.style.color = '#fca5a5';
+      reviewBtn.innerHTML = '⚠️ Báo lỗi';
+      reviewBtn.onclick = (e) => {{
+        e.stopPropagation();
+        markCardAsFaulty(c.pair_id);
+      }};
+    }}
+    actions.append(reviewBtn);
     
     item.append(wrapper, meta, actions);
     grid.appendChild(item);
@@ -764,17 +869,47 @@ function filterRow(rowVal) {{
   applyFilter();
 }}
 
+let currentTab = 'all';
+
+function switchTab(tab) {{
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`tab-${{tab}}`).classList.add('active');
+  applyFilter();
+}}
+
+function updateTabCounts() {{
+  const totalCount = cards.length;
+  const errorCount = cards.filter(c => c.needs_review).length;
+  const validCount = totalCount - errorCount;
+  
+  document.getElementById('count-all').textContent = totalCount;
+  document.getElementById('count-valid').textContent = validCount;
+  document.getElementById('count-error').textContent = errorCount;
+}}
+
 function applyFilter() {{
   const query = document.getElementById('search').value.toLowerCase().trim() || '';
   const cardItems = document.querySelectorAll('.card-item');
   
   cardItems.forEach(item => {{
+    const pairId = item.getAttribute('data-id');
+    const cardData = cards.find(c => c.pair_id === pairId);
+    
     const no = item.getAttribute('data-no').toLowerCase();
     const label = item.getAttribute('data-label').toLowerCase();
     const cell = item.getAttribute('data-cell').toLowerCase();
     const row = item.getAttribute('data-row');
     const col = item.getAttribute('data-col');
     const vocab = (item.getAttribute('data-vocab') || '').toLowerCase();
+    
+    // Tab check
+    let matchesTab = true;
+    if (currentTab === 'valid') {{
+      matchesTab = cardData && !cardData.needs_review;
+    }} else if (currentTab === 'error') {{
+      matchesTab = cardData && cardData.needs_review;
+    }}
     
     // Search check
     const matchesSearch = !query || no.includes(query) || label.includes(query) || cell.includes(query) || vocab.includes(query);
@@ -787,7 +922,7 @@ function applyFilter() {{
       matchesLayout = (col === currentFilterVal);
     }}
     
-    if (matchesSearch && matchesLayout) {{
+    if (matchesTab && matchesSearch && matchesLayout) {{
       item.style.display = 'flex';
     }} else {{
       item.style.display = 'none';
@@ -834,6 +969,102 @@ function handleSortChange() {{
 }}
 
 const selectedPairIds = new Set();
+
+function approveCard(pairId) {{
+  const card = cards.find(c => c.pair_id === pairId);
+  if (card) {{
+    card.needs_review = false;
+    card.review_note = '';
+    
+    // Save to localStorage
+    localStorage.setItem(`review_${{pairId}}`, JSON.stringify({{
+      needs_review: false,
+      review_note: '',
+      card_no: card.card_no,
+      label: card.label,
+      qr_url: card.qr_url
+    }}));
+    
+    initGrid();
+    applyFilter();
+    updateTabCounts();
+  }}
+}}
+
+function markCardAsFaulty(pairId) {{
+  const card = cards.find(c => c.pair_id === pairId);
+  if (card) {{
+    const reason = prompt("Nhập lý do lỗi cho thẻ này:", card.review_note || "Có lỗi về thông tin");
+    if (reason === null) return; // Cancelled
+    
+    card.needs_review = true;
+    card.review_note = reason.trim() || "Có lỗi về thông tin";
+    
+    // Save to localStorage
+    localStorage.setItem(`review_${{pairId}}`, JSON.stringify({{
+      needs_review: true,
+      review_note: card.review_note,
+      card_no: card.card_no,
+      label: card.label,
+      qr_url: card.qr_url
+    }}));
+    
+    initGrid();
+    applyFilter();
+    updateTabCounts();
+  }}
+}}
+
+function triggerImportJSON() {{
+  document.getElementById('import-json-file').click();
+}}
+
+function handleImportJSON(event) {{
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = function(e) {{
+    try {{
+      const importedCards = JSON.parse(e.target.result);
+      if (!Array.isArray(importedCards)) {{
+        alert("Lỗi: File JSON phải chứa một danh sách các thẻ!");
+        return;
+      }}
+      
+      let updateCount = 0;
+      importedCards.forEach(imp => {{
+        if (!imp.pair_id) return;
+        const card = cards.find(c => c.pair_id === imp.pair_id);
+        if (card) {{
+          if (imp.card_no !== undefined) card.card_no = imp.card_no;
+          if (imp.label !== undefined) card.label = imp.label;
+          if (imp.qr_url !== undefined) card.qr_url = imp.qr_url;
+          if (imp.needs_review !== undefined) card.needs_review = imp.needs_review;
+          if (imp.review_note !== undefined) card.review_note = imp.review_note;
+          
+          localStorage.setItem(`review_${{card.pair_id}}`, JSON.stringify({{
+            needs_review: card.needs_review,
+            review_note: card.review_note,
+            card_no: card.card_no,
+            label: card.label,
+            qr_url: card.qr_url
+          }}));
+          updateCount++;
+        }}
+      }});
+      
+      initGrid();
+      applyFilter();
+      updateTabCounts();
+      alert(`Đã nhập dữ liệu thành công! Cập nhật ${{updateCount}} thẻ.`);
+    }} catch (err) {{
+      alert("Lỗi khi đọc file JSON: " + err.message);
+    }}
+  }};
+  reader.readAsText(file);
+  event.target.value = '';
+}}
 
 function toggleSelect(pairId, checked) {{
   if (checked) {{
@@ -891,6 +1122,7 @@ document.getElementById('search').addEventListener('input', applyFilter);
 
 // Initialize
 handleSortChange();
+updateTabCounts();
 </script>
 </body>
 </html>
