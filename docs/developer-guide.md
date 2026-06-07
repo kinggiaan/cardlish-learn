@@ -241,6 +241,9 @@ Generates a visual QA image showing each card's front and back side-by-side.
 3. **Nhập/Xuất JSON sửa đổi nhanh**:
    - **Xuất JSON**: Tải xuống file JSON chứa toàn bộ dữ liệu thẻ hiện tại cùng với các cập nhật trạng thái duyệt (`needs_review`, `review_note`).
    - **Nhập JSON**: Bạn có thể sửa trực tiếp thông tin thẻ (như điền số thẻ `card_no` bị thiếu hoặc sửa `label`) trong file JSON và bấm nút **"Nhập JSON"** để tải lên. Hệ thống sẽ cập nhật đè thông tin mới vào danh sách thẻ, lưu trạng thái duyệt và làm mới giao diện ngay lập tức.
+4. **Xóa thẻ và dọn dẹp ảnh mồ côi (Database cleanup)**:
+   - **Xóa trên giao diện**: Mỗi thẻ đều có nút **`🗑️ Xóa`**. Khi bấm, thẻ đó sẽ bị ẩn đi, loại khỏi mảng thẻ hiển thị và được lưu vào danh sách đã xóa (`deleted_pair_ids`) trong `localStorage` (trình duyệt có nút **"Khôi phục thẻ đã xóa"** để undo).
+   - **Đồng bộ về DB**: Khi bạn bấm **"Xuất JSON"**, dữ liệu xuất ra sẽ loại bỏ toàn bộ thẻ đã xóa. Khi lưu đè file JSON này vào `unified_db/data/cards_manifest.json` và chạy lệnh rebuild viewer, Python pipeline sẽ tự động phát hiện và **xóa vĩnh viễn** các file ảnh front/back PNG tương ứng trong `unified_db/cards/` để giữ cơ sở dữ liệu gọn gàng.
 
 ---
 
