@@ -227,6 +227,19 @@ Generates a visual QA image showing each card's front and back side-by-side.
 - **Bản Live (Production):** [https://cardlish-learn.pages.dev/unified_db/viewer/index.html](https://cardlish-learn.pages.dev/unified_db/viewer/index.html)
 - **Bản Thử nghiệm (Dev):** [https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html](https://dev.cardlish-learn.pages.dev/unified_db/viewer/index.html)
 
+### Các tính năng hỗ trợ duyệt thẻ lỗi
+1. **Phân loại thẻ bằng thanh Tab**:
+   - **Tất cả**: Hiển thị toàn bộ thẻ đang có trong cơ sở dữ liệu.
+   - **Đúng & Đủ**: Chỉ hiển thị các thẻ hợp lệ (đã được duyệt hoặc không phát hiện lỗi).
+   - **Thẻ lỗi / Cần duyệt**: Gom tất cả thẻ bị thiếu số thẻ (lỗi OCR), thiếu mã QR, hoặc thẻ có ghi chú lỗi cần xem xét. Có hiển thị badge đếm số lượng lỗi màu đỏ ở đầu tab.
+2. **Xét duyệt trực tiếp trên giao diện**:
+   - **`✅ Duyệt`**: Nhấn vào để xác nhận thẻ đúng/đủ (xóa cảnh báo lỗi và chuyển thẻ sang nhóm hợp lệ).
+   - **`⚠️ Báo lỗi`**: Đánh dấu thẻ bị lỗi và cho phép nhập ghi chú lý do lỗi qua hộp thoại nhanh.
+   - Các thao tác này được lưu tự động trong trình duyệt (`localStorage`) để không bị mất khi F5 tải lại trang.
+3. **Nhập/Xuất JSON sửa đổi nhanh**:
+   - **Xuất JSON**: Tải xuống file JSON chứa toàn bộ dữ liệu thẻ hiện tại cùng với các cập nhật trạng thái duyệt (`needs_review`, `review_note`).
+   - **Nhập JSON**: Bạn có thể sửa trực tiếp thông tin thẻ (như điền số thẻ `card_no` bị thiếu hoặc sửa `label`) trong file JSON và bấm nút **"Nhập JSON"** để tải lên. Hệ thống sẽ cập nhật đè thông tin mới vào danh sách thẻ, lưu trạng thái duyệt và làm mới giao diện ngay lập tức.
+
 ---
 
 ## dist/ web app
