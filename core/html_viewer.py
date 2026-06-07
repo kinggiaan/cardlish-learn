@@ -480,7 +480,10 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
         </select>
       </div>
 
-      <div>
+      <div class="export-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn" onclick="selectAllCards(true)">Chọn tất cả</button>
+        <button class="btn" onclick="selectAllCards(false)">Bỏ chọn</button>
+        <button class="btn btn-action" onclick="exportSelectedJSON()" style="background: var(--success); border-color: var(--success); box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);">Xuất JSON (<span id="select-count">0</span>)</button>
         <button class="btn btn-action" onclick="flipAll()">Lật tất cả</button>
       </div>
     </div>
@@ -561,7 +564,16 @@ function initGrid() {{
     
     const title = document.createElement('h3');
     title.className = 'card-title';
-    title.innerHTML = `${{c.card_no ? '#' + c.card_no : 'Thẻ'}} ${{c.label ? ' - ' + c.label : ''}} <span class="cell-badge">${{c.cell}}</span>`;
+    title.style.display = 'flex';
+    title.style.alignItems = 'center';
+    title.style.gap = '10px';
+    
+    const isChecked = selectedPairIds.has(c.pair_id) ? 'checked' : '';
+    title.innerHTML = `
+      <input type="checkbox" class="card-select" data-id="${{c.pair_id}}" ${{isChecked}} style="width: 18px; height: 18px; cursor: pointer;" onclick="event.stopPropagation();" onchange="toggleSelect('${{c.pair_id}}', this.checked)" />
+      <span>${{c.card_no ? '#' + c.card_no : 'Thẻ'}} ${{c.label ? ' - ' + c.label : ''}}</span>
+      <span class="cell-badge">${{c.cell}}</span>
+    `;
     
     const details = document.createElement('div');
     details.className = 'card-details';
@@ -749,6 +761,60 @@ function handleSortChange() {{
   
   initGrid();
   applyFilter();
+}}
+
+const selectedPairIds = new Set();
+
+function toggleSelect(pairId, checked) {{
+  if (checked) {{
+    selectedPairIds.add(pairId);
+  }} else {{
+    selectedPairIds.delete(pairId);
+  }}
+  updateSelectCount();
+}}
+
+function updateSelectCount() {{
+  document.getElementById('select-count').textContent = selectedPairIds.size;
+}}
+
+function selectAllCards(select) {{
+  const cardItems = document.querySelectorAll('.card-item');
+  cardItems.forEach(item => {{
+    if (item.style.display !== 'none') {{
+      const cb = item.querySelector('.card-select');
+      if (cb) {{
+        const pairId = cb.getAttribute('data-id');
+        cb.checked = select;
+        if (select) {{
+          selectedPairIds.add(pairId);
+        }} else {{
+          selectedPairIds.delete(pairId);
+        }}
+      }}
+    }}
+  }});
+  updateSelectCount();
+}}
+
+function exportSelectedJSON() {{
+  if (selectedPairIds.size === 0) {{
+    alert('Vui lòng chọn ít nhất một thẻ để xuất JSON!');
+    return;
+  }}
+  
+  const selectedCards = cards.filter(c => selectedPairIds.has(c.pair_id));
+  const jsonStr = JSON.stringify(selectedCards, null, 2);
+  
+  const blob = new Blob([jsonStr], {{ type: 'application/json' }});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `cardlish_selected_${{selectedCards.length}}_cards.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }}
 
 document.getElementById('search').addEventListener('input', applyFilter);
