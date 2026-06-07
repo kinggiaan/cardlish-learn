@@ -568,19 +568,19 @@ function initGrid() {{
       
       vocabHtml = `
         <div class="card-vocab" style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 10px; display: flex; flex-direction: column; gap: 10px;">
-          \${{frontWords ? `
+          ${{frontWords ? `
           <div>
             <span style="color: #a5b4fc; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;">Mặt trước (Front)</span>
-            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">\${{frontWords}}</div>
-            \${{frontSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">\${{frontSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">\${{frontSentVi}}</span></div>` : ''}}
+            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">${{frontWords}}</div>
+            ${{frontSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">${{frontSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">${{frontSentVi}}</span></div>` : ''}}
           </div>
           ` : ''}}
           
-          \${{backWords ? `
+          ${{backWords ? `
           <div>
             <span style="color: #ec4899; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;">Mặt sau (Back)</span>
-            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">\${{backWords}}</div>
-            \${{backSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">\${{backSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">\${{backSentVi}}</span></div>` : ''}}
+            <div style="font-size: 0.95rem; color: var(--text-main); font-weight: 500;">${{backWords}}</div>
+            ${{backSentEn ? `<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; line-height: 1.3;">${{backSentEn}}<br><span style="color: rgba(148,163,184,0.7); font-size: 0.78rem;">${{backSentVi}}</span></div>` : ''}}
           </div>
           ` : ''}}
         </div>
