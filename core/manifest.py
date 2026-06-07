@@ -40,6 +40,33 @@ def load_existing_pairs(out_dir: Path) -> List[CardPair]:
         print(f"Warning: Failed to load existing manifest: {e}")
         return []
 
+def cleanup_unreferenced_images(pairs: List[CardPair], out_dir: Path) -> None:
+    """Delete image files in cards/ directory that are no longer referenced in the manifest."""
+    cards_dir = out_dir / "cards"
+    if not cards_dir.exists():
+        return
+        
+    # Collect all active image paths (just the filenames)
+    referenced_files = set()
+    for p in pairs:
+        if p.front_image:
+            referenced_files.add(Path(p.front_image).name)
+        if p.back_image:
+            referenced_files.add(Path(p.back_image).name)
+            
+    # Iterate through files in cards_dir and delete unreferenced PNGs
+    deleted_count = 0
+    for f in cards_dir.glob("*.png"):
+        if f.name not in referenced_files:
+            try:
+                f.unlink()
+                deleted_count += 1
+            except Exception as e:
+                print(f"Warning: Failed to delete unreferenced image {f}: {e}")
+                
+    if deleted_count > 0:
+        print(f"Cleanup: Deleted {deleted_count} unreferenced image crops from {cards_dir}")
+
 def write_manifest(pairs: List[CardPair], out_dir: Path) -> None:
     """Write the card manifest to JSON and CSV files."""
     data_dir = out_dir / "data"
@@ -59,3 +86,6 @@ def write_manifest(pairs: List[CardPair], out_dir: Path) -> None:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+    # Cleanup unreferenced card images
+    cleanup_unreferenced_images(pairs, out_dir)

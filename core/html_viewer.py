@@ -555,6 +555,7 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
         <input type="file" id="import-json-file" accept=".json" style="display: none;" onchange="handleImportJSON(event)" />
         <button class="btn btn-action" onclick="exportSelectedJSON()" style="background: var(--success); border-color: var(--success); box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);">Xuất JSON (<span id="select-count">0</span>)</button>
         <button class="btn btn-action" onclick="flipAll()">Lật tất cả</button>
+        <button class="btn" id="btn-restore-deleted" onclick="restoreDeletedCards()" style="display: none; background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.3); color: #fca5a5;">Khôi phục thẻ đã xóa (<span id="deleted-count-badge">0</span>)</button>
       </div>
     </div>
 
@@ -589,7 +590,12 @@ def make_html_viewer(pairs: List[CardPair], out_dir: Path) -> None:
 const cards = {json.dumps(data, ensure_ascii=False)};
 const grid = document.getElementById('grid');
 
-// Pre-process cards on load
+// Pre-process cards on load (filter out deleted cards first)
+const deletedPairIds = new Set(JSON.parse(localStorage.getItem('deleted_pair_ids') || '[]'));
+const activeCards = cards.filter(c => !deletedPairIds.has(c.pair_id));
+cards.length = 0;
+cards.push(...activeCards);
+
 cards.forEach(c => {{
   // Check if saved state exists in localStorage
   const savedState = localStorage.getItem(`review_${{c.pair_id}}`);
@@ -788,6 +794,19 @@ function initGrid() {{
       }};
     }}
     actions.append(reviewBtn);
+
+    // Delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn';
+    deleteBtn.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+    deleteBtn.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+    deleteBtn.style.color = '#fca5a5';
+    deleteBtn.innerHTML = '🗑️ Xóa';
+    deleteBtn.onclick = (e) => {{
+      e.stopPropagation();
+      deleteCard(c.pair_id);
+    }};
+    actions.append(deleteBtn);
     
     item.append(wrapper, meta, actions);
     grid.appendChild(item);
@@ -1120,9 +1139,50 @@ function exportSelectedJSON() {{
 
 document.getElementById('search').addEventListener('input', applyFilter);
 
+function deleteCard(pairId) {{
+  if (!confirm("Bạn có chắc chắn muốn xóa thẻ này khỏi giao diện và dữ liệu xuất không?")) return;
+  
+  const deletedIds = JSON.parse(localStorage.getItem('deleted_pair_ids') || '[]');
+  if (!deletedIds.includes(pairId)) {{
+    deletedIds.push(pairId);
+    localStorage.setItem('deleted_pair_ids', JSON.stringify(deletedIds));
+  }}
+  
+  const idx = cards.findIndex(c => c.pair_id === pairId);
+  if (idx !== -1) {{
+    cards.splice(idx, 1);
+  }}
+  
+  initGrid();
+  applyFilter();
+  updateTabCounts();
+  updateDeletedBadge();
+}}
+
+function restoreDeletedCards() {{
+  if (!confirm("Bạn có chắc chắn muốn khôi phục lại các thẻ đã xóa?")) return;
+  localStorage.removeItem('deleted_pair_ids');
+  location.reload();
+}}
+
+function updateDeletedBadge() {{
+  const deletedIds = JSON.parse(localStorage.getItem('deleted_pair_ids') || '[]');
+  const btn = document.getElementById('btn-restore-deleted');
+  const badge = document.getElementById('deleted-count-badge');
+  if (btn && badge) {{
+    if (deletedIds.length > 0) {{
+      btn.style.display = 'inline-flex';
+      badge.textContent = deletedIds.length;
+    }} else {{
+      btn.style.display = 'none';
+    }}
+  }}
+}}
+
 // Initialize
 handleSortChange();
 updateTabCounts();
+updateDeletedBadge();
 </script>
 </body>
 </html>
