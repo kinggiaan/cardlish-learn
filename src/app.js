@@ -43,6 +43,9 @@ const lessonState = {
 let vocabAudioMap = null; // { words: { word: path }, sentences: { text: path } }
 let sharedAudio = null;   // Single shared Audio element (TV only allows one)
 
+// ── TV Browser Detection ────────────────────────────────────
+const IS_TV_BROWSER = /SmartTV|Tizen|WebOS|webOS|BRAVIA|NetCast|HbbTV/i.test(navigator.userAgent);
+
 // ── Throttle Lock ───────────────────────────────────────────
 let actionLocked = false;
 
@@ -208,12 +211,16 @@ async function loadCards() {
   }
 
   // Restore saved position
-  const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
-  if (saved !== null) {
-    const idx = parseInt(saved, 10);
-    if (!isNaN(idx) && idx >= 0 && idx < state.cards.length) {
-      state.currentIndex = idx;
+  try {
+    const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
+    if (saved !== null) {
+      const idx = parseInt(saved, 10);
+      if (!isNaN(idx) && idx >= 0 && idx < state.cards.length) {
+        state.currentIndex = idx;
+      }
     }
+  } catch (e) {
+    // localStorage may be unavailable on some TV browsers
   }
 }
 
@@ -432,6 +439,9 @@ function stopAudio() {
   if (sharedAudio) {
     sharedAudio.pause();
     sharedAudio.currentTime = 0;
+    // Release audio buffer to free TV memory
+    sharedAudio.removeAttribute('src');
+    sharedAudio.load();
   }
   state.audioPlaying = false;
   if (dom.playAudio) dom.playAudio.classList.remove('audio-playing');
@@ -827,6 +837,9 @@ function setupKeyboardNavigation() {
 
 // ── Swipe Gestures ──────────────────────────────────────────
 function setupSwipeGestures() {
+  // Skip touch event setup on devices without touch support (TV remotes don't have touch)
+  if (!('ontouchstart' in window)) return;
+
   let touchStartX = 0;
   let touchStartY = 0;
   let touchStartTime = 0;
@@ -1096,9 +1109,13 @@ function buildGalleryGrid() {
     return;
   }
 
+  // Pre-build index map to avoid O(n²) indexOf lookups
+  const cardIndexMap = new Map();
+  state.cards.forEach((c, i) => cardIndexMap.set(c, i));
+
   let html = '';
   cards.forEach((card) => {
-    const realIndex = state.cards.indexOf(card);
+    const realIndex = cardIndexMap.get(card) ?? -1;
     const imgSrc = CONFIG.CARDS_BASE_PATH + card.front_image;
     const cardNo = card.card_no || `#${realIndex + 1}`;
     const colorHex = card.color && card.color.hex ? card.color.hex : '#cccccc';
@@ -1387,7 +1404,8 @@ function speakSentence(text) {
     return;
   }
 
-  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only)
+  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only — skip on TV)
+  if (IS_TV_BROWSER) return;
   try {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       if (window.speechSynthesis.speaking) {
@@ -1422,7 +1440,8 @@ function speakWord(word) {
     return;
   }
 
-  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only)
+  // Strategy 2: Fallback to speechSynthesis (desktop/mobile only — skip on TV)
+  if (IS_TV_BROWSER) return;
   try {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
       if (window.speechSynthesis.speaking) {
@@ -1779,23 +1798,30 @@ function preloadLessonAudio(cardIndices) {
       resolve();
     }, 8000);
 
-    uniqueSources.forEach(src => {
-      if (audioPreloadedSet.has(src)) {
-        loaded++;
-        if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        return;
-      }
+    // TV-safe: limit concurrent fetches to prevent memory spikes and UI freezing
+    const CONCURRENCY = 3;
+    const sources = uniqueSources.filter(src => {
+      if (audioPreloadedSet.has(src)) { loaded++; return false; }
       audioPreloadedSet.add(src);
-      fetch(src)
-        .then(() => {
-          loaded++;
-          if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        })
-        .catch(() => {
-          loaded++;
-          if (loaded >= total) { clearTimeout(timeout); resolve(); }
-        });
+      return true;
     });
+
+    if (loaded >= total) { clearTimeout(timeout); resolve(); return; }
+
+    let nextIdx = 0;
+    function onComplete() {
+      loaded++;
+      if (loaded >= total) { clearTimeout(timeout); resolve(); return; }
+      launchNext();
+    }
+    function launchNext() {
+      if (nextIdx >= sources.length) return;
+      const src = sources[nextIdx++];
+      fetch(src).then(onComplete).catch(onComplete);
+    }
+    for (let i = 0; i < Math.min(CONCURRENCY, sources.length); i++) {
+      launchNext();
+    }
   });
 }
 

@@ -70,7 +70,9 @@ def build_pairs(
     by_page_cell = {(c.page_index, c.cell): c for c in crops}
     pages = sorted({c.page_index for c in crops})
     if len(pages) % 2 != 0:
-        raise ValueError("Expected an even number of pages: each two pages form one front/back batch.")
+        print(f"  ⚠️  Warning: Odd number of pages ({len(pages)}). Each pair needs front + back (2 pages).")
+        print(f"     This PDF may be incomplete (e.g. only one side was scanned). Skipping pairing.")
+        return list(existing_pairs or []), []
 
     new_pairs: List[CardPair] = []
     pair_batch_no = 0

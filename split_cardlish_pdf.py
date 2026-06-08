@@ -12,6 +12,7 @@ Usage:
 """
 
 import argparse
+import shutil
 from pathlib import Path
 import sys
 
@@ -26,6 +27,7 @@ from core.pairing import build_pairs
 from core.manifest import write_manifest, load_existing_pairs
 from core.contact_sheet import make_review_contact_sheet
 from core.dist_sync import sync_to_dist
+from core.html_viewer import make_html_viewer
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Split Cardlish PDF scans into paired card images with OCR ID tagging.")
@@ -63,9 +65,19 @@ def main() -> None:
     print(f"Step 6: Generating review contact sheet for current scan (review_contact_sheet_{pdf_name}.png)...")
     make_review_contact_sheet(new_pairs, args.out, pdf_name)
 
-    print("Step 7: Syncing cards and manifest to dist/ app...")
-    dist_dir = args.pdf.parent / "dist"
+    print("Step 7: Syncing cards and manifest to dist/ and public/ data (source of truth)...")
+    # Always resolve dist/ relative to the project root (script location),
+    # not relative to the PDF file which may be in a subfolder like "Card scan/".
+    project_root = Path(__file__).resolve().parent
+    dist_dir = project_root / "dist"
     sync_to_dist(final_pairs, args.out, dist_dir)
+    
+    # Copy generated cards.json back to public/data/cards.json as source of truth
+    shutil.copy2(dist_dir / "data" / "cards.json", project_root / "public" / "data" / "cards.json")
+    print("  Copied dist/data/cards.json -> public/data/cards.json (source of truth).")
+
+    print("Step 8: Regenerating HTML viewer...")
+    make_html_viewer(final_pairs, args.out)
 
     new_review_count = sum(1 for p in new_pairs if p.needs_review)
     new_ocr_count = sum(1 for p in new_pairs if p.card_no)

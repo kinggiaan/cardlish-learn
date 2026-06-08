@@ -30,6 +30,10 @@ test_output/
 # Review artifacts
 review_contact_sheet*.png
 unified_db/review_contact_sheet_*.png
+unified_db/scan*_detected.png
+unified_db/scan*_mask.png
+unified_db/scan*_gap_grid.png
+unified_db/approach*
 
 # OS
 .DS_Store

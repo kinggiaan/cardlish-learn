@@ -3,8 +3,7 @@
    Premium flashcard UI for elementary school students
    ============================================================ */
 
-/* ── Google Font ─────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+/* ── Google Font (loaded via <link> in HTML — no @import to avoid render blocking) ── */
 
 /* ── CSS Custom Properties ───────────────────────────────── */
 :root {
@@ -78,6 +77,7 @@ body {
   color: var(--text-primary);
   background: var(--bg-gradient);
   background-attachment: fixed;
+  min-height: 100vh; /* fallback for older TV browsers */
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -218,6 +218,9 @@ button {
   perspective: 2000px;
   width: 100%;
   max-width: 600px;
+  /* Fallback for older TV browsers that don't support aspect-ratio */
+  height: 0;
+  padding-top: 133.33%; /* 4/3 ratio fallback */
   aspect-ratio: 3 / 4;
   max-height: 65vh;
   cursor: pointer;
@@ -227,9 +230,13 @@ button {
 .card-flipper {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  will-change: transform;
 }
 
 .card-container.flipped .card-flipper {
@@ -536,6 +543,11 @@ button {
 .loading-overlay.hidden {
   opacity: 0;
   pointer-events: none;
+  animation: none; /* Stop spinner animation when hidden to save GPU */
+}
+
+.loading-overlay.hidden .loading-spinner {
+  animation: none;
 }
 
 .loading-spinner {
@@ -752,6 +764,33 @@ button {
   :root {
     --header-height: 72px;
   }
+
+  .vocab-side {
+    width: 280px;
+  }
+
+  .study-layout {
+    max-width: 1300px;
+    gap: 32px;
+  }
+
+  .vocab-word-btn {
+    padding: 14px 24px;
+    gap: 10px;
+    font-size: 28px;
+  }
+
+  .vocab-word-text {
+    font-size: 32px;
+  }
+
+  .vocab-word-ipa {
+    font-size: 24px;
+  }
+
+  .vocab-word-speaker {
+    font-size: 24px;
+  }
 }
 
 /* ============================================================
@@ -769,8 +808,9 @@ button {
 }
 
 .card-container-wrapper {
-  flex: 1;
-  max-width: 600px;
+  flex: 1 1 auto;
+  max-width: 700px;
+  min-width: 0;
   display: flex;
   justify-content: center;
 }
@@ -780,7 +820,8 @@ button {
   flex-direction: column;
   gap: 16px;
   width: 200px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 120px;
   transition: all var(--transition-normal);
 }
 
@@ -917,14 +958,14 @@ button {
 .vocab-word-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 10px;
+  padding: 12px 20px;
   background: var(--card-bg);
   border: 2px solid rgba(124, 140, 240, 0.15);
   border-radius: var(--border-radius-md);
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 24px;
   color: var(--text-primary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   transition: all var(--transition-fast);
@@ -942,17 +983,16 @@ button {
 }
 
 .vocab-word-text {
-  font-size: 18px;
+  font-size: 27px;
+  font-weight: 800;
 }
 
 .vocab-word-ipa {
-  font-size: 13px;
-  color: var(--text-secondary);
-  font-weight: 600;
+  display: none;
 }
 
 .vocab-word-speaker {
-  font-size: 15px;
+  font-size: 22px;
   color: var(--accent-purple-text);
   line-height: 1;
 }
@@ -1022,16 +1062,21 @@ button {
   }
 
   .vocab-word-btn {
-    padding: 8px 14px;
-    font-size: 14px;
+    padding: 10px 16px;
+    font-size: 21px;
   }
 
   .vocab-word-text {
-    font-size: 15px;
+    font-size: 22px;
+    font-weight: 800;
   }
 
   .vocab-word-ipa {
-    font-size: 11px;
+    font-size: 16px;
+  }
+
+  .vocab-word-speaker {
+    font-size: 22px;
   }
   
   .card-info {
@@ -2139,6 +2184,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   min-height: 100dvh;
   padding: 32px;
   background: var(--bg-gradient);
@@ -2460,6 +2506,31 @@ button {
     contain: content;
   }
 
+  /* Disable remaining backdrop-filters for TV GPU performance */
+  .gallery-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .vocab-edit-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(30, 41, 59, 0.85);
+  }
+
+  .gallery-summary {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Replace box-shadow animation with transform (GPU-composited) */
+  .audio-speaker-btn.audio-playing {
+    animation: none;
+    transform: scale(1.05);
+    border-color: var(--accent-green);
+    background: var(--accent-green-light);
+  }
+
   .home-title {
     font-size: 44px;
   }
@@ -2564,6 +2635,7 @@ button {
 .study-screen {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   min-height: 100dvh;
 }
 

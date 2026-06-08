@@ -47,60 +47,86 @@ pip install -r requirements.txt
 
 ### 2. Xử lý file PDF scan
 
-Đặt file PDF scan vào thư mục gốc, rồi chạy:
+Đặt các file PDF scan vào thư mục `Card scan/`, rồi chạy batch:
 
 ```bash
-python split_cardlish_pdf.py scan0001.pdf --out unified_db --dpi 200
+# Xử lý tất cả scan mới (tự bỏ qua scan đã xử lý)
+python batch_split.py
+
+# Xử lý lại toàn bộ từ đầu
+python batch_split.py --force
+
+# Tùy chỉnh DPI
+python batch_split.py --dpi 300
 ```
 
-**Tham số:**
+Hoặc xử lý từng file riêng lẻ:
+
+```bash
+python split_cardlish_pdf.py "Card scan/scan0001.pdf" --out unified_db --dpi 200
+```
+
+**Tham số batch_split.py:**
 
 | Tham số | Mô tả | Mặc định |
 |---------|--------|----------|
-| `pdf` | Đường dẫn file PDF scan | *(bắt buộc)* |
-| `--out` | Thư mục lưu database ảnh | `cardlish_output` |
+| `--scan-dir` | Thư mục chứa file PDF scan | `Card scan` |
+| `--out` | Thư mục lưu database ảnh | `unified_db` |
 | `--dpi` | Độ phân giải render PDF | `200` |
+| `--force` | Xử lý lại toàn bộ | `false` |
 
-### 3. Build & xem trên trình duyệt
+### 3. Build & Deploy
 
 ```bash
-# Build dist/
-python scripts/build_deploy.py --output dist
+# Validate source files (check nothing is missing)
+python scripts/build_deploy.py --validate
 
-# Khởi động web server
-python -m http.server 8000 -d dist
+# Build dist/ for production
+python scripts/build_deploy.py -o dist
+
+# Build + auto-deploy to Cloudflare Pages
+python scripts/build_deploy.py --deploy
 ```
 
-Mở trình duyệt: **http://localhost:8000**
+Mở trên trình duyệt local: `python -m http.server 8000 -d dist` → **http://localhost:8000**
 
----
+#### Build script features:
 
-## 📖 Hướng dẫn sử dụng
+| Feature | Mô tả |
+|---------|--------|
+| **Pre-build validation** | Kiểm tra source files, audio subdirectories, cards.json format |
+| **Post-build validation** | Xác nhận dist/ có đầy đủ audio/vocab/, audio/sentences/, đúng cards.json |
+| **Auto cache-bust** | Tự tạo hash từ file content → `styles.css?v=d1a36a2b` |
+| **Audio breakdown** | Hiển thị số lượng card/vocab/sentence audio riêng biệt |
+| **Guard rails** | Chặn build nếu cards.json sai format (audio.status='pending') |
 
-### Xử lý nhiều file PDF
+#### Deploy lên Cloudflare Pages
 
-Chạy lần lượt từng file — database tự động gộp:
+> ⚠️ **QUAN TRỌNG: Có 2 cấu trúc deploy khác nhau, KHÔNG được nhầm lẫn!**
 
-```bash
-python split_cardlish_pdf.py scan0001.pdf --out unified_db --dpi 200
-python split_cardlish_pdf.py scan0002.pdf --out unified_db --dpi 200
-```
-
-### Validate assets trước deploy
-
-```bash
-python scripts/validate_assets.py --manifest public/data/cards.json --cards-dir unified_db/cards --audio-dir public/audio
-```
-
-### Deploy lên Cloudflare Pages
+**Cách 1: Deploy `dist/` (production)**
 
 ```bash
-# Build
-python scripts/build_deploy.py --output dist
-
-# Deploy (cần Wrangler CLI)
+python scripts/build_deploy.py -o dist
 npx wrangler pages deploy dist --project-name cardlish-learn
 ```
+
+URL: `https://cardlish-learn.pages.dev/`
+
+**Cách 2: Deploy `.deploy/` (branch dev)**
+
+```bash
+Copy-Item -Path src/* -Destination .deploy/src/ -Force
+Copy-Item -Path public/data/* -Destination .deploy/public/data/ -Force
+npx wrangler pages deploy .deploy --project-name cardlish-learn --branch dev
+```
+
+URL: `https://dev.cardlish-learn.pages.dev/src/`
+
+> ⚠️ **Cạm bẫy đã gặp:**
+> - Deploy `dist/` lên branch `dev` → URL `/src/` trỏ file cũ → **mất data mới**
+> - Copy `unified_db/data/cards_manifest.json` vào `dist/data/cards.json` → **audio bị pending → im lặng hoàn toàn**
+> - Build script chỉ dùng `public/data/cards.json` (source of truth, `audio.status='downloaded'`)
 
 ---
 
