@@ -61,7 +61,7 @@ The app runs on Smart TVs (Tizen/WebOS). Key constraints:
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **cardlish_split_mvp** (351 symbols, 839 relationships, 27 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **cardlish_split_mvp** (352 symbols, 839 relationships, 27 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
