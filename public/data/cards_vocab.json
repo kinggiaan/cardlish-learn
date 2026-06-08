@@ -1745,7 +1745,7 @@
     "back": [
       {
         "word": "chewing gum",
-        "ipa": "/Chewing Gun/"
+        "ipa": "/ˈtʃuː.ɪŋ ɡʌm/"
       },
       {
         "word": "gum",
@@ -1878,10 +1878,6 @@
       {
         "word": "ginger",
         "ipa": "/dʒɪndʒər/"
-      },
-      {
-        "word": "chugkhiviettruocchu",
-        "ipa": "/e,ihoacyphatamla/"
       }
     ],
     "back": [
@@ -2107,7 +2103,7 @@
       },
       {
         "word": "cinema",
-        "ipa": "/jeweuis,/"
+        "ipa": "/ˈsɪn.ə.mə/"
       }
     ],
     "back": [
@@ -2235,7 +2231,7 @@
       },
       {
         "word": "watch",
-        "ipa": "/:DM/"
+        "ipa": "/wɑːtʃ/"
       },
       {
         "word": "wig",
@@ -2309,7 +2305,7 @@
     "front": [
       {
         "word": "zigzag",
-        "ipa": "/beezbiz./"
+        "ipa": "/ˈzɪɡ.zæɡ/"
       },
       {
         "word": "zebra",
@@ -2386,6 +2382,278 @@
       {
         "en": "A wise <b>owl</b> sits next to a shiny brass <b>bell</b>.",
         "vi": "Một chú cú khôn ngoan ngồi cạnh một chiếc chuông đồng sáng bóng."
+      }
+    ]
+  },
+  "221_card": {
+    "front": [
+      {
+        "word": "cat",
+        "ipa": "/kæt/"
+      },
+      {
+        "word": "corn",
+        "ipa": "/kɔːrn/"
+      }
+    ],
+    "back": [
+      {
+        "word": "card",
+        "ipa": "/kɑːrd/"
+      },
+      {
+        "word": "cube",
+        "ipa": "/kjuːb/"
+      },
+      {
+        "word": "cow",
+        "ipa": "/kaʊ/"
+      },
+      {
+        "word": "cane",
+        "ipa": "/keɪn/"
+      },
+      {
+        "word": "car",
+        "ipa": "/kɑːr/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "The <b>cat</b> is eating sweet <b>corn</b>.",
+        "vi": "Chú mèo đang ăn ngô ngọt."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "The <b>cow</b> stood next to a red <b>car</b>.",
+        "vi": "Con bò đứng cạnh một chiếc xe hơi màu đỏ."
+      }
+    ]
+  },
+  "222_card": {
+    "front": [
+      {
+        "word": "lamp",
+        "ipa": "/læmp/"
+      },
+      {
+        "word": "lip",
+        "ipa": "/lɪp/"
+      }
+    ],
+    "back": [
+      {
+        "word": "lion",
+        "ipa": "/ˈlaɪ.ən/"
+      },
+      {
+        "word": "leg",
+        "ipa": "/leɡ/"
+      },
+      {
+        "word": "leaf",
+        "ipa": "/liːf/"
+      },
+      {
+        "word": "ladder",
+        "ipa": "/ˈlæd.ər/"
+      },
+      {
+        "word": "bullet",
+        "ipa": "/ˈbʊl.ɪt/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "The <b>lamp</b> shines on her pink <b>lip</b>.",
+        "vi": "Chiếc đèn chiếu sáng lên đôi môi hồng của cô ấy."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "A brave <b>lion</b> stands near a green <b>leaf</b>.",
+        "vi": "Một chú sư tử dũng cảm đứng gần một chiếc lá xanh."
+      }
+    ]
+  },
+  "223_card": {
+    "front": [
+      {
+        "word": "maid",
+        "ipa": "/meɪd/"
+      },
+      {
+        "word": "map",
+        "ipa": "/mæp/"
+      }
+    ],
+    "back": [
+      {
+        "word": "monkey",
+        "ipa": "/ˈmʌŋ.ki/"
+      },
+      {
+        "word": "mail",
+        "ipa": "/meɪl/"
+      },
+      {
+        "word": "mirror",
+        "ipa": "/ˈmɪr.ər/"
+      },
+      {
+        "word": "mouth",
+        "ipa": "/maʊθ/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "The <b>maid</b> is looking at the treasure <b>map</b>.",
+        "vi": "Người giúp việc đang nhìn vào bản đồ kho báu."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "A <b>monkey</b> opens its <b>mouth</b> in front of a <b>mirror</b>.",
+        "vi": "Một chú khỉ há miệng trước gương."
+      }
+    ]
+  },
+  "224_card": {
+    "front": [
+      {
+        "word": "net",
+        "ipa": "/net/"
+      },
+      {
+        "word": "nest",
+        "ipa": "/nest/"
+      }
+    ],
+    "back": [
+      {
+        "word": "nose",
+        "ipa": "/noʊz/"
+      },
+      {
+        "word": "nurse",
+        "ipa": "/nɜːrs/"
+      },
+      {
+        "word": "peanut",
+        "ipa": "/ˈpiː.nʌt/"
+      },
+      {
+        "word": "nail",
+        "ipa": "/neɪl/"
+      },
+      {
+        "word": "needle",
+        "ipa": "/ˈniː.dəl/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "Use a <b>net</b> to catch the bird near its <b>nest</b>.",
+        "vi": "Dùng lưới để bắt con chim gần tổ của nó."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "The <b>nurse</b> has a small <b>needle</b> and a <b>peanut</b>.",
+        "vi": "Y tá có một chiếc kim nhỏ và một hạt đậu phộng."
+      }
+    ]
+  },
+  "225_kn": {
+    "front": [
+      {
+        "word": "knight",
+        "ipa": "/naɪt/"
+      },
+      {
+        "word": "knot",
+        "ipa": "/nɑːt/"
+      }
+    ],
+    "back": [
+      {
+        "word": "knee",
+        "ipa": "/niː/"
+      },
+      {
+        "word": "knell",
+        "ipa": "/nel/"
+      },
+      {
+        "word": "knob",
+        "ipa": "/nɑːb/"
+      },
+      {
+        "word": "knit",
+        "ipa": "/nɪt/"
+      },
+      {
+        "word": "knife",
+        "ipa": "/naɪf/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "The brave <b>knight</b> tied a strong <b>knot</b>.",
+        "vi": "Hiệp sĩ dũng cảm đã thắt một nút thắt chặt."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "He cut the <b>knob</b> with a sharp <b>knife</b>.",
+        "vi": "Anh ấy đã cắt tay nắm cửa bằng một con dao sắc."
+      }
+    ]
+  },
+  "226_p": {
+    "front": [
+      {
+        "word": "pen",
+        "ipa": "/pen/"
+      },
+      {
+        "word": "page",
+        "ipa": "/peɪdʒ/"
+      }
+    ],
+    "back": [
+      {
+        "word": "pumpkin",
+        "ipa": "/ˈpʌmp.kɪn/"
+      },
+      {
+        "word": "paw",
+        "ipa": "/pɔː/"
+      },
+      {
+        "word": "potato",
+        "ipa": "/pəˈteɪ.toʊ/"
+      },
+      {
+        "word": "pail",
+        "ipa": "/peɪl/"
+      },
+      {
+        "word": "pan",
+        "ipa": "/pæn/"
+      }
+    ],
+    "front_sentences": [
+      {
+        "en": "Use a <b>pen</b> to write on this white <b>page</b>.",
+        "vi": "Dùng bút mực để viết lên trang giấy trắng này."
+      }
+    ],
+    "back_sentences": [
+      {
+        "en": "Put the <b>potato</b> and the <b>pumpkin</b> in a metal <b>pan</b>.",
+        "vi": "Đặt khoai tây và bí ngô vào một chiếc chảo kim loại."
       }
     ]
   }
