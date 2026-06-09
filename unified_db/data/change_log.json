@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-06-08T16:39:13.093158",
+    "action": "override",
+    "pair_id": "batch030_B1",
+    "source": "apply_review_patch.py",
+    "changes": {
+      "card_no": [
+        null,
+        "015"
+      ],
+      "label": [
+        null,
+        "short-e"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-06-08T16:39:13.093158",
+    "action": "override",
+    "pair_id": "batch030_B1",
+    "source": "apply_review_patch.py",
+    "changes": {
+      "manual_locked": [
+        null,
+        true
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-06-08T16:39:40.861236",
+    "action": "override",
+    "pair_id": "batch030_B1",
+    "source": "apply_review_patch.py",
+    "changes": {
+      "manual_locked": [
+        true,
+        false
+      ]
+    }
+  }
+]

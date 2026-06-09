@@ -28,6 +28,18 @@ def sync_to_dist(pairs: List[CardPair], unified_dir: Path, dist_dir: Path) -> No
         print(f"  Warning: dist/ directory not found at {dist_dir}. Skipping sync.")
         return
 
+    # ── 0. Load review overrides ─────────────────────────────────
+    overrides = {}
+    overrides_path = unified_dir / "data" / "review_overrides.json"
+    if overrides_path.exists():
+        try:
+            overrides_data = json.loads(overrides_path.read_text(encoding="utf-8"))
+            overrides = overrides_data.get("overrides", {})
+            if overrides:
+                print(f"  Loaded {len(overrides)} review override(s)")
+        except Exception as e:
+            print(f"  Warning: Could not load review overrides: {e}")
+
     # ── 1. Sync card images ──────────────────────────────────────
     src_cards = unified_dir / "cards"
     dst_cards = dist_dir / "cards"
@@ -63,6 +75,12 @@ def sync_to_dist(pairs: List[CardPair], unified_dir: Path, dist_dir: Path) -> No
         pair_dict = asdict(pair)
         pair_id = pair_dict["pair_id"]
 
+        # Apply review overrides on top of pipeline values
+        if pair_id in overrides:
+            for key, value in overrides[pair_id].items():
+                if key in pair_dict:
+                    pair_dict[key] = value
+
         if pair_id in existing_dist:
             # Start from the existing rich record, then overlay pipeline fields
             record = existing_dist[pair_id].copy()
@@ -73,8 +91,16 @@ def sync_to_dist(pairs: List[CardPair], unified_dir: Path, dist_dir: Path) -> No
                 "front_page", "back_page",
                 "front_bbox_xyxy", "back_bbox_xyxy",
                 "needs_review", "review_note", "created_at",
+                # Phase-1 fields
+                "card_id", "front_cell", "back_cell",
+                "manual_locked", "source_pdf",
             ):
-                record[key] = pair_dict[key]
+                if key in pair_dict:
+                    record[key] = pair_dict[key]
+            # Apply overrides again on top (overrides win over everything)
+            if pair_id in overrides:
+                for key, value in overrides[pair_id].items():
+                    record[key] = value
         else:
             # New card — create a minimal record
             record = pair_dict.copy()
@@ -102,3 +128,4 @@ def sync_to_dist(pairs: List[CardPair], unified_dir: Path, dist_dir: Path) -> No
         json.dump(merged, f, ensure_ascii=False, indent=2)
 
     print(f"  Updated dist/data/cards.json with {len(merged)} cards.")
+

@@ -160,6 +160,12 @@ def validate_source(src_dir: Path, cards_dir: Path, audio_dir: Path, data_dir: P
             except (json.JSONDecodeError, KeyError) as e:
                 warnings.append(f"Could not validate {fpath}: {e}")
 
+    # 5. Cross-validate card references against actual files
+    asset_errors = validate_manifest_assets(data_dir / "cards.json", cards_dir, audio_dir)
+    if asset_errors:
+        for ae in asset_errors:
+            warnings.append(ae)
+
     # Print results
     if warnings:
         print(f"\n[!] WARNINGS ({len(warnings)}):") 
@@ -172,6 +178,79 @@ def validate_source(src_dir: Path, cards_dir: Path, audio_dir: Path, data_dir: P
             print(f"   [X] {e}")
 
     return errors
+
+
+def validate_manifest_assets(cards_json_path: Path, cards_dir: Path, audio_dir: Path) -> list[str]:
+    """Cross-validate every image/audio reference in cards.json against actual files on disk.
+    
+    Returns list of warning messages for missing assets.
+    """
+    if not cards_json_path.exists():
+        return []
+    
+    try:
+        cards = json.loads(cards_json_path.read_text(encoding="utf-8"))
+    except Exception:
+        return ["Could not parse cards.json for asset validation"]
+    
+    if not isinstance(cards, list):
+        return []
+    
+    warnings = []
+    missing_front = 0
+    missing_back = 0
+    missing_audio = 0
+    batch_cards = 0
+    
+    for card in cards:
+        pid = card.get("pair_id", "?")
+        
+        # Check for batch cards (OCR failures)
+        if pid.startswith("batch"):
+            batch_cards += 1
+        
+        # Check front image
+        front = card.get("front_image", "")
+        if front:
+            front_path = cards_dir / Path(front).name
+            if not front_path.exists():
+                missing_front += 1
+        
+        # Check back image
+        back = card.get("back_image", "")
+        if back:
+            back_path = cards_dir / Path(back).name
+            if not back_path.exists():
+                missing_back += 1
+        
+        # Check audio
+        audio = card.get("audio", {})
+        if audio.get("status") == "downloaded" and audio.get("local_path"):
+            audio_file = audio_dir / Path(audio["local_path"]).name
+            if not audio_file.exists():
+                missing_audio += 1
+    
+    if missing_front > 0:
+        warnings.append(f"{missing_front} card(s) have missing front_image files")
+    if missing_back > 0:
+        warnings.append(f"{missing_back} card(s) have missing back_image files")
+    if missing_audio > 0:
+        warnings.append(f"{missing_audio} card(s) have audio.status=downloaded but file missing")
+    if batch_cards > 10:
+        warnings.append(f"{batch_cards} batch card(s) detected (OCR failures) — consider reviewing")
+    
+    # Check for duplicate pair_ids
+    pair_ids = [c.get("pair_id", "") for c in cards]
+    seen = set()
+    dupes = set()
+    for pid in pair_ids:
+        if pid in seen:
+            dupes.add(pid)
+        seen.add(pid)
+    if dupes:
+        warnings.append(f"Duplicate pair_ids found: {', '.join(sorted(dupes))}")
+    
+    return warnings
 
 
 def validate_dist(dist_dir: Path) -> list[str]:

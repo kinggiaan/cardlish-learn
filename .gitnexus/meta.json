@@ -1,13 +1,13 @@
 {
   "repoPath": "D:\\37\\cardlish_split_mvp",
-  "lastCommit": "d93f0598efcb91b1dea84bbca297087fe8fc97c0",
-  "indexedAt": "2026-06-08T06:15:07.366Z",
+  "lastCommit": "3ab5325f7ea1a09c6ad374393dadb0a3ded6adb5",
+  "indexedAt": "2026-06-09T02:53:15.378Z",
   "stats": {
-    "files": 58,
-    "nodes": 352,
-    "edges": 839,
-    "communities": 30,
-    "processes": 27,
-    "embeddings": 229
+    "files": 65,
+    "nodes": 439,
+    "edges": 1072,
+    "communities": 40,
+    "processes": 34,
+    "embeddings": 296
   }
 }

@@ -15,10 +15,11 @@ def load_existing_pairs(out_dir: Path) -> List[CardPair]:
             data = json.load(f)
         pairs = []
         for d in data:
+            cell_val = d.get("cell", "")
             pairs.append(
                 CardPair(
                     pair_id=d["pair_id"],
-                    cell=d["cell"],
+                    cell=cell_val,
                     row=d["row"],
                     col=d["col"],
                     card_no=d["card_no"],
@@ -33,6 +34,12 @@ def load_existing_pairs(out_dir: Path) -> List[CardPair]:
                     needs_review=d["needs_review"],
                     review_note=d.get("review_note", ""),
                     created_at=d.get("created_at", "04/06/2026"),
+                    # Phase-1 fields (auto-fill for old manifests)
+                    card_id=d.get("card_id", f"legacy_{d['pair_id']}"),
+                    front_cell=d.get("front_cell", cell_val),
+                    back_cell=d.get("back_cell", cell_val),
+                    manual_locked=d.get("manual_locked", False),
+                    source_pdf=d.get("source_pdf", ""),
                 )
             )
         return pairs

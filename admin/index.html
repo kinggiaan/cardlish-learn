@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardlish Review Editor</title>
+    <meta name="description" content="Admin tool for reviewing and correcting Cardlish flashcard data">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="app-header">
+        <div class="header-left">
+            <h1>✦ Cardlish <span class="accent">Review Editor</span></h1>
+        </div>
+        <div class="header-stats" id="stats-bar">
+            <span class="stat" id="stat-total" title="Total cards">📋 <strong>0</strong></span>
+            <span class="stat stat-error" id="stat-review" title="Needs review">🔴 <strong>0</strong></span>
+            <span class="stat stat-batch" id="stat-batch" title="OCR failures">🟡 <strong>0</strong></span>
+            <span class="stat stat-locked" id="stat-locked" title="Locked">🔒 <strong>0</strong></span>
+            <span class="stat stat-changes" id="stat-changes" title="Pending changes">✏️ <strong>0</strong></span>
+        </div>
+        <div class="header-actions">
+            <button id="btn-import" class="btn btn-secondary" title="Import overrides JSON">
+                📥 Import
+            </button>
+            <button id="btn-export" class="btn btn-primary" title="Export patch (Ctrl+S)">
+                📤 Export Patch
+            </button>
+        </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div id="toolbar">
+        <div class="filter-tabs">
+            <button class="tab active" data-filter="all">All</button>
+            <button class="tab" data-filter="needs_review">🔴 Needs Review</button>
+            <button class="tab" data-filter="batch">🟡 Batch/OCR</button>
+            <button class="tab" data-filter="locked">🔒 Locked</button>
+            <button class="tab" data-filter="reviewed">🟢 OK</button>
+        </div>
+        <div class="toolbar-right">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Search cards... ( / )" autocomplete="off">
+            </div>
+            <select id="sort-select">
+                <option value="card_no">Sort: Card #</option>
+                <option value="status">Sort: Status</option>
+                <option value="date">Sort: Date</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Card List (left panel) -->
+        <section id="card-list-panel">
+            <div id="card-grid"></div>
+            <div id="card-list-empty" class="empty-state" style="display:none;">
+                <p>No cards match your filter</p>
+            </div>
+        </section>
+
+        <!-- Card Detail (right panel) -->
+        <section id="card-detail-panel">
+            <div id="detail-empty" class="empty-state">
+                <div class="empty-icon">👆</div>
+                <p>Select a card from the list to review</p>
+                <p class="hint">Use ← → arrows to navigate</p>
+            </div>
+            <div id="detail-content" style="display:none;">
+                <!-- Card Images -->
+                <div id="detail-images">
+                    <div class="image-container" id="front-image-wrap">
+                        <div class="image-label">FRONT</div>
+                        <img id="detail-front-img" alt="Front" loading="lazy">
+                        <div class="image-placeholder" id="front-placeholder">No image</div>
+                    </div>
+                    <div class="image-container" id="back-image-wrap">
+                        <div class="image-label">BACK</div>
+                        <img id="detail-back-img" alt="Back" loading="lazy">
+                        <div class="image-placeholder" id="back-placeholder">No image</div>
+                    </div>
+                </div>
+
+                <!-- Card Info -->
+                <div id="detail-info">
+                    <span class="info-chip" id="info-pair-id"></span>
+                    <span class="info-chip" id="info-cell"></span>
+                    <span class="info-chip" id="info-pages"></span>
+                    <span class="info-chip" id="info-date"></span>
+                    <span class="info-chip" id="info-audio"></span>
+                </div>
+
+                <!-- Editable Fields -->
+                <div id="detail-fields">
+                    <div class="field-group">
+                        <label for="edit-card-no">Card Number</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="edit-card-no" placeholder="e.g. 001">
+                            <span class="change-dot" id="dot-card-no"></span>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="edit-label">Label</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="edit-label" placeholder="e.g. short-a">
+                            <span class="change-dot" id="dot-label"></span>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="edit-qr-url">QR URL</label>
+                        <div class="field-input-wrap">
+                            <input type="url" id="edit-qr-url" placeholder="https://cardlish.com/...">
+                            <span class="change-dot" id="dot-qr-url"></span>
+                        </div>
+                    </div>
+                    <div class="field-group field-group-wide">
+                        <label for="edit-note">Review Note</label>
+                        <div class="field-input-wrap">
+                            <textarea id="edit-note" rows="2" placeholder="Notes about this card..."></textarea>
+                            <span class="change-dot" id="dot-note"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vocabulary Editor -->
+                <div id="vocab-editor">
+                    <div class="vocab-section-header">
+                        <h3>📝 Vocabulary</h3>
+                        <span class="vocab-toggle" id="vocab-toggle" title="Toggle vocab editor">▼</span>
+                    </div>
+                    <div id="vocab-body">
+                        <!-- Front Words -->
+                        <div class="vocab-side">
+                            <div class="vocab-side-label">Front Words</div>
+                            <div id="vocab-front-words" class="word-list"></div>
+                            <button class="btn btn-ghost btn-sm" id="btn-add-front-word">+ Add word</button>
+                        </div>
+                        <!-- Front Sentences -->
+                        <div class="vocab-side">
+                            <div class="vocab-side-label">Front Sentences</div>
+                            <div id="vocab-front-sentences" class="sentence-list"></div>
+                            <button class="btn btn-ghost btn-sm" id="btn-add-front-sentence">+ Add sentence</button>
+                        </div>
+
+                        <div class="vocab-divider"></div>
+
+                        <!-- Back Words -->
+                        <div class="vocab-side">
+                            <div class="vocab-side-label">Back Words</div>
+                            <div id="vocab-back-words" class="word-list"></div>
+                            <button class="btn btn-ghost btn-sm" id="btn-add-back-word">+ Add word</button>
+                        </div>
+                        <!-- Back Sentences -->
+                        <div class="vocab-side">
+                            <div class="vocab-side-label">Back Sentences</div>
+                            <div id="vocab-back-sentences" class="sentence-list"></div>
+                            <button class="btn btn-ghost btn-sm" id="btn-add-back-sentence">+ Add sentence</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div id="detail-actions">
+                    <button id="btn-reviewed" class="btn btn-success" title="Mark as reviewed (Ctrl+R)">
+                        ✅ Reviewed
+                    </button>
+                    <button id="btn-swap" class="btn btn-secondary" title="Swap front/back (Ctrl+F)">
+                        🔁 Swap
+                    </button>
+                    <button id="btn-lock" class="btn btn-secondary" title="Lock card (Ctrl+L)">
+                        🔒 Lock
+                    </button>
+                    <button id="btn-audio" class="btn btn-secondary" title="Play audio">
+                        🔊 Play
+                    </button>
+                    <button id="btn-revert" class="btn btn-ghost" title="Revert changes">
+                        ↩️ Revert
+                    </button>
+                    <button id="btn-save-generate" class="btn btn-primary btn-wide" title="Save vocab + generate audio">
+                        💾 Save & Generate Audio
+                    </button>
+                    <button id="btn-save-next" class="btn btn-secondary btn-wide" title="Save & Next Error (Enter)">
+                        ➡️ Save & Next
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Zoom Overlay -->
+    <div id="zoom-overlay" style="display:none;">
+        <div id="zoom-content">
+            <img id="zoom-front" alt="Front (zoomed)">
+            <img id="zoom-back" alt="Back (zoomed)">
+        </div>
+        <div id="zoom-close">✕ Press Esc to close</div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-container"></div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-file-input" accept=".json" style="display:none;">
+
+    <script src="review.js"></script>
+</body>
+</html>

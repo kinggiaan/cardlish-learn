@@ -1,0 +1,11 @@
+{
+  "_version": 1,
+  "_updated_at": "2026-06-08T16:39:40.861236",
+  "overrides": {
+    "batch030_B1": {
+      "card_no": "015",
+      "label": "short-e",
+      "manual_locked": false
+    }
+  }
+}

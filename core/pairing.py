@@ -27,6 +27,12 @@ class CardPair:
     needs_review: bool
     review_note: str
     created_at: str
+    # ── Phase-1 additions (all with defaults for backward compat) ──
+    card_id: str = ""            # immutable ID from scan context
+    front_cell: str = ""         # cell position on front page
+    back_cell: str = ""          # cell position on back page
+    manual_locked: bool = False  # if True, pipeline won't overwrite
+    source_pdf: str = ""         # original PDF filename
 
 def safe_name(s: str) -> str:
     s = s.strip().lower()
@@ -57,7 +63,8 @@ def build_pairs(
     crops: List[CropInfo], 
     out_dir: Path, 
     ocr_extractor: CardOCRExtractor,
-    existing_pairs: List[CardPair] = None
+    existing_pairs: List[CardPair] = None,
+    pdf_stem: str = "unknown",
 ) -> Tuple[List[CardPair], List[CardPair]]:
     """Pair card front/back images, run OCR, skip blank cells, and merge with existing database.
     
@@ -86,6 +93,9 @@ def build_pairs(
 
     # Track processed pair_ids to handle collisions
     processed_ids = {p.pair_id: p for p in (existing_pairs or [])}
+
+    # Build a set of locked pair_ids so we can skip re-processing them
+    locked_ids = {p.pair_id for p in (existing_pairs or []) if p.manual_locked}
 
     for page_a, page_b in zip(pages[0::2], pages[1::2]):
         pair_batch_no += 1
@@ -160,11 +170,19 @@ def build_pairs(
                     print(f"  Warning: Collision detected for ID '{base}'. Renamed new crop to '{col_id}' to prevent overwrite.")
                     base = col_id
             
+            # Skip re-processing manually locked cards (before saving images)
+            if base in locked_ids:
+                print(f"  🔒 Skipping locked card: {base}")
+                continue
+
             front_out = cards_dir / f"{base}_front.png"
             back_out = cards_dir / f"{base}_back.png"
             
             Image.open(front_src).save(front_out)
             Image.open(back_src).save(back_out)
+
+            # Generate card_id from PDF context
+            card_id = f"{pdf_stem}_p{front.page_index:02d}p{back.page_index:02d}_{cell}"
 
             pair = CardPair(
                 pair_id=base,
@@ -183,6 +201,11 @@ def build_pairs(
                 needs_review=needs_review,
                 review_note=note,
                 created_at=datetime.now().strftime("%d/%m/%Y"),
+                card_id=card_id,
+                front_cell=front.cell,
+                back_cell=back.cell,
+                manual_locked=False,
+                source_pdf=pdf_stem,
             )
             new_pairs.append(pair)
             processed_ids[base] = pair
