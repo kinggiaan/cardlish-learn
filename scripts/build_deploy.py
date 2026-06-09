@@ -166,6 +166,12 @@ def validate_source(src_dir: Path, cards_dir: Path, audio_dir: Path, data_dir: P
         for ae in asset_errors:
             warnings.append(ae)
 
+    # 6. Cross-validate lessons.json card references
+    lesson_errors = validate_lessons_cards(data_dir / "lessons.json", data_dir / "cards.json")
+    if lesson_errors:
+        for le in lesson_errors:
+            warnings.append(le)
+
     # Print results
     if warnings:
         print(f"\n[!] WARNINGS ({len(warnings)}):") 
@@ -250,6 +256,59 @@ def validate_manifest_assets(cards_json_path: Path, cards_dir: Path, audio_dir: 
     if dupes:
         warnings.append(f"Duplicate pair_ids found: {', '.join(sorted(dupes))}")
     
+    return warnings
+
+
+def validate_lessons_cards(lessons_json_path: Path, cards_json_path: Path) -> list[str]:
+    """Verify that all cards referenced in lessons.json exist in cards.json.
+    
+    Returns list of warning messages for missing cards in lessons.
+    """
+    if not lessons_json_path.exists() or not cards_json_path.exists():
+        return []
+    
+    try:
+        lessons = json.loads(lessons_json_path.read_text(encoding="utf-8"))
+        cards = json.loads(cards_json_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        return [f"Could not parse lessons.json or cards.json: {e}"]
+        
+    if not isinstance(lessons, list) or not isinstance(cards, list):
+        return []
+        
+    # Get set of all card numbers present in cards.json
+    available_cards = set()
+    for idx, card in enumerate(cards):
+        card_no_val = card.get("card_no", "")
+        # Extract digits from card_no
+        digits = "".join(c for c in str(card_no_val) if c.isdigit())
+        card_num = int(digits) if digits else (idx + 1)
+        available_cards.add(card_num)
+        
+    warnings = []
+    for lesson in lessons:
+        lesson_id = lesson.get("id", "?")
+        lesson_name = lesson.get("name", "?")
+        lesson_cards = lesson.get("cards", [])
+        
+        if lesson_cards == "all":
+            continue
+            
+        if not isinstance(lesson_cards, list):
+            warnings.append(f"Lesson '{lesson_name}' ({lesson_id}) has invalid cards field format (expected list or 'all')")
+            continue
+            
+        missing_cards = []
+        for cnum in lesson_cards:
+            if cnum not in available_cards:
+                missing_cards.append(cnum)
+                
+        if missing_cards:
+            warnings.append(
+                f"Lesson '{lesson_name}' ({lesson_id}) references non-existent card number(s): "
+                f"{', '.join(map(str, missing_cards))}"
+            )
+            
     return warnings
 
 

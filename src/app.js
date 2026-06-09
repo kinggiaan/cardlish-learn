@@ -132,6 +132,13 @@ function cacheDom() {
   dom.lessonGrid = document.getElementById('lessonGrid');
   dom.backToHome = document.getElementById('backToHome');
 
+  // Lesson Picker DOM elements
+  dom.lessonPickerBar = document.getElementById('lessonPickerBar');
+  dom.lessonPickerToggle = document.getElementById('lessonPickerToggle');
+  dom.lessonPickerLabel = document.getElementById('lessonPickerLabel');
+  dom.lessonPickerPanel = document.getElementById('lessonPickerPanel');
+  dom.toastContainer = document.getElementById('toastContainer');
+
   // Lesson action buttons
   dom.createLessonBtn = document.getElementById('createLessonBtn');
   dom.importLessonBtn = document.getElementById('importLessonBtn');
@@ -233,6 +240,14 @@ function renderCard() {
   state.showingFront = true;
   dom.cardContainer.classList.remove('flipped');
 
+  // Reset image error states
+  if (dom.frontImage && dom.frontImage.parentElement) {
+    dom.frontImage.parentElement.classList.remove('image-error');
+  }
+  if (dom.backImage && dom.backImage.parentElement) {
+    dom.backImage.parentElement.classList.remove('image-error');
+  }
+
   // Set images
   const frontSrc = CONFIG.CARDS_BASE_PATH + card.front_image;
   const backSrc = CONFIG.CARDS_BASE_PATH + (card.back_image || card.front_image);
@@ -288,6 +303,51 @@ function renderCard() {
 
   // Render vocabulary pills for the active card face
   renderVocab();
+
+  // Render card picker for the lesson
+  renderLessonPicker();
+}
+
+// ── Lesson Card Picker Helpers ──────────────────────────────
+function getActiveStudyIndices() {
+  if (galleryState.studySetActive && galleryState.studySet.length > 0) {
+    return galleryState.studySet;
+  }
+  return state.cards.map((_, i) => i);
+}
+
+function renderLessonPicker() {
+  if (!dom.lessonPickerBar || !dom.lessonPickerPanel || !dom.lessonPickerLabel) return;
+
+  const indices = getActiveStudyIndices();
+  const currentPos = indices.indexOf(state.currentIndex);
+
+  // Only show picker if there are multiple cards in this lesson
+  dom.lessonPickerBar.hidden = indices.length <= 1;
+  if (indices.length <= 1) return;
+
+  dom.lessonPickerLabel.textContent = `${currentPos + 1} / ${indices.length}`;
+
+  const currentChipsCount = dom.lessonPickerPanel.children.length;
+  if (currentChipsCount !== indices.length) {
+    dom.lessonPickerPanel.innerHTML = indices.map((idx) => {
+      const card = state.cards[idx];
+      const active = idx === state.currentIndex ? 'active' : '';
+      const cardNo = escapeHtml(card?.card_no || String(idx + 1));
+      return `
+        <button class="lesson-picker-chip focusable ${active}" data-index="${idx}">
+          ${cardNo}
+        </button>
+      `;
+    }).join('');
+  } else {
+    // Optimization: Just update active classes without rebuilding DOM nodes
+    const chips = dom.lessonPickerPanel.querySelectorAll('.lesson-picker-chip');
+    chips.forEach(chip => {
+      const idx = parseInt(chip.dataset.index, 10);
+      chip.classList.toggle('active', idx === state.currentIndex);
+    });
+  }
 }
 
 function updateSideText() {
@@ -322,11 +382,45 @@ function updateAudioButton() {
   }
 }
 
+// ── Toast Notification Utility ──────────────────────────────
+function showToast(message) {
+  if (!dom.toastContainer) {
+    dom.toastContainer = document.getElementById('toastContainer');
+    if (!dom.toastContainer) {
+      dom.toastContainer = document.createElement('div');
+      dom.toastContainer.className = 'toast-container';
+      dom.toastContainer.id = 'toastContainer';
+      document.body.appendChild(dom.toastContainer);
+    }
+  }
+  const toast = document.createElement('div');
+  toast.className = 'toast-message';
+  toast.textContent = message;
+  dom.toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 3000);
+}
+
 // ── Throttle Utility (TV Performance) ───────────────────────
 function throttledAction(fn) {
   if (actionLocked) return;
   actionLocked = true;
-  fn();
+  try {
+    const result = fn();
+    if (result instanceof Promise) {
+      result.catch((err) => {
+        console.error('Error in async throttled action:', err);
+        showToast('Có lỗi nhỏ khi thao tác. Bạn thử bấm lại nhé.');
+      }).finally(() => {
+        setTimeout(() => { actionLocked = false; }, CONFIG.ACTION_THROTTLE_MS);
+      });
+      return;
+    }
+  } catch (err) {
+    console.error('Error in throttled action:', err);
+    showToast('Có lỗi nhỏ khi thao tác. Bạn thử bấm lại nhé.');
+  }
   setTimeout(() => { actionLocked = false; }, CONFIG.ACTION_THROTTLE_MS);
 }
 
@@ -631,6 +725,44 @@ function setupEventListeners() {
     e.preventDefault();
     flipCard();
   });
+
+  // Card image load error fallbacks
+  if (dom.frontImage) {
+    dom.frontImage.onerror = () => {
+      if (dom.frontImage.parentElement) {
+        dom.frontImage.parentElement.classList.add('image-error');
+      }
+    };
+  }
+  if (dom.backImage) {
+    dom.backImage.onerror = () => {
+      if (dom.backImage.parentElement) {
+        dom.backImage.parentElement.classList.add('image-error');
+      }
+    };
+  }
+
+  // ── Lesson Card Picker Event Listeners ───────────────────────
+  if (dom.lessonPickerToggle) {
+    dom.lessonPickerToggle.addEventListener('click', () => {
+      const isHidden = dom.lessonPickerPanel.hidden;
+      dom.lessonPickerPanel.hidden = !isHidden;
+      dom.lessonPickerToggle.setAttribute('aria-expanded', !isHidden);
+      dom.lessonPickerToggle.classList.toggle('expanded', !isHidden);
+    });
+  }
+
+  if (dom.lessonPickerPanel) {
+    dom.lessonPickerPanel.addEventListener('click', (e) => {
+      const chip = e.target.closest('.lesson-picker-chip');
+      if (!chip) return;
+      const idx = parseInt(chip.dataset.index, 10);
+      if (!isNaN(idx)) {
+        state.currentIndex = idx;
+        renderCard();
+      }
+    });
+  }
 
   // ── Gallery Event Listeners ──────────────────────────────
   // Open gallery
@@ -1004,12 +1136,24 @@ function closeGallery() {
   galleryState.isOpen = false;
   dom.galleryOverlay.classList.add('closing');
 
-  // Wait for slide-out animation to finish
-  dom.galleryOverlay.addEventListener('animationend', function handler() {
+  let cleanedUp = false;
+  const cleanup = () => {
+    if (cleanedUp) return;
+    cleanedUp = true;
     dom.galleryOverlay.removeEventListener('animationend', handler);
     dom.galleryOverlay.hidden = true;
     dom.galleryOverlay.classList.remove('closing');
-  });
+  };
+
+  function handler() {
+    cleanup();
+  }
+
+  // Wait for slide-out animation to finish
+  dom.galleryOverlay.addEventListener('animationend', handler);
+
+  // Fallback timeout: 400ms (animation is 300ms)
+  setTimeout(cleanup, 400);
 }
 
 // ── Build Color Filter Chips ────────────────────────────────
@@ -1732,13 +1876,13 @@ async function selectLesson(id) {
     }
   }
 
-  // Preload ALL audio for this lesson's cards
-  await preloadLessonAudio(studyIndices);
-
-  // Done loading — show study screen
+  // Done loading — show study screen immediately
   renderCard();
   showStudyScreen();
   hideLoading();
+
+  // Preload audio in background (non-blocking)
+  preloadLessonAudio(studyIndices);
 }
 
 // ── Preload All Audio for a Lesson ──────────────────────────
@@ -1790,23 +1934,28 @@ function preloadLessonAudio(cardIndices) {
 
     if (uniqueSources.length === 0) { resolve(); return; }
 
+    const limit = IS_TV_BROWSER ? 18 : 48;
+    const uniqueToPreload = uniqueSources.filter(src => !audioPreloadedSet.has(src));
+    const sources = uniqueToPreload.slice(0, limit);
+
     let loaded = 0;
-    const total = uniqueSources.length;
-    const timeout = setTimeout(() => {
-      // Safety: resolve after 8 seconds max even if not all loaded
-      console.warn(`Audio preload timeout: ${loaded}/${total} loaded`);
+    const total = sources.length;
+    
+    // If all target sources are already preloaded, resolve immediately
+    const alreadyPreloadedCount = uniqueSources.length - uniqueToPreload.length;
+    if (total === 0) {
+      console.log(`All ${alreadyPreloadedCount} audio sources already preloaded.`);
       resolve();
-    }, 8000);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      console.warn(`Audio preload timeout: ${loaded}/${total} loaded (safety threshold)`);
+      resolve();
+    }, 2500);
 
     // TV-safe: limit concurrent fetches to prevent memory spikes and UI freezing
     const CONCURRENCY = 3;
-    const sources = uniqueSources.filter(src => {
-      if (audioPreloadedSet.has(src)) { loaded++; return false; }
-      audioPreloadedSet.add(src);
-      return true;
-    });
-
-    if (loaded >= total) { clearTimeout(timeout); resolve(); return; }
 
     let nextIdx = 0;
     function onComplete() {
@@ -1817,6 +1966,7 @@ function preloadLessonAudio(cardIndices) {
     function launchNext() {
       if (nextIdx >= sources.length) return;
       const src = sources[nextIdx++];
+      audioPreloadedSet.add(src);
       fetch(src).then(onComplete).catch(onComplete);
     }
     for (let i = 0; i < Math.min(CONCURRENCY, sources.length); i++) {

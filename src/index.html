@@ -113,6 +113,14 @@
     <div class="sentences-container" id="sentencesContainer">
       <!-- Populated by JS -->
     </div>
+
+    <!-- Lesson card picker -->
+    <div class="lesson-picker-bar" id="lessonPickerBar" hidden>
+      <button class="lesson-picker-toggle focusable" id="lessonPickerToggle" aria-expanded="false">
+        📇 Thẻ trong bài <span id="lessonPickerLabel">1 / 1</span> ▾
+      </button>
+      <div class="lesson-picker-panel" id="lessonPickerPanel" hidden></div>
+    </div>
   </main>
 
   <!-- Floating gallery button (top-right) -->
@@ -225,6 +233,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Toast Container for notifications -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <script src="app.js?v=2.1.0"></script>
 </body>
