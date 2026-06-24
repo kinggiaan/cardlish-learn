@@ -40,6 +40,7 @@ IMPORTANT RULES:
     [OK] Source of truth for cards data: public/data/cards.json (audio.status='downloaded')
 """
 
+import os
 import hashlib
 import json
 import re
@@ -459,6 +460,21 @@ def copy_audio(audio_src: Path, dist_dir: Path) -> None:
         print(f"   [etc]  other:          {counts['other']}")
 
 
+def copy_tools(tools_dir: Path, dist_dir: Path) -> None:
+    """Copy tools (print templates, etc.) to dist/tools/."""
+    tools_dst = dist_dir / "tools"
+    if not tools_dir.exists():
+        print(f"[SKIP] Tools directory not found: {tools_dir}")
+        return
+
+    tools_dst.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for f in tools_dir.glob("*.html"):
+        shutil.copy2(f, tools_dst / f.name)
+        count += 1
+    print(f"[COPY] Tools ({tools_dir} -> dist/tools/) — {count} files")
+
+
 def copy_data(data_dir: Path, dist_dir: Path) -> None:
     """
     Copy all JSON data files from public/data/ to dist/data/.
@@ -502,7 +518,10 @@ def rewrite_paths(dist_dir: Path) -> None:
     print("[REWRITE] Asset paths in app.js")
     content = app_js.read_text(encoding="utf-8")
 
+    # API_BASE: read from env var CARDLISH_API_BASE, default empty (disabled)
+    api_base = os.environ.get("CARDLISH_API_BASE", "")
     replacements = [
+        (r"API_BASE:\s*['\"].*?['\"]", f"API_BASE: '{api_base}'"),
         (r"DATA_URL:\s*['\"].*?['\"]", "DATA_URL: 'data/cards.json'"),
         (r"VOCAB_URL:\s*['\"].*?['\"]", "VOCAB_URL: 'data/cards_vocab.json'"),
         (r"LESSONS_URL:\s*['\"].*?['\"]", "LESSONS_URL: 'data/lessons.json'"),
@@ -577,9 +596,9 @@ def create_headers(dist_dir: Path) -> None:
 /cards/*
   Cache-Control: public, max-age=2592000, immutable
 
-# Audio — cache 30 days (immutable content)
+# Audio — cache 1 day (may be re-downloaded from cardlish.com)
 /audio/*
-  Cache-Control: public, max-age=2592000, immutable
+  Cache-Control: public, max-age=86400, stale-while-revalidate=3600
 
 # Data — cache 1 hour
 /data/*
@@ -691,6 +710,7 @@ Examples:
     copy_cards(args.cards_dir, args.output)
     copy_audio(args.audio_dir, args.output)
     copy_data(args.data_dir, args.output)
+    copy_tools(Path("tools"), args.output)
 
     # ── Step 3: Transform for production ─────────────────────
     rewrite_paths(args.output)

@@ -1,0 +1,13 @@
+name = "cardlish-api"
+main = "src/index.js"
+compatibility_date = "2024-09-25"
+
+[[kv_namespaces]]
+binding = "CARDLISH_KV"
+id = "ad29407e20de491590619a0d99d48159"
+preview_id = "d80f62a645e748879e25754c9fe28ac9"
+
+[vars]
+ALLOWED_ORIGINS = "https://cardlish-learn.pages.dev,https://dev.cardlish-learn.pages.dev,https://dev-api.cardlish-learn.pages.dev,http://localhost:8787"
+APP_SECRET = "cardlish_2026_secret"
+REGISTER_RATE_LIMIT = "5"

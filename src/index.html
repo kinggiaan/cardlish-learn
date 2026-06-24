@@ -39,6 +39,9 @@
       <button class="lesson-action-btn export-lesson-btn focusable" id="exportLessonBtn" aria-label="Xuất file bài học">
         📥 Xuất JSON
       </button>
+      <button class="lesson-action-btn focusable" id="deviceKeyBtn" aria-label="Cài đặt kết nối cloud" title="Kết nối Cloud">
+        🔑
+      </button>
       <input type="file" id="importLessonFile" accept=".json" hidden>
     </div>
 
@@ -68,6 +71,9 @@
       <span class="card-side" id="cardSide">· Mặt trước</span>
       <button class="audio-speaker-btn focusable" id="playAudio" data-action="play-audio" aria-label="Nghe âm thanh">
         🔊
+      </button>
+      <button class="sentences-toggle-btn focusable" id="toggleSentences" aria-label="Ẩn câu ví dụ" title="Ẩn câu ví dụ">
+        👁️ Ẩn ví dụ
       </button>
     </div>
 
@@ -113,20 +119,32 @@
     <div class="sentences-container" id="sentencesContainer">
       <!-- Populated by JS -->
     </div>
-
-    <!-- Lesson card picker -->
-    <div class="lesson-picker-bar" id="lessonPickerBar" hidden>
-      <button class="lesson-picker-toggle focusable" id="lessonPickerToggle" aria-expanded="false">
-        📇 Thẻ trong bài <span id="lessonPickerLabel">1 / 1</span> ▾
-      </button>
-      <div class="lesson-picker-panel" id="lessonPickerPanel" hidden></div>
-    </div>
   </main>
 
   <!-- Floating gallery button (top-right) -->
   <button class="gallery-fab focusable" id="galleryToggle" aria-label="Mở thư viện thẻ">
     📚
   </button>
+
+  <!-- Lesson card picker -->
+  <div class="lesson-picker-bar" id="lessonPickerBar" hidden>
+    <button class="lesson-picker-toggle focusable" id="lessonPickerToggle" aria-expanded="false">
+      📇 Thẻ trong bài <span id="lessonPickerLabel">1 / 1</span> ▾
+    </button>
+    <div class="lesson-picker-panel" id="lessonPickerPanel" hidden></div>
+  </div>
+
+  <!-- Theme Switcher -->
+  <div class="theme-switcher-bar" id="themeSwitcherBar">
+    <button class="theme-switcher-toggle focusable" id="themeSwitcherToggle" aria-expanded="false" title="Đổi giao diện">
+      🎨 Giao diện ▾
+    </button>
+    <div class="theme-switcher-panel" id="themeSwitcherPanel" hidden>
+      <button class="theme-btn focusable" data-theme="light">☀️ Sáng</button>
+      <button class="theme-btn focusable" data-theme="warm">🌾 Dịu mắt</button>
+      <button class="theme-btn focusable" data-theme="dark">🌙 Tối</button>
+    </div>
+  </div>
 
   </div><!-- /study-screen -->
 
@@ -213,6 +231,7 @@
         </div>
       </div>
       <div class="vocab-edit-footer">
+        <button class="vocab-btn vocab-reset-btn focusable" id="vocabEditReset" style="margin-right: auto; background: #ef4444; color: white;">Khôi phục gốc</button>
         <button class="vocab-btn vocab-cancel-btn focusable" id="vocabEditCancel">Hủy</button>
         <button class="vocab-btn vocab-save-btn focusable" id="vocabEditSave">Lưu thay đổi</button>
       </div>
@@ -230,6 +249,35 @@
       <div class="create-lesson-actions">
         <button class="create-lesson-cancel focusable" id="cancelCreateLesson">Hủy</button>
         <button class="create-lesson-confirm focusable" id="confirmCreateLesson">✅ Tạo bài</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Lesson Name Modal -->
+  <div class="edit-lesson-overlay" id="editLessonOverlay" hidden>
+    <div class="edit-lesson-modal">
+      <h3>✏️ Sửa tên bài học</h3>
+      <label class="edit-lesson-label" for="editLessonNameInput">Tên bài học mới</label>
+      <input type="text" class="edit-lesson-input focusable" id="editLessonNameInput" placeholder="Nhập tên bài học mới" autocomplete="off">
+      <div class="edit-lesson-actions">
+        <button class="edit-lesson-cancel focusable" id="cancelEditLesson">Hủy</button>
+        <button class="edit-lesson-confirm focusable" id="confirmEditLesson">💾 Lưu lại</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Device Key Modal -->
+  <div class="create-lesson-overlay" id="deviceKeyOverlay" hidden>
+    <div class="create-lesson-modal">
+      <h3>☁️ Kết nối Cloud</h3>
+      <p style="font-size: 0.9em; opacity: 0.8; margin-bottom: 12px;">Thiết bị tự động đăng ký khi mở app. Nhập key thủ công nếu cần.</p>
+      <div id="deviceKeyStatus" style="margin-bottom: 12px; padding: 8px; border-radius: 8px; font-size: 0.9em;"></div>
+      <label class="create-lesson-label" for="deviceKeyInput">Nhập key thủ công (nếu có)</label>
+      <input type="password" class="create-lesson-input focusable" id="deviceKeyInput" placeholder="dk_xxxxxxxxxxxxxxxx" autocomplete="off">
+      <div class="create-lesson-actions">
+        <button class="create-lesson-cancel focusable" id="deviceKeyClear" style="background: #ef4444; color: white;">🗑️ Xóa key</button>
+        <button class="create-lesson-cancel focusable" id="deviceKeyCancel">Đóng</button>
+        <button class="create-lesson-confirm focusable" id="deviceKeySave">💾 Lưu key</button>
       </div>
     </div>
   </div>

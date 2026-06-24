@@ -104,7 +104,75 @@ scan0001.pdf
 │  • Copy new/updated images → dist/cards/        │
 │  • Merge manifest into dist/data/cards.json     │
 │  • Preserve existing color, audio, learning     │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│  Step 8: run_ocr_all_cards.py (INCREMENTAL)     │
+│  • OCR front+back images → raw_ocr_results.json │
+│  • SKIP cards already in raw_ocr_results.json   │
+│  • --force to re-OCR, --cards X for specific    │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│  Step 9: extract_vocab_v3.py (INCREMENTAL)      │
+│  • Parse OCR text → word + IPA pairs            │
+│  • SKIP cards already in cards_vocab.json       │
+│  • Protects _edited entries from overwrite      │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│  Step 10: clean_vocab_final.py                  │
+│  • Fix known OCR errors (manual corrections)    │
+│  • Edit this file to add new corrections        │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│  Step 11: generate_vocab_audio.py               │
+│  • TTS (edge-tts) for vocab words + sentences   │
+│  • Skip words that already have audio files     │
+│  → public/audio/vocab/ + public/audio/sentences/│
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│  Step 12: build_deploy.py -o dist               │
+│  • Copy all assets to dist/                     │
+│  • Rewrite paths, cache bust, validate          │
 └─────────────────────────────────────────────────┘
+```
+
+### Vocab Pipeline Commands (Incremental)
+
+```bash
+# OCR vocab (skip already-processed cards)
+python experiments/run_ocr_all_cards.py              # Only new cards
+python experiments/run_ocr_all_cards.py --cards 1,5  # Re-OCR specific cards
+python experiments/run_ocr_all_cards.py --force       # Re-OCR everything
+
+# Extract vocab (skip already-extracted)
+python experiments/extract_vocab_v3.py               # Only new cards
+python experiments/extract_vocab_v3.py --cards 1,5   # Re-extract specific
+python experiments/extract_vocab_v3.py --force        # Re-extract all (protects _edited)
+
+# Clean OCR errors
+python experiments/clean_vocab_final.py
+
+# Generate audio
+python scripts/generate_vocab_audio.py
+```
+
+### Print Vocab Cards (A4 Flashcard Tool)
+
+```bash
+# Start local server
+python admin_server.py
+
+# Open in browser
+http://localhost:8787/tools/print-vocab-cards.html
+
+# Generate batch PDFs
+python tools/generate_pdf_cards.py --all               # All vocab cards
+python tools/generate_pdf_cards.py --lesson lesson_short_a  # By lesson
+python tools/generate_pdf_cards.py --cards 1,2,3       # Specific cards
 ```
 
 ---

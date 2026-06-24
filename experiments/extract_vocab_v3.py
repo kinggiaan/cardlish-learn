@@ -1,6 +1,33 @@
+"""
+Extract vocabulary words from raw OCR results.
+
+Features:
+  - Incremental: skips cards already in cards_vocab.json (unless _edited=false)
+  - --force: re-extract all cards
+  - --cards 1,2,3: re-extract specific cards only
+  - Preserves entries with _edited=true (manually cleaned data)
+
+Usage:
+  python experiments/extract_vocab_v3.py              # Only new cards
+  python experiments/extract_vocab_v3.py --force       # Re-extract everything
+  python experiments/extract_vocab_v3.py --cards 1,5   # Re-extract specific cards
+"""
+
 import json
 import re
+import sys
+import io
+import argparse
 from pathlib import Path
+
+# Fix Windows console encoding
+if sys.stdout.encoding != "utf-8":
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 
 def get_center(box):
     xs = [p[0] for p in box]
@@ -9,32 +36,23 @@ def get_center(box):
 
 def clean_word(text):
     text = text.strip()
-    # Remove non-alphabetic characters
     text = re.sub(r"^[^a-zA-Z]+|[^a-zA-Z]+$", "", text)
     return text.lower()
 
 def is_word_candidate(text):
     t = text.strip()
-    # Must not contain spaces, must not be empty, must be at least 2 chars
     if " " in t or not t or len(t) < 2:
         return False
-    # Must not contain slashes
     if "/" in t:
         return False
-    # Must not be all digits
     if t.isdigit():
         return False
-    # Avoid card labels/numbers (like 001, 212_b, etc.)
     if re.match(r"^\d+$", t) or re.match(r"^\d{3}[a-zA-Z]?$", t):
         return False
-    # Avoid labels ending or starting with hyphen
     if t.endswith("-") or t.startswith("-"):
         return False
-    # Must contain english letters
     if not re.search(r"[a-zA-Z]", t):
         return False
-    
-    # Avoid Vietnamese words/explanations
     vietnamese_words = {"âm", "chữ", "thường", "được", "biểu", "hiện", "bằng", "sau", "đó", "phụ", "cuối", "chú", "ý", "phát"}
     if t.lower() in vietnamese_words:
         return False
@@ -48,66 +66,64 @@ def clean_ipa(text):
 def extract_vocab_for_side(ocr_items):
     items = []
     for item in ocr_items:
-        text = item["text"].strip()
-        if not text:
-            continue
-        cx, cy = get_center(item["box"])
+        text = item["text"]
+        box = item["box"]
+        score = item["score"]
+        cx, cy = get_center(box)
         items.append({
             "text": text,
+            "score": score,
             "cx": cx,
             "cy": cy,
-            "box": item["box"]
+            "box": box
         })
-        
-    # Find word candidates
-    word_candidates = []
-    for item in items:
-        if is_word_candidate(item["text"]):
-            word_candidates.append(item)
-            
-    word_candidates = sorted(word_candidates, key=lambda x: x["cy"])
-    
+
+    items.sort(key=lambda x: x["cy"])
+
     paired = []
     used_item_indices = set()
-    
-    for w in word_candidates:
-        w_idx = items.index(w)
+
+    word_items = []
+    ipa_items = []
+    for idx, item in enumerate(items):
+        t = item["text"].strip()
+        if t.startswith("/") or t.startswith("\\") or t.endswith("/"):
+            ipa_items.append((idx, item))
+        elif is_word_candidate(t):
+            word_items.append((idx, item))
+
+    for w_idx, w in word_items:
         if w_idx in used_item_indices:
             continue
-            
-        best_ipa_item = None
-        best_ipa_idx = -1
-        min_dist = float("inf")
-        
-        for idx, item in enumerate(items):
-            if idx == w_idx or idx in used_item_indices:
+        word_clean = clean_word(w["text"])
+        if not word_clean or len(word_clean) < 2:
+            continue
+
+        best_ipa_idx = None
+        best_ipa_dist = 9999
+        for i_idx, ipa in ipa_items:
+            if i_idx in used_item_indices:
                 continue
-                
-            dy = item["cy"] - w["cy"]
-            dx = abs(item["cx"] - w["cx"])
-            
-            # IPA is directly below (dy > 5 and dy < 60) and horizontally close (dx < 55)
-            if 5 < dy < 60 and dx < 55:
-                dist = dy + dx * 1.5
-                if dist < min_dist:
-                    min_dist = dist
-                    best_ipa_item = item
-                    best_ipa_idx = idx
-                    
-        if best_ipa_item:
-            word_clean = clean_word(w["text"])
-            ipa_clean = clean_ipa(best_ipa_item["text"])
-            
-            paired.append({
-                "word": word_clean,
-                "ipa": ipa_clean,
-                "cy": w["cy"],
-                "cx": w["cx"]
-            })
-            used_item_indices.add(w_idx)
+            dist = abs(ipa["cy"] - w["cy"])
+            if dist < 50 and dist < best_ipa_dist:
+                best_ipa_dist = dist
+                best_ipa_idx = i_idx
+
+        if best_ipa_idx is not None:
+            ipa_clean = clean_ipa(items[best_ipa_idx]["text"])
+        else:
+            ipa_clean = ""
+
+        paired.append({
+            "word": word_clean,
+            "ipa": ipa_clean,
+            "cy": w["cy"],
+            "cx": w["cx"]
+        })
+        used_item_indices.add(w_idx)
+        if best_ipa_idx is not None:
             used_item_indices.add(best_ipa_idx)
-            
-    # Sort left-to-right, then top-to-bottom
+
     paired_sorted = []
     if paired:
         paired = sorted(paired, key=lambda x: x["cy"])
@@ -120,7 +136,7 @@ def extract_vocab_for_side(ocr_items):
                 rows.append(current_row)
                 current_row = [p]
         rows.append(current_row)
-        
+
         for row in rows:
             row_sorted = sorted(row, key=lambda x: x["cx"])
             for p in row_sorted:
@@ -128,40 +144,118 @@ def extract_vocab_for_side(ocr_items):
                     "word": p["word"],
                     "ipa": p["ipa"]
                 })
-                
+
     return paired_sorted
 
+
+def parse_card_filter(cards_str):
+    """Parse --cards argument into a set of pair_ids."""
+    if not cards_str:
+        return None
+    result = set()
+    for part in cards_str.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if part.endswith("_card") or "_" in part:
+            result.add(part)
+        else:
+            result.add(f"{int(part):03d}_card")
+    return result
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Extract vocab from OCR results (incremental)")
+    parser.add_argument("--force", action="store_true", help="Re-extract all cards")
+    parser.add_argument("--cards", type=str, help="Comma-separated card numbers to re-extract")
+    args = parser.parse_args()
+
     raw_path = Path("experiments/raw_ocr_results.json")
+    vocab_path = Path("public/data/cards_vocab.json")
+
     if not raw_path.exists():
-        print("Raw OCR results not found.")
+        print("[ERROR] Raw OCR results not found. Run run_ocr_all_cards.py first.")
         return
-        
+
     with open(raw_path, "r", encoding="utf-8") as f:
         results = json.load(f)
-        
-    extracted = {}
+
+    # Load existing vocab
+    existing_vocab = {}
+    if vocab_path.exists():
+        with open(vocab_path, "r", encoding="utf-8") as f:
+            existing_vocab = json.load(f)
+
+    print(f"[INFO] OCR results: {len(results)} cards")
+    print(f"[INFO] Existing vocab: {len(existing_vocab)} cards")
+
+    card_filter = parse_card_filter(args.cards)
+
+    to_process = []
+    skipped = 0
+    skipped_edited = 0
+
     for entry in results:
+        pair_id = entry["pair_id"]
+
+        if card_filter:
+            if pair_id in card_filter:
+                to_process.append(entry)
+            else:
+                skipped += 1
+        elif args.force:
+            # Force mode: still protect _edited entries
+            if pair_id in existing_vocab and existing_vocab[pair_id].get("_edited"):
+                skipped_edited += 1
+            else:
+                to_process.append(entry)
+        else:
+            # Default: skip cards already in vocab
+            if pair_id in existing_vocab:
+                skipped += 1
+            else:
+                to_process.append(entry)
+
+    if skipped > 0:
+        print(f"[SKIP] {skipped} cards already have vocab (use --force to re-extract)")
+    if skipped_edited > 0:
+        print(f"[LOCK] {skipped_edited} cards have _edited=true (use --cards X to override)")
+
+    if not to_process:
+        print(f"[DONE] No new cards to process. All cards already have vocab data.")
+        return
+
+    print(f"[RUN]  Extracting vocab for {len(to_process)} card(s)...")
+
+    new_extracted = {}
+    for entry in to_process:
         pair_id = entry["pair_id"]
         front_words = extract_vocab_for_side(entry["front_ocr"])
         back_words = extract_vocab_for_side(entry["back_ocr"])
-        
-        extracted[pair_id] = {
+
+        new_extracted[pair_id] = {
             "front": front_words,
-            "back": back_words
+            "back": back_words,
         }
-        
-    out_path = Path("public/data/cards_vocab.json")
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(extracted, f, ensure_ascii=False, indent=2)
-        
-    print(f"Extracted vocabularies saved to {out_path}")
-    
-    # Print first 15 cards for verification
-    for pid in list(extracted.keys())[:15]:
-        print(f"\nCard: {pid}")
-        print("  Front:", [f"{w['word']} {w['ipa']}" for w in extracted[pid]["front"]])
-        print("  Back: ", [f"{w['word']} {w['ipa']}" for w in extracted[pid]["back"]])
+
+    # Merge: new results overwrite existing (but keep _edited entries intact unless --cards)
+    merged = dict(existing_vocab)
+    merged.update(new_extracted)
+
+    with open(vocab_path, "w", encoding="utf-8") as f:
+        json.dump(merged, f, ensure_ascii=False, indent=2)
+
+    print(f"\n[DONE] Vocab saved: {vocab_path}")
+    print(f"  Total entries: {len(merged)} (new: {len(new_extracted)}, existing: {len(existing_vocab)})")
+
+    # Print sample
+    for pid in list(new_extracted.keys())[:5]:
+        front = [f"{w['word']} {w['ipa']}" for w in new_extracted[pid]["front"]]
+        back = [f"{w['word']} {w['ipa']}" for w in new_extracted[pid]["back"]]
+        print(f"\n  {pid}:")
+        print(f"    Front: {front}")
+        print(f"    Back:  {back}")
+
 
 if __name__ == "__main__":
     main()

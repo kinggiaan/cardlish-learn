@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardlish — Quản lý thiết bị</title>
+    <meta name="description" content="Admin tool for managing Cardlish device API keys">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Devices Page Overrides ─────────────────────────── */
+        body {
+            overflow: auto;
+        }
+
+        /* ── Nav Bar ───────────────────────────────────────── */
+        .nav-bar {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            padding: 8px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        .nav-bar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+        }
+        .nav-bar a:hover {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+        }
+        .nav-bar a.active {
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+            font-weight: 500;
+        }
+
+        /* ── Page Container ────────────────────────────────── */
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        /* ── Login Section ─────────────────────────────────── */
+        .login-section {
+            max-width: 420px;
+            margin: 80px auto;
+            text-align: center;
+        }
+
+        .login-section .login-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .login-section h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .login-section p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .login-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .login-form input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(31,111,235,0.15);
+        }
+
+        .login-form input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .login-error {
+            color: var(--accent-red);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ── Device List ───────────────────────────────────── */
+        .devices-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .device-count {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .device-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .device-table thead {
+            background: var(--bg-tertiary);
+        }
+
+        .device-table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .device-table td {
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .device-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .device-table tbody tr {
+            background: var(--bg-secondary);
+            transition: background var(--transition);
+        }
+
+        .device-table tbody tr:hover {
+            background: var(--bg-elevated);
+        }
+
+        .device-key {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .device-date {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .btn-revoke {
+            background: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .btn-revoke:hover {
+            background: var(--accent-red);
+            color: #fff;
+        }
+
+        .empty-devices {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-devices .empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-devices p {
+            font-size: 0.9rem;
+        }
+
+        /* ── Loading ───────────────────────────────────────── */
+        .loading-bar {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 32px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .loading-bar.visible {
+            display: flex;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── Modal ─────────────────────────────────────────── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.15s ease;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.2s ease;
+        }
+
+        .modal h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .modal-field {
+            margin-bottom: 16px;
+        }
+
+        .modal-field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .modal-field input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+        }
+
+        .modal-field input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(31,111,235,0.15);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* ── Key Display ───────────────────────────────────── */
+        .key-display {
+            background: var(--bg-primary);
+            border: 1px solid var(--accent-green);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin: 12px 0;
+        }
+
+        .key-display-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .key-display-value {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            word-break: break-all;
+            line-height: 1.6;
+            user-select: all;
+        }
+
+        .key-warning {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 10px 12px;
+            background: rgba(210, 153, 34, 0.1);
+            border: 1px solid rgba(210, 153, 34, 0.3);
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-yellow);
+            line-height: 1.5;
+        }
+
+        .key-warning .warn-icon {
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        /* ── Inline Error ──────────────────────────────────── */
+        .inline-error {
+            color: var(--accent-red);
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            background: rgba(218, 54, 51, 0.08);
+            border: 1px solid rgba(218, 54, 51, 0.2);
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .inline-error.visible {
+            display: block;
+        }
+
+        /* ── Responsive ────────────────────────────────────── */
+        @media (max-width: 640px) {
+            .page-container { padding: 20px 12px; }
+            .device-table th:nth-child(3),
+            .device-table td:nth-child(3) { display: none; }
+            .login-form { flex-direction: column; }
+            .modal { margin: 12px; max-width: calc(100% - 24px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="app-header">
+        <div class="header-left">
+            <h1>✦ Cardlish <span class="accent">Quản lý thiết bị</span></h1>
+        </div>
+        <div class="header-actions">
+            <button id="btn-logout" class="btn btn-ghost" style="display:none;" title="Đăng xuất">
+                🔓 Đăng xuất
+            </button>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav class="nav-bar">
+        <a href="index.html">📋 Review Editor</a>
+        <a href="devices.html" class="active">📱 Quản lý thiết bị</a>
+    </nav>
+
+    <!-- Login Section -->
+    <section id="login-section" class="login-section">
+        <div class="login-icon">🔐</div>
+        <h2>Đăng nhập Admin</h2>
+        <p>Nhập master key để quản lý thiết bị</p>
+        <form class="login-form" id="login-form">
+            <input type="password" id="master-key-input" placeholder="Master key..." autocomplete="off" required>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </form>
+        <div class="login-error" id="login-error"></div>
+    </section>
+
+    <!-- Devices Section (hidden until login) -->
+    <section id="devices-section" class="page-container" style="display:none;">
+        <div class="devices-header">
+            <h2 class="page-title">📱 Thiết bị đã đăng ký</h2>
+            <button id="btn-add-device" class="btn btn-primary">+ Thêm thiết bị</button>
+        </div>
+
+        <div class="inline-error" id="list-error"></div>
+
+        <div class="loading-bar" id="devices-loading">
+            <div class="spinner"></div>
+            <span>Đang tải danh sách...</span>
+        </div>
+
+        <div id="devices-content">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Add Device Modal -->
+    <div class="modal-overlay" id="modal-add-device">
+        <div class="modal">
+            <h3>➕ Thêm thiết bị mới</h3>
+            <div class="modal-field">
+                <label for="device-name-input">Tên thiết bị</label>
+                <input type="text" id="device-name-input" placeholder="VD: TV phòng khách, iPad con..." autocomplete="off" required>
+            </div>
+            <div class="inline-error" id="add-device-error"></div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" id="btn-cancel-add">Huỷ</button>
+                <button class="btn btn-primary" id="btn-confirm-add">Tạo thiết bị</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Created Modal -->
+    <div class="modal-overlay" id="modal-key-created">
+        <div class="modal">
+            <h3>✅ Thiết bị đã được tạo!</h3>
+            <div class="key-display">
+                <div class="key-display-label">API Key</div>
+                <div class="key-display-value" id="created-key-value"></div>
+            </div>
+            <div class="key-warning">
+                <span class="warn-icon">⚠️</span>
+                <span>Lưu key này, bạn sẽ không thể xem lại! Hãy copy và lưu ở nơi an toàn trước khi đóng.</span>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="btn-copy-key">📋 Copy key</button>
+                <button class="btn btn-primary" id="btn-close-key-modal">Đã lưu, đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Revoke Modal -->
+    <div class="modal-overlay" id="modal-confirm-revoke">
+        <div class="modal">
+            <h3>🗑️ Thu hồi thiết bị?</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 8px;">
+                Thiết bị <strong id="revoke-device-name"></strong> sẽ không thể truy cập API nữa.
+            </p>
+            <p style="color: var(--accent-red); font-size: 0.85rem;">Hành động này không thể hoàn tác.</p>
+            <div class="inline-error" id="revoke-error"></div>
+            <div class="modal-actions">
+                <button class="btn btn-ghost" id="btn-cancel-revoke">Huỷ</button>
+                <button class="btn btn-revoke" id="btn-confirm-revoke">Thu hồi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-container"></div>
+
+    <script src="devices.js"></script>
+</body>
+</html>

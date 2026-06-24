@@ -11,12 +11,27 @@ public/audio/sentences/ -> dist/audio/sentences/ (sentence audio, 106 MP3s)
 public/data/*.json      -> dist/data/         (cards, vocab, lessons, audio map)
 ```
 
+### Key Directories
+
+| Directory | Purpose | Editable? |
+|-----------|---------|-----------|
+| `src/` | Production web app (app.js, index.html, styles.css) | ✅ Yes |
+| `public/data/` | Source JSON data (cards, vocab, lessons) | ✅ Yes |
+| `public/audio/` | Source audio files (3 subdirs) | ⚠️ Via scripts only |
+| `unified_db/cards/` | Card images (PNG) | ⚠️ Via pipeline only |
+| `dist/` | **BUILD OUTPUT — NEVER edit directly** | 🚫 NO |
+| `admin/` | Admin UI (dev tools) | ✅ Yes |
+| `scripts/` | Build, deploy, validation scripts | ✅ Yes |
+| `tools/` | Print vocab cards, generate PDFs | ✅ Yes |
+| `experiments/` | OCR & vocab extraction pipeline | ✅ Yes |
+| `core/` | Python pipeline modules (PDF→grid→QR→OCR→pair) | ⚠️ Careful |
+| `pdf_cards/` | Generated PDF output (tracked in git) | ✅ Yes |
+
 ## Build Commands
 
 ```bash
 python scripts/build_deploy.py --validate   # Check sources (no build)
 python scripts/build_deploy.py -o dist      # Full build with validation
-python scripts/build_deploy.py --deploy     # Build + deploy to Cloudflare
 ```
 
 The build script automatically:
@@ -26,26 +41,134 @@ The build script automatically:
 - Generates content-based cache-bust hashes for CSS/JS
 - Validates dist/ output (post-build)
 
+---
+
+## 🃏 Card Processing Pipeline
+
+### Full Flow: PDF → Cards → OCR → Vocab → Audio
+
+```
+PDF scan  →  split_cardlish_pdf.py / batch_split.py    →  unified_db/cards/
+          →  scripts/build_manifest.py                  →  public/data/cards.json
+          →  experiments/run_ocr_all_cards.py            →  experiments/raw_ocr_results.json
+          →  experiments/extract_vocab_v3.py             →  public/data/cards_vocab.json
+          →  experiments/clean_vocab_final.py            →  public/data/cards_vocab.json (cleaned)
+          →  scripts/generate_vocab_audio.py             →  public/audio/vocab/ + sentences/
+          →  scripts/build_deploy.py -o dist             →  dist/ (ready to deploy)
+```
+
+### Pipeline Commands (Incremental — skip already-processed)
+
+```bash
+# Step 1: Scan new PDFs (skip already-scanned)
+python batch_split.py                              # Auto-skip processed PDFs
+python batch_split.py --force                      # Reprocess all PDFs
+
+# Step 2: OCR vocab on card images (skip already-OCR'd)
+python experiments/run_ocr_all_cards.py            # Only new cards
+python experiments/run_ocr_all_cards.py --cards 1,5 # Re-OCR specific cards
+python experiments/run_ocr_all_cards.py --force     # Re-OCR everything
+
+# Step 3: Extract vocab from OCR (skip already-extracted)
+python experiments/extract_vocab_v3.py             # Only new cards
+python experiments/extract_vocab_v3.py --cards 1,5  # Re-extract specific
+python experiments/extract_vocab_v3.py --force      # Re-extract all
+
+# Step 4: Clean OCR errors
+python experiments/clean_vocab_final.py
+
+# Step 5: Generate audio for new vocab words
+python scripts/generate_vocab_audio.py
+
+# Step 6: Build
+python scripts/build_deploy.py -o dist
+```
+
+### Pipeline Safety Rules
+
+1. **Pipeline is INCREMENTAL by default** — only processes new/unprocessed cards
+2. **Use `--cards X` to re-process specific cards** — for fixing OCR errors
+3. **Use `--force` to re-process everything** — use sparingly, overwrites existing data
+4. **`clean_vocab_final.py` fixes known OCR errors** — edit this file to add new corrections
+5. **NEVER run `extract_vocab_v3.py --force` without running `clean_vocab_final.py` after** — or cleaned data is lost
+
+### Tools (Standalone, NOT deployed)
+
+| Tool | URL (local) | Purpose |
+|------|-------------|--------|
+| Print vocab cards | `http://localhost:8787/tools/print-vocab-cards.html` | A4 flashcard printing (9 per page) |
+| Generate PDFs | `python tools/generate_pdf_cards.py --all` | Batch PDF via headless Chrome |
+
+---
+
+## ⛔ DEPLOY RULES — READ CAREFULLY
+
+### Git Branches
+
+| Branch | Purpose | Cloudflare URL |
+|--------|---------|----------------|
+| `main` | **PRODUCTION — stable releases only** | `cardlish-learn.pages.dev` |
+| `dev` | **Development — daily work happens here** | `dev.cardlish-learn.pages.dev` |
+
+**You are almost always on branch `dev`.** Check with `git branch --show-current`.
+
+### Deploy Commands
+
+| Target | Command | When to use |
+|--------|---------|-------------|
+| **Dev preview** | `npx wrangler pages deploy dist --branch dev` | After any code change, for testing |
+| **Production** | `npx wrangler pages deploy dist --branch main` | **ONLY when user explicitly says "deploy production"** |
+
+### 🚫 DEPLOY SAFETY RULES
+
+1. **NEVER deploy to production unless the user EXPLICITLY says "deploy production" or "deploy lên production".**
+   - "deploy" alone means → deploy to **dev**
+   - "deploy thử" / "deploy xem" → deploy to **dev**
+   - "deploy lại" → deploy to **dev** (unless user specifies production)
+   - "deploy production" / "deploy lên trang chính" → deploy to **production**
+
+2. **NEVER run `npx wrangler pages deploy dist` without `--branch`.**
+   - Without `--branch`, wrangler uses the current git branch name
+   - Since we're on `dev`, it will deploy to dev alias — but this is UNRELIABLE
+   - **ALWAYS specify `--branch dev` or `--branch main` explicitly**
+
+3. **NEVER use `python scripts/build_deploy.py --deploy`.**
+   - This flag calls wrangler WITHOUT `--branch` — unsafe!
+   - Always build and deploy as separate steps
+
+4. **Before deploying production, ALWAYS:**
+   - Confirm with user: "Bạn muốn deploy lên PRODUCTION (cardlish-learn.pages.dev)?"
+   - Run `git status` to check for uncommitted changes
+   - Run `python scripts/build_deploy.py -o dist` to build fresh
+
+5. **NEVER deploy uncommitted experimental changes to production.**
+   - If there are uncommitted changes in src/, stash them first: `git stash`
+   - Build from clean commit, deploy, then `git stash pop`
+
+---
+
 ## CRITICAL RULES
 
-1. **NEVER manually copy files into dist/** - always use the build script
+1. **NEVER manually copy files into dist/** — always use the build script
 2. **NEVER replace dist/data/cards.json** with `unified_db/data/cards_manifest.json`
    - The manifest has `audio.status='pending'` and empty `local_path`
    - This will silently break ALL audio playback
    - Source of truth: `public/data/cards.json` (has `audio.status='downloaded'`)
 3. **ALWAYS run the build script from project root**
-4. **Audio has 3 levels** - root (card audio), vocab/, sentences/
+4. **Audio has 3 levels** — root (card audio), vocab/, sentences/
    - If build shows only ~53 audio files, the subdirectories are not being copied
    - Correct build shows ~489 files (53 + 330 + 106)
 
-## Deploy Rules
+## Dev Server
 
-| Target | Command | URL |
-|--------|---------|-----|
-| Production | `npx wrangler pages deploy dist` | cardlish-learn.pages.dev |
-| Dev branch | `npx wrangler pages deploy .deploy --branch dev` | dev.cardlish-learn.pages.dev/src/ |
+```bash
+python admin_server.py            # Start local server at http://localhost:8787
+```
 
-**Do NOT deploy `dist/` to branch `dev`** - the URL structure is different.
+- Serves project root as static files + admin API
+- Print vocab cards: `http://localhost:8787/tools/print-vocab-cards.html`
+- Admin UI: `http://localhost:8787/admin/`
+- **This server is for LOCAL DEV only — never expose to internet**
 
 ## TV Browser Constraints
 

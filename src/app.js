@@ -7,6 +7,7 @@
 
 // ── Configuration ───────────────────────────────────────────
 const CONFIG = {
+  API_BASE: '',  // Cloudflare Worker API URL (empty = disabled, uses static files)
   DATA_URL: '../public/data/cards.json',
   VOCAB_URL: '../public/data/cards_vocab.json',
   LESSONS_URL: '../public/data/lessons.json',
@@ -15,6 +16,8 @@ const CONFIG = {
   AUDIO_BASE_PATH: '../public/',
   STORAGE_KEY: 'cardlish_current_index',
   LESSONS_STORAGE_KEY: 'cardlish_lessons',
+  DEVICE_KEY_STORAGE_KEY: 'cardlish_device_key',
+  APP_SECRET: 'cardlish_2026_secret',  // Must match Worker's APP_SECRET
   CONTROLS: ['prev-card', 'play-audio', 'next-card'],
   POINTER_HIDE_DELAY: 3000,
   SWIPE_THRESHOLD: 50,
@@ -25,23 +28,263 @@ const CONFIG = {
 const state = {
   cards: [],
   vocab: {},
+  originalVocab: {},
   currentIndex: 0,
   showingFront: true,
   activeControlIndex: 1, // play-audio by default
   audioPlaying: false,
   audioElement: null,
   navigationDirection: 'fade',
+  showSentences: true,
+  currentTheme: 'light',
 };
 
 // ── Lesson State ────────────────────────────────────────────
 const lessonState = {
   lessons: [],           // Merged: default (from file) + custom (from localStorage)
   activeLessonId: null,  // Currently selected lesson ID
+  activeEditingLessonId: null, // Currently editing lesson ID
 };
 
 // ── Vocab Audio Map (pre-generated MP3s) ────────────────────
 let vocabAudioMap = null; // { words: { word: path }, sentences: { text: path } }
 let sharedAudio = null;   // Single shared Audio element (TV only allows one)
+
+// ── API Sync State ──────────────────────────────────────────
+let _apiAvailable = null;      // null=not checked, true/false after check
+let _lastKnownVersion = null;  // Version hash from API for change detection
+let _deviceBlocked = false;    // true if server returned 403 "blocked"
+
+// ── API Layer ───────────────────────────────────────────────
+
+/** Get saved device key from localStorage */
+function getDeviceKey() {
+  try { return localStorage.getItem(CONFIG.DEVICE_KEY_STORAGE_KEY) || ''; }
+  catch { return ''; }
+}
+
+/** Save device key to localStorage */
+function setDeviceKey(key) {
+  try {
+    if (key) {
+      localStorage.setItem(CONFIG.DEVICE_KEY_STORAGE_KEY, key);
+    } else {
+      localStorage.removeItem(CONFIG.DEVICE_KEY_STORAGE_KEY);
+    }
+  } catch (e) {
+    console.warn('Failed to save device key:', e);
+  }
+}
+
+/** Check if the API is reachable (cached after first check) */
+async function checkApiAvailability() {
+  if (_apiAvailable !== null) return _apiAvailable;
+  if (!CONFIG.API_BASE) { _apiAvailable = false; return false; }
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const resp = await fetch(CONFIG.API_BASE + '/health', { signal: controller.signal });
+    clearTimeout(timeoutId);
+    _apiAvailable = resp.ok;
+  } catch {
+    _apiAvailable = false;
+  }
+  console.log(`[API] Availability: ${_apiAvailable ? '✅ online' : '❌ offline (using static files)'}`);
+  return _apiAvailable;
+}
+
+/**
+ * Build a human-readable device name from navigator info.
+ * e.g. "Chrome Windows - 24/06/2026"
+ */
+function buildDeviceName() {
+  const ua = navigator.userAgent || '';
+  let browser = 'Unknown';
+  let os = '';
+  if (ua.includes('Tizen')) { browser = 'Tizen TV'; }
+  else if (ua.includes('WebOS') || ua.includes('webOS')) { browser = 'WebOS TV'; }
+  else if (ua.includes('Edg/')) { browser = 'Edge'; }
+  else if (ua.includes('Chrome/')) { browser = 'Chrome'; }
+  else if (ua.includes('Firefox/')) { browser = 'Firefox'; }
+  else if (ua.includes('Safari/') && !ua.includes('Chrome')) { browser = 'Safari'; }
+
+  if (ua.includes('Windows')) os = 'Windows';
+  else if (ua.includes('Mac OS')) os = 'macOS';
+  else if (ua.includes('Android')) os = 'Android';
+  else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
+  else if (ua.includes('Linux')) os = 'Linux';
+
+  const date = new Date().toLocaleDateString('vi-VN');
+  return [browser, os, '-', date].filter(Boolean).join(' ');
+}
+
+/**
+ * Auto-register this device with the server.
+ * Called on first visit when no device key exists.
+ * Does NOT register if device was previously blocked.
+ */
+async function autoRegisterDevice() {
+  // Don't auto-register if:
+  // - API is not available
+  // - Already have a key
+  // - Device was blocked
+  if (!_apiAvailable || getDeviceKey() || _deviceBlocked) return;
+
+  console.log('[API] No device key found. Auto-registering...');
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const resp = await fetch(CONFIG.API_BASE + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        appSecret: CONFIG.APP_SECRET,
+        deviceInfo: buildDeviceName(),
+      }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!resp.ok) {
+      const errBody = await resp.json().catch(() => ({}));
+      console.warn('[API] Auto-register failed:', errBody.error || resp.status);
+      return;
+    }
+
+    const result = await resp.json();
+    if (result.key) {
+      setDeviceKey(result.key);
+      console.log(`[API] ✅ Auto-registered as "${result.name}" (key: ${result.key.slice(0, 6)}...)`);
+    }
+  } catch (e) {
+    console.warn('[API] Auto-register error:', e.message);
+  }
+}
+
+/**
+ * Make an authenticated API request.
+ * @param {'GET'|'POST'|'PUT'|'PATCH'|'DELETE'} method
+ * @param {string} endpoint - e.g. '/lessons'
+ * @param {object} [body] - JSON body for write requests
+ * @returns {Promise<any>} Parsed JSON response
+ */
+async function apiFetch(method, endpoint, body) {
+  if (!CONFIG.API_BASE) throw new Error('API not configured');
+
+  const url = CONFIG.API_BASE + endpoint;
+  const headers = {};
+  const options = { method, headers };
+
+  if (body !== undefined) {
+    headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(body);
+  }
+
+  const key = getDeviceKey();
+  if (key) {
+    headers['Authorization'] = 'Bearer ' + key;
+  }
+
+  const resp = await fetch(url, options);
+  if (!resp.ok) {
+    let errMsg = `API error ${resp.status}`;
+    let isBlocked = false;
+    try {
+      const errBody = await resp.json();
+      errMsg = errBody.error || errMsg;
+      isBlocked = errBody.blocked === true;
+    } catch { /* ignore parse error */ }
+
+    // Handle blocked device
+    if (resp.status === 403 && isBlocked) {
+      console.warn('[API] Device has been blocked by admin');
+      _deviceBlocked = true;
+      setDeviceKey('');  // Clear blocked key
+      if (typeof showToast === 'function') {
+        showToast('🔴 Thiết bị đã bị chặn bởi admin');
+      }
+    }
+
+    throw new Error(errMsg);
+  }
+  return resp.json();
+}
+
+/**
+ * Fetch data from API first, fall back to static file.
+ * @param {string} apiEndpoint - e.g. '/cards'
+ * @param {string} fallbackUrl - e.g. CONFIG.DATA_URL
+ * @returns {Promise<any>} Parsed JSON data
+ */
+async function fetchDataFromApi(apiEndpoint, fallbackUrl) {
+  if (await checkApiAvailability()) {
+    try {
+      return await apiFetch('GET', apiEndpoint);
+    } catch (e) {
+      console.warn(`[API] Fetch failed for ${apiEndpoint}, falling back to static:`, e.message);
+    }
+  }
+  // Fallback to static file
+  const resp = await fetch(fallbackUrl);
+  if (!resp.ok) throw new Error(`Failed to load ${fallbackUrl}: HTTP ${resp.status}`);
+  return resp.json();
+}
+
+/**
+ * Check API version to detect remote data changes.
+ * Returns true if data has changed since last check.
+ */
+async function checkForUpdates() {
+  if (!_apiAvailable) return false;
+  try {
+    const version = await apiFetch('GET', '/version');
+    if (!version || !version.hash || version.hash === 'none') return false;
+    if (_lastKnownVersion && version.hash !== _lastKnownVersion) {
+      _lastKnownVersion = version.hash;
+      return true; // Data changed!
+    }
+    _lastKnownVersion = version.hash;
+    return false;
+  } catch { return false; }
+}
+
+/**
+ * Refresh lessons from API if remote data has changed.
+ * Called when returning to home screen — non-blocking.
+ */
+async function refreshDataIfUpdated() {
+  if (!_apiAvailable) return;
+  try {
+    const hasUpdates = await checkForUpdates();
+    if (hasUpdates) {
+      console.log('[API] Remote data updated, refreshing lessons...');
+      await loadLessons();
+      renderLessonGrid();
+    }
+  } catch (e) {
+    console.warn('[API] Failed to check for updates:', e.message);
+  }
+}
+
+/**
+ * Try to sync a lesson change to the API (non-blocking, optimistic).
+ * Falls back silently — local state is already updated.
+ * @param {'POST'|'PATCH'|'DELETE'} method
+ * @param {string} endpoint
+ * @param {object} [body]
+ */
+async function syncLessonToApi(method, endpoint, body) {
+  if (!_apiAvailable || !getDeviceKey()) return;
+  try {
+    await apiFetch(method, endpoint, body);
+  } catch (e) {
+    console.warn(`[API] Sync failed (${method} ${endpoint}):`, e.message);
+    if (typeof showToast === 'function') {
+      showToast('⚠️ Lưu cloud thất bại: ' + e.message);
+    }
+  }
+}
 
 // ── TV Browser Detection ────────────────────────────────────
 const IS_TV_BROWSER = /SmartTV|Tizen|WebOS|webOS|BRAVIA|NetCast|HbbTV/i.test(navigator.userAgent);
@@ -119,6 +362,7 @@ function cacheDom() {
   dom.vocabEditClose = document.getElementById('vocabEditClose');
   dom.vocabEditCancel = document.getElementById('vocabEditCancel');
   dom.vocabEditSave = document.getElementById('vocabEditSave');
+  dom.vocabEditReset = document.getElementById('vocabEditReset');
   dom.frontVocabList = document.getElementById('frontVocabList');
   dom.backVocabList = document.getElementById('backVocabList');
   dom.addFrontWord = document.getElementById('addFrontWord');
@@ -138,6 +382,13 @@ function cacheDom() {
   dom.lessonPickerLabel = document.getElementById('lessonPickerLabel');
   dom.lessonPickerPanel = document.getElementById('lessonPickerPanel');
   dom.toastContainer = document.getElementById('toastContainer');
+  dom.toggleSentences = document.getElementById('toggleSentences');
+
+  // Theme Switcher DOM elements
+  dom.themeSwitcherBar = document.getElementById('themeSwitcherBar');
+  dom.themeSwitcherToggle = document.getElementById('themeSwitcherToggle');
+  dom.themeSwitcherPanel = document.getElementById('themeSwitcherPanel');
+  dom.themeBtns = document.querySelectorAll('.theme-btn');
 
   // Lesson action buttons
   dom.createLessonBtn = document.getElementById('createLessonBtn');
@@ -151,34 +402,47 @@ function cacheDom() {
   dom.lessonCardsInput = document.getElementById('lessonCardsInput');
   dom.cancelCreateLesson = document.getElementById('cancelCreateLesson');
   dom.confirmCreateLesson = document.getElementById('confirmCreateLesson');
+
+  // Edit Lesson Modal
+  dom.editLessonOverlay = document.getElementById('editLessonOverlay');
+  dom.editLessonNameInput = document.getElementById('editLessonNameInput');
+  dom.cancelEditLesson = document.getElementById('cancelEditLesson');
+  dom.confirmEditLesson = document.getElementById('confirmEditLesson');
+
+  // Device Key Modal
+  dom.deviceKeyBtn = document.getElementById('deviceKeyBtn');
+  dom.deviceKeyOverlay = document.getElementById('deviceKeyOverlay');
+  dom.deviceKeyInput = document.getElementById('deviceKeyInput');
+  dom.deviceKeyStatus = document.getElementById('deviceKeyStatus');
+  dom.deviceKeySave = document.getElementById('deviceKeySave');
+  dom.deviceKeyClear = document.getElementById('deviceKeyClear');
+  dom.deviceKeyCancel = document.getElementById('deviceKeyCancel');
 }
 
 // ── Data Loader ─────────────────────────────────────────────
 async function loadCards() {
   // Load both cards list and vocab list in parallel
-  const [cardsResp, vocabResp] = await Promise.all([
-    fetch(CONFIG.DATA_URL),
-    fetch(CONFIG.VOCAB_URL).catch(e => {
+  // Try API first, fall back to static files
+  const [cardsData, vocabData] = await Promise.all([
+    fetchDataFromApi('/cards', CONFIG.DATA_URL),
+    fetchDataFromApi('/vocab', CONFIG.VOCAB_URL).catch(e => {
       console.warn('Failed to load cards_vocab.json, fallback to empty:', e);
       return null;
     })
   ]);
 
-  if (!cardsResp.ok) {
-    throw new Error(`Không thể tải dữ liệu thẻ (HTTP ${cardsResp.status})`);
+  if (!cardsData) {
+    throw new Error('Không thể tải dữ liệu thẻ');
   }
 
-  const data = await cardsResp.json();
+  const data = cardsData;
   
-  if (vocabResp && vocabResp.ok) {
-    try {
-      state.vocab = await vocabResp.json();
-    } catch (e) {
-      console.warn('Failed to parse cards_vocab.json:', e);
-      state.vocab = {};
-    }
+  if (vocabData) {
+    state.vocab = vocabData;
+    state.originalVocab = JSON.parse(JSON.stringify(state.vocab));
   } else {
     state.vocab = {};
+    state.originalVocab = {};
   }
 
   // Merge vocabulary overrides from localStorage
@@ -226,9 +490,18 @@ async function loadCards() {
         state.currentIndex = idx;
       }
     }
+    const savedShow = localStorage.getItem('cardlish_show_sentences');
+    if (savedShow !== null) {
+      state.showSentences = savedShow === 'true';
+    }
+    const savedTheme = localStorage.getItem('cardlish_theme') || 'warm';
+    setTheme(savedTheme);
   } catch (e) {
     // localStorage may be unavailable on some TV browsers
   }
+
+  // Update sentences toggle button at start
+  updateSentencesToggleButton();
 }
 
 // ── Card Renderer ───────────────────────────────────────────
@@ -400,6 +673,40 @@ function showToast(message) {
   setTimeout(() => {
     toast.remove();
   }, 3000);
+}
+
+function updateSentencesToggleButton() {
+  if (!dom.toggleSentences) return;
+  if (state.showSentences) {
+    dom.toggleSentences.innerHTML = '👁️ Ẩn ví dụ';
+    dom.toggleSentences.classList.remove('hidden-mode');
+    dom.toggleSentences.setAttribute('aria-label', 'Ẩn câu ví dụ');
+    dom.toggleSentences.setAttribute('title', 'Ẩn câu ví dụ');
+  } else {
+    dom.toggleSentences.innerHTML = '👁️ Hiện ví dụ';
+    dom.toggleSentences.classList.add('hidden-mode');
+    dom.toggleSentences.setAttribute('aria-label', 'Hiện câu ví dụ');
+    dom.toggleSentences.setAttribute('title', 'Hiện câu ví dụ');
+  }
+}
+
+function setTheme(theme) {
+  document.body.classList.remove('theme-light', 'theme-warm', 'theme-dark');
+  document.body.classList.add(`theme-${theme}`);
+  state.currentTheme = theme;
+  try {
+    localStorage.setItem('cardlish_theme', theme);
+  } catch (e) {}
+
+  if (dom.themeBtns) {
+    dom.themeBtns.forEach(btn => {
+      if (btn.dataset.theme === theme) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
 }
 
 // ── Throttle Utility (TV Performance) ───────────────────────
@@ -749,8 +1056,73 @@ function setupEventListeners() {
       dom.lessonPickerPanel.hidden = !isHidden;
       dom.lessonPickerToggle.setAttribute('aria-expanded', !isHidden);
       dom.lessonPickerToggle.classList.toggle('expanded', !isHidden);
+
+      // Close theme switcher panel if we are opening this one
+      if (isHidden && dom.themeSwitcherPanel) {
+        dom.themeSwitcherPanel.hidden = true;
+        if (dom.themeSwitcherToggle) {
+          dom.themeSwitcherToggle.setAttribute('aria-expanded', 'false');
+          dom.themeSwitcherToggle.classList.remove('expanded');
+        }
+      }
     });
   }
+
+  // ── Theme Switcher Event Listeners ───────────────────────────
+  if (dom.themeSwitcherToggle) {
+    dom.themeSwitcherToggle.addEventListener('click', () => {
+      const isHidden = dom.themeSwitcherPanel.hidden;
+      dom.themeSwitcherPanel.hidden = !isHidden;
+      dom.themeSwitcherToggle.setAttribute('aria-expanded', !isHidden);
+      dom.themeSwitcherToggle.classList.toggle('expanded', !isHidden);
+
+      // Close lesson picker panel if we are opening this one
+      if (isHidden && dom.lessonPickerPanel) {
+        dom.lessonPickerPanel.hidden = true;
+        if (dom.lessonPickerToggle) {
+          dom.lessonPickerToggle.setAttribute('aria-expanded', 'false');
+          dom.lessonPickerToggle.classList.remove('expanded');
+        }
+      }
+    });
+  }
+
+  if (dom.themeBtns) {
+    dom.themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.dataset.theme;
+        if (theme) {
+          setTheme(theme);
+          // Auto close panel after selection
+          if (dom.themeSwitcherPanel) {
+            dom.themeSwitcherPanel.hidden = true;
+            dom.themeSwitcherToggle.setAttribute('aria-expanded', 'false');
+            dom.themeSwitcherToggle.classList.remove('expanded');
+          }
+        }
+      });
+    });
+  }
+
+  // Close panels when clicking outside
+  document.addEventListener('click', (e) => {
+    // For lesson picker
+    if (dom.lessonPickerToggle && dom.lessonPickerPanel && !dom.lessonPickerPanel.hidden) {
+      if (!dom.lessonPickerToggle.contains(e.target) && !dom.lessonPickerPanel.contains(e.target)) {
+        dom.lessonPickerPanel.hidden = true;
+        dom.lessonPickerToggle.setAttribute('aria-expanded', 'false');
+        dom.lessonPickerToggle.classList.remove('expanded');
+      }
+    }
+    // For theme switcher
+    if (dom.themeSwitcherToggle && dom.themeSwitcherPanel && !dom.themeSwitcherPanel.hidden) {
+      if (!dom.themeSwitcherToggle.contains(e.target) && !dom.themeSwitcherPanel.contains(e.target)) {
+        dom.themeSwitcherPanel.hidden = true;
+        dom.themeSwitcherToggle.setAttribute('aria-expanded', 'false');
+        dom.themeSwitcherToggle.classList.remove('expanded');
+      }
+    }
+  });
 
   if (dom.lessonPickerPanel) {
     dom.lessonPickerPanel.addEventListener('click', (e) => {
@@ -761,6 +1133,19 @@ function setupEventListeners() {
         state.currentIndex = idx;
         renderCard();
       }
+    });
+  }
+
+  // Sentences toggle button listener
+  if (dom.toggleSentences) {
+    dom.toggleSentences.addEventListener('click', () => {
+      state.showSentences = !state.showSentences;
+      try {
+        localStorage.setItem('cardlish_show_sentences', String(state.showSentences));
+      } catch (e) {}
+      
+      updateSentencesToggleButton();
+      renderVocab();
     });
   }
 
@@ -1432,7 +1817,7 @@ function renderVocab() {
   // Render sentences below the card
   if (dom.sentencesContainer) {
     const sentences = state.showingFront ? (cardVocab.front_sentences || []) : (cardVocab.back_sentences || []);
-    if (sentences.length === 0) {
+    if (sentences.length === 0 || !state.showSentences) {
       dom.sentencesContainer.style.display = 'none';
     } else {
       dom.sentencesContainer.style.display = 'flex';
@@ -1689,11 +2074,57 @@ function saveVocabEdits() {
     back: backWords
   };
 
-  // Save to localStorage
+  // Save to localStorage (only user overrides, to avoid bloating with whole DB)
   try {
-    localStorage.setItem('cardlish_vocab_edits', JSON.stringify(state.vocab));
+    let localEdits = {};
+    const savedEdits = localStorage.getItem('cardlish_vocab_edits');
+    if (savedEdits) {
+      try {
+        localEdits = JSON.parse(savedEdits);
+      } catch (e) {}
+    }
+    localEdits[card.pair_id] = {
+      front: frontWords,
+      back: backWords
+    };
+    localStorage.setItem('cardlish_vocab_edits', JSON.stringify(localEdits));
   } catch (e) {
     console.warn('Failed to save vocab edits to localStorage:', e);
+  }
+
+  // If we're editing the current card, re-render the study screen vocabulary list
+  if (activeEditingCardIndex === state.currentIndex) {
+    renderVocab();
+  }
+
+  closeVocabEditor();
+}
+
+function revertVocabToDefault() {
+  if (activeEditingCardIndex === null) return;
+  const card = state.cards[activeEditingCardIndex];
+  if (!card) return;
+
+  // Restore state.vocab[card.pair_id] from state.originalVocab
+  if (state.originalVocab && state.originalVocab[card.pair_id]) {
+    state.vocab[card.pair_id] = JSON.parse(JSON.stringify(state.originalVocab[card.pair_id]));
+  } else {
+    delete state.vocab[card.pair_id];
+  }
+
+  // Remove override from localStorage
+  try {
+    let localEdits = {};
+    const savedEdits = localStorage.getItem('cardlish_vocab_edits');
+    if (savedEdits) {
+      try {
+        localEdits = JSON.parse(savedEdits);
+      } catch (e) {}
+    }
+    delete localEdits[card.pair_id];
+    localStorage.setItem('cardlish_vocab_edits', JSON.stringify(localEdits));
+  } catch (e) {
+    console.warn('Failed to revert vocab edits in localStorage:', e);
   }
 
   // If we're editing the current card, re-render the study screen vocabulary list
@@ -1741,6 +2172,11 @@ function setupVocabEditorListeners() {
   // Save listener
   dom.vocabEditSave.addEventListener('click', saveVocabEdits);
 
+  // Reset listener
+  if (dom.vocabEditReset) {
+    dom.vocabEditReset.addEventListener('click', revertVocabToDefault);
+  }
+
   // Export JSON listener
   dom.exportVocabJson.addEventListener('click', exportVocabJson);
 }
@@ -1751,6 +2187,27 @@ function setupVocabEditorListeners() {
 
 // ── Load Lessons ────────────────────────────────────────────
 async function loadLessons() {
+  // --- API MODE: single source of truth ---
+  if (await checkApiAvailability()) {
+    try {
+      const apiLessons = await apiFetch('GET', '/lessons');
+      // API may return array directly or wrapped in { lessons: [...] }
+      const lessons = Array.isArray(apiLessons)
+        ? apiLessons
+        : (apiLessons.lessons || []);
+      lessonState.lessons = lessons;
+      // Sort by createdAt descending
+      lessonState.lessons.sort((a, b) =>
+        new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+      );
+      console.log(`[API] Loaded ${lessonState.lessons.length} lessons from API`);
+      return; // Success — skip static fallback
+    } catch (e) {
+      console.warn('[API] Lessons load failed, falling back to static:', e.message);
+    }
+  }
+
+  // --- STATIC MODE: original behavior (file + localStorage merge) ---
   let defaultLessons = [];
   let localLessons = [];
 
@@ -1759,7 +2216,6 @@ async function loadLessons() {
     const resp = await fetch(CONFIG.LESSONS_URL);
     if (resp.ok) {
       defaultLessons = await resp.json();
-      // Mark default lessons
       defaultLessons.forEach(l => { l._source = 'default'; });
     }
   } catch (e) {
@@ -1793,11 +2249,16 @@ async function loadLessons() {
   });
 }
 
-// ── Save Lessons to localStorage ────────────────────────────
+// ── Save Lessons to localStorage (backup) ───────────────────
 function saveLessonsLocal() {
   try {
-    const localOnly = lessonState.lessons.filter(l => l._source === 'local');
-    localStorage.setItem(CONFIG.LESSONS_STORAGE_KEY, JSON.stringify(localOnly));
+    // In API mode, save ALL lessons as backup; in static mode, save local only
+    if (_apiAvailable) {
+      localStorage.setItem(CONFIG.LESSONS_STORAGE_KEY, JSON.stringify(lessonState.lessons));
+    } else {
+      const localOnly = lessonState.lessons.filter(l => l._source === 'local');
+      localStorage.setItem(CONFIG.LESSONS_STORAGE_KEY, JSON.stringify(localOnly));
+    }
   } catch (e) {
     console.warn('Failed to save lessons:', e);
   }
@@ -1819,9 +2280,14 @@ function createLesson(name, cardsStr) {
     _source: 'local',
   };
 
+  // Optimistic update: add to local state immediately
   lessonState.lessons.unshift(lesson);
   saveLessonsLocal();
   renderLessonGrid();
+
+  // Sync to API in background (non-blocking)
+  const { _source, ...cleanLesson } = lesson;
+  syncLessonToApi('POST', '/lessons', cleanLesson);
 }
 
 // ── Delete Lesson ───────────────────────────────────────────
@@ -1829,12 +2295,19 @@ function deleteLesson(id) {
   const lesson = lessonState.lessons.find(l => l.id === id);
   if (!lesson) return;
 
+  // Prevent deleting the "All Cards" lesson
+  if (lesson.cards === 'all') return;
+
   const confirmMsg = `Xóa bài học "${lesson.name}"?`;
   if (!confirm(confirmMsg)) return;
 
+  // Optimistic update: remove from local state immediately
   lessonState.lessons = lessonState.lessons.filter(l => l.id !== id);
   saveLessonsLocal();
   renderLessonGrid();
+
+  // Sync deletion to API in background
+  syncLessonToApi('DELETE', `/lessons/${encodeURIComponent(id)}`);
 }
 
 // ── Select Lesson → Start Studying ──────────────────────────
@@ -1996,7 +2469,9 @@ function renderLessonGrid() {
     const dateStr = lesson.createdAt 
       ? new Date(lesson.createdAt).toLocaleDateString('vi-VN')
       : '';
-    const isLocal = lesson._source === 'local';
+    // In API mode, all non-'all' lessons are deletable; in static mode, only local
+    const isDeletable = !isAll && (_apiAvailable || lesson._source === 'local');
+    const showLocalBadge = !_apiAvailable && lesson._source === 'local';
     const extraClass = isAll ? ' lesson-card--all' : '';
 
     html += `
@@ -2005,13 +2480,15 @@ function renderLessonGrid() {
         <div class="lesson-card-meta">
           <span>📇 ${cardCount} thẻ</span>
           ${dateStr ? `<span>📅 ${dateStr}</span>` : ''}
-          ${isLocal ? '<span>✏️ Tự tạo</span>' : ''}
+          ${showLocalBadge ? '<span>✏️ Tự tạo</span>' : ''}
+          ${_apiAvailable ? '<span>☁️</span>' : ''}
         </div>
         <div class="lesson-card-actions">
           <button class="lesson-card-study-btn focusable" data-lesson-id="${lesson.id}">
             🎓 Học bài này
           </button>
-          ${isLocal ? `<button class="lesson-card-delete-btn focusable" data-lesson-id="${lesson.id}" aria-label="Xóa bài học">🗑️</button>` : ''}
+          <button class="lesson-card-edit-btn focusable" data-lesson-id="${lesson.id}" aria-label="Sửa tên bài học">✏️</button>
+          ${isDeletable ? `<button class="lesson-card-delete-btn focusable" data-lesson-id="${lesson.id}" aria-label="Xóa bài học">🗑️</button>` : ''}
         </div>
       </div>
     `;
@@ -2024,6 +2501,13 @@ function renderLessonGrid() {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       selectLesson(btn.dataset.lessonId);
+    });
+  });
+
+  dom.lessonGrid.querySelectorAll('.lesson-card-edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEditLessonModal(btn.dataset.lessonId);
     });
   });
 
@@ -2049,6 +2533,10 @@ function showHomeScreen() {
   dom.studyScreen.hidden = true;
   lessonState.activeLessonId = null;
   renderLessonGrid();
+
+  // Check for remote updates in background (non-blocking)
+  // This is how "máy 2 thoát ra vào lại thấy data mới" works
+  refreshDataIfUpdated();
 }
 
 function showStudyScreen() {
@@ -2085,6 +2573,61 @@ function handleCreateLesson() {
   createLesson(name, cardsStr);
   closeCreateLessonModal();
 }
+
+// ── Edit Lesson Modal ───────────────────────────────────────
+function openEditLessonModal(id) {
+  const lesson = lessonState.lessons.find(l => l.id === id);
+  if (!lesson) return;
+
+  lessonState.activeEditingLessonId = id;
+  dom.editLessonOverlay.hidden = false;
+  dom.editLessonNameInput.value = lesson.name;
+  setTimeout(() => dom.editLessonNameInput.focus(), 100);
+}
+
+function closeEditLessonModal() {
+  dom.editLessonOverlay.hidden = true;
+  lessonState.activeEditingLessonId = null;
+}
+
+function saveEditLessonName() {
+  const id = lessonState.activeEditingLessonId;
+  if (!id) return;
+
+  const newName = dom.editLessonNameInput.value.trim();
+  if (!newName) {
+    dom.editLessonNameInput.focus();
+    return;
+  }
+
+  const lessonIndex = lessonState.lessons.findIndex(l => l.id === id);
+  if (lessonIndex === -1) return;
+
+  const lesson = lessonState.lessons[lessonIndex];
+
+  // Update name (optimistic)
+  lesson.name = newName;
+
+  // If it's a default/built-in lesson, convert to local so it persists to localStorage
+  if (lesson._source !== 'local') {
+    lesson._source = 'local';
+    if (!lesson.createdAt) {
+      lesson.createdAt = new Date().toISOString();
+    }
+  }
+
+  saveLessonsLocal();
+  renderLessonGrid();
+  closeEditLessonModal();
+
+  if (typeof showToast === 'function') {
+    showToast('Đã lưu tên bài học mới!');
+  }
+
+  // Sync to API in background
+  syncLessonToApi('PATCH', `/lessons/${encodeURIComponent(id)}`, { name: newName });
+}
+
 
 // ── Export/Import Lessons ───────────────────────────────────
 function exportLessonsJSON() {
@@ -2133,6 +2676,15 @@ function importLessonsJSON(file) {
       saveLessonsLocal();
       renderLessonGrid();
       alert(`Đã nhập ${imported.length} bài học thành công!`);
+
+      // Sync all lessons to API if available (replace entire lesson set)
+      if (_apiAvailable && getDeviceKey()) {
+        const cleanLessons = lessonState.lessons.map(l => {
+          const { _source, ...rest } = l;
+          return rest;
+        });
+        syncLessonToApi('PUT', '/lessons', { lessons: cleanLessons });
+      }
     } catch (err) {
       alert('Lỗi đọc file JSON: ' + err.message);
     }
@@ -2143,13 +2695,85 @@ function importLessonsJSON(file) {
 // ── Load Vocab Audio Map ────────────────────────────────────
 async function loadVocabAudioMap() {
   try {
-    const resp = await fetch(CONFIG.VOCAB_AUDIO_MAP_URL);
-    if (resp.ok) {
-      vocabAudioMap = await resp.json();
+    vocabAudioMap = await fetchDataFromApi('/audio-map', CONFIG.VOCAB_AUDIO_MAP_URL);
+    if (vocabAudioMap) {
       console.log(`Vocab audio map loaded: ${Object.keys(vocabAudioMap.words || {}).length} words, ${Object.keys(vocabAudioMap.sentences || {}).length} sentences`);
     }
   } catch (e) {
     console.warn('Failed to load vocab audio map (TTS will fall back to speechSynthesis):', e);
+    vocabAudioMap = null;
+  }
+}
+
+// ── Device Key Modal ────────────────────────────────────────
+function openDeviceKeyModal() {
+  if (!dom.deviceKeyOverlay) return;
+  dom.deviceKeyOverlay.hidden = false;
+
+  const currentKey = getDeviceKey();
+  dom.deviceKeyInput.value = '';  // Don't prefill for security
+
+  // Show connection status
+  const statusEl = dom.deviceKeyStatus;
+  if (!CONFIG.API_BASE) {
+    statusEl.textContent = '⚙️ API chưa được cấu hình (đang dùng file tĩnh)';
+    statusEl.style.background = 'rgba(200,200,200,0.15)';
+  } else if (_deviceBlocked) {
+    statusEl.textContent = '🔴 Thiết bị đã bị chặn — liên hệ admin để được cấp key mới';
+    statusEl.style.background = 'rgba(239,68,68,0.15)';
+  } else if (_apiAvailable && currentKey) {
+    const maskedKey = currentKey.slice(0, 6) + '...' + currentKey.slice(-4);
+    statusEl.textContent = '✅ Đã kết nối cloud (' + maskedKey + ') — bài học sẽ đồng bộ giữa các thiết bị';
+    statusEl.style.background = 'rgba(34,197,94,0.15)';
+  } else if (_apiAvailable && !currentKey) {
+    statusEl.textContent = '☁️ Cloud khả dụng — đang tự đăng ký hoặc nhập key thủ công bên dưới';
+    statusEl.style.background = 'rgba(59,130,246,0.15)';
+  } else {
+    statusEl.textContent = '❌ Không kết nối được cloud — đang dùng file tĩnh';
+    statusEl.style.background = 'rgba(239,68,68,0.15)';
+  }
+
+  // Show/hide clear button based on whether a key exists
+  if (dom.deviceKeyClear) {
+    dom.deviceKeyClear.style.display = currentKey ? '' : 'none';
+  }
+
+  setTimeout(() => dom.deviceKeyInput.focus(), 100);
+}
+
+function closeDeviceKeyModal() {
+  if (dom.deviceKeyOverlay) {
+    dom.deviceKeyOverlay.hidden = true;
+  }
+}
+
+async function saveDeviceKeyFromModal() {
+  const key = (dom.deviceKeyInput.value || '').trim();
+  if (!key) {
+    dom.deviceKeyInput.focus();
+    return;
+  }
+
+  // Basic format validation
+  if (!key.startsWith('dk_')) {
+    showToast('⚠️ Key phải bắt đầu bằng "dk_"');
+    dom.deviceKeyInput.focus();
+    return;
+  }
+
+  // Clear blocked flag when manually entering a new key
+  _deviceBlocked = false;
+
+  setDeviceKey(key);
+  closeDeviceKeyModal();
+  showToast('✅ Đã lưu device key');
+
+  // Re-check API availability and reload data
+  _apiAvailable = null; // Reset to re-check
+  if (await checkApiAvailability()) {
+    await loadLessons();
+    renderLessonGrid();
+    showToast('☁️ Đã kết nối cloud — bài học đồng bộ!');
   }
 }
 
@@ -2193,6 +2817,44 @@ function setupHomeScreenListeners() {
       e.target.value = ''; // Reset for re-import
     }
   });
+
+  // Edit lesson modal listeners
+  dom.cancelEditLesson.addEventListener('click', closeEditLessonModal);
+  dom.confirmEditLesson.addEventListener('click', saveEditLessonName);
+  dom.editLessonOverlay.addEventListener('click', (e) => {
+    if (e.target === dom.editLessonOverlay) closeEditLessonModal();
+  });
+  dom.editLessonNameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      saveEditLessonName();
+    }
+  });
+
+  // Device key modal listeners
+  if (dom.deviceKeyBtn) {
+    dom.deviceKeyBtn.addEventListener('click', openDeviceKeyModal);
+  }
+  if (dom.deviceKeySave) {
+    dom.deviceKeySave.addEventListener('click', saveDeviceKeyFromModal);
+  }
+  if (dom.deviceKeyClear) {
+    dom.deviceKeyClear.addEventListener('click', () => {
+      if (confirm('Xóa device key? Thiết bị này sẽ không thể ghi dữ liệu lên cloud nữa.')) {
+        setDeviceKey('');
+        closeDeviceKeyModal();
+        showToast('Đã xóa device key');
+      }
+    });
+  }
+  if (dom.deviceKeyCancel) {
+    dom.deviceKeyCancel.addEventListener('click', closeDeviceKeyModal);
+  }
+  if (dom.deviceKeyOverlay) {
+    dom.deviceKeyOverlay.addEventListener('click', (e) => {
+      if (e.target === dom.deviceKeyOverlay) closeDeviceKeyModal();
+    });
+  }
 }
 
 // ── Initialization ──────────────────────────────────────────
@@ -2206,6 +2868,9 @@ async function init() {
       loadLessons(),
       loadVocabAudioMap(),
     ]);
+
+    // Auto-register device if no key exists
+    await autoRegisterDevice();
 
     // Setup all event listeners
     setupEventListeners();

@@ -51,7 +51,12 @@
       1699,
       1561
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_001_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "002_card",
@@ -105,7 +110,12 @@
       1082,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_002_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "003_card",
@@ -159,7 +169,12 @@
       1082,
       1561
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_003_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "004_card",
@@ -213,7 +228,12 @@
       1082,
       793
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_004_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "005_card",
@@ -267,7 +287,12 @@
       488,
       793
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_005_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "006_card",
@@ -321,7 +346,12 @@
       488,
       1561
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_006_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "007_card",
@@ -375,7 +405,12 @@
       488,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_007_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "008_card",
@@ -429,7 +464,12 @@
       1699,
       818
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_008_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "009_card",
@@ -483,7 +523,12 @@
       1699,
       1585
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_009_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "010_card",
@@ -537,7 +582,12 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_010_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "011_card",
@@ -591,7 +641,12 @@
       1044,
       818
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_011_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "012_card",
@@ -645,7 +700,12 @@
       490,
       818
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_012_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "013_card",
@@ -699,7 +759,12 @@
       490,
       1585
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_013_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "014_card",
@@ -753,7 +818,68 @@
       490,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_014_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
+  },
+  {
+    "pair_id": "batch030_B1",
+    "cell": "B1",
+    "row": 2,
+    "col": 1,
+    "card_no": "015",
+    "label": "short-e",
+    "qr_url": "https://cardlish.com/short-i/",
+    "front_image": "cards/batch030_B1_front.png",
+    "back_image": "cards/batch030_B1_back.png",
+    "front_page": 1,
+    "back_page": 2,
+    "front_bbox_xyxy": [
+      0,
+      780,
+      566,
+      1561
+    ],
+    "back_bbox_xyxy": [
+      0,
+      780,
+      566,
+      1561
+    ],
+    "needs_review": false,
+    "review_note": "",
+    "created_at": "07/06/2026",
+    "display_label": "",
+    "audio": {
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-i/",
+      "remote_url": "",
+      "local_path": "audio/batch030_B1.mp3",
+      "source": "edge-tts"
+    },
+    "learning": {
+      "day": null,
+      "known": false,
+      "last_seen_at": null,
+      "review_count": 0
+    },
+    "color": {
+      "group": "",
+      "hex": "#cccccc",
+      "rgb": [
+        204,
+        204,
+        204
+      ]
+    },
+    "card_id": "legacy_batch030_B1",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "023_card",
@@ -807,7 +933,65 @@
       1044,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_023_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
+  },
+  {
+    "pair_id": "024_card",
+    "cell": "",
+    "row": 0,
+    "col": 0,
+    "card_no": "024",
+    "label": "",
+    "qr_url": "https://cardlish.com/short-i/",
+    "front_image": "cards/024_front.png",
+    "back_image": "cards/024_back.png",
+    "front_page": 0,
+    "back_page": 0,
+    "front_bbox_xyxy": [
+      0,
+      0,
+      960,
+      1280
+    ],
+    "back_bbox_xyxy": [
+      0,
+      0,
+      960,
+      1280
+    ],
+    "needs_review": false,
+    "review_note": "",
+    "created_at": "21/06/2026",
+    "card_id": "photo_024",
+    "front_cell": "",
+    "back_cell": "",
+    "manual_locked": false,
+    "source_pdf": "photo_import",
+    "display_label": "024",
+    "audio": {
+      "status": "pending",
+      "local_path": ""
+    },
+    "learning": {
+      "day": null,
+      "known": false,
+      "last_seen_at": null,
+      "review_count": 0
+    },
+    "color": {
+      "group": "",
+      "hex": "#cccccc",
+      "rgb": [
+        204,
+        204,
+        204
+      ]
+    }
   },
   {
     "pair_id": "025_card",
@@ -838,8 +1022,11 @@
     "created_at": "07/06/2026",
     "display_label": "025",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ib/",
+      "remote_url": "",
+      "local_path": "audio/025_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -855,7 +1042,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_025_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "026_card",
@@ -909,7 +1101,12 @@
       1699,
       769
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_026_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "027_card",
@@ -963,7 +1160,12 @@
       1699,
       1560
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_027_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "028_card",
@@ -1017,7 +1219,12 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_028_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "029_card",
@@ -1071,7 +1278,12 @@
       1071,
       769
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_029_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "030_card",
@@ -1125,7 +1337,12 @@
       1071,
       1560
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_030_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "031_card",
@@ -1179,7 +1396,12 @@
       1071,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_031_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "032_card",
@@ -1233,7 +1455,12 @@
       488,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_032_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "033_card",
@@ -1287,7 +1514,12 @@
       488,
       1560
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_033_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "034_card",
@@ -1341,7 +1573,12 @@
       488,
       769
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_034_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "035_card",
@@ -1372,8 +1609,11 @@
     "created_at": "07/06/2026",
     "display_label": "035",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o-2/",
+      "remote_url": "https://cardlish.com/short-o-2/",
+      "local_path": "audio/035_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1389,7 +1629,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_035_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "036_card",
@@ -1420,8 +1665,11 @@
     "created_at": "07/06/2026",
     "display_label": "036",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ob/",
+      "remote_url": "https://cardlish.com/ob/",
+      "local_path": "audio/036_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1437,7 +1685,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_036_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "037_card",
@@ -1468,8 +1721,11 @@
     "created_at": "07/06/2026",
     "display_label": "037",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ock/",
+      "remote_url": "https://cardlish.com/ock/",
+      "local_path": "audio/037_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1485,7 +1741,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_037_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "038_card",
@@ -1516,8 +1777,11 @@
     "created_at": "07/06/2026",
     "display_label": "038",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/od/",
+      "remote_url": "https://cardlish.com/od/",
+      "local_path": "audio/038_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1533,7 +1797,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_038_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "039_card",
@@ -1564,8 +1833,11 @@
     "created_at": "07/06/2026",
     "display_label": "039",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/og/",
+      "remote_url": "https://cardlish.com/og/",
+      "local_path": "audio/039_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1581,7 +1853,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_039_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "040_card",
@@ -1612,8 +1889,11 @@
     "created_at": "07/06/2026",
     "display_label": "040",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/op/",
+      "remote_url": "https://cardlish.com/op/",
+      "local_path": "audio/040_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1629,7 +1909,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_040_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "041_card",
@@ -1660,8 +1945,11 @@
     "created_at": "07/06/2026",
     "display_label": "041",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ot/",
+      "remote_url": "https://cardlish.com/ot/",
+      "local_path": "audio/041_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1677,7 +1965,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_041_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "042_card",
@@ -1708,8 +2001,11 @@
     "created_at": "07/06/2026",
     "display_label": "042",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ox/",
+      "remote_url": "https://cardlish.com/ox/",
+      "local_path": "audio/042_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1725,7 +2021,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_042_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "043_card",
@@ -1756,8 +2057,11 @@
     "created_at": "07/06/2026",
     "display_label": "043",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o-2/",
+      "remote_url": "",
+      "local_path": "audio/043_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -1773,7 +2077,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_043_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "044_card",
@@ -1804,8 +2113,11 @@
     "created_at": "07/06/2026",
     "display_label": "044",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o-2/",
+      "remote_url": "",
+      "local_path": "audio/044_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -1821,7 +2133,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_044_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "045_card",
@@ -1852,8 +2169,11 @@
     "created_at": "07/06/2026",
     "display_label": "045",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/alk/",
+      "remote_url": "https://cardlish.com/alk/",
+      "local_path": "audio/045_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1869,7 +2189,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_045_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "046_card",
@@ -1900,8 +2225,11 @@
     "created_at": "07/06/2026",
     "display_label": "046",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/all/",
+      "remote_url": "https://cardlish.com/all/",
+      "local_path": "audio/046_card.mp3",
+      "source": "cardlish"
     },
     "learning": {
       "day": null,
@@ -1917,7 +2245,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_046_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "047_card",
@@ -1948,8 +2281,11 @@
     "created_at": "07/06/2026",
     "display_label": "047",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o-2/",
+      "remote_url": "",
+      "local_path": "audio/047_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -1965,7 +2301,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_047_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "048_card",
@@ -1996,8 +2337,11 @@
     "created_at": "07/06/2026",
     "display_label": "048",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o-2/",
+      "remote_url": "",
+      "local_path": "audio/048_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2013,7 +2357,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_048_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "049_card",
@@ -2067,7 +2416,12 @@
       1699,
       800
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_049_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "050_card",
@@ -2121,7 +2475,12 @@
       1699,
       1564
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_050_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "051_card",
@@ -2175,7 +2534,12 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_051_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "052_card",
@@ -2229,7 +2593,12 @@
       1092,
       800
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_052_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "053_card",
@@ -2283,7 +2652,12 @@
       1092,
       1564
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_053_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "054_card",
@@ -2337,7 +2711,12 @@
       1092,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_054_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "055_card",
@@ -2391,7 +2770,12 @@
       488,
       800
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_055_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "056_card",
@@ -2445,7 +2829,12 @@
       488,
       1564
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_056_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "057_card",
@@ -2499,7 +2888,12 @@
       488,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_057_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "058_card",
@@ -2553,10 +2947,15 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_058_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "059_ba",
+    "pair_id": "059_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -2584,8 +2983,11 @@
     "created_at": "07/06/2026",
     "display_label": "059",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/059_ba.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2601,7 +3003,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_059_ba",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "060_card",
@@ -2632,8 +3039,11 @@
     "created_at": "07/06/2026",
     "display_label": "060",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/060_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2649,7 +3059,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_060_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "061_card",
@@ -2680,8 +3095,11 @@
     "created_at": "07/06/2026",
     "display_label": "061",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aid/",
+      "remote_url": "",
+      "local_path": "audio/061_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2697,7 +3115,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_061_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "062_card",
@@ -2728,8 +3151,11 @@
     "created_at": "07/06/2026",
     "display_label": "062",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ake/",
+      "remote_url": "",
+      "local_path": "audio/062_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2745,7 +3171,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_062_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "063_card",
@@ -2776,8 +3207,11 @@
     "created_at": "07/06/2026",
     "display_label": "063",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ail/",
+      "remote_url": "",
+      "local_path": "audio/063_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2793,7 +3227,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_063_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "064_card",
@@ -2824,8 +3263,11 @@
     "created_at": "07/06/2026",
     "display_label": "064",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aim/",
+      "remote_url": "",
+      "local_path": "audio/064_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2841,7 +3283,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_064_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "065_card",
@@ -2872,8 +3319,11 @@
     "created_at": "07/06/2026",
     "display_label": "065",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ain/",
+      "remote_url": "",
+      "local_path": "audio/065_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2889,7 +3339,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_065_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "066_card",
@@ -2920,8 +3375,11 @@
     "created_at": "07/06/2026",
     "display_label": "066",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ape/",
+      "remote_url": "",
+      "local_path": "audio/066_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2937,7 +3395,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_066_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "067_card",
@@ -2968,8 +3431,11 @@
     "created_at": "07/06/2026",
     "display_label": "067",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ate/",
+      "remote_url": "",
+      "local_path": "audio/067_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -2985,7 +3451,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_067_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "068_card",
@@ -3016,8 +3487,11 @@
     "created_at": "07/06/2026",
     "display_label": "068",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ave/",
+      "remote_url": "",
+      "local_path": "audio/068_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3033,7 +3507,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_068_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "069_card",
@@ -3064,8 +3543,11 @@
     "created_at": "07/06/2026",
     "display_label": "069",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aze/",
+      "remote_url": "",
+      "local_path": "audio/069_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3081,7 +3563,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_069_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "070_card",
@@ -3112,8 +3599,11 @@
     "created_at": "07/06/2026",
     "display_label": "070",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/070_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3129,7 +3619,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_070_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "071_card",
@@ -3160,8 +3655,11 @@
     "created_at": "07/06/2026",
     "display_label": "071",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aid/",
+      "remote_url": "",
+      "local_path": "audio/071_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3177,7 +3675,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_071_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "072_card",
@@ -3208,8 +3711,11 @@
     "created_at": "07/06/2026",
     "display_label": "072",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ail/",
+      "remote_url": "",
+      "local_path": "audio/072_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3225,7 +3731,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_072_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "073_card",
@@ -3256,8 +3767,11 @@
     "created_at": "07/06/2026",
     "display_label": "073",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ain/",
+      "remote_url": "",
+      "local_path": "audio/073_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3273,7 +3787,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_073_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "074_card",
@@ -3304,8 +3823,11 @@
     "created_at": "07/06/2026",
     "display_label": "074",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aint/",
+      "remote_url": "",
+      "local_path": "audio/074_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3321,7 +3843,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_074_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "075_card",
@@ -3352,8 +3879,11 @@
     "created_at": "07/06/2026",
     "display_label": "075",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/aise/",
+      "remote_url": "",
+      "local_path": "audio/075_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3369,7 +3899,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_075_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "076_card",
@@ -3400,8 +3935,11 @@
     "created_at": "07/06/2026",
     "display_label": "076",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ate/",
+      "remote_url": "",
+      "local_path": "audio/076_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3417,7 +3955,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_076_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "077_card",
@@ -3448,8 +3991,11 @@
     "created_at": "07/06/2026",
     "display_label": "077",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/077_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3465,7 +4011,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_077_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "078_card",
@@ -3496,8 +4047,11 @@
     "created_at": "07/06/2026",
     "display_label": "078",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/078_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3513,7 +4067,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_078_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "079_card",
@@ -3544,8 +4103,11 @@
     "created_at": "07/06/2026",
     "display_label": "079",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-a-ay/",
+      "remote_url": "",
+      "local_path": "audio/079_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3561,7 +4123,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_079_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "080_card",
@@ -3592,8 +4159,11 @@
     "created_at": "07/06/2026",
     "display_label": "080",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/080_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3609,7 +4179,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_080_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "081_card",
@@ -3640,8 +4215,11 @@
     "created_at": "07/06/2026",
     "display_label": "081",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/081_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3657,7 +4235,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_081_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "082_card",
@@ -3688,8 +4271,11 @@
     "created_at": "07/06/2026",
     "display_label": "082",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eek/",
+      "remote_url": "",
+      "local_path": "audio/082_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3705,7 +4291,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_082_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "083_card",
@@ -3736,8 +4327,11 @@
     "created_at": "07/06/2026",
     "display_label": "083",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eel/",
+      "remote_url": "",
+      "local_path": "audio/083_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3753,7 +4347,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_083_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "084_card",
@@ -3784,8 +4383,11 @@
     "created_at": "07/06/2026",
     "display_label": "084",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eam/",
+      "remote_url": "",
+      "local_path": "audio/084_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3801,7 +4403,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_084_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "085_card",
@@ -3832,8 +4439,11 @@
     "created_at": "07/06/2026",
     "display_label": "085",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ean-2/",
+      "remote_url": "",
+      "local_path": "audio/085_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3849,7 +4459,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_085_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "086_card",
@@ -3880,8 +4495,11 @@
     "created_at": "07/06/2026",
     "display_label": "086",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ease/",
+      "remote_url": "",
+      "local_path": "audio/086_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3897,7 +4515,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_086_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "087_card",
@@ -3928,8 +4551,11 @@
     "created_at": "07/06/2026",
     "display_label": "087",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/east/",
+      "remote_url": "",
+      "local_path": "audio/087_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3945,7 +4571,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_087_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "088_card",
@@ -3976,8 +4607,11 @@
     "created_at": "07/06/2026",
     "display_label": "088",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eat/",
+      "remote_url": "",
+      "local_path": "audio/088_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -3993,7 +4627,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_088_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "089_card",
@@ -4024,8 +4663,11 @@
     "created_at": "07/06/2026",
     "display_label": "089",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eve/",
+      "remote_url": "",
+      "local_path": "audio/089_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4041,7 +4683,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_089_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "090_card",
@@ -4072,8 +4719,11 @@
     "created_at": "07/06/2026",
     "display_label": "090",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/090_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4089,7 +4739,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_090_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch031_A3",
@@ -4120,8 +4775,11 @@
     "created_at": "07/06/2026",
     "display_label": "091",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eed/",
+      "remote_url": "",
+      "local_path": "audio/batch031_A3.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4137,7 +4795,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch031_A3",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "092_card",
@@ -4168,8 +4831,11 @@
     "created_at": "07/06/2026",
     "display_label": "092",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eek/",
+      "remote_url": "",
+      "local_path": "audio/092_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4185,7 +4851,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_092_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "093_card",
@@ -4216,8 +4887,11 @@
     "created_at": "07/06/2026",
     "display_label": "093",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eel/",
+      "remote_url": "",
+      "local_path": "audio/093_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4233,7 +4907,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_093_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "094_card",
@@ -4264,8 +4943,11 @@
     "created_at": "07/06/2026",
     "display_label": "094",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ean-2/",
+      "remote_url": "",
+      "local_path": "audio/094_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4281,7 +4963,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_094_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "095_card",
@@ -4312,8 +4999,11 @@
     "created_at": "07/06/2026",
     "display_label": "095",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eep/",
+      "remote_url": "",
+      "local_path": "audio/095_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4329,7 +5019,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_095_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "096_card",
@@ -4360,8 +5055,11 @@
     "created_at": "07/06/2026",
     "display_label": "096",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/eat/",
+      "remote_url": "",
+      "local_path": "audio/096_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4377,7 +5075,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_096_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "097_card",
@@ -4408,8 +5111,11 @@
     "created_at": "07/06/2026",
     "display_label": "097",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ease/",
+      "remote_url": "",
+      "local_path": "audio/097_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4425,7 +5131,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_097_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "098_card",
@@ -4456,8 +5167,11 @@
     "created_at": "07/06/2026",
     "display_label": "098",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/098_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4473,7 +5187,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_098_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch031_C1",
@@ -4504,8 +5223,11 @@
     "created_at": "07/06/2026",
     "display_label": "099",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/batch031_C1.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4521,7 +5243,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch031_C1",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "100_card",
@@ -4552,8 +5279,11 @@
     "created_at": "07/06/2026",
     "display_label": "100",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/100_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4569,7 +5299,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_100_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "101_card",
@@ -4600,8 +5335,11 @@
     "created_at": "07/06/2026",
     "display_label": "101",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/101_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4617,7 +5355,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_101_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "102_card",
@@ -4648,8 +5391,11 @@
     "created_at": "07/06/2026",
     "display_label": "102",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/102_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4665,7 +5411,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_102_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "103_card",
@@ -4696,8 +5447,11 @@
     "created_at": "07/06/2026",
     "display_label": "103",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-e/",
+      "remote_url": "",
+      "local_path": "audio/103_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4713,7 +5467,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_103_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "104_card",
@@ -4744,8 +5503,11 @@
     "created_at": "07/06/2026",
     "display_label": "104",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-i/",
+      "remote_url": "",
+      "local_path": "audio/104_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4761,7 +5523,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_104_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "105_card",
@@ -4792,8 +5559,11 @@
     "created_at": "07/06/2026",
     "display_label": "105",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-i/",
+      "remote_url": "",
+      "local_path": "audio/105_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4809,7 +5579,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_105_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "106_card",
@@ -4840,8 +5615,11 @@
     "created_at": "07/06/2026",
     "display_label": "106",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-i/",
+      "remote_url": "",
+      "local_path": "audio/106_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4857,7 +5635,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_106_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "107_card",
@@ -4888,8 +5671,11 @@
     "created_at": "07/06/2026",
     "display_label": "107",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ibe/",
+      "remote_url": "",
+      "local_path": "audio/107_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4905,7 +5691,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_107_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "108_card",
@@ -4936,8 +5727,11 @@
     "created_at": "07/06/2026",
     "display_label": "108",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ide/",
+      "remote_url": "",
+      "local_path": "audio/108_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -4953,7 +5747,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_108_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "109_card",
@@ -4984,8 +5783,11 @@
     "created_at": "07/06/2026",
     "display_label": "109",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ike/",
+      "remote_url": "",
+      "local_path": "audio/109_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5001,7 +5803,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_109_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch032_B1",
@@ -5032,8 +5839,11 @@
     "created_at": "07/06/2026",
     "display_label": "110",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ile/",
+      "remote_url": "",
+      "local_path": "audio/batch032_B1.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5049,7 +5859,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch032_B1",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch032_C1",
@@ -5080,8 +5895,11 @@
     "created_at": "07/06/2026",
     "display_label": "111",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ime/",
+      "remote_url": "",
+      "local_path": "audio/batch032_C1.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5097,7 +5915,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch032_C1",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "112_card",
@@ -5128,8 +5951,11 @@
     "created_at": "07/06/2026",
     "display_label": "112",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ine/",
+      "remote_url": "",
+      "local_path": "audio/112_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5145,7 +5971,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_112_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "113_card",
@@ -5176,8 +6007,11 @@
     "created_at": "07/06/2026",
     "display_label": "113",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ipe/",
+      "remote_url": "",
+      "local_path": "audio/113_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5193,7 +6027,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_113_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "114_card",
@@ -5224,8 +6063,11 @@
     "created_at": "07/06/2026",
     "display_label": "114",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ire/",
+      "remote_url": "",
+      "local_path": "audio/114_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5241,7 +6083,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_114_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "115_card",
@@ -5272,8 +6119,11 @@
     "created_at": "07/06/2026",
     "display_label": "115",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ite/",
+      "remote_url": "",
+      "local_path": "audio/115_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5289,7 +6139,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_115_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "116_card",
@@ -5320,8 +6175,11 @@
     "created_at": "07/06/2026",
     "display_label": "116",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ive/",
+      "remote_url": "",
+      "local_path": "audio/116_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5337,7 +6195,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_116_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch032_C3",
@@ -5368,8 +6231,11 @@
     "created_at": "07/06/2026",
     "display_label": "117",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ite/",
+      "remote_url": "",
+      "local_path": "audio/batch032_C3.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5385,7 +6251,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch032_C3",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "118_card",
@@ -5416,8 +6287,11 @@
     "created_at": "07/06/2026",
     "display_label": "118",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ild/",
+      "remote_url": "",
+      "local_path": "audio/118_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5433,7 +6307,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_118_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "119_card",
@@ -5464,8 +6343,11 @@
     "created_at": "07/06/2026",
     "display_label": "119",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ind/",
+      "remote_url": "",
+      "local_path": "audio/119_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5481,7 +6363,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_119_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "120_card",
@@ -5512,8 +6399,11 @@
     "created_at": "07/06/2026",
     "display_label": "120",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-i/",
+      "remote_url": "",
+      "local_path": "audio/120_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5529,7 +6419,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_120_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "121_card",
@@ -5560,8 +6455,11 @@
     "created_at": "07/06/2026",
     "display_label": "121",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-i/",
+      "remote_url": "",
+      "local_path": "audio/121_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5577,10 +6475,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_121_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "122_ho",
+    "pair_id": "122_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -5608,8 +6511,11 @@
     "created_at": "07/06/2026",
     "display_label": "122",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/o/",
+      "remote_url": "",
+      "local_path": "audio/122_ho.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5625,7 +6531,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_122_ho",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "123_card",
@@ -5656,8 +6567,11 @@
     "created_at": "07/06/2026",
     "display_label": "123",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/o/",
+      "remote_url": "",
+      "local_path": "audio/123_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5673,7 +6587,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_123_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "124_card",
@@ -5704,8 +6623,11 @@
     "created_at": "07/06/2026",
     "display_label": "124",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oad/",
+      "remote_url": "",
+      "local_path": "audio/124_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5721,7 +6643,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_124_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "125_card",
@@ -5752,8 +6679,11 @@
     "created_at": "07/06/2026",
     "display_label": "125",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oak/",
+      "remote_url": "",
+      "local_path": "audio/125_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5769,7 +6699,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_125_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "126_card",
@@ -5800,8 +6735,11 @@
     "created_at": "07/06/2026",
     "display_label": "126",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oast/",
+      "remote_url": "",
+      "local_path": "audio/126_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5817,7 +6755,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_126_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "127_card",
@@ -5848,8 +6791,11 @@
     "created_at": "07/06/2026",
     "display_label": "127",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oat/",
+      "remote_url": "",
+      "local_path": "audio/127_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5865,7 +6811,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_127_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "128_card",
@@ -5896,8 +6847,11 @@
     "created_at": "07/06/2026",
     "display_label": "128",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/o/",
+      "remote_url": "",
+      "local_path": "audio/128_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5913,7 +6867,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_128_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "129_card",
@@ -5944,8 +6903,11 @@
     "created_at": "07/06/2026",
     "display_label": "129",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/o/",
+      "remote_url": "",
+      "local_path": "audio/129_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -5961,7 +6923,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_129_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "130_card",
@@ -5992,8 +6959,11 @@
     "created_at": "07/06/2026",
     "display_label": "130",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oad/",
+      "remote_url": "",
+      "local_path": "audio/130_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6009,7 +6979,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_130_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "131_card",
@@ -6040,8 +7015,11 @@
     "created_at": "07/06/2026",
     "display_label": "131",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oak/",
+      "remote_url": "",
+      "local_path": "audio/131_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6057,7 +7035,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_131_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "132_card",
@@ -6088,8 +7071,11 @@
     "created_at": "07/06/2026",
     "display_label": "132",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oal/",
+      "remote_url": "",
+      "local_path": "audio/132_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6105,7 +7091,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_132_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "133_card",
@@ -6136,8 +7127,11 @@
     "created_at": "07/06/2026",
     "display_label": "133",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ome/",
+      "remote_url": "",
+      "local_path": "audio/133_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6153,7 +7147,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_133_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "134_card",
@@ -6184,8 +7183,11 @@
     "created_at": "07/06/2026",
     "display_label": "134",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/one/",
+      "remote_url": "",
+      "local_path": "audio/134_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6201,7 +7203,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_134_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "135_card",
@@ -6232,8 +7239,11 @@
     "created_at": "07/06/2026",
     "display_label": "135",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ope/",
+      "remote_url": "",
+      "local_path": "audio/135_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6249,7 +7259,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_135_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "136_card",
@@ -6280,8 +7295,11 @@
     "created_at": "07/06/2026",
     "display_label": "136",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ose/",
+      "remote_url": "",
+      "local_path": "audio/136_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6297,7 +7315,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_136_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "137_card",
@@ -6328,8 +7351,11 @@
     "created_at": "07/06/2026",
     "display_label": "137",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oat/",
+      "remote_url": "",
+      "local_path": "audio/137_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6345,7 +7371,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_137_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "138_card",
@@ -6376,8 +7407,11 @@
     "created_at": "07/06/2026",
     "display_label": "138",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ove/",
+      "remote_url": "",
+      "local_path": "audio/138_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6393,7 +7427,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_138_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "139_card",
@@ -6424,8 +7463,11 @@
     "created_at": "07/06/2026",
     "display_label": "139",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/old/",
+      "remote_url": "",
+      "local_path": "audio/139_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6441,7 +7483,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_139_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "140_card",
@@ -6472,8 +7519,11 @@
     "created_at": "07/06/2026",
     "display_label": "140",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oll/",
+      "remote_url": "",
+      "local_path": "audio/140_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6489,7 +7539,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_140_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "141_card",
@@ -6520,8 +7575,11 @@
     "created_at": "07/06/2026",
     "display_label": "141",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/o/",
+      "remote_url": "",
+      "local_path": "audio/141_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6537,7 +7595,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_141_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "142_card",
@@ -6568,8 +7631,11 @@
     "created_at": "07/06/2026",
     "display_label": "142",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/142_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6585,7 +7651,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_142_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "143_card",
@@ -6616,8 +7687,11 @@
     "created_at": "07/06/2026",
     "display_label": "143",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/143_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6633,7 +7707,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_143_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "144_card",
@@ -6664,8 +7743,11 @@
     "created_at": "07/06/2026",
     "display_label": "144",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/144_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6681,7 +7763,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_144_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "145_card",
@@ -6712,8 +7799,11 @@
     "created_at": "07/06/2026",
     "display_label": "145",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ool/",
+      "remote_url": "",
+      "local_path": "audio/145_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6729,7 +7819,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_145_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "146_card",
@@ -6760,8 +7855,11 @@
     "created_at": "07/06/2026",
     "display_label": "146",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oom/",
+      "remote_url": "",
+      "local_path": "audio/146_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6777,7 +7875,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_146_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "147_card",
@@ -6808,8 +7911,11 @@
     "created_at": "07/06/2026",
     "display_label": "147",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oon/",
+      "remote_url": "",
+      "local_path": "audio/147_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6825,7 +7931,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_147_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "148_card",
@@ -6856,8 +7967,11 @@
     "created_at": "07/06/2026",
     "display_label": "148",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oop/",
+      "remote_url": "",
+      "local_path": "audio/148_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6873,7 +7987,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_148_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "149_card",
@@ -6904,8 +8023,11 @@
     "created_at": "07/06/2026",
     "display_label": "149",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oot/",
+      "remote_url": "",
+      "local_path": "audio/149_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6921,7 +8043,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_149_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "150_card",
@@ -6952,8 +8079,11 @@
     "created_at": "07/06/2026",
     "display_label": "150",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/150_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -6969,10 +8099,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_150_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "151_du",
+    "pair_id": "151_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -7000,8 +8135,11 @@
     "created_at": "07/06/2026",
     "display_label": "151",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ju/",
+      "remote_url": "",
+      "local_path": "audio/151_du.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7017,7 +8155,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_151_du",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "152_card",
@@ -7048,8 +8191,11 @@
     "created_at": "07/06/2026",
     "display_label": "152",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/152_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7065,7 +8211,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_152_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "153_card",
@@ -7096,8 +8247,11 @@
     "created_at": "07/06/2026",
     "display_label": "153",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/153_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7113,7 +8267,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_153_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "154_card",
@@ -7144,8 +8303,11 @@
     "created_at": "07/06/2026",
     "display_label": "154",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ood/",
+      "remote_url": "",
+      "local_path": "audio/154_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7161,7 +8323,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_154_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "155_card",
@@ -7192,8 +8359,11 @@
     "created_at": "07/06/2026",
     "display_label": "155",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ume/",
+      "remote_url": "",
+      "local_path": "audio/155_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7209,7 +8379,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_155_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "156_card",
@@ -7240,8 +8415,11 @@
     "created_at": "07/06/2026",
     "display_label": "156",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oon/",
+      "remote_url": "",
+      "local_path": "audio/156_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7257,7 +8435,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_156_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "157_card",
@@ -7288,8 +8471,11 @@
     "created_at": "07/06/2026",
     "display_label": "157",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oot/",
+      "remote_url": "",
+      "local_path": "audio/157_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7305,7 +8491,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_157_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "158_card",
@@ -7336,8 +8527,11 @@
     "created_at": "07/06/2026",
     "display_label": "158",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-u-oo/",
+      "remote_url": "",
+      "local_path": "audio/158_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7353,7 +8547,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_158_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "159_card",
@@ -7384,8 +8583,11 @@
     "created_at": "07/06/2026",
     "display_label": "159",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ieu/",
+      "remote_url": "",
+      "local_path": "audio/159_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7401,7 +8603,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_159_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "160_card",
@@ -7432,8 +8639,11 @@
     "created_at": "07/06/2026",
     "display_label": "160",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ume-2/",
+      "remote_url": "",
+      "local_path": "audio/160_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7449,7 +8659,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_160_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "161_card",
@@ -7480,8 +8695,11 @@
     "created_at": "07/06/2026",
     "display_label": "161",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ute-ieu/",
+      "remote_url": "",
+      "local_path": "audio/161_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7497,7 +8715,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_161_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "162_card",
@@ -7528,8 +8751,11 @@
     "created_at": "07/06/2026",
     "display_label": "162",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/use/",
+      "remote_url": "",
+      "local_path": "audio/162_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7545,7 +8771,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_162_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "163_card",
@@ -7576,8 +8807,11 @@
     "created_at": "07/06/2026",
     "display_label": "163",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ao/",
+      "remote_url": "",
+      "local_path": "audio/163_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7593,7 +8827,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_163_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "164_card",
@@ -7624,8 +8863,11 @@
     "created_at": "07/06/2026",
     "display_label": "164",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ound/",
+      "remote_url": "",
+      "local_path": "audio/164_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7641,7 +8883,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_164_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "166_card",
@@ -7672,8 +8919,11 @@
     "created_at": "07/06/2026",
     "display_label": "166",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/our/",
+      "remote_url": "",
+      "local_path": "audio/166_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7689,7 +8939,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_166_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "167_card",
@@ -7720,8 +8975,11 @@
     "created_at": "07/06/2026",
     "display_label": "167",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ouse/",
+      "remote_url": "",
+      "local_path": "audio/167_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7737,7 +8995,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_167_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "168_card",
@@ -7768,8 +9031,11 @@
     "created_at": "07/06/2026",
     "display_label": "168",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/out/",
+      "remote_url": "",
+      "local_path": "audio/168_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7785,7 +9051,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_168_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "169_card",
@@ -7816,8 +9087,11 @@
     "created_at": "07/06/2026",
     "display_label": "169",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ao/",
+      "remote_url": "",
+      "local_path": "audio/169_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7833,7 +9107,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_169_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "170_card",
@@ -7864,8 +9143,11 @@
     "created_at": "07/06/2026",
     "display_label": "170",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/owl/",
+      "remote_url": "",
+      "local_path": "audio/170_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7881,7 +9163,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_170_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "batch033_A1",
@@ -7912,8 +9199,11 @@
     "created_at": "07/06/2026",
     "display_label": "171",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ownn/",
+      "remote_url": "",
+      "local_path": "audio/batch033_A1.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7929,7 +9219,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_batch033_A1",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "172_card",
@@ -7960,8 +9255,11 @@
     "created_at": "07/06/2026",
     "display_label": "172",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oi/",
+      "remote_url": "",
+      "local_path": "audio/172_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -7977,7 +9275,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_172_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "173_card",
@@ -8008,8 +9311,11 @@
     "created_at": "07/06/2026",
     "display_label": "173",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oid/",
+      "remote_url": "",
+      "local_path": "audio/173_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8025,7 +9331,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_173_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "174_card",
@@ -8056,8 +9367,11 @@
     "created_at": "07/06/2026",
     "display_label": "174",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oil/",
+      "remote_url": "",
+      "local_path": "audio/174_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8073,7 +9387,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_174_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "175_card",
@@ -8104,8 +9423,11 @@
     "created_at": "07/06/2026",
     "display_label": "175",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oint/",
+      "remote_url": "",
+      "local_path": "audio/175_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8121,7 +9443,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_175_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "176_card",
@@ -8152,8 +9479,11 @@
     "created_at": "07/06/2026",
     "display_label": "176",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/oi/",
+      "remote_url": "",
+      "local_path": "audio/176_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8169,7 +9499,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_176_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "177_card",
@@ -8200,8 +9535,11 @@
     "created_at": "07/06/2026",
     "display_label": "177",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-%ca%8a/",
+      "remote_url": "",
+      "local_path": "audio/177_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8217,7 +9555,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_177_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "178_card",
@@ -8248,8 +9591,11 @@
     "created_at": "07/06/2026",
     "display_label": "178",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-%ca%8a/",
+      "remote_url": "",
+      "local_path": "audio/178_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8265,7 +9611,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_178_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "179_card",
@@ -8296,8 +9647,11 @@
     "created_at": "07/06/2026",
     "display_label": "179",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ook/",
+      "remote_url": "",
+      "local_path": "audio/179_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8313,7 +9667,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_179_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "180_card",
@@ -8344,8 +9703,11 @@
     "created_at": "07/06/2026",
     "display_label": "180",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-or/",
+      "remote_url": "",
+      "local_path": "audio/180_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8361,7 +9723,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_180_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "181_card",
@@ -8392,8 +9759,11 @@
     "created_at": "07/06/2026",
     "display_label": "181",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-or/",
+      "remote_url": "",
+      "local_path": "audio/181_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8409,7 +9779,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_181_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "182_card",
@@ -8440,8 +9815,11 @@
     "created_at": "07/06/2026",
     "display_label": "182",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-or/",
+      "remote_url": "",
+      "local_path": "audio/182_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8457,7 +9835,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_182_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "183_card",
@@ -8488,8 +9871,11 @@
     "created_at": "07/06/2026",
     "display_label": "183",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-or/",
+      "remote_url": "",
+      "local_path": "audio/183_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8505,7 +9891,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_183_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "184_card",
@@ -8536,8 +9927,11 @@
     "created_at": "07/06/2026",
     "display_label": "184",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ork/",
+      "remote_url": "",
+      "local_path": "audio/184_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8553,7 +9947,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_184_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "185_card",
@@ -8584,8 +9983,11 @@
     "created_at": "07/06/2026",
     "display_label": "185",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/orn/",
+      "remote_url": "",
+      "local_path": "audio/185_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8601,7 +10003,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_185_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "186_card",
@@ -8632,8 +10039,11 @@
     "created_at": "07/06/2026",
     "display_label": "186",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ort/",
+      "remote_url": "",
+      "local_path": "audio/186_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8649,7 +10059,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_186_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "187_card",
@@ -8680,8 +10095,11 @@
     "created_at": "07/06/2026",
     "display_label": "187",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-or/",
+      "remote_url": "",
+      "local_path": "audio/187_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8697,7 +10115,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_187_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "188_card",
@@ -8728,8 +10151,11 @@
     "created_at": "07/06/2026",
     "display_label": "188",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-ar/",
+      "remote_url": "",
+      "local_path": "audio/188_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8745,7 +10171,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_188_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "189_card",
@@ -8776,8 +10207,11 @@
     "created_at": "07/06/2026",
     "display_label": "189",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-ar/",
+      "remote_url": "",
+      "local_path": "audio/189_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8793,7 +10227,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_189_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "190_card",
@@ -8824,8 +10263,11 @@
     "created_at": "07/06/2026",
     "display_label": "190",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ard/",
+      "remote_url": "",
+      "local_path": "audio/190_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8841,7 +10283,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_190_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "191_card",
@@ -8872,8 +10319,11 @@
     "created_at": "07/06/2026",
     "display_label": "191",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ark/",
+      "remote_url": "",
+      "local_path": "audio/191_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8889,7 +10339,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_191_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "192_card",
@@ -8920,8 +10375,11 @@
     "created_at": "07/06/2026",
     "display_label": "192",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/arm/",
+      "remote_url": "",
+      "local_path": "audio/192_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8937,7 +10395,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_192_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "193_card",
@@ -8968,8 +10431,11 @@
     "created_at": "07/06/2026",
     "display_label": "193",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/art/",
+      "remote_url": "",
+      "local_path": "audio/193_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -8985,7 +10451,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_193_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "194_card",
@@ -9016,8 +10487,11 @@
     "created_at": "07/06/2026",
     "display_label": "194",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o/",
+      "remote_url": "",
+      "local_path": "audio/194_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9033,7 +10507,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_194_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "195_card",
@@ -9064,8 +10543,11 @@
     "created_at": "07/06/2026",
     "display_label": "195",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o/",
+      "remote_url": "",
+      "local_path": "audio/195_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9081,7 +10563,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_195_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "196_card",
@@ -9112,8 +10599,11 @@
     "created_at": "07/06/2026",
     "display_label": "196",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o/",
+      "remote_url": "",
+      "local_path": "audio/196_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9129,7 +10619,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_196_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "197_card",
@@ -9160,8 +10655,11 @@
     "created_at": "07/06/2026",
     "display_label": "197",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/short-o/",
+      "remote_url": "",
+      "local_path": "audio/197_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9177,10 +10675,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_197_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "198_er",
+    "pair_id": "198_card",
     "cell": "C3",
     "row": 3,
     "col": 3,
@@ -9208,8 +10711,11 @@
     "created_at": "07/06/2026",
     "display_label": "198",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/198_er.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9225,10 +10731,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_198_er",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "199_ear",
+    "pair_id": "199_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
@@ -9256,8 +10767,11 @@
     "created_at": "07/06/2026",
     "display_label": "199",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/199_ear.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9273,10 +10787,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_199_ear",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "200_ir",
+    "pair_id": "200_card",
     "cell": "B1",
     "row": 2,
     "col": 1,
@@ -9304,8 +10823,11 @@
     "created_at": "07/06/2026",
     "display_label": "200",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/200_ir.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9321,7 +10843,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_200_ir",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "201_card",
@@ -9352,8 +10879,11 @@
     "created_at": "07/06/2026",
     "display_label": "201",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/irt/",
+      "remote_url": "",
+      "local_path": "audio/201_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9369,10 +10899,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_201_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "202_our",
+    "pair_id": "202_card",
     "cell": "C2",
     "row": 3,
     "col": 2,
@@ -9400,8 +10935,11 @@
     "created_at": "07/06/2026",
     "display_label": "202",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/202_our.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9417,10 +10955,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_202_our",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "203_ur",
+    "pair_id": "203_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -9448,8 +10991,11 @@
     "created_at": "07/06/2026",
     "display_label": "203",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/203_ur.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9465,10 +11011,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_203_ur",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "204_or",
+    "pair_id": "204_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -9496,8 +11047,11 @@
     "created_at": "07/06/2026",
     "display_label": "204",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/long-o/",
+      "remote_url": "",
+      "local_path": "audio/204_or.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9513,7 +11067,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_204_or",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "205_card",
@@ -9544,8 +11103,11 @@
     "created_at": "07/06/2026",
     "display_label": "205",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ear/",
+      "remote_url": "",
+      "local_path": "audio/205_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9561,7 +11123,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_205_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "206_card",
@@ -9592,8 +11159,11 @@
     "created_at": "07/06/2026",
     "display_label": "206",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ear/",
+      "remote_url": "",
+      "local_path": "audio/206_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9609,7 +11179,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_206_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "207_card",
@@ -9640,8 +11215,11 @@
     "created_at": "07/06/2026",
     "display_label": "207",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/e-o/",
+      "remote_url": "",
+      "local_path": "audio/207_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9657,7 +11235,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_207_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "208_card",
@@ -9688,8 +11271,11 @@
     "created_at": "07/06/2026",
     "display_label": "208",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/e-o/",
+      "remote_url": "",
+      "local_path": "audio/208_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9705,7 +11291,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_208_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "209_card",
@@ -9736,8 +11327,11 @@
     "created_at": "07/06/2026",
     "display_label": "209",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/e-o/",
+      "remote_url": "",
+      "local_path": "audio/209_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9753,7 +11347,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_209_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "210_card",
@@ -9784,8 +11383,11 @@
     "created_at": "07/06/2026",
     "display_label": "210",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ua/",
+      "remote_url": "",
+      "local_path": "audio/210_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -9801,10 +11403,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_210_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "212_b",
+    "pair_id": "212_card",
     "card_no": "212",
     "label": "b-",
     "display_label": "212 (b-)",
@@ -9855,10 +11462,15 @@
       1699,
       762
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_212_b",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "213_d",
+    "pair_id": "213_card",
     "card_no": "213",
     "label": "d-",
     "display_label": "213 (d-)",
@@ -9909,18 +11521,23 @@
       1071,
       762
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_213_d",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "214_f",
+    "pair_id": "214_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
     "card_no": "214",
     "label": "",
     "qr_url": "https://cardlish.com/f/",
-    "front_image": "cards/214_f_front.png",
-    "back_image": "cards/214_f_back.png",
+    "front_image": "cards/214_card_front.png",
+    "back_image": "cards/214_card_back.png",
     "front_page": 2,
     "back_page": 1,
     "front_bbox_xyxy": [
@@ -9938,14 +11555,15 @@
     "needs_review": false,
     "review_note": "",
     "created_at": "07/06/2026",
+    "card_id": "legacy_214_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": "",
     "display_label": "214",
     "audio": {
-      "status": "downloaded",
-      "page_url": "https://cardlish.com/f/",
-      "remote_url": "https://cardlish.com/f/",
-      "local_path": "audio/214_f.mp3",
-      "content_type": "audio/mpeg",
-      "checksum": "1ce75ee5f6e79bf8c5d8c3e41a72ffbc"
+      "status": "pending",
+      "local_path": ""
     },
     "learning": {
       "day": null,
@@ -9964,7 +11582,7 @@
     }
   },
   {
-    "pair_id": "215_ph",
+    "pair_id": "215_card",
     "card_no": "215",
     "label": "ph-",
     "display_label": "215 (ph-)",
@@ -10015,10 +11633,15 @@
       1699,
       1542
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_215_ph",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "216_g",
+    "pair_id": "216_card",
     "card_no": "216",
     "label": "g-",
     "display_label": "216 (g-)",
@@ -10069,7 +11692,12 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_216_g",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "217_card",
@@ -10123,7 +11751,12 @@
       1071,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_217_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "218_card",
@@ -10133,8 +11766,8 @@
     "card_no": "218",
     "label": "i-",
     "qr_url": "https://cardlish.com/d%ca%92/",
-    "front_image": "cards/218_card_front.png",
-    "back_image": "cards/218_card_back.png",
+    "front_image": "cards/218_i_front.png",
+    "back_image": "cards/218_i_back.png",
     "front_page": 2,
     "back_page": 1,
     "front_bbox_xyxy": [
@@ -10152,14 +11785,15 @@
     "needs_review": false,
     "review_note": "",
     "created_at": "07/06/2026",
+    "card_id": "legacy_218_i",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": "",
     "display_label": "218",
     "audio": {
-      "status": "downloaded",
-      "page_url": "https://cardlish.com/d%ca%92/",
-      "remote_url": "https://cardlish.com/d%ca%92/",
-      "local_path": "audio/218_card.mp3",
-      "content_type": "audio/mpeg",
-      "checksum": "887d3262ea94c2ba64bd5ad663b60348"
+      "status": "pending",
+      "local_path": ""
     },
     "learning": {
       "day": null,
@@ -10178,7 +11812,7 @@
     }
   },
   {
-    "pair_id": "219_g",
+    "pair_id": "219_card",
     "card_no": "219",
     "label": "g-",
     "display_label": "219 (g-)",
@@ -10229,18 +11863,23 @@
       490,
       1542
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_219_g",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "220_k",
+    "pair_id": "220_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
     "card_no": "220",
     "label": "",
     "qr_url": "https://cardlish.com/k/",
-    "front_image": "cards/220_k_front.png",
-    "back_image": "cards/220_k_back.png",
+    "front_image": "cards/220_card_front.png",
+    "back_image": "cards/220_card_back.png",
     "front_page": 2,
     "back_page": 1,
     "front_bbox_xyxy": [
@@ -10258,14 +11897,15 @@
     "needs_review": false,
     "review_note": "",
     "created_at": "07/06/2026",
+    "card_id": "legacy_220_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": "",
     "display_label": "220",
     "audio": {
-      "status": "downloaded",
-      "page_url": "https://cardlish.com/k/",
-      "remote_url": "https://cardlish.com/k/",
-      "local_path": "audio/220_k.mp3",
-      "content_type": "audio/mpeg",
-      "checksum": "c13a981916b192330d1365d58e558162"
+      "status": "pending",
+      "local_path": ""
     },
     "learning": {
       "day": null,
@@ -10333,7 +11973,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_221_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "222_card",
@@ -10385,7 +12030,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_222_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "223_card",
@@ -10437,7 +12087,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_223_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "224_card",
@@ -10489,10 +12144,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_224_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "225_kn",
+    "pair_id": "225_card",
     "cell": "C3",
     "row": 3,
     "col": 3,
@@ -10541,10 +12201,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_225_kn",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "226_p",
+    "pair_id": "226_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -10593,7 +12258,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_226_p",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "227_card",
@@ -10647,10 +12317,15 @@
       489,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_227_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "228_wr",
+    "pair_id": "228_card",
     "card_no": "228",
     "label": "wr-",
     "display_label": "228 (wr-)",
@@ -10701,18 +12376,23 @@
       489,
       1579
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_228_wr",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "229_s",
+    "pair_id": "229_card",
     "cell": "C2",
     "row": 3,
     "col": 2,
     "card_no": "229",
     "label": "",
     "qr_url": "https://cardlish.com/s/",
-    "front_image": "cards/229_s_front.png",
-    "back_image": "cards/229_s_back.png",
+    "front_image": "cards/229_card_front.png",
+    "back_image": "cards/229_card_back.png",
     "front_page": 2,
     "back_page": 1,
     "front_bbox_xyxy": [
@@ -10730,14 +12410,15 @@
     "needs_review": false,
     "review_note": "",
     "created_at": "07/06/2026",
+    "card_id": "legacy_229_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": "",
     "display_label": "229",
     "audio": {
-      "status": "downloaded",
-      "page_url": "https://cardlish.com/s/",
-      "remote_url": "https://cardlish.com/s/",
-      "local_path": "audio/229_s.mp3",
-      "content_type": "audio/mpeg",
-      "checksum": "267edeaa6a8f875dde6162615f9b08ce"
+      "status": "pending",
+      "local_path": ""
     },
     "learning": {
       "day": null,
@@ -10807,7 +12488,12 @@
       1699,
       1561
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_230_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "231_card",
@@ -10861,18 +12547,23 @@
       1699,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_231_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "232_v",
+    "pair_id": "232_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
     "card_no": "232",
     "label": "",
     "qr_url": "https://cardlish.com/v/",
-    "front_image": "cards/232_v_front.png",
-    "back_image": "cards/232_v_back.png",
+    "front_image": "cards/232_card_front.png",
+    "back_image": "cards/232_card_back.png",
     "front_page": 2,
     "back_page": 1,
     "front_bbox_xyxy": [
@@ -10890,14 +12581,15 @@
     "needs_review": false,
     "review_note": "",
     "created_at": "07/06/2026",
+    "card_id": "legacy_232_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": "",
     "display_label": "232",
     "audio": {
-      "status": "downloaded",
-      "page_url": "https://cardlish.com/v/",
-      "remote_url": "https://cardlish.com/v/",
-      "local_path": "audio/232_v.mp3",
-      "content_type": "audio/mpeg",
-      "checksum": "977e3f5686bf037bfd9f708004fe041e"
+      "status": "pending",
+      "local_path": ""
     },
     "learning": {
       "day": null,
@@ -10916,7 +12608,7 @@
     }
   },
   {
-    "pair_id": "233_w",
+    "pair_id": "233_card",
     "card_no": "233",
     "label": "W-",
     "display_label": "233 (W-)",
@@ -10967,10 +12659,15 @@
       1699,
       793
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_233_w",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "234_y",
+    "pair_id": "234_card",
     "card_no": "234",
     "label": "y-",
     "display_label": "234 (y-)",
@@ -11021,10 +12718,15 @@
       1133,
       780
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_234_y",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "235_z",
+    "pair_id": "235_card",
     "card_no": "235",
     "label": "Z-",
     "display_label": "235 (Z-)",
@@ -11075,10 +12777,15 @@
       1133,
       2341
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_235_z",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "236_ch",
+    "pair_id": "236_card",
     "cell": "C3",
     "row": 3,
     "col": 3,
@@ -11106,8 +12813,11 @@
     "created_at": "07/06/2026",
     "display_label": "236",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/t%ca%83/",
+      "remote_url": "",
+      "local_path": "audio/236_ch.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11123,10 +12833,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_236_ch",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "237_sh",
+    "pair_id": "237_card",
     "cell": "B3",
     "row": 2,
     "col": 3,
@@ -11154,8 +12869,11 @@
     "created_at": "07/06/2026",
     "display_label": "237",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sh/",
+      "remote_url": "",
+      "local_path": "audio/237_sh.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11171,10 +12889,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_237_sh",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "238_th",
+    "pair_id": "238_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
@@ -11202,8 +12925,11 @@
     "created_at": "07/06/2026",
     "display_label": "238",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/d-2/",
+      "remote_url": "",
+      "local_path": "audio/238_th.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11219,10 +12945,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_238_th",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "000_th",
+    "pair_id": "000_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
@@ -11250,8 +12981,11 @@
     "created_at": "07/06/2026",
     "display_label": "239",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/%ce%b8/",
+      "remote_url": "",
+      "local_path": "audio/000_th.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11267,10 +13001,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_000_th",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "240_wh",
+    "pair_id": "240_card",
     "cell": "B1",
     "row": 2,
     "col": 1,
@@ -11298,8 +13037,11 @@
     "created_at": "07/06/2026",
     "display_label": "240",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/w/",
+      "remote_url": "",
+      "local_path": "audio/240_wh.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11315,10 +13057,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_240_wh",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "241_who",
+    "pair_id": "241_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
@@ -11346,8 +13093,11 @@
     "created_at": "07/06/2026",
     "display_label": "241",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/h/",
+      "remote_url": "",
+      "local_path": "audio/241_who.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11363,10 +13113,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_241_who",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "242_br",
+    "pair_id": "242_card",
     "cell": "C2",
     "row": 3,
     "col": 2,
@@ -11394,8 +13149,11 @@
     "created_at": "07/06/2026",
     "display_label": "242",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/br/",
+      "remote_url": "",
+      "local_path": "audio/242_br.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11411,10 +13169,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_242_br",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "243_cr",
+    "pair_id": "243_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -11442,8 +13205,11 @@
     "created_at": "07/06/2026",
     "display_label": "243",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/cr/",
+      "remote_url": "",
+      "local_path": "audio/243_cr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11459,10 +13225,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_243_cr",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "244_dr",
+    "pair_id": "244_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -11490,8 +13261,11 @@
     "created_at": "07/06/2026",
     "display_label": "244",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/dr/",
+      "remote_url": "",
+      "local_path": "audio/244_dr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11507,7 +13281,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_244_dr",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "245_card",
@@ -11538,8 +13317,11 @@
     "created_at": "07/06/2026",
     "display_label": "245",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/fr/",
+      "remote_url": "",
+      "local_path": "audio/245_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11555,10 +13337,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_245_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "246_gr",
+    "pair_id": "246_card",
     "cell": "B3",
     "row": 2,
     "col": 3,
@@ -11586,8 +13373,11 @@
     "created_at": "07/06/2026",
     "display_label": "246",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/gr/",
+      "remote_url": "",
+      "local_path": "audio/246_gr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11603,10 +13393,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_246_gr",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "247_pr",
+    "pair_id": "247_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
@@ -11634,8 +13429,11 @@
     "created_at": "07/06/2026",
     "display_label": "247",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/pr/",
+      "remote_url": "",
+      "local_path": "audio/247_pr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11651,10 +13449,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_247_pr",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "248_tr",
+    "pair_id": "248_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
@@ -11682,8 +13485,11 @@
     "created_at": "07/06/2026",
     "display_label": "248",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/tr/",
+      "remote_url": "",
+      "local_path": "audio/248_tr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11699,10 +13505,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_248_tr",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "249_bl",
+    "pair_id": "249_card",
     "cell": "B1",
     "row": 2,
     "col": 1,
@@ -11730,8 +13541,11 @@
     "created_at": "07/06/2026",
     "display_label": "249",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/bl/",
+      "remote_url": "",
+      "local_path": "audio/249_bl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11747,10 +13561,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_249_bl",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "250_cl",
+    "pair_id": "250_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
@@ -11778,8 +13597,11 @@
     "created_at": "07/06/2026",
     "display_label": "250",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/cl/",
+      "remote_url": "",
+      "local_path": "audio/250_cl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11795,10 +13617,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_250_cl",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "251_fl",
+    "pair_id": "251_card",
     "cell": "C2",
     "row": 3,
     "col": 2,
@@ -11826,8 +13653,11 @@
     "created_at": "07/06/2026",
     "display_label": "251",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/fl/",
+      "remote_url": "",
+      "local_path": "audio/251_fl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11843,10 +13673,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_251_fl",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "252_gl",
+    "pair_id": "252_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
@@ -11874,8 +13709,11 @@
     "created_at": "07/06/2026",
     "display_label": "252",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/gl/",
+      "remote_url": "",
+      "local_path": "audio/252_gl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11891,10 +13729,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_252_gl",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "253_pl",
+    "pair_id": "253_card",
     "cell": "B1",
     "row": 2,
     "col": 1,
@@ -11922,8 +13765,11 @@
     "created_at": "07/06/2026",
     "display_label": "253",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/pl/",
+      "remote_url": "",
+      "local_path": "audio/253_pl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11939,10 +13785,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_253_pl",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "254_sl",
+    "pair_id": "254_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
@@ -11970,8 +13821,11 @@
     "created_at": "07/06/2026",
     "display_label": "254",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sl/",
+      "remote_url": "",
+      "local_path": "audio/254_sl.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -11987,10 +13841,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_254_sl",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "255_tw",
+    "pair_id": "255_card",
     "cell": "C2",
     "row": 3,
     "col": 2,
@@ -12018,8 +13877,11 @@
     "created_at": "07/06/2026",
     "display_label": "255",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/tw/",
+      "remote_url": "",
+      "local_path": "audio/255_tw.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12035,10 +13897,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_255_tw",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "256_thr",
+    "pair_id": "256_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -12066,8 +13933,11 @@
     "created_at": "07/06/2026",
     "display_label": "256",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/thr/",
+      "remote_url": "",
+      "local_path": "audio/256_thr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12083,10 +13953,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_256_thr",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "257_qu",
+    "pair_id": "257_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -12114,8 +13989,11 @@
     "created_at": "07/06/2026",
     "display_label": "257",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/qu/",
+      "remote_url": "",
+      "local_path": "audio/257_qu.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12131,10 +14009,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_257_qu",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "258_sc",
+    "pair_id": "258_card",
     "cell": "C3",
     "row": 3,
     "col": 3,
@@ -12162,8 +14045,11 @@
     "created_at": "07/06/2026",
     "display_label": "258",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sk/",
+      "remote_url": "",
+      "local_path": "audio/258_sc.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12179,10 +14065,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_258_sc",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "259_sk",
+    "pair_id": "259_card",
     "cell": "B3",
     "row": 2,
     "col": 3,
@@ -12210,8 +14101,11 @@
     "created_at": "07/06/2026",
     "display_label": "259",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sk/",
+      "remote_url": "",
+      "local_path": "audio/259_sk.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12227,10 +14121,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_259_sk",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "260_sm",
+    "pair_id": "260_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
@@ -12258,8 +14157,11 @@
     "created_at": "07/06/2026",
     "display_label": "260",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sm/",
+      "remote_url": "",
+      "local_path": "audio/260_sm.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12275,10 +14177,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_260_sm",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "261_sn",
+    "pair_id": "261_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -12306,8 +14213,11 @@
     "created_at": "07/06/2026",
     "display_label": "261",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sn/",
+      "remote_url": "",
+      "local_path": "audio/261_sn.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12323,10 +14233,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_261_sn",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "262_sp",
+    "pair_id": "262_card",
     "cell": "A2",
     "row": 1,
     "col": 2,
@@ -12354,8 +14269,11 @@
     "created_at": "07/06/2026",
     "display_label": "262",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sp/",
+      "remote_url": "",
+      "local_path": "audio/262_sp.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12371,10 +14289,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_262_sp",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "263_st",
+    "pair_id": "263_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
@@ -12402,8 +14325,11 @@
     "created_at": "07/06/2026",
     "display_label": "263",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/st/",
+      "remote_url": "",
+      "local_path": "audio/263_st.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12419,10 +14345,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_263_st",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "264_sw",
+    "pair_id": "264_card",
     "cell": "B3",
     "row": 2,
     "col": 3,
@@ -12450,8 +14381,11 @@
     "created_at": "07/06/2026",
     "display_label": "264",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sw/",
+      "remote_url": "",
+      "local_path": "audio/264_sw.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12467,10 +14401,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_264_sw",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "265_scr",
+    "pair_id": "265_card",
     "cell": "C3",
     "row": 3,
     "col": 3,
@@ -12498,8 +14437,11 @@
     "created_at": "07/06/2026",
     "display_label": "265",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/scr/",
+      "remote_url": "",
+      "local_path": "audio/265_scr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12515,10 +14457,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_265_scr",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "266_squ",
+    "pair_id": "266_card",
     "cell": "A1",
     "row": 1,
     "col": 1,
@@ -12546,8 +14493,11 @@
     "created_at": "07/06/2026",
     "display_label": "266",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/squ/",
+      "remote_url": "",
+      "local_path": "audio/266_squ.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12563,10 +14513,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_266_squ",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "267_str",
+    "pair_id": "267_card",
     "cell": "B1",
     "row": 2,
     "col": 1,
@@ -12594,8 +14549,11 @@
     "created_at": "07/06/2026",
     "display_label": "267",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/str/",
+      "remote_url": "",
+      "local_path": "audio/267_str.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12611,10 +14569,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_267_str",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "268_spr",
+    "pair_id": "268_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
@@ -12642,8 +14605,11 @@
     "created_at": "07/06/2026",
     "display_label": "268",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/spr/",
+      "remote_url": "",
+      "local_path": "audio/268_spr.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12659,7 +14625,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_268_spr",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "269_card",
@@ -12690,8 +14661,11 @@
     "created_at": "07/06/2026",
     "display_label": "269",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/b/",
+      "remote_url": "",
+      "local_path": "audio/269_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12707,7 +14681,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_269_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "270_card",
@@ -12738,8 +14717,11 @@
     "created_at": "07/06/2026",
     "display_label": "270",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/d/",
+      "remote_url": "",
+      "local_path": "audio/270_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12755,7 +14737,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_270_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "271_card",
@@ -12786,8 +14773,11 @@
     "created_at": "07/06/2026",
     "display_label": "271",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f/",
+      "remote_url": "",
+      "local_path": "audio/271_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12803,7 +14793,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_271_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "272_card",
@@ -12834,8 +14829,11 @@
     "created_at": "07/06/2026",
     "display_label": "272",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f/",
+      "remote_url": "",
+      "local_path": "audio/272_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12851,7 +14849,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_272_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "273_card",
@@ -12882,8 +14885,11 @@
     "created_at": "07/06/2026",
     "display_label": "273",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/g/",
+      "remote_url": "",
+      "local_path": "audio/273_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12899,7 +14905,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_273_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "274_card",
@@ -12930,8 +14941,11 @@
     "created_at": "07/06/2026",
     "display_label": "274",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/d%ca%92/",
+      "remote_url": "",
+      "local_path": "audio/274_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12947,7 +14961,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_274_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "275_card",
@@ -12978,8 +14997,11 @@
     "created_at": "07/06/2026",
     "display_label": "275",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/k/",
+      "remote_url": "",
+      "local_path": "audio/275_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -12995,7 +15017,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_275_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "276_card",
@@ -13026,8 +15053,11 @@
     "created_at": "07/06/2026",
     "display_label": "276",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/k/",
+      "remote_url": "",
+      "local_path": "audio/276_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13043,7 +15073,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_276_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "277_card",
@@ -13097,7 +15132,12 @@
       1044,
       1585
     ],
-    "created_at": "07/06/2026"
+    "created_at": "07/06/2026",
+    "card_id": "legacy_277_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "278_card",
@@ -13128,8 +15168,11 @@
     "created_at": "07/06/2026",
     "display_label": "278",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/dark_l/",
+      "remote_url": "",
+      "local_path": "audio/278_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13145,7 +15188,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_278_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "279_card",
@@ -13176,8 +15224,11 @@
     "created_at": "07/06/2026",
     "display_label": "279",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/m/",
+      "remote_url": "",
+      "local_path": "audio/279_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13193,7 +15244,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_279_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "280_card",
@@ -13224,8 +15280,11 @@
     "created_at": "07/06/2026",
     "display_label": "280",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/n/",
+      "remote_url": "",
+      "local_path": "audio/280_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13241,7 +15300,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_280_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "281_card",
@@ -13272,8 +15336,11 @@
     "created_at": "07/06/2026",
     "display_label": "281",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/p/",
+      "remote_url": "",
+      "local_path": "audio/281_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13289,7 +15356,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_281_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "282_card",
@@ -13320,8 +15392,11 @@
     "created_at": "07/06/2026",
     "display_label": "282",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/r-3/",
+      "remote_url": "",
+      "local_path": "audio/282_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13337,7 +15412,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_282_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "283_card",
@@ -13368,8 +15448,11 @@
     "created_at": "07/06/2026",
     "display_label": "283",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/s/",
+      "remote_url": "",
+      "local_path": "audio/283_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13385,7 +15468,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_283_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "284_card",
@@ -13416,8 +15504,11 @@
     "created_at": "07/06/2026",
     "display_label": "284",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/s/",
+      "remote_url": "",
+      "local_path": "audio/284_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13433,7 +15524,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_284_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "285_card",
@@ -13464,8 +15560,11 @@
     "created_at": "07/06/2026",
     "display_label": "285",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/t/",
+      "remote_url": "",
+      "local_path": "audio/285_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13481,7 +15580,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_285_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "286_card",
@@ -13512,8 +15616,11 @@
     "created_at": "07/06/2026",
     "display_label": "286",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/v/",
+      "remote_url": "",
+      "local_path": "audio/286_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13529,10 +15636,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_286_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "288_s",
+    "pair_id": "288_card",
     "cell": "C1",
     "row": 3,
     "col": 1,
@@ -13560,8 +15672,11 @@
     "created_at": "07/06/2026",
     "display_label": "288",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/z/",
+      "remote_url": "",
+      "local_path": "audio/288_s.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13577,7 +15692,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_288_s",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "289_card",
@@ -13608,8 +15728,11 @@
     "created_at": "07/06/2026",
     "display_label": "289",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/t%ca%83/",
+      "remote_url": "",
+      "local_path": "audio/289_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13625,7 +15748,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_289_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "290_card",
@@ -13656,8 +15784,11 @@
     "created_at": "07/06/2026",
     "display_label": "290",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sh/",
+      "remote_url": "",
+      "local_path": "audio/290_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13673,7 +15804,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_290_card",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "291_card",
@@ -13704,8 +15840,11 @@
     "created_at": "07/06/2026",
     "display_label": "291",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sh/",
+      "remote_url": "",
+      "local_path": "audio/291_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13721,10 +15860,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_291_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "292_th",
+    "pair_id": "292_card",
     "cell": "A3",
     "row": 1,
     "col": 3,
@@ -13752,8 +15896,11 @@
     "created_at": "07/06/2026",
     "display_label": "292",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/d-2/",
+      "remote_url": "",
+      "local_path": "audio/292_th.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13769,10 +15916,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_292_th",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "293_th",
+    "pair_id": "293_card",
     "cell": "B3",
     "row": 2,
     "col": 3,
@@ -13800,8 +15952,11 @@
     "created_at": "07/06/2026",
     "display_label": "293",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/%ce%b8/",
+      "remote_url": "",
+      "local_path": "audio/293_th.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13817,7 +15972,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_293_th",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "294_card",
@@ -13848,8 +16008,11 @@
     "created_at": "07/06/2026",
     "display_label": "294",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ng/",
+      "remote_url": "",
+      "local_path": "audio/294_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13865,7 +16028,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_294_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "296_card",
@@ -13896,8 +16064,11 @@
     "created_at": "07/06/2026",
     "display_label": "296",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_ft/",
+      "remote_url": "",
+      "local_path": "audio/296_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13913,7 +16084,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_296_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "297_card",
@@ -13944,8 +16120,11 @@
     "created_at": "07/06/2026",
     "display_label": "297",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_ld/",
+      "remote_url": "",
+      "local_path": "audio/297_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -13961,7 +16140,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_297_card",
+    "front_cell": "C1",
+    "back_cell": "C1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "298_card",
@@ -13992,8 +16176,11 @@
     "created_at": "07/06/2026",
     "display_label": "298",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_lt/",
+      "remote_url": "",
+      "local_path": "audio/298_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14009,10 +16196,15 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_298_card",
+    "front_cell": "C2",
+    "back_cell": "C2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
-    "pair_id": "299_dw",
+    "pair_id": "299_card",
     "cell": "B2",
     "row": 2,
     "col": 2,
@@ -14040,8 +16232,11 @@
     "created_at": "07/06/2026",
     "display_label": "299",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_mp/",
+      "remote_url": "",
+      "local_path": "audio/299_dw.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14057,7 +16252,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_299_dw",
+    "front_cell": "B2",
+    "back_cell": "B2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "300_card",
@@ -14088,8 +16288,11 @@
     "created_at": "07/06/2026",
     "display_label": "300",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_nd/",
+      "remote_url": "",
+      "local_path": "audio/300_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14105,7 +16308,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_300_card",
+    "front_cell": "A2",
+    "back_cell": "A2",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "301_card",
@@ -14136,8 +16344,11 @@
     "created_at": "07/06/2026",
     "display_label": "301",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_nk/",
+      "remote_url": "",
+      "local_path": "audio/301_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14153,7 +16364,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_301_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "302_card",
@@ -14184,8 +16400,11 @@
     "created_at": "07/06/2026",
     "display_label": "302",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_nt/",
+      "remote_url": "",
+      "local_path": "audio/302_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14201,7 +16420,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_302_card",
+    "front_cell": "B3",
+    "back_cell": "B3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "303_card",
@@ -14232,8 +16456,11 @@
     "created_at": "07/06/2026",
     "display_label": "303",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/sk/",
+      "remote_url": "",
+      "local_path": "audio/303_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14249,7 +16476,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_303_card",
+    "front_cell": "C3",
+    "back_cell": "C3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "304_card",
@@ -14280,8 +16512,11 @@
     "created_at": "07/06/2026",
     "display_label": "304",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/f_st/",
+      "remote_url": "",
+      "local_path": "audio/304_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14297,7 +16532,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_304_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "305_card",
@@ -14328,8 +16568,11 @@
     "created_at": "07/06/2026",
     "display_label": "305",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/k/",
+      "remote_url": "",
+      "local_path": "audio/305_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14345,7 +16588,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_305_card",
+    "front_cell": "B1",
+    "back_cell": "B1",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "680_card",
@@ -14376,8 +16624,11 @@
     "created_at": "07/06/2026",
     "display_label": "680",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/ount/",
+      "remote_url": "",
+      "local_path": "audio/680_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14393,7 +16644,12 @@
         204,
         204
       ]
-    }
+    },
+    "card_id": "legacy_680_card",
+    "front_cell": "A3",
+    "back_cell": "A3",
+    "manual_locked": false,
+    "source_pdf": ""
   },
   {
     "pair_id": "900_card",
@@ -14424,8 +16680,11 @@
     "created_at": "07/06/2026",
     "display_label": "900",
     "audio": {
-      "status": "pending",
-      "local_path": ""
+      "status": "downloaded",
+      "page_url": "https://cardlish.com/z/",
+      "remote_url": "",
+      "local_path": "audio/900_card.mp3",
+      "source": "edge-tts"
     },
     "learning": {
       "day": null,
@@ -14441,54 +16700,11 @@
         204,
         204
       ]
-    }
-  },
-  {
-    "pair_id": "batch030_B1",
-    "cell": "B1",
-    "row": 2,
-    "col": 1,
-    "card_no": "",
-    "label": "",
-    "qr_url": "https://cardlish.com/short-i/",
-    "front_image": "cards/batch030_B1_front.png",
-    "back_image": "cards/batch030_B1_back.png",
-    "front_page": 1,
-    "back_page": 2,
-    "front_bbox_xyxy": [
-      0,
-      780,
-      566,
-      1561
-    ],
-    "back_bbox_xyxy": [
-      0,
-      780,
-      566,
-      1561
-    ],
-    "needs_review": false,
-    "review_note": "",
-    "created_at": "07/06/2026",
-    "display_label": "",
-    "audio": {
-      "status": "pending",
-      "local_path": ""
     },
-    "learning": {
-      "day": null,
-      "known": false,
-      "last_seen_at": null,
-      "review_count": 0
-    },
-    "color": {
-      "group": "",
-      "hex": "#cccccc",
-      "rgb": [
-        204,
-        204,
-        204
-      ]
-    }
+    "card_id": "legacy_900_card",
+    "front_cell": "A1",
+    "back_cell": "A1",
+    "manual_locked": false,
+    "source_pdf": ""
   }
 ]

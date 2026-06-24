@@ -7,15 +7,14 @@
 
 /* ── CSS Custom Properties ───────────────────────────────── */
 :root {
-  /* Background */
-  --bg-from: #fef9ef;
-  --bg-to: #f0e6ff;
-  --bg-gradient: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
+  /* Background (Default: Warm / Dịu mắt to reduce whiteness) */
+  --bg-from: #f5ebe0;
+  --bg-to: #e3d5ca;
 
   /* Surfaces */
-  --card-bg: #ffffff;
-  --card-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
-  --card-shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --card-bg: #faf7f2;
+  --card-shadow: 0 8px 40px rgba(60, 47, 47, 0.06), 0 2px 12px rgba(60, 47, 47, 0.03);
+  --card-shadow-lg: 0 16px 56px rgba(60, 47, 47, 0.1), 0 4px 16px rgba(60, 47, 47, 0.05);
 
   /* Primary accent — green for focus / active */
   --accent-green: #22c55e;
@@ -33,16 +32,16 @@
   --accent-orange-text: #ea580c;
 
   --accent-purple: #a78bfa;
-  --accent-purple-light: #ede9fe;
+  --accent-purple-light: #f3ece4; /* warm tint */
   --accent-purple-text: #7c3aed;
 
   /* Text */
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+  --text-primary: #3c2f2f;
+  --text-secondary: #6e5e5d;
+  --text-muted: #9c8b8a;
 
   /* Misc */
-  --progress-track: #e2e8f0;
+  --progress-track: #e0d0c0;
   --progress-fill: linear-gradient(90deg, #22c55e, #4ade80);
   --border-radius-sm: 12px;
   --border-radius-md: 18px;
@@ -55,6 +54,51 @@
   /* Layout */
   --header-height: 56px;
   --status-bar-height: 40px;
+  --panel-bg: rgba(250, 247, 242, 0.9);
+  --border-color: #d8c8b8;
+}
+
+/* ── Theme Overrides ─────────────────────────────────────── */
+body.theme-light {
+  --bg-from: #fef9ef;
+  --bg-to: #f0e6ff;
+  --card-bg: #ffffff;
+  --card-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+  --card-shadow-lg: 0 16px 56px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --progress-track: #e2e8f0;
+  --panel-bg: rgba(255, 255, 255, 0.85);
+  --border-color: #cbd5e1;
+  --accent-purple-light: #ede9fe;
+}
+
+body.theme-warm {
+  --bg-from: #f5ebe0;
+  --bg-to: #e3d5ca;
+  --card-bg: #faf7f2;
+  --text-primary: #3c2f2f;
+  --text-secondary: #6e5e5d;
+  --text-muted: #9c8b8a;
+  --progress-track: #e0d0c0;
+  --panel-bg: rgba(250, 247, 242, 0.9);
+  --border-color: #d8c8b8;
+  --accent-purple-light: #f3ece4;
+}
+
+body.theme-dark {
+  --bg-from: #0f172a;
+  --bg-to: #1e1b4b;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --progress-track: #334155;
+  --panel-bg: rgba(30, 41, 59, 0.95);
+  --border-color: #334155;
+  --accent-purple-light: #312e81;
+  --accent-purple-text: #c084fc;
 }
 
 /* ── Reset & Base ────────────────────────────────────────── */
@@ -75,7 +119,7 @@ html {
 body {
   font-family: var(--font-family);
   color: var(--text-primary);
-  background: var(--bg-gradient);
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
   background-attachment: fixed;
   min-height: 100vh; /* fallback for older TV browsers */
   min-height: 100dvh;
@@ -838,10 +882,10 @@ button {
   width: 90%;
   max-width: 800px;
   margin: 12px auto 0;
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--panel-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 2px solid rgba(124, 140, 240, 0.2);
+  border: 2px solid var(--border-color);
   border-radius: 20px;
   padding: 16px 24px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
@@ -1152,7 +1196,7 @@ button {
   width: 100%;
   height: 100%;
   z-index: 200;
-  background: linear-gradient(135deg, #fef9ef 0%, #f5f0ff 100%);
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -1177,10 +1221,10 @@ button {
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--panel-bg);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid var(--border-color);
   min-height: 56px;
 }
 
@@ -1527,12 +1571,12 @@ button {
 
 .gallery-card {
   position: relative;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition-fast);
-  border: 2px solid #e8e8ee;
+  border: 2px solid var(--border-color);
 }
 
 .gallery-card:hover {
@@ -2187,7 +2231,7 @@ button {
   min-height: 100vh;
   min-height: 100dvh;
   padding: 32px;
-  background: var(--bg-gradient);
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
   background-attachment: fixed;
 }
 
@@ -2351,10 +2395,30 @@ button {
   background: rgba(239, 68, 68, 0.2);
 }
 
+.lesson-card-edit-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1.5px solid rgba(96, 165, 250, 0.2);
+  color: #2563eb;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.lesson-card-edit-btn:hover {
+  background: rgba(96, 165, 250, 0.2);
+}
+
 /* ============================================================
-   Create Lesson Modal
+   Create & Edit Lesson Modals
    ============================================================ */
-.create-lesson-overlay {
+.create-lesson-overlay,
+.edit-lesson-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -2368,11 +2432,13 @@ button {
   animation: fadeIn 0.2s ease;
 }
 
-.create-lesson-overlay:not([hidden]) {
+.create-lesson-overlay:not([hidden]),
+.edit-lesson-overlay:not([hidden]) {
   display: flex;
 }
 
-.create-lesson-modal {
+.create-lesson-modal,
+.edit-lesson-modal {
   background: var(--card-bg);
   border-radius: var(--border-radius-xl);
   padding: 32px;
@@ -2381,14 +2447,16 @@ button {
   box-shadow: var(--card-shadow-lg);
 }
 
-.create-lesson-modal h3 {
+.create-lesson-modal h3,
+.edit-lesson-modal h3 {
   font-size: 22px;
   font-weight: 800;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.create-lesson-modal input {
+.create-lesson-modal input,
+.edit-lesson-modal input {
   width: 100%;
   padding: 14px 18px;
   border: 2px solid #e2e8f0;
@@ -2402,19 +2470,22 @@ button {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.create-lesson-modal input:focus {
+.create-lesson-modal input:focus,
+.edit-lesson-modal input:focus {
   border-color: var(--accent-green);
   outline: none;
   box-shadow: 0 0 0 4px var(--accent-green-glow);
 }
 
-.create-lesson-actions {
+.create-lesson-actions,
+.edit-lesson-actions {
   display: flex;
   gap: 12px;
   margin-top: 8px;
 }
 
-.create-lesson-actions button {
+.create-lesson-actions button,
+.edit-lesson-actions button {
   flex: 1;
   padding: 14px;
   border-radius: var(--border-radius-sm);
@@ -2425,21 +2496,25 @@ button {
   transition: all var(--transition-fast);
 }
 
-#cancelCreateLesson {
+#cancelCreateLesson,
+#cancelEditLesson {
   background: #f1f5f9;
   color: var(--text-secondary);
 }
 
-#cancelCreateLesson:hover {
+#cancelCreateLesson:hover,
+#cancelEditLesson:hover {
   background: #e2e8f0;
 }
 
-#confirmCreateLesson {
+#confirmCreateLesson,
+#confirmEditLesson {
   background: var(--accent-green);
   color: #ffffff;
 }
 
-#confirmCreateLesson:hover {
+#confirmCreateLesson:hover,
+#confirmEditLesson:hover {
   filter: brightness(1.1);
 }
 
@@ -2489,7 +2564,7 @@ button {
   .sentences-container {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--panel-bg);
   }
 
   .loading-overlay {
@@ -2521,6 +2596,18 @@ button {
   .gallery-summary {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .lesson-picker-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .theme-switcher-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--panel-bg);
   }
 
   /* Replace box-shadow animation with transform (GPU-composited) */
@@ -2605,7 +2692,8 @@ button {
 }
 
 /* ── Create Lesson Labels ─────────────────────────────────── */
-.create-lesson-label {
+.create-lesson-label,
+.edit-lesson-label {
   display: block;
   font-size: 14px;
   font-weight: 700;
@@ -2686,20 +2774,20 @@ button {
    Lesson Card Picker
    ============================================================ */
 .lesson-picker-bar {
-  width: 90%;
-  max-width: 800px;
-  margin: 16px auto;
+  position: fixed;
+  top: 16px;
+  right: 72px;
+  z-index: 100;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-end;
   box-sizing: border-box;
 }
 
 .lesson-picker-toggle {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--card-bg);
   color: var(--text-primary);
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 14px;
@@ -2733,20 +2821,32 @@ button {
 }
 
 .lesson-picker-panel {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  top: 48px;
+  right: -56px;
+  width: 320px;
+  background: var(--panel-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 2px solid rgba(124, 140, 240, 0.15);
+  border: 2px solid var(--border-color);
   border-radius: 16px;
   padding: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
   animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 101;
+}
+
+@media (max-width: 480px) {
+  .lesson-picker-panel {
+    width: calc(100vw - 32px);
+    max-width: 320px;
+    right: -56px;
+  }
 }
 
 @keyframes slide-down {
@@ -2767,8 +2867,8 @@ button {
   font-size: 13px;
   font-weight: 700;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.85);
-  border: 2px solid #e2e8f0;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
   transition: all var(--transition-fast);
   cursor: pointer;
   min-width: 44px;
@@ -2827,4 +2927,193 @@ button {
   text-align: center;
   border: 2px dashed #cbd5e1;
   border-radius: 16px;
+}
+
+/* ============================================================
+   Sentences Toggle Button
+   ============================================================ */
+.sentences-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-fast);
+  margin-left: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  height: 52px;
+  box-sizing: border-box;
+}
+
+.sentences-toggle-btn:hover {
+  transform: scale(1.03);
+  border-color: var(--accent-purple);
+  box-shadow: 0 6px 18px rgba(124, 140, 240, 0.2);
+}
+
+.sentences-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.sentences-toggle-btn:focus {
+  outline: 2.5px solid var(--accent-purple);
+  outline-offset: 1px;
+}
+
+.sentences-toggle-btn.hidden-mode {
+  opacity: 0.6;
+  background: rgba(241, 245, 249, 0.9);
+  color: var(--text-secondary);
+  border-color: #cbd5e1;
+}
+
+/* ============================================================
+   Vocab Reset Button
+   ============================================================ */
+.vocab-btn.vocab-reset-btn {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+}
+
+.vocab-btn.vocab-reset-btn:hover {
+  background: #dc2626 !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.vocab-btn.vocab-reset-btn:active {
+  transform: scale(0.97);
+}
+
+.vocab-btn.vocab-reset-btn:focus {
+  outline: 2.5px solid #ef4444 !important;
+  outline-offset: 1px;
+}
+
+/* ============================================================
+   Theme Switcher UI
+   ============================================================ */
+.theme-switcher-bar {
+  position: fixed;
+  top: 16px;
+  right: 244px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+.theme-switcher-toggle {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.theme-switcher-toggle:hover {
+  transform: scale(1.03);
+  border-color: var(--accent-purple-text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.theme-switcher-toggle:active {
+  transform: scale(0.97);
+}
+
+.theme-switcher-toggle:focus {
+  outline: 2.5px solid var(--accent-purple);
+  outline-offset: 1px;
+}
+
+.theme-switcher-toggle.expanded {
+  border-color: var(--accent-purple-text);
+  color: var(--accent-purple-text);
+}
+
+.theme-switcher-panel {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 155px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(124, 140, 240, 0.15);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+  animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 101;
+}
+
+.theme-switcher-panel[hidden] {
+  display: none !important;
+}
+
+.theme-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.theme-btn:hover {
+  background: var(--accent-purple-light);
+  color: var(--accent-purple-text);
+}
+
+.theme-btn.active {
+  background: var(--accent-purple-light);
+  color: var(--accent-purple-text);
+  border: 2.5px solid var(--accent-purple);
+  padding: 5.5px 9.5px;
+}
+
+.theme-btn:focus {
+  outline: 2.5px solid var(--accent-purple);
+  outline-offset: 1px;
+}
+
+@media (max-width: 768px) {
+  .theme-switcher-bar {
+    right: auto;
+    left: 16px;
+  }
+  .theme-switcher-panel {
+    right: auto;
+    left: 0;
+  }
 }

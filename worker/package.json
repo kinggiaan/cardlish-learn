@@ -1,0 +1,8 @@
+{
+  "name": "cardlish-api",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "wrangler": "^4.104.0"
+  }
+}

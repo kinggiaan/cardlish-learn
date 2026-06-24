@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head><title>Audio Debug</title></head>
+<body>
+<h1>Audio Debug - Cards 035-048</h1>
+<div id="results"></div>
+<script>
+const BASE = '../public/';
+const cards = ['035','036','037','038','039','040','041','042','043','044','045','046','047','048'];
+const results = document.getElementById('results');
+
+async function testAll() {
+  // Load cards.json to get audio paths
+  const resp = await fetch('../public/data/cards.json');
+  const allCards = await resp.json();
+  
+  for (const cn of cards) {
+    const card = allCards.find(c => c.card_no === cn);
+    if (!card) {
+      results.innerHTML += `<p style="color:red">Card ${cn}: NOT FOUND in cards.json</p>`;
+      continue;
+    }
+    
+    const audioPath = BASE + (card.audio?.local_path || 'MISSING');
+    const status = card.audio?.status || 'none';
+    const source = card.audio?.source || 'unknown';
+    
+    // Try to fetch the audio file
+    try {
+      const audioResp = await fetch(audioPath);
+      const size = (await audioResp.blob()).size;
+      const ok = audioResp.ok;
+      
+      const color = ok ? 'green' : 'red';
+      results.innerHTML += `
+        <p style="color:${color}">
+          Card ${cn}: status=${status}, source=${source}, path=${audioPath}, 
+          fetch=${ok ? 'OK' : 'FAIL'} (${size} bytes)
+          <button onclick="playTest('${audioPath}')">▶ Play</button>
+        </p>`;
+    } catch(e) {
+      results.innerHTML += `<p style="color:red">Card ${cn}: FETCH ERROR - ${e.message}</p>`;
+    }
+  }
+}
+
+function playTest(src) {
+  const a = new Audio(src);
+  a.play().then(() => console.log('Playing:', src)).catch(e => alert('Play error: ' + e.message));
+}
+
+testAll();
+</script>
+</body>
+</html>
