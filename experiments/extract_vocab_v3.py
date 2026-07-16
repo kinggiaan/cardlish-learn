@@ -20,6 +20,10 @@ import io
 import argparse
 from pathlib import Path
 
+# Add project root to path for core imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from core.card_utils import parse_card_filter
+
 # Fix Windows console encoding
 if sys.stdout.encoding != "utf-8":
     try:
@@ -53,7 +57,23 @@ def is_word_candidate(text):
         return False
     if not re.search(r"[a-zA-Z]", t):
         return False
-    vietnamese_words = {"âm", "chữ", "thường", "được", "biểu", "hiện", "bằng", "sau", "đó", "phụ", "cuối", "chú", "ý", "phát"}
+    # Filter mixed alpha+digit garbage (e.g. id3et, id3eml) — real words don't have digits
+    if re.search(r"\d", t):
+        return False
+    # Filter dotted IPA-like strings (e.g. rkem.e.stril, l'tem.pell, sem.i.kou.len)
+    if "." in t and t.count(".") >= 2:
+        return False
+    # Filter apostrophe fragments that look like IPA (e.g. i'fotstepl, /bi'hed/)
+    # but allow real contractions (don't, can't, it's)
+    if "'" in t and not re.match(r"^[a-zA-Z]+(n't|'s|'re|'ll|'ve|'d|'m)$", t):
+        return False
+    # Filter Vietnamese words commonly found on cards
+    vietnamese_words = {
+        "âm", "chữ", "thường", "được", "biểu", "hiện", "bằng", "sau", "đó",
+        "phụ", "cuối", "chú", "ý", "phát", "viết", "liền", "với", "nhẹ",
+        "rất", "không", "đọc", "như", "quên", "là", "khi", "ở", "các",
+        "nhưng", "đây", "một", "trong", "có", "và", "của", "cho", "này",
+    }
     if t.lower() in vietnamese_words:
         return False
     return True
@@ -148,20 +168,7 @@ def extract_vocab_for_side(ocr_items):
     return paired_sorted
 
 
-def parse_card_filter(cards_str):
-    """Parse --cards argument into a set of pair_ids."""
-    if not cards_str:
-        return None
-    result = set()
-    for part in cards_str.split(","):
-        part = part.strip()
-        if not part:
-            continue
-        if part.endswith("_card") or "_" in part:
-            result.add(part)
-        else:
-            result.add(f"{int(part):03d}_card")
-    return result
+
 
 
 def main():

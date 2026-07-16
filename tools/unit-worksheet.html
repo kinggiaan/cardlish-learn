@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Worksheet - Tiếng Anh lớp 1 Global Success</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      color: #222;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* ===== A4 PAGE ===== */
+    .worksheet {
+      width: 210mm;
+      height: 297mm;
+      background: #fff;
+      padding: 12mm 18mm;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Sections fill available space */
+    .section-vocab { flex: 5; display: flex; flex-direction: column; }
+    .section-grammar { flex: 3; display: flex; flex-direction: column; justify-content: center; }
+    .section-phonics { flex: 4; display: flex; flex-direction: column; }
+
+    /* ===== HEADER ===== */
+    .unit-title {
+      text-align: center;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 18px;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    /* ===== VOCABULARY CARDS ===== */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 10px 0;
+      flex: 1;
+    }
+
+    .vocab-card {
+      border: 2px solid #888;
+      border-radius: 8px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+    }
+
+    .vocab-card .card-image {
+      width: 100%;
+      flex: 1;
+      object-fit: contain;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      border: 1px solid #ddd;
+      background: #fff;
+    }
+
+    .vocab-card .card-word {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 1px;
+    }
+
+    .vocab-card .card-phonetic {
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 2px;
+    }
+
+    .vocab-card .card-meaning {
+      font-size: 12px;
+      color: #c0392b;
+      font-style: italic;
+    }
+
+    /* ===== GRAMMAR ===== */
+    .grammar-examples {
+      margin: 8px 20px;
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .grammar-examples li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .grammar-examples .ex-en {
+      flex: 1;
+    }
+
+    .grammar-examples .ex-vi {
+      color: #555;
+      font-style: italic;
+      text-align: right;
+      margin-left: 12px;
+    }
+
+    /* ===== PHONICS ===== */
+    .phonics-desc {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    .writing-title {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 10px 0 8px 0;
+    }
+
+    .writing-grid {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    .writing-grid td {
+      border: 1.5px solid #888;
+      width: 25%;
+      height: auto;
+    }
+
+    .writing-grid .guide-word {
+      text-align: center;
+      font-size: 22px;
+      color: #ccc;
+      font-weight: 700;
+      font-family: 'Roboto', sans-serif;
+      padding: 8px 4px;
+    }
+
+    /* ===== SEPARATOR ===== */
+    .section-sep {
+      border: none;
+      border-top: 1.5px solid #bbb;
+      margin: 10px 0;
+    }
+
+    /* ===== LOADING STATE ===== */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 16px;
+      color: #999;
+    }
+
+    .error {
+      text-align: center;
+      padding: 40px;
+      font-size: 16px;
+      color: #e74c3c;
+    }
+
+    /* ===== UNIT SELECTOR (screen only) ===== */
+    .unit-selector {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+      font-size: 14px;
+    }
+
+    .unit-selector label {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .unit-selector select {
+      padding: 4px 8px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .unit-selector button {
+      margin-left: 8px;
+      padding: 5px 14px;
+      font-size: 13px;
+      background: #2980b9;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .unit-selector button:hover {
+      background: #1a6da0;
+    }
+
+    .btn-print {
+      background: #27ae60 !important;
+    }
+
+    .btn-print:hover {
+      background: #1e8e4e !important;
+    }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 15mm;
+      }
+
+      body {
+        background: none;
+        padding: 0;
+      }
+
+      .worksheet {
+        width: 100%;
+        min-height: auto;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      .unit-selector {
+        display: none !important;
+      }
+
+      .vocab-card {
+        border-color: #555;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .writing-grid td {
+        border-color: #666;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Unit selector (screen only) -->
+  <div class="unit-selector" id="unitSelector">
+    <label for="unitSelect">Unit:</label>
+    <select id="unitSelect"></select>
+    <button onclick="loadSelectedUnit()">Tải</button>
+    <button class="btn-print" onclick="window.print()">🖨️ In</button>
+  </div>
+
+  <!-- Worksheet container -->
+  <div class="worksheet" id="worksheet">
+    <div class="loading" id="loadingMsg">Đang tải dữ liệu...</div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const DATA_BASE = 'worksheet-data/';
+
+    // ===== INIT =====
+    async function init() {
+      // Scan for available unit JSON files
+      await populateUnitSelector();
+
+      // Get unit from URL param or default
+      const params = new URLSearchParams(window.location.search);
+      const unitNum = params.get('unit') || '9';
+
+      document.getElementById('unitSelect').value = unitNum;
+      await loadUnit(unitNum);
+    }
+
+    // Populate the unit dropdown
+    async function populateUnitSelector() {
+      const select = document.getElementById('unitSelect');
+
+      // Try units 1-16 (Global Success grade 1 has 16 units)
+      for (let i = 1; i <= 16; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = `Unit ${i}`;
+        select.appendChild(option);
+      }
+    }
+
+    // Load unit from selector
+    function loadSelectedUnit() {
+      const unitNum = document.getElementById('unitSelect').value;
+      // Update URL without reload
+      const url = new URL(window.location);
+      url.searchParams.set('unit', unitNum);
+      window.history.pushState({}, '', url);
+      loadUnit(unitNum);
+    }
+
+    // ===== LOAD & RENDER =====
+    async function loadUnit(unitNum) {
+      const worksheet = document.getElementById('worksheet');
+      worksheet.innerHTML = '<div class="loading">Đang tải dữ liệu Unit ' + unitNum + '...</div>';
+
+      try {
+        const resp = await fetch(`${DATA_BASE}unit${unitNum}.json`);
+        if (!resp.ok) throw new Error(`Chưa có dữ liệu cho Unit ${unitNum}`);
+        const data = await resp.json();
+        renderWorksheet(data);
+        document.title = `Unit ${data.unit}: ${data.title} - Worksheet`;
+      } catch (err) {
+        worksheet.innerHTML = `<div class="error">
+          <p>⚠️ ${err.message}</p>
+          <p style="margin-top:10px; font-size:13px; color:#999;">
+            Hãy tạo file <code>${DATA_BASE}unit${unitNum}.json</code> với dữ liệu bài học.
+          </p>
+        </div>`;
+      }
+    }
+
+    // ===== RENDER WORKSHEET =====
+    function renderWorksheet(data) {
+      const worksheet = document.getElementById('worksheet');
+      const totalWords = data.vocabulary.words.length;
+
+      let html = '';
+
+      // ----- HEADER -----
+      html += `<div class="unit-title">Unit ${data.unit}: ${data.title}</div>`;
+
+      // ----- VOCABULARY -----
+      html += `<div class="section-vocab">`;
+      html += `<div class="section-title">VOCABULARY (TỪ VỰNG)</div>`;
+      html += `<div class="vocab-grid">`;
+
+      data.vocabulary.words.forEach((w, i) => {
+        const imgSrc = `${DATA_BASE}${w.image}`;
+        html += `
+          <div class="vocab-card">
+            <img class="card-image" src="${imgSrc}" alt="${w.word}" onerror="this.style.display='none'">
+            <div class="card-word">${w.word}</div>
+            <div class="card-phonetic">${w.phonetic}</div>
+            <div class="card-meaning">${w.meaning_vi}</div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      html += `</div>`; // end section-vocab
+
+      // ----- GRAMMAR -----
+      html += `<hr class="section-sep">`;
+      html += `<div class="section-grammar">`;
+      html += `<div class="section-title">GRAMMAR (NGỮ PHÁP)</div>`;
+      html += `<div class="section-subtitle">${data.grammar.title_vi}</div>`;
+
+      html += `<ul class="grammar-examples">`;
+      data.grammar.examples.forEach(ex => {
+        html += `
+          <li>
+            <span class="ex-en">${ex.en}</span>
+            <span class="ex-vi">(${ex.vi})</span>
+          </li>
+        `;
+      });
+      html += `</ul>`;
+      html += `</div>`; // end section-grammar
+
+      // ----- PHONICS -----
+      html += `<hr class="section-sep">`;
+      html += `<div class="section-phonics">`;
+      html += `<div class="section-title">PHONICS (NGỮ ÂM)</div>`;
+      html += `<div class="phonics-desc">${data.phonics.description_vi}</div>`;
+
+      // Writing practice grid — 4 cols × N rows (1 row per vocab word)
+      html += `<div class="writing-title">Luyện viết</div>`;
+      html += `<table class="writing-grid">`;
+
+      const words = data.vocabulary.words;
+      for (let r = 0; r < words.length; r++) {
+        html += `<tr>`;
+        // First cell: guide word (faded)
+        html += `<td class="guide-word">${words[r].word}</td>`;
+        // 3 empty cells for practice
+        html += `<td></td>`;
+        html += `<td></td>`;
+        html += `<td></td>`;
+        html += `</tr>`;
+      }
+
+      html += `</table>`;
+      html += `</div>`; // end section-phonics
+
+      worksheet.innerHTML = html;
+    }
+
+    // ===== START =====
+    init();
+  </script>
+</body>
+</html>

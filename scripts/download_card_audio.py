@@ -11,6 +11,10 @@ Usage:
 import json, sys, time, argparse
 from pathlib import Path
 
+# Add project root to path for core imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from core.card_utils import parse_card_filter
+
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
@@ -36,14 +40,9 @@ def main():
     cards = json.loads(CARDS_JSON.read_text(encoding="utf-8"))
     print(f"[INFO] Loaded {len(cards)} cards")
 
-    # Parse card filter
-    card_filter = None
-    if args.cards:
-        card_filter = set()
-        for part in args.cards.split(","):
-            part = part.strip()
-            if part:
-                card_filter.add(f"{int(part):03d}_card")
+    # Parse card filter (matches both '015_card' and bare '015' formats)
+    all_pair_ids = [c["pair_id"] for c in cards]
+    card_filter = parse_card_filter(args.cards, all_pair_ids)
 
     to_process = []
     skipped = 0

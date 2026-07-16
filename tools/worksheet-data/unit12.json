@@ -1,0 +1,42 @@
+{
+  "unit": 12,
+  "title": "At the lake",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "lake",
+        "phonetic": "/leɪk/",
+        "meaning_vi": "hồ",
+        "image": "images/unit12/lake1.png"
+      },
+      {
+        "word": "leaf",
+        "phonetic": "/liːf/",
+        "meaning_vi": "lá",
+        "image": "images/unit12/leaf1.png"
+      },
+      {
+        "word": "lemons",
+        "phonetic": "/ˈlemənz/",
+        "meaning_vi": "những quả chanh",
+        "image": "images/unit12/lemons1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Mẫu câu 'Look at'",
+    "examples": [
+      { "en": "Look at Lucy.", "vi": "Hãy nhìn Lucy kìa." },
+      { "en": "She's running round the lake.", "vi": "Cô ấy đang chạy quanh hồ." },
+      { "en": "Look at the leaf.", "vi": "Hãy nhìn chiếc lá kìa." },
+      { "en": "It's falling to the ground.", "vi": "Nó đang rơi xuống mặt đất." }
+    ]
+  },
+  "phonics": {
+    "letter": "L",
+    "sound": "/l/",
+    "description_vi": "Bài 12: Học cách viết chữ cái L - âm /l/"
+  }
+}

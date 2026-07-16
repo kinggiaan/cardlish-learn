@@ -38,6 +38,11 @@ NOISE_EXACT = {
     "lfaivl", "itfaildl", "lrestl", "poull", "scull",
     "khiu+phuamvaket", "khongphailatrongam",
     "z,zz,zecui",
+    # Cards 012-022 OCR garbage
+    "id3et", "id3eml", "ipepe", "inet", "semicolon",
+    "chuyamlcuoi", "ratnhe", "iegl", "legl", "ipelll",
+    # Cards 019, 023 OCR garbage (IPA/phonetic misreads)
+    "i'fotstepl", "imeril", "raezberil", "l'tem.pell",
 }
 
 # IPA-like patterns: start with i/l/t + consonant clusters + ending in l
@@ -69,6 +74,18 @@ def is_noise(word):
     if '_' in w or '+' in w:
         return True
     
+    # Mixed alpha+digit (e.g. id3et, id3eml) — real words don't have digits
+    if re.search(r'\d', w):
+        return True
+    
+    # IPA-like patterns: i/l/t + consonants + ending in l (e.g. iraml, igeiml)
+    if IPA_NOISE_REGEX.match(w):
+        return True
+    
+    # Dotted IPA-like (e.g. rkem.e.stril, sem.i.kou.len)
+    if '.' in w and w.count('.') >= 2:
+        return True
+    
     return False
 
 
@@ -81,6 +98,12 @@ WORD_FIXES = {
     ("213_d", "front", "leer"): ("deer", "/dɪər/"),
     ("219_g", "front", "inger"): ("ginger", "/dʒɪndʒər/"),
     ("047_card", "front", "np"): ("au", "/ɔː/"),
+    # Card 015: OCR misread "beg" as "beer"
+    ("015_card", "front", "beer"): None,  # Remove entirely
+    # Card 020: OCR misread "more" from "less/more" comparison label
+    ("020_card", "back", "more"): None,   # Remove entirely
+    # Card 017: OCR misread
+    ("017_card", "back", "l'tem.pell"): None,  # Remove garbage
     
     # Back word fixes
     ("235_z", "back", "ap"): ("zip", "/zɪp/"),
@@ -146,22 +169,52 @@ def main():
     with open(vocab_path, "r", encoding="utf-8") as f:
         vocab = json.load(f)
     
+    # Load cards.json to get display_label for pattern word insertion
+    cards_path = Path("public/data/cards.json")
+    display_labels = {}
+    if cards_path.exists():
+        cards = json.loads(cards_path.read_text(encoding="utf-8"))
+        for c in cards:
+            dl = c.get("display_label", "").strip().lower()
+            if dl and dl != c.get("card_no", ""):
+                display_labels[c["pair_id"]] = dl
+    
     total_removed = 0
     total_fixed = 0
     
     for pid, data in vocab.items():
         for side in ["front", "back"]:
             cleaned = []
+            seen_words = set()  # Deduplication
             for w in data[side]:
-                result = clean_word(w["word"], w["ipa"], pid, side)
+                result = clean_word(w["word"], w.get("ipa", w.get("phonics", "")), pid, side)
                 if result is None:
                     total_removed += 1
                     continue
                 word, ipa = result
+                # Deduplicate: skip if we already have this word on this side
+                if word in seen_words:
+                    total_removed += 1
+                    continue
+                seen_words.add(word)
                 if word != w["word"].strip().lower():
                     total_fixed += 1
                 cleaned.append({"word": word, "ipa": ipa})
             data[side] = cleaned
+        
+        # Auto-insert phonics pattern word at front[0] if missing
+        # e.g. display_label="e" for card 012, "eg" for card 015, "ell" for 016
+        if pid in display_labels:
+            pattern = display_labels[pid]
+            front_words = [w["word"] for w in data["front"]]
+            if pattern not in front_words:
+                data["front"].insert(0, {"word": pattern, "ipa": ""})
+                total_fixed += 1
+            elif front_words[0] != pattern:
+                # Pattern exists but not at position 0 — move it there
+                idx = front_words.index(pattern)
+                entry = data["front"].pop(idx)
+                data["front"].insert(0, entry)
         
         # Special: add missing words
         if pid == "008_card":

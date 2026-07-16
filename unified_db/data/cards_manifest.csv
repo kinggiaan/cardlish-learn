@@ -13,6 +13,14 @@ pair_id,cell,row,col,card_no,label,qr_url,front_image,back_image,front_page,back
 012_card,A1,1,1,012,,https://cardlish.com/short-e/,cards/012_card_front.png,cards/012_card_back.png,2,1,"(0, 0, 493, 832)","(0, 0, 490, 818)",False,,07/06/2026,legacy_012_card,A1,A1,False,
 013_card,B1,2,1,013,,https://cardlish.com/eck/,cards/013_card_front.png,cards/013_card_back.png,2,1,"(0, 921, 493, 1596)","(0, 907, 490, 1585)",False,,07/06/2026,legacy_013_card,B1,B1,False,
 014_card,C1,3,1,014,,https://cardlish.com/ed/,cards/014_card_front.png,cards/014_card_back.png,2,1,"(0, 1663, 493, 2341)","(0, 1663, 490, 2341)",False,,07/06/2026,legacy_014_card,C1,C1,False,
+015,,0,0,015,,https://cardlish.com/eg/,cards/015_front.png,cards/015_back.png,0,0,"(0, 0, 1547, 2120)","(0, 0, 1256, 1561)",False,,02/07/2026,photo_015,,,False,photo_import
+016_card,A1,1,1,016,,https://cardlish.com/el/,cards/016_card_front.png,cards/016_card_back.png,1,2,"(0, 0, 640, 853)","(0, 0, 640, 853)",False,,02/07/2026,front_016_022_p01p02_A1,A1,A1,False,front_016_022
+017_card,A2,1,2,017,,https://cardlish.com/em/,cards/017_card_front.png,cards/017_card_back.png,1,2,"(640, 0, 1280, 853)","(640, 0, 1280, 853)",False,,02/07/2026,front_016_022_p01p02_A2,A2,A2,False,front_016_022
+018_card,A3,1,3,018,,https://cardlish.com/en/,cards/018_card_front.png,cards/018_card_back.png,1,2,"(1280, 0, 1919, 853)","(1280, 0, 1919, 853)",False,,02/07/2026,front_016_022_p01p02_A3,A3,A3,False,front_016_022
+019_card,B1,2,1,019,,https://cardlish.com/ep/,cards/019_card_front.png,cards/019_card_back.png,1,2,"(0, 853, 640, 1706)","(0, 853, 640, 1706)",False,,02/07/2026,front_016_022_p01p02_B1,B1,B1,False,front_016_022
+020_card,B2,2,2,020,,https://cardlish.com/ess/,cards/020_card_front.png,cards/020_card_back.png,1,2,"(640, 853, 1280, 1706)","(640, 853, 1280, 1706)",False,,02/07/2026,front_016_022_p01p02_B2,B2,B2,False,front_016_022
+021_card,B3,2,3,021,,https://cardlish.com/et/,cards/021_card_front.png,cards/021_card_back.png,1,2,"(1280, 853, 1919, 1706)","(1280, 853, 1919, 1706)",False,,02/07/2026,front_016_022_p01p02_B3,B3,B3,False,front_016_022
+022_card,C1,3,1,022,,https://cardlish.com/ed/,cards/022_card_front.png,cards/022_card_back.png,1,2,"(0, 1706, 640, 2559)","(0, 1706, 640, 2559)",False,,02/07/2026,front_016_022_p01p02_C1,C1,C1,False,front_016_022
 023_card,C2,3,2,023,,https://cardlish.com/short-e/,cards/023_card_front.png,cards/023_card_back.png,2,1,"(567, 1663, 1069, 2341)","(550, 1663, 1044, 2341)",False,,07/06/2026,legacy_023_card,C2,C2,False,
 024,,0,0,024,,https://cardlish.com/short-i/,cards/024_front.png,cards/024_back.png,0,0,"(0, 0, 960, 1280)","(0, 0, 960, 1280)",False,,21/06/2026,photo_024,,,False,photo_import
 025,,0,0,025,,https://cardlish.com/ib/,cards/025_front.png,cards/025_back.png,0,0,"(0, 0, 960, 1280)","(0, 0, 960, 1280)",False,,21/06/2026,photo_025,,,False,photo_import
@@ -296,3 +304,5 @@ batch033_A1,A1,1,1,171,,https://cardlish.com/ownn/,cards/batch033_A1_front.png,c
 680_card,A3,1,3,680,,https://cardlish.com/ount/,cards/680_card_front.png,cards/680_card_back.png,2,1,"(1168, 0, 1699, 836)","(1183, 0, 1699, 828)",False,,07/06/2026,legacy_680_card,A3,A3,False,
 900_card,A1,1,1,900,,https://cardlish.com/z/,cards/900_card_front.png,cards/900_card_back.png,1,2,"(0, 0, 493, 812)","(0, 0, 492, 759)",False,,07/06/2026,legacy_900_card,A1,A1,False,
 batch030_B1,B1,2,1,,,https://cardlish.com/short-i/,cards/batch030_B1_front.png,cards/batch030_B1_back.png,1,2,"(0, 780, 566, 1561)","(0, 780, 566, 1561)",False,,07/06/2026,legacy_batch030_B1,B1,B1,False,
+batch034_C2,C2,3,2,,,,cards/batch034_C2_front.png,cards/batch034_C2_back.png,1,2,"(640, 1706, 1280, 2559)","(640, 1706, 1280, 2559)",True,No QR detected; please review front/back assignment.,02/07/2026,front_016_022_p01p02_C2,C2,C2,False,front_016_022
+batch034_C3,C3,3,3,,,,cards/batch034_C3_front.png,cards/batch034_C3_back.png,1,2,"(1280, 1706, 1919, 2559)","(1280, 1706, 1919, 2559)",True,No QR detected; please review front/back assignment.,02/07/2026,front_016_022_p01p02_C3,C3,C3,False,front_016_022

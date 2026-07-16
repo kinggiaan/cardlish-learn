@@ -1,0 +1,50 @@
+{
+  "unit": 7,
+  "title": "In the garden",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "garden",
+        "phonetic": "/ˈga:rdn/",
+        "meaning_vi": "khu vườn",
+        "image": "images/unit7/garden1.png"
+      },
+      {
+        "word": "gate",
+        "phonetic": "/geɪt/",
+        "meaning_vi": "cái cổng",
+        "image": "images/unit7/gate1.png"
+      },
+      {
+        "word": "girl",
+        "phonetic": "/gɜːrl/",
+        "meaning_vi": "bé gái",
+        "image": "images/unit7/girl1.png"
+      },
+      {
+        "word": "goat",
+        "phonetic": "/goʊt/",
+        "meaning_vi": "con dê",
+        "image": "images/unit7/goat1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Nói sự tồn tại của 1 vật",
+    "examples": [
+      { "en": "There's a girl.", "vi": "Có 1 cô gái." },
+      { "en": "There's a garden.", "vi": "Có 1 khu vườn." },
+      { "en": "There's a gate.", "vi": "Có 1 cái cổng." },
+      { "en": "There's a goat in the garden.", "vi": "Có 1 con dê trong vườn." },
+      { "en": "There's a dog in the house.", "vi": "Có 1 con chó trong ngôi nhà." },
+      { "en": "There's a cat in the box.", "vi": "Có 1 con mèo trong chiếc hộp." }
+    ]
+  },
+  "phonics": {
+    "letter": "G",
+    "sound": "/g/",
+    "description_vi": "Học cách viết chữ cái G - âm /g/"
+  }
+}

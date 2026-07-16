@@ -1,0 +1,50 @@
+{
+  "unit": 5,
+  "title": "At the fish and chips shop",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "chicken",
+        "phonetic": "/ˈtʃɪkɪn/",
+        "meaning_vi": "con gà",
+        "image": "images/unit5/chicken1.png"
+      },
+      {
+        "word": "chips",
+        "phonetic": "/tʃɪps/",
+        "meaning_vi": "khoai tây chiên",
+        "image": "images/unit5/chips1.png"
+      },
+      {
+        "word": "fish",
+        "phonetic": "/fɪʃ/",
+        "meaning_vi": "cá",
+        "image": "images/unit5/fish1.png"
+      },
+      {
+        "word": "milk",
+        "phonetic": "/mɪlk/",
+        "meaning_vi": "sữa",
+        "image": "images/unit5/milk1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách nói về sở thích với 'like'",
+    "examples": [
+      { "en": "I like milk.", "vi": "Mình thích sữa." },
+      { "en": "I like fish.", "vi": "Mình thích cá." },
+      { "en": "I like cats.", "vi": "Mình thích mèo." },
+      { "en": "I like chips.", "vi": "Mình thích khoai tây chiên." },
+      { "en": "I don't like yoghurt.", "vi": "Mình không thích sữa chua." },
+      { "en": "I don't like cake.", "vi": "Mình không thích bánh ngọt." }
+    ]
+  },
+  "phonics": {
+    "letter": "I",
+    "sound": "/ɪ/",
+    "description_vi": "Học cách viết chữ cái I - âm /ɪ/"
+  }
+}

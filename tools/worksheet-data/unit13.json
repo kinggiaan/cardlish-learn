@@ -1,0 +1,40 @@
+{
+  "unit": 13,
+  "title": "In the school canteen",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "bananas",
+        "phonetic": "/bəˈnænəz/",
+        "meaning_vi": "những quả chuối",
+        "image": "images/unit13/bananas1.png"
+      },
+      {
+        "word": "noodles",
+        "phonetic": "/ˈnuːdlz/",
+        "meaning_vi": "mì sợi",
+        "image": "images/unit13/noodles1.png"
+      },
+      {
+        "word": "nuts",
+        "phonetic": "/nʌts/",
+        "meaning_vi": "những hạt lạc",
+        "image": "images/unit13/nuts1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Diễn tả hành động ăn với 'have'",
+    "examples": [
+      { "en": "He's having nuts.", "vi": "Cậu ấy đang ăn lạc." },
+      { "en": "She's having noodles.", "vi": "Cô ấy đang ăn mì." }
+    ]
+  },
+  "phonics": {
+    "letter": "N",
+    "sound": "/n/",
+    "description_vi": "Bài 13: Học cách viết chữ cái N - âm /n/"
+  }
+}

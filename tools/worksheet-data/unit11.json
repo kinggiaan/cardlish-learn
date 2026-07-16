@@ -1,0 +1,48 @@
+{
+  "unit": 11,
+  "title": "At the bus stop",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "bus",
+        "phonetic": "/bus/",
+        "meaning_vi": "xe buýt",
+        "image": "images/unit11/bus1.png"
+      },
+      {
+        "word": "run",
+        "phonetic": "/run/",
+        "meaning_vi": "chạy",
+        "image": "images/unit11/run1.png"
+      },
+      {
+        "word": "sun",
+        "phonetic": "/sun/",
+        "meaning_vi": "mặt trời",
+        "image": "images/unit11/sun1.png"
+      },
+      {
+        "word": "truck",
+        "phonetic": "/truck/",
+        "meaning_vi": "xe tải",
+        "image": "images/unit11/truck1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Nói hành động đang diễn ra",
+    "examples": [
+      { "en": "The boy is running.", "vi": "Cậu bé đang chạy." },
+      { "en": "He's running.", "vi": "Cậu bé đang chạy." },
+      { "en": "The girl is running.", "vi": "Cô bé đang chạy." },
+      { "en": "She's running.", "vi": "Cô bé đang chạy." }
+    ]
+  },
+  "phonics": {
+    "letter": "U",
+    "sound": "/ʌ/",
+    "description_vi": "Bài 11: Học cách viết chữ cái U - âm /ʌ/"
+  }
+}

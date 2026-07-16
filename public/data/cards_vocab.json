@@ -230,10 +230,6 @@
         "ipa": "/spaem/"
       },
       {
-        "word": "jam",
-        "ipa": ""
-      },
-      {
         "word": "spam",
         "ipa": "/d3aeml/"
       },
@@ -260,10 +256,6 @@
       {
         "word": "service",
         "ipa": ""
-      },
-      {
-        "word": "van",
-        "ipa": "/kaen/"
       },
       {
         "word": "can",
@@ -434,10 +426,6 @@
         "ipa": ""
       },
       {
-        "word": "tax",
-        "ipa": "/ɪtaeks/"
-      },
-      {
         "word": "flax",
         "ipa": "/flaeks/"
       }
@@ -468,11 +456,11 @@
   "012_card": {
     "front": [
       {
-        "word": "bed",
+        "word": "e",
         "ipa": ""
       },
       {
-        "word": "id3et",
+        "word": "bed",
         "ipa": ""
       },
       {
@@ -594,15 +582,7 @@
         "ipa": ""
       },
       {
-        "word": "imeril",
-        "ipa": ""
-      },
-      {
         "word": "raspberry",
-        "ipa": ""
-      },
-      {
-        "word": "raezberil",
         "ipa": ""
       }
     ],
@@ -893,6 +873,10 @@
   },
   "032_card": {
     "front": [
+      {
+        "word": "ip",
+        "ipa": ""
+      },
       {
         "word": "slip",
         "ipa": "/slip/"
@@ -1196,10 +1180,6 @@
       {
         "word": "top",
         "ipa": "/ta:p/"
-      },
-      {
-        "word": "stop",
-        "ipa": "/sta:p/"
       }
     ],
     "back": [
@@ -1820,10 +1800,6 @@
         "ipa": ""
       },
       {
-        "word": "gum",
-        "ipa": ""
-      },
-      {
         "word": "bum",
         "ipa": "/bAm/"
       },
@@ -2150,10 +2126,6 @@
       {
         "word": "grape",
         "ipa": "/greip/"
-      },
-      {
-        "word": "ape",
-        "ipa": "/geip/"
       }
     ],
     "back": [
@@ -2192,10 +2164,6 @@
       {
         "word": "sunday",
         "ipa": ""
-      },
-      {
-        "word": "ate",
-        "ipa": "/deit/"
       },
       {
         "word": "date",
@@ -2524,10 +2492,6 @@
         "ipa": ""
       },
       {
-        "word": "mayonnaise",
-        "ipa": ""
-      },
-      {
         "word": "praise",
         "ipa": "/preiz/"
       },
@@ -2636,10 +2600,6 @@
       {
         "word": "drey",
         "ipa": "/grel/"
-      },
-      {
-        "word": "grey",
-        "ipa": "/dreil/"
       },
       {
         "word": "they",
@@ -3037,10 +2997,6 @@
   },
   "089_card": {
     "front": [
-      {
-        "word": "eave",
-        "ipa": ""
-      },
       {
         "word": "eave",
         "ipa": ""
@@ -3618,10 +3574,6 @@
       {
         "word": "jelly",
         "ipa": ""
-      },
-      {
-        "word": "d3elil",
-        "ipa": ""
       }
     ]
   },
@@ -3974,10 +3926,6 @@
       {
         "word": "ripe",
         "ipa": ""
-      },
-      {
-        "word": "ripe",
-        "ipa": "/straip/"
       },
       {
         "word": "stripe",
@@ -4372,10 +4320,6 @@
         "ipa": ""
       },
       {
-        "word": "oak",
-        "ipa": ""
-      },
-      {
         "word": "soak",
         "ipa": "/souk/"
       }
@@ -4488,10 +4432,6 @@
   "129_card": {
     "front": [
       {
-        "word": "o2ff",
-        "ipa": ""
-      },
-      {
         "word": "ab",
         "ipa": ""
       },
@@ -4535,10 +4475,6 @@
     "front": [
       {
         "word": "ode",
-        "ipa": ""
-      },
-      {
-        "word": "o2ff",
         "ipa": ""
       },
       {
@@ -4894,10 +4830,6 @@
         "ipa": ""
       },
       {
-        "word": "bold",
-        "ipa": "/bould/"
-      },
-      {
         "word": "hold",
         "ipa": "/hould/"
       },
@@ -4931,10 +4863,6 @@
       }
     ],
     "back": [
-      {
-        "word": "toll",
-        "ipa": ""
-      },
       {
         "word": "toll",
         "ipa": ""
@@ -5058,10 +4986,6 @@
         "ipa": "/.kaen.ge'ru:/"
       },
       {
-        "word": "f.nq.weq",
-        "ipa": ""
-      },
-      {
         "word": "bamboo",
         "ipa": ""
       }
@@ -5136,10 +5060,6 @@
       {
         "word": "cool",
         "ipa": ""
-      },
-      {
-        "word": "cool",
-        "ipa": "/ku:1/"
       }
     ]
   },
@@ -5330,10 +5250,6 @@
       {
         "word": "youth",
         "ipa": "/ju:0/"
-      },
-      {
-        "word": "troupe",
-        "ipa": ""
       },
       {
         "word": "ppy",
@@ -5786,10 +5702,6 @@
       {
         "word": "flour",
         "ipa": ""
-      },
-      {
-        "word": "flour",
-        "ipa": "/flaoal/"
       }
     ]
   },
@@ -6722,10 +6634,6 @@
         "ipa": ""
       },
       {
-        "word": "arm",
-        "ipa": ""
-      },
-      {
         "word": "alarm",
         "ipa": "/e'la:rm/"
       }
@@ -6846,17 +6754,9 @@
       {
         "word": "banana",
         "ipa": "/ba'naen.a/"
-      },
-      {
-        "word": "amtiettrongtuco2am",
-        "ipa": ""
       }
     ],
     "back": [
-      {
-        "word": "len.a.mil",
-        "ipa": ""
-      },
       {
         "word": "enemy",
         "ipa": "/'sev.an/"
@@ -7006,10 +6906,6 @@
       {
         "word": "ear",
         "ipa": ""
-      },
-      {
-        "word": "ear",
-        "ipa": "/turl/"
       },
       {
         "word": "tear",
@@ -7291,15 +7187,15 @@
       },
       {
         "word": "jail",
-        "ipa": "/d3ell/"
+        "ipa": ""
       },
       {
         "word": "jacket",
-        "ipa": "/d3aekit/"
+        "ipa": "/d3ell/"
       },
       {
         "word": "juice",
-        "ipa": "/ld3u:s/"
+        "ipa": "/d3u:s/"
       }
     ]
   },
@@ -7494,10 +7390,6 @@
       {
         "word": "rose",
         "ipa": "/rouzl/"
-      },
-      {
-        "word": "red",
-        "ipa": "/red/"
       }
     ],
     "back": [
@@ -7576,10 +7468,6 @@
       {
         "word": "circle",
         "ipa": "/`saien/"
-      },
-      {
-        "word": "cyan",
-        "ipa": "/'s3:kal/"
       },
       {
         "word": "center",
@@ -7742,10 +7630,6 @@
       {
         "word": "road",
         "ipa": "/lred/"
-      },
-      {
-        "word": "red",
-        "ipa": ""
       },
       {
         "word": "weed",
@@ -8062,10 +7946,6 @@
       {
         "word": "beam",
         "ipa": "/bu:m/"
-      },
-      {
-        "word": "boom",
-        "ipa": "/bi:m/"
       }
     ],
     "back": [
@@ -8494,10 +8374,6 @@
       {
         "word": "bang",
         "ipa": "/baen/"
-      },
-      {
-        "word": "bang",
-        "ipa": ""
       }
     ]
   },
@@ -8670,10 +8546,6 @@
         "ipa": "/ltaenk/"
       },
       {
-        "word": "pink",
-        "ipa": "/pink/"
-      },
-      {
         "word": "drink",
         "ipa": "/trAnkl/"
       },
@@ -8700,10 +8572,6 @@
       {
         "word": "bent",
         "ipa": "/bent/"
-      },
-      {
-        "word": "front",
-        "ipa": "/frAnt/"
       }
     ],
     "back": [
@@ -8899,7 +8767,7 @@
       }
     ]
   },
-  "batch030_B1": {
+  "024_card": {
     "front": [
       {
         "word": "swim",
@@ -8922,44 +8790,6 @@
       {
         "word": "rim",
         "ipa": "/rim/"
-      }
-    ]
-  },
-  "024_card": {
-    "front": [
-      {
-        "word": "pig",
-        "phonics": "/pig/"
-      },
-      {
-        "word": "swim",
-        "phonics": "/swim/"
-      }
-    ],
-    "back": [
-      {
-        "word": "six",
-        "phonics": "/siks/"
-      },
-      {
-        "word": "sit",
-        "phonics": "/sit/"
-      },
-      {
-        "word": "bit",
-        "phonics": "/bit/"
-      },
-      {
-        "word": "rim",
-        "phonics": "/rim/"
-      },
-      {
-        "word": "wig",
-        "phonics": "/wig/"
-      },
-      {
-        "word": "rib",
-        "phonics": "/rib/"
       }
     ]
   },
@@ -9020,10 +8850,6 @@
       {
         "word": "hotel",
         "ipa": ""
-      },
-      {
-        "word": "hotel",
-        "ipa": "/he'lou/"
       },
       {
         "word": "hello",
@@ -9662,10 +9488,6 @@
       {
         "word": "yoke",
         "ipa": "/jouk/"
-      },
-      {
-        "word": "yellow",
-        "ipa": "/'jeloul/"
       },
       {
         "word": "yawn",
@@ -10936,6 +10758,450 @@
       {
         "word": "blimp",
         "ipa": "/blimp/"
+      }
+    ]
+  },
+  "214_card": {
+    "front": [
+      {
+        "word": "fig",
+        "ipa": "/figy/"
+      },
+      {
+        "word": "fan",
+        "ipa": "/faen/"
+      }
+    ],
+    "back": [
+      {
+        "word": "fish",
+        "ipa": ""
+      },
+      {
+        "word": "five",
+        "ipa": "/f/"
+      },
+      {
+        "word": "farm",
+        "ipa": "/fu:t/"
+      },
+      {
+        "word": "foot",
+        "ipa": "/fa:rml/"
+      },
+      {
+        "word": "fox",
+        "ipa": "/lfa:ks/"
+      }
+    ]
+  },
+  "220_card": {
+    "front": [
+      {
+        "word": "key",
+        "ipa": "/kid/"
+      },
+      {
+        "word": "kid",
+        "ipa": "/ki:/"
+      }
+    ],
+    "back": [
+      {
+        "word": "kangaroo",
+        "ipa": "/kaenge'ru:/"
+      },
+      {
+        "word": "kite",
+        "ipa": "/kat/"
+      },
+      {
+        "word": "king",
+        "ipa": "/kin/"
+      },
+      {
+        "word": "kelp",
+        "ipa": "/kelpl/"
+      },
+      {
+        "word": "kitten",
+        "ipa": "/'kiten/"
+      },
+      {
+        "word": "kale",
+        "ipa": "/keil/"
+      }
+    ]
+  },
+  "229_card": {
+    "front": [
+      {
+        "word": "sock",
+        "ipa": "/sa:k/"
+      },
+      {
+        "word": "sink",
+        "ipa": "/sink/"
+      }
+    ],
+    "back": [
+      {
+        "word": "soap",
+        "ipa": "/soup/"
+      },
+      {
+        "word": "saw",
+        "ipa": "/sa:/"
+      },
+      {
+        "word": "sew",
+        "ipa": "/sou/"
+      },
+      {
+        "word": "sit",
+        "ipa": "/sit/"
+      },
+      {
+        "word": "surf",
+        "ipa": "/s3:f/"
+      }
+    ]
+  },
+  "232_card": {
+    "front": [
+      {
+        "word": "vault",
+        "ipa": "/vɔːlt/"
+      },
+      {
+        "word": "van",
+        "ipa": "/væn/"
+      }
+    ],
+    "back": [
+      {
+        "word": "vine",
+        "ipa": "/vaɪn/"
+      },
+      {
+        "word": "vein",
+        "ipa": "/veɪn/"
+      },
+      {
+        "word": "violin",
+        "ipa": "/ˌvaɪəˈlɪn/"
+      },
+      {
+        "word": "vase",
+        "ipa": "/veɪs/"
+      },
+      {
+        "word": "veal",
+        "ipa": "/viːl/"
+      }
+    ]
+  },
+  "016_card": {
+    "front": [
+      {
+        "word": "ell",
+        "ipa": ""
+      },
+      {
+        "word": "jell",
+        "ipa": ""
+      },
+      {
+        "word": "yell",
+        "ipa": ""
+      },
+      {
+        "word": "bell",
+        "ipa": "/bell/"
+      }
+    ],
+    "back": [
+      {
+        "word": "tell",
+        "ipa": ""
+      },
+      {
+        "word": "fell",
+        "ipa": "/tell/"
+      },
+      {
+        "word": "well",
+        "ipa": "/well/"
+      },
+      {
+        "word": "sell",
+        "ipa": "/sel/"
+      },
+      {
+        "word": "smell",
+        "ipa": "/smell/"
+      }
+    ]
+  },
+  "017_card": {
+    "front": [
+      {
+        "word": "em",
+        "ipa": ""
+      },
+      {
+        "word": "stem",
+        "ipa": ""
+      },
+      {
+        "word": "gem",
+        "ipa": "/stem/"
+      }
+    ],
+    "back": [
+      {
+        "word": "chemistry",
+        "ipa": ""
+      },
+      {
+        "word": "temple",
+        "ipa": ""
+      },
+      {
+        "word": "hem",
+        "ipa": "/sem.i.kou.len/"
+      },
+      {
+        "word": "them",
+        "ipa": "/0em/"
+      }
+    ]
+  },
+  "018_card": {
+    "front": [
+      {
+        "word": "en",
+        "ipa": ""
+      },
+      {
+        "word": "pen",
+        "ipa": "/pen/"
+      },
+      {
+        "word": "men",
+        "ipa": "/menl/"
+      }
+    ],
+    "back": [
+      {
+        "word": "ten",
+        "ipa": "/ten/"
+      },
+      {
+        "word": "yen",
+        "ipa": "/jen/"
+      },
+      {
+        "word": "hen",
+        "ipa": "/hen/"
+      },
+      {
+        "word": "when",
+        "ipa": "/wen/"
+      },
+      {
+        "word": "den",
+        "ipa": "/den/"
+      }
+    ]
+  },
+  "019_card": {
+    "front": [
+      {
+        "word": "ep",
+        "ipa": ""
+      },
+      {
+        "word": "pepsi",
+        "ipa": ""
+      },
+      {
+        "word": "pepper",
+        "ipa": ""
+      }
+    ],
+    "back": [
+      {
+        "word": "heptagon",
+        "ipa": ""
+      },
+      {
+        "word": "footstep",
+        "ipa": "/'heptega:n/"
+      },
+      {
+        "word": "rep",
+        "ipa": "/rep/"
+      },
+      {
+        "word": "step",
+        "ipa": "/stepl/"
+      },
+      {
+        "word": "misstep",
+        "ipa": "/mis'step/"
+      }
+    ]
+  },
+  "020_card": {
+    "front": [
+      {
+        "word": "ess",
+        "ipa": ""
+      },
+      {
+        "word": "bless",
+        "ipa": "/bles/"
+      },
+      {
+        "word": "dress",
+        "ipa": "/dres/"
+      }
+    ],
+    "back": [
+      {
+        "word": "stress",
+        "ipa": "/stres/"
+      },
+      {
+        "word": "mess",
+        "ipa": "/mes/"
+      },
+      {
+        "word": "less",
+        "ipa": ""
+      },
+      {
+        "word": "press",
+        "ipa": ""
+      },
+      {
+        "word": "messenger",
+        "ipa": "/ɪmes.in.d3e/"
+      }
+    ]
+  },
+  "021_card": {
+    "front": [
+      {
+        "word": "et",
+        "ipa": ""
+      },
+      {
+        "word": "jet",
+        "ipa": ""
+      },
+      {
+        "word": "net",
+        "ipa": "/d3et/"
+      }
+    ],
+    "back": [
+      {
+        "word": "set",
+        "ipa": "/set/"
+      },
+      {
+        "word": "wet",
+        "ipa": "/wet/"
+      },
+      {
+        "word": "bet",
+        "ipa": "/bet/"
+      },
+      {
+        "word": "vet",
+        "ipa": "/ɪvet/"
+      },
+      {
+        "word": "pet",
+        "ipa": "/pet/"
+      }
+    ]
+  },
+  "022_card": {
+    "front": [
+      {
+        "word": "ead",
+        "ipa": ""
+      },
+      {
+        "word": "head",
+        "ipa": "/hed/"
+      },
+      {
+        "word": "thread",
+        "ipa": "/ered/"
+      }
+    ],
+    "back": [
+      {
+        "word": "tread",
+        "ipa": "/ded/"
+      },
+      {
+        "word": "dead",
+        "ipa": "/tred/"
+      },
+      {
+        "word": "spread",
+        "ipa": "/spred/"
+      },
+      {
+        "word": "bread",
+        "ipa": "/bred/"
+      },
+      {
+        "word": "behead",
+        "ipa": "/bi'hed/"
+      }
+    ]
+  },
+  "015_card": {
+    "front": [
+      {
+        "word": "eg",
+        "ipa": ""
+      },
+      {
+        "word": "beg",
+        "ipa": ""
+      },
+      {
+        "word": "keg",
+        "ipa": ""
+      }
+    ],
+    "back": [
+      {
+        "word": "nutmeg",
+        "ipa": ""
+      },
+      {
+        "word": "peg",
+        "ipa": ""
+      },
+      {
+        "word": "egg",
+        "ipa": ""
+      },
+      {
+        "word": "leg",
+        "ipa": ""
+      },
+      {
+        "word": "eggplant",
+        "ipa": ""
       }
     ]
   }

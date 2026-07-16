@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<title>In thẻ từ vựng A4</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    background: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  :root {
+    --page-padding: 2mm;
+    --card-border: 0.3mm;
+    --line-width: 0.08mm;
+    --line-color: #aaa;
+    --line-padding-x: 4mm;
+    --first-line-top: 20mm;
+    --line-gap: 10.5mm;
+    --phonics-width: 8mm;
+  }
+
+  /* ===== Toolbar (ẩn khi in) ===== */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+  }
+
+  .toolbar .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar label {
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .toolbar select {
+    padding: 4px 8px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 260px;
+  }
+
+  .toolbar button {
+    padding: 5px 14px;
+    font-size: 13px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .toolbar button:hover { background: #555; }
+
+  .toolbar button.btn-primary {
+    background: #2563eb;
+  }
+  .toolbar button.btn-primary:hover { background: #1d4ed8; }
+
+  .toolbar input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+
+  .toolbar .sep {
+    width: 1px;
+    height: 24px;
+    background: #ddd;
+    margin: 0 2px;
+  }
+
+  .toolbar .info {
+    color: #888;
+    font-size: 12px;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+  }
+
+  /* ===== Trang A4 ===== */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: var(--page-padding);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+    page-break-after: always;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* ===== Thẻ ===== */
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-right: var(--card-border) solid #000;
+    border-bottom: var(--card-border) solid #000;
+  }
+
+  .card:nth-child(-n + 3) { border-top: var(--card-border) solid #000; }
+  .card:nth-child(3n + 1) { border-left: var(--card-border) solid #000; }
+
+  /* ===== Card ID (góc trên bên trái) ===== */
+  .card-id {
+    position: absolute;
+    top: 2mm;
+    left: 2mm;
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: #bbb;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== Nhãn phonics (góc trên bên PHẢI) ===== */
+  .card-phonics {
+    position: absolute;
+    top: 2mm;
+    right: 2mm;
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: #bbb;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    font-style: italic;
+  }
+
+  /* ===== Tên thẻ (đầu thẻ, chính giữa, in đậm) ===== */
+  .card-name {
+    position: absolute;
+    top: 3.5mm;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20pt;
+    font-weight: 700;
+    color: #111;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  /* ===== Dòng kẻ ===== */
+  .vocab-line {
+    position: absolute;
+    left: var(--line-padding-x);
+    right: var(--line-padding-x);
+    border-bottom: var(--line-width) solid var(--line-color);
+  }
+
+  /* Từ vựng chính giữa dòng, font thường */
+  .vocab-word {
+    position: absolute;
+    bottom: 1mm;
+    left: 0;
+    right: var(--phonics-width);
+    text-align: center;
+    font-size: 17pt;
+    font-weight: 400;
+    color: #222;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Tô đậm phần chữ phonics chính */
+  .vocab-word strong {
+    font-weight: 700;
+    color: #000;
+  }
+
+  /* Khi tắt hint: ẩn từ vựng */
+  .hide-hints .vocab-word {
+    display: none;
+  }
+
+  /* Ẩn tên thẻ khi tắt hint */
+  .hide-hints .card-name {
+    display: none;
+  }
+
+  @media print {
+    .phonics-key { color: #333; }
+    .vocab-hint { color: #ddd; }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="toolbar">
+    <div class="row">
+      <label for="lessonSelect">Bài:</label>
+      <select id="lessonSelect">
+        <option value="">— Tất cả thẻ —</option>
+      </select>
+
+      <div class="sep"></div>
+
+      <label for="cardSelect">Thẻ:</label>
+      <select id="cardSelect"></select>
+    </div>
+
+    <div class="row">
+      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;">
+        <input type="checkbox" id="hideHints" />
+        Ẩn gợi ý
+      </label>
+
+      <div class="sep"></div>
+
+      <button onclick="printCurrent()">🖨️ In thẻ này</button>
+      <button class="btn-primary" onclick="printAllInLesson()">📄 In tất cả</button>
+
+      <span class="info" id="pageInfo"></span>
+    </div>
+  </div>
+
+  <div id="pagesContainer"></div>
+
+  <script>
+    const MAX_WORDS = 8;
+    let vocabData = {};
+    let cardsData = [];
+    let lessonsData = [];
+
+    // ── Phonics helpers ──────────────────────────────────
+    function extractPhonics(qrUrl) {
+      if (!qrUrl) return { slug: '', letter: '', position: 'right' };
+      const slug = qrUrl.replace(/^https?:\/\/[^/]+\//, '').replace(/\/$/, '');
+
+      const shortMatch = slug.match(/^short-(.+)$/);
+      if (shortMatch) {
+        // Strip trailing "-2", "-3" etc. (URL disambiguation, not phonics)
+        const letter = shortMatch[1].replace(/-\d+$/, '');
+        return { slug, letter, position: 'middle' };
+      }
+
+      const longMatch = slug.match(/^long-(.+)$/);
+      if (longMatch) {
+        const letter = longMatch[1].replace(/-\d+$/, '');
+        return { slug, letter: letter + '\u0304', position: 'middle' };
+      }
+
+      return { slug, letter: slug, position: 'right' };
+    }
+
+    function getCardLabel(cardId) {
+      const cardMeta = cardsData.find(c => c.pair_id === cardId);
+      if (!cardMeta) return cardId.replace('_card', '');
+      const phonics = extractPhonics(cardMeta.qr_url || '');
+      const num = cardId.replace('_card', '');
+      return phonics.slug ? `${num} — ${phonics.letter} (${phonics.slug})` : num;
+    }
+
+    // ── Data helpers ─────────────────────────────────────
+    function getWords(cardId, phonicsLetter) {
+      const entry = vocabData[cardId];
+      if (!entry) return [];
+      const front = (entry.front || []).map(w => w.word);
+      const back  = (entry.back  || []).map(w => w.word);
+      // Filter out pattern word (already shown as card title) before slicing
+      const all = [...front, ...back]
+        .filter(w => !phonicsLetter || w.toLowerCase() !== phonicsLetter.toLowerCase());
+      return all.slice(0, MAX_WORDS);
+    }
+
+    function lineTop(n) {
+      return `calc(var(--first-line-top) + ${n} * var(--line-gap))`;
+    }
+
+    function highlightPhonics(word, letter) {
+      if (!word || !letter) return word;
+      const matchLetter = letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      if (!matchLetter) return word;
+      const escaped = matchLetter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(`(${escaped})`, 'gi');
+      return word.replace(regex, '<strong>$1</strong>');
+    }
+
+    // ── Render ───────────────────────────────────────────
+    function renderCard(cardId, phonics) {
+      const cardNo = cardId.replace('_card', '');
+      const words  = getWords(cardId, phonics.letter);
+
+      let linesHtml = '';
+      for (let i = 0; i < MAX_WORDS; i++) {
+        const word = words[i] || '';
+        const highlighted = highlightPhonics(word, phonics.letter);
+        linesHtml += `
+          <div class="vocab-line" style="top:${lineTop(i)}">
+            ${word ? `<span class="vocab-word">${highlighted}</span>` : ''}
+          </div>`;
+      }
+
+      return `
+        <div class="card">
+          <span class="card-id">${cardNo}</span>
+          <span class="card-name">${phonics.letter}</span>
+          <span class="card-phonics">${phonics.slug}</span>
+          ${linesHtml}
+        </div>`;
+    }
+
+    function renderPage(cardId) {
+      const cardMeta = cardsData.find(c => c.pair_id === cardId) || {};
+      let phonics  = extractPhonics(cardMeta.qr_url || '');
+
+      // Explicit phonics overrides for cards where QR URL doesn't match
+      // the actual phonics letter shown on the physical card
+      const PHONICS_OVERRIDES = {
+        '043_card': 'a',   // Card shows "a" (chữ a đi sau âm /w/)
+      };
+
+      if (PHONICS_OVERRIDES[cardId]) {
+        phonics = { ...phonics, letter: PHONICS_OVERRIDES[cardId] };
+      } else {
+        // Auto-override from vocab: first front word if it's a short pattern (1-4 chars)
+        const vocabEntry = vocabData[cardId];
+        if (vocabEntry && vocabEntry.front && vocabEntry.front.length > 0) {
+          const firstWord = vocabEntry.front[0].word.toLowerCase();
+          if (firstWord.length <= 4 && /^[a-z]+$/.test(firstWord)) {
+            phonics = { ...phonics, letter: firstWord };
+          }
+        }
+      }
+
+      let html = '<div class="page">';
+      for (let i = 0; i < 9; i++) {
+        html += renderCard(cardId, phonics);
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function showSingleCard(cardId) {
+      const container = document.getElementById('pagesContainer');
+      container.innerHTML = renderPage(cardId);
+      container.className = document.getElementById('hideHints').checked ? 'hide-hints' : '';
+      updatePageInfo([cardId]);
+    }
+
+    function showMultipleCards(cardIds) {
+      const container = document.getElementById('pagesContainer');
+      let html = '';
+      cardIds.forEach(id => {
+        html += renderPage(id);
+      });
+      container.innerHTML = html;
+      container.className = document.getElementById('hideHints').checked ? 'hide-hints' : '';
+      updatePageInfo(cardIds);
+    }
+
+    function updatePageInfo(cardIds) {
+      const info = document.getElementById('pageInfo');
+      if (cardIds.length === 1) {
+        info.textContent = '1 trang';
+      } else {
+        info.textContent = `${cardIds.length} trang`;
+      }
+    }
+
+    // ── Toolbar actions ──────────────────────────────────
+    function printCurrent() {
+      const cardId = document.getElementById('cardSelect').value;
+      if (!cardId) return;
+      showSingleCard(cardId);
+      setTimeout(() => window.print(), 200);
+    }
+
+    function printAllInLesson() {
+      const cardIds = getFilteredCardIds();
+      if (cardIds.length === 0) return;
+      showMultipleCards(cardIds);
+      setTimeout(() => window.print(), 300);
+    }
+
+    function getFilteredCardIds() {
+      const lessonId = document.getElementById('lessonSelect').value;
+      const allVocabIds = Object.keys(vocabData);
+
+      if (!lessonId) return allVocabIds;
+
+      const lesson = lessonsData.find(l => l.id === lessonId);
+      if (!lesson) return allVocabIds;
+
+      if (lesson.cards === 'all') return allVocabIds;
+
+      // Filter: only cards that exist in vocabData
+      return lesson.cards
+        .map(n => `${String(n).padStart(3, '0')}_card`)
+        .filter(id => allVocabIds.includes(id));
+    }
+
+    // ── Populate UI ──────────────────────────────────────
+    function populateLessonSelect() {
+      const select = document.getElementById('lessonSelect');
+      lessonsData.forEach(lesson => {
+        const opt = document.createElement('option');
+        opt.value = lesson.id;
+        // Count how many cards in this lesson have vocab
+        const allVocabIds = Object.keys(vocabData);
+        let vocabCount = 0;
+        if (lesson.cards === 'all') {
+          vocabCount = allVocabIds.length;
+        } else {
+          vocabCount = lesson.cards
+            .map(n => `${String(n).padStart(3, '0')}_card`)
+            .filter(id => allVocabIds.includes(id)).length;
+        }
+        opt.textContent = `${lesson.name} (${vocabCount} thẻ)`;
+        if (vocabCount === 0) opt.disabled = true;
+        select.appendChild(opt);
+      });
+
+      select.addEventListener('change', () => {
+        populateCardSelect(getFilteredCardIds());
+      });
+    }
+
+    function populateCardSelect(cardIds) {
+      const select = document.getElementById('cardSelect');
+      select.innerHTML = '';
+      cardIds.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = getCardLabel(id);
+        select.appendChild(opt);
+      });
+
+      // Show first card
+      if (cardIds.length > 0) {
+        showSingleCard(cardIds[0]);
+      }
+    }
+
+    // ── Events ───────────────────────────────────────────
+    document.getElementById('hideHints').addEventListener('change', function () {
+      document.getElementById('pagesContainer').classList.toggle('hide-hints', this.checked);
+    });
+
+    document.getElementById('cardSelect').addEventListener('change', function () {
+      if (this.value) showSingleCard(this.value);
+    });
+
+    // ── Fetch helpers ────────────────────────────────────
+    async function fetchJSON(paths) {
+      for (const p of paths) {
+        try {
+          const r = await fetch(p);
+          if (r.ok) return await r.json();
+        } catch { /* thử tiếp */ }
+      }
+      throw new Error('Không load được file: ' + paths.join(', '));
+    }
+
+    // ── Init ─────────────────────────────────────────────
+    async function init() {
+      try {
+        [vocabData, cardsData, lessonsData] = await Promise.all([
+          fetchJSON(['../public/data/cards_vocab.json', 'public/data/cards_vocab.json', 'data/cards_vocab.json']),
+          fetchJSON(['../public/data/cards.json',       'public/data/cards.json',       'data/cards.json']),
+          fetchJSON(['../public/data/lessons.json',     'public/data/lessons.json',     'data/lessons.json']),
+        ]);
+      } catch (e) {
+        console.error(e.message);
+        document.getElementById('pagesContainer').innerHTML =
+          '<p style="padding:10px;color:red;">⚠️ Không load được data. Hãy mở qua server: http://localhost:8787/tools/print-vocab-cards.html</p>';
+        return;
+      }
+
+      const allVocabIds = Object.keys(vocabData);
+
+      populateLessonSelect();
+      populateCardSelect(allVocabIds);
+
+      // URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      let targetId = urlParams.get('card') || urlParams.get('id');
+      const hideHints = urlParams.get('hideHints');
+      const printAll = urlParams.get('printAll');
+      const lesson = urlParams.get('lesson');
+
+      if (hideHints === 'true' || hideHints === '1') {
+        document.getElementById('hideHints').checked = true;
+        document.getElementById('pagesContainer').classList.add('hide-hints');
+      }
+
+      // Select lesson if specified
+      if (lesson) {
+        document.getElementById('lessonSelect').value = lesson;
+        populateCardSelect(getFilteredCardIds());
+      }
+
+      // Print all if specified
+      if (printAll === 'true' || printAll === '1') {
+        const ids = getFilteredCardIds();
+        showMultipleCards(ids);
+        return;
+      }
+
+      // Single card
+      if (targetId) {
+        if (!targetId.endsWith('_card')) {
+          targetId = `${targetId.padStart(3, '0')}_card`;
+        }
+        if (allVocabIds.includes(targetId)) {
+          document.getElementById('cardSelect').value = targetId;
+          showSingleCard(targetId);
+          return;
+        }
+      }
+
+      if (allVocabIds.length > 0) showSingleCard(allVocabIds[0]);
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "unit": 6,
+  "title": "In the classroom",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "bell",
+        "phonetic": "/bel/",
+        "meaning_vi": "chuông",
+        "image": "images/unit6/bell1.png"
+      },
+      {
+        "word": "pen",
+        "phonetic": "/pen/",
+        "meaning_vi": "bút",
+        "image": "images/unit6/pen1.png"
+      },
+      {
+        "word": "pencil",
+        "phonetic": "/ˈpensl/",
+        "meaning_vi": "bút chì",
+        "image": "images/unit6/pencil1.png"
+      },
+      {
+        "word": "red",
+        "phonetic": "/red/",
+        "meaning_vi": "màu đỏ",
+        "image": "images/unit6/red1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Miêu tả số lượng, màu sắc vật",
+    "examples": [
+      { "en": "Five pink flowers.", "vi": "Năm bông hoa màu hồng." },
+      { "en": "Four brown cakes.", "vi": "Bốn cái bánh màu nâu." },
+      { "en": "Eight white ducks.", "vi": "Tám con vịt màu trắng." },
+      { "en": "Seven green apples.", "vi": "Bảy quả táo màu xanh." }
+    ]
+  },
+  "phonics": {
+    "letter": "E",
+    "sound": "/e/",
+    "description_vi": "Học cách viết chữ cái E - âm /e/"
+  }
+}

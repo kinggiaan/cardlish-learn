@@ -1,0 +1,46 @@
+{
+  "unit": 8,
+  "title": "In the park",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "hair",
+        "phonetic": "/her/",
+        "meaning_vi": "tóc",
+        "image": "images/unit8/hair1.png"
+      },
+      {
+        "word": "hand",
+        "phonetic": "/hænd/",
+        "meaning_vi": "bàn tay",
+        "image": "images/unit8/hand1.png"
+      },
+      {
+        "word": "head",
+        "phonetic": "/hed/",
+        "meaning_vi": "đầu",
+        "image": "images/unit8/head1.png"
+      },
+      {
+        "word": "horse",
+        "phonetic": "/hɔːrs/",
+        "meaning_vi": "con ngựa",
+        "image": "images/unit8/horse1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Câu mệnh lệnh với 'Touch'",
+    "examples": [
+      { "en": "Touch your hair.", "vi": "Hãy chạm vào tóc của bạn." },
+      { "en": "Touch your hand.", "vi": "Hãy chạm vào tay của bạn." }
+    ]
+  },
+  "phonics": {
+    "letter": "H",
+    "sound": "/h/",
+    "description_vi": "Học cách viết chữ cái H - âm /h/"
+  }
+}

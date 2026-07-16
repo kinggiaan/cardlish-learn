@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<title>Thẻ học A4 - Mẫu trống</title>
+
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    height: 297mm;
+    background: white;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  :root {
+    --page-padding: 2mm;
+    --card-border: 0.3mm;
+    --line-width: 0.08mm;
+    --line-color: #aaa;
+    --line-padding-x: 6mm;
+    --first-line-top: 18mm;
+    --gap-small: 7mm;
+    --gap-large: 10.5mm;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: var(--page-padding);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .card {
+    position: relative;
+
+    border-right: var(--card-border) solid #000;
+    border-bottom: var(--card-border) solid #000;
+  }
+
+  .card:nth-child(-n + 3) {
+    border-top: var(--card-border) solid #000;
+  }
+
+  .card:nth-child(3n + 1) {
+    border-left: var(--card-border) solid #000;
+  }
+
+  .line {
+    position: absolute;
+    left: var(--line-padding-x);
+    right: var(--line-padding-x);
+    border-bottom: var(--line-width) solid var(--line-color);
+  }
+
+  .line-1 {
+    top: var(--first-line-top);
+  }
+
+  .line-2 {
+    top: calc(var(--first-line-top) + var(--gap-small));
+  }
+
+  .line-3 {
+    top: calc(var(--first-line-top) + var(--gap-small) + var(--gap-large));
+  }
+
+  .line-4 {
+    top: calc(var(--first-line-top) + var(--gap-small) + var(--gap-large) + var(--gap-small));
+  }
+</style>
+</head>
+
+<body>
+  <div class="page" id="page"></div>
+
+  <script>
+    const page = document.getElementById("page");
+
+    for (let i = 0; i < 9; i++) {
+      page.innerHTML += `
+        <div class="card">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+          <div class="line line-4"></div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

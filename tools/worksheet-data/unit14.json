@@ -1,0 +1,48 @@
+{
+  "unit": 14,
+  "title": "In the toy shop",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "teddy bear",
+        "phonetic": "/ˈtedi ber/",
+        "meaning_vi": "gấu bông",
+        "image": "images/unit14/teddybear1.png"
+      },
+      {
+        "word": "tiger",
+        "phonetic": "/ˈtaɪɡər/",
+        "meaning_vi": "con hổ",
+        "image": "images/unit14/tiger1.png"
+      },
+      {
+        "word": "top",
+        "phonetic": "/ˈtɒp/",
+        "meaning_vi": "con quay",
+        "image": "images/unit14/top1.png"
+      },
+      {
+        "word": "turtle",
+        "phonetic": "/ˈtɜːrtl/",
+        "meaning_vi": "con rùa",
+        "image": "images/unit14/turtle1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'I can see...'",
+    "examples": [
+      { "en": "I can see Tony.", "vi": "Mình có thể nhìn thấy Tony." },
+      { "en": "I can see a tiger.", "vi": "Mình có thể nhìn thấy 1 con hổ." },
+      { "en": "I can see a turtle.", "vi": "Mình có thể nhìn thấy 1 con rùa." },
+      { "en": "I can see a top.", "vi": "Mình có thể nhìn thấy 1 con quay." }
+    ]
+  },
+  "phonics": {
+    "letter": "T",
+    "sound": "/t/",
+    "description_vi": "Học cách viết chữ cái T - âm /t/"
+  }
+}

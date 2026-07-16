@@ -1,0 +1,42 @@
+{
+  "unit": 16,
+  "title": "At home",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "wash",
+        "phonetic": "/wɑːʃ/",
+        "meaning_vi": "rửa",
+        "image": "images/unit16/wash1.png"
+      },
+      {
+        "word": "water",
+        "phonetic": "/ˈwɔːtər/",
+        "meaning_vi": "nước",
+        "image": "images/unit16/water1.png"
+      },
+      {
+        "word": "window",
+        "phonetic": "/ˈwɪndoʊ/",
+        "meaning_vi": "cửa sổ",
+        "image": "images/unit16/window1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Hỏi & trả lời về số lượng (2)",
+    "examples": [
+      { "en": "How many windows can you see?", "vi": "Bạn có thể nhìn thấy bao nhiêu cái cửa sổ?" },
+      { "en": "I can see eight.", "vi": "Mình có thể nhìn thấy 8 cái." },
+      { "en": "How many lemons can you see?", "vi": "Bạn có thể nhìn thấy bao nhiêu quả chanh?" },
+      { "en": "I can see three.", "vi": "Mình có thể nhìn thấy 3 quả." }
+    ]
+  },
+  "phonics": {
+    "letter": "W",
+    "sound": "/w/",
+    "description_vi": "Bài 16: Học cách viết chữ cái W - âm /w/"
+  }
+}

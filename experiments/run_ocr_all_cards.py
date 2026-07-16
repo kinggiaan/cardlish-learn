@@ -19,6 +19,10 @@ import argparse
 from pathlib import Path
 from rapidocr_onnxruntime import RapidOCR
 
+# Add project root to path for core imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from core.card_utils import parse_card_filter
+
 # Fix Windows console encoding
 if sys.stdout.encoding != "utf-8":
     try:
@@ -37,21 +41,7 @@ def load_existing_ocr(ocr_path):
     return {entry["pair_id"]: entry for entry in data}
 
 
-def parse_card_filter(cards_str):
-    """Parse --cards argument into a set of pair_ids."""
-    if not cards_str:
-        return None
-    result = set()
-    for part in cards_str.split(","):
-        part = part.strip()
-        if not part:
-            continue
-        # Support both "1" and "001_card" formats
-        if part.endswith("_card") or "_" in part:
-            result.add(part)
-        else:
-            result.add(f"{int(part):03d}_card")
-    return result
+
 
 
 def main():

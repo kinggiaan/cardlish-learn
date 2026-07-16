@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cardlish Tools — Công cụ hỗ trợ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #f8f9fb;
+    color: #1a1a2e;
+    min-height: 100vh;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .header p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+  }
+
+  .header a.back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .header a.back-link:hover {
+    color: #fff;
+  }
+
+  /* ===== Grid ===== */
+  .tools-grid {
+    max-width: 720px;
+    margin: -32px auto 48px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* ===== Card ===== */
+  .tool-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border-color: rgba(15, 52, 96, 0.15);
+  }
+
+  .tool-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .tool-icon.blue {
+    background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
+  }
+
+  .tool-icon.green {
+    background: linear-gradient(135deg, #e6f4ea, #ceead6);
+  }
+
+  .tool-icon.orange {
+    background: linear-gradient(135deg, #fef3e2, #fde5c3);
+  }
+
+  .tool-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tool-info h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1a1a2e;
+  }
+
+  .tool-info p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .tool-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .tool-tag.print {
+    background: #e8f0fe;
+    color: #1967d2;
+  }
+
+  .tool-tag.template {
+    background: #e6f4ea;
+    color: #137333;
+  }
+
+  .tool-arrow {
+    color: #bbb;
+    font-size: 20px;
+    align-self: center;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .tool-card:hover .tool-arrow {
+    transform: translateX(4px);
+    color: #0f3460;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: #999;
+    font-size: 13px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (min-width: 600px) {
+    .header h1 { font-size: 32px; }
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { display: none; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="header">
+    <a href="/" class="back-link">← Quay lại Cardlish Learn</a>
+    <h1>🛠️ Công cụ hỗ trợ</h1>
+    <p>In thẻ học, tạo mẫu viết cho học sinh</p>
+  </div>
+
+  <div class="tools-grid">
+    <!-- Tool 1: In thẻ từ vựng -->
+    <a class="tool-card" href="print-vocab-cards.html">
+      <div class="tool-icon blue">📇</div>
+      <div class="tool-info">
+        <h2>In thẻ từ vựng A4</h2>
+        <p>In 9 thẻ từ vựng trên 1 trang A4. Chọn thẻ theo số, có gợi ý từ vựng và phonics. Hỗ trợ ẩn gợi ý khi in.</p>
+        <span class="tool-tag print">🖨️ In ấn</span>
+      </div>
+      <span class="tool-arrow">→</span>
+    </a>
+
+    <!-- Tool 2: Thẻ mẫu trống -->
+    <a class="tool-card" href="the-hoc-a4-blank.html">
+      <div class="tool-icon green">📝</div>
+      <div class="tool-info">
+        <h2>Thẻ mẫu trống — Học sinh tự viết</h2>
+        <p>Trang A4 gồm 9 thẻ trống với 4 dòng kẻ mỗi thẻ. In ra để học sinh luyện viết từ vựng bằng tay.</p>
+        <span class="tool-tag template">✏️ Mẫu viết</span>
+      </div>
+      <span class="tool-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    Cardlish Learn Tools &middot; Dành cho giáo viên và phụ huynh
+  </div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<title>Thẻ học A4 - 9 thẻ</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 210mm;
+    background: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  :root {
+    --page-padding: 2mm;
+    --card-border: 0.3mm;
+    --line-width: 0.08mm;
+    --line-color: #aaa;
+    --line-padding-x: 4mm;
+    --first-line-top: 20mm;
+    --line-gap: 10.5mm;
+    /* Khoảng cách để in chữ phonics bên trái */
+    --phonics-width: 8mm;
+  }
+
+  /* ===== Toolbar (ẩn khi in) ===== */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  .toolbar select {
+    padding: 4px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .toolbar button {
+    padding: 6px 16px;
+    font-size: 14px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .toolbar button:hover { background: #555; }
+
+  .toolbar label { color: #555; }
+
+  .toolbar input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+
+  @media print {
+    .toolbar { display: none !important; }
+  }
+
+  /* ===== Trang A4 ===== */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: var(--page-padding);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  /* ===== Thẻ ===== */
+  .card {
+    position: relative;
+    overflow: hidden;
+    border-right: var(--card-border) solid #000;
+    border-bottom: var(--card-border) solid #000;
+  }
+
+  .card:nth-child(-n + 3) { border-top: var(--card-border) solid #000; }
+  .card:nth-child(3n + 1) { border-left: var(--card-border) solid #000; }
+
+  /* ===== Card ID (góc trên bên trái) ===== */
+  .card-id {
+    position: absolute;
+    top: 2mm;
+    left: 2mm;
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: #bbb;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== Nhãn phonics đầy đủ (góc trên bên PHẢI) ===== */
+  .card-phonics {
+    position: absolute;
+    top: 2mm;
+    right: 2mm;
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: #bbb;
+    line-height: 1;
+    letter-spacing: 0.03em;
+    font-style: italic;
+  }
+
+  /* ===== Tên của thẻ (nằm ở đầu thẻ, chính giữa) ===== */
+  .card-name {
+    position: absolute;
+    top: 3.5mm;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20pt;
+    font-weight: 700;
+    color: #111;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  /* ===== Dòng kẻ ===== */
+  .vocab-line {
+    position: absolute;
+    left: var(--line-padding-x);
+    right: var(--line-padding-x);
+    border-bottom: var(--line-width) solid var(--line-color);
+  }
+
+  /* Từ vựng chính giữa dòng, font thường */
+  .vocab-word {
+    position: absolute;
+    bottom: 1mm;
+    left: 0;
+    right: var(--phonics-width);
+    text-align: center;
+    font-size: 17pt;
+    font-weight: 400;
+    color: #222;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Tô đậm phần chữ phonics chính */
+  .vocab-word strong {
+    font-weight: 700;
+    color: #000;
+  }
+
+
+
+  /* Khi tắt hint: ẩn từ vựng (chỉ còn dòng kẻ trắng) */
+  .hide-hints .vocab-word {
+    display: none;
+  }
+
+  @media print {
+    .phonics-key { color: #333; }
+    .vocab-hint { color: #ddd; }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="toolbar">
+    <label for="cardSelect">Chọn thẻ:</label>
+    <select id="cardSelect"></select>
+
+    <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+      <input type="checkbox" id="hideHints" />
+      Ẩn gợi ý từ khi in
+    </label>
+
+    <button onclick="window.print()">🖨️ In</button>
+  </div>
+
+  <div class="page" id="page"></div>
+
+  <script>
+    const MAX_WORDS = 8;
+    let vocabData = {};
+    let cardsData = [];
+
+    // Trích phonics từ URL — trả về { slug, letter, position }
+    //   slug     = nhãn đầy đủ hiển thị góc phải thẻ   (vd: "short-a", "ab")
+    //   letter   = chữ mồi ngắn trên mỗi dòng kẻ       (vd: "a", "ab")
+    //   position = 'middle' | 'right'
+    //              middle → short-*/long-* (nguyên âm) → đặt giữa dòng
+    //              right  → cụm thuần ("ack","ab"...) → sát phải
+    function extractPhonics(qrUrl) {
+      if (!qrUrl) return { slug: '', letter: '', position: 'right' };
+      const slug = qrUrl.replace(/^https?:\/\/[^/]+\//, '').replace(/\/$/, '');
+
+      // "short-a"  → letter="a", giữa dòng
+      const shortMatch = slug.match(/^short-(.+)$/);
+      if (shortMatch) return { slug, letter: shortMatch[1], position: 'middle' };
+
+      // "long-a"   → letter="ā" (macron), giữa dòng
+      const longMatch = slug.match(/^long-(.+)$/);
+      if (longMatch) return { slug, letter: longMatch[1] + '\u0304', position: 'middle' };
+
+      // cụm thuần ("ab", "ack", "ad"...) → sát phải
+      return { slug, letter: slug, position: 'right' };
+    }
+
+    // Lấy từ vựng của 1 thẻ (front + back, tối đa MAX_WORDS)
+    function getWords(cardId) {
+      const entry = vocabData[cardId];
+      if (!entry) return [];
+      const front = (entry.front || []).map(w => w.word);
+      const back  = (entry.back  || []).map(w => w.word);
+      return [...front, ...back].slice(0, MAX_WORDS);
+    }
+
+    // Vị trí top dòng thứ n (0-indexed)
+    function lineTop(n) {
+      return `calc(var(--first-line-top) + ${n} * var(--line-gap))`;
+    }
+
+    // Tô đậm chữ phonics chính trong từ vựng (ví dụ: "a" trong "apple" -> "<strong>a</strong>pple")
+    function highlightPhonics(word, letter) {
+      if (!word || !letter) return word;
+      // Chuẩn hóa loại bỏ dấu phụ (như dấu gạch ngang macron ā -> a) để khớp với từ vựng
+      const matchLetter = letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      if (!matchLetter) return word;
+
+      // Escape ký tự đặc biệt của regex
+      const escaped = matchLetter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(`(${escaped})`, 'gi');
+      return word.replace(regex, '<strong>$1</strong>');
+    }
+
+    // Render 1 thẻ
+    function renderCard(cardId, phonics) {
+      const cardNo = cardId.replace('_card', '');
+      const words  = getWords(cardId);
+
+      let linesHtml = '';
+      for (let i = 0; i < MAX_WORDS; i++) {
+        const word = words[i] || '';
+        const highlighted = highlightPhonics(word, phonics.letter);
+        linesHtml += `
+          <div class="vocab-line" style="top:${lineTop(i)}">
+            ${word ? `<span class="vocab-word">${highlighted}</span>` : ''}
+          </div>`;
+      }
+
+      return `
+        <div class="card">
+          <span class="card-id">${cardNo}</span>
+          <span class="card-name">${phonics.letter}</span>
+          <span class="card-phonics">${phonics.slug}</span>
+          ${linesHtml}
+        </div>`;
+    }
+
+    // Render 9 thẻ giống nhau cho 1 card_id
+    function renderPage(cardId) {
+      const cardMeta = cardsData.find(c => c.pair_id === cardId) || {};
+      const phonics  = extractPhonics(cardMeta.qr_url || '');
+
+      let html = '';
+      for (let i = 0; i < 9; i++) {
+        html += renderCard(cardId, phonics);
+      }
+      document.getElementById('page').innerHTML = html;
+    }
+
+    // Khởi tạo dropdown
+    function populateSelect(cardIds) {
+      const select = document.getElementById('cardSelect');
+      cardIds.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value       = id;
+        opt.textContent = id.replace('_card', '');
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', () => renderPage(select.value));
+    }
+
+    // Toggle ẩn/hiện gợi ý từ
+    document.getElementById('hideHints').addEventListener('change', function () {
+      document.getElementById('page').classList.toggle('hide-hints', this.checked);
+    });
+
+    // Thử nhiều đường dẫn để load JSON
+    async function fetchJSON(paths) {
+      for (const p of paths) {
+        try {
+          const r = await fetch(p);
+          if (r.ok) return await r.json();
+        } catch { /* thử tiếp */ }
+      }
+      throw new Error('Không load được file: ' + paths.join(', '));
+    }
+
+    // Khởi động
+    async function init() {
+      try {
+        [vocabData, cardsData] = await Promise.all([
+          fetchJSON(['public/data/cards_vocab.json', 'data/cards_vocab.json']),
+          fetchJSON(['public/data/cards.json',       'data/cards.json']),
+        ]);
+      } catch (e) {
+        console.error(e.message);
+        document.getElementById('page').innerHTML =
+          '<p style="padding:10px;color:red;">⚠️ Không load được data. Hãy mở file qua server (localhost).</p>';
+        return;
+      }
+
+      const cardIds = Object.keys(vocabData);
+      populateSelect(cardIds);
+
+      // Đọc query parameters từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      let targetId = urlParams.get('card') || urlParams.get('id');
+      const hideHints = urlParams.get('hideHints');
+
+      // Cấu hình ẩn gợi ý nếu có param hideHints=true hoặc 1
+      if (hideHints === 'true' || hideHints === '1') {
+        const checkbox = document.getElementById('hideHints');
+        if (checkbox) checkbox.checked = true;
+        document.getElementById('page').classList.add('hide-hints');
+      }
+
+      if (targetId) {
+        // Chuẩn hóa định dạng số thành "00X_card" (ví dụ: "1" -> "001_card")
+        if (!targetId.endsWith('_card')) {
+          const num = targetId.padStart(3, '0');
+          targetId = `${num}_card`;
+        }
+        if (cardIds.includes(targetId)) {
+          document.getElementById('cardSelect').value = targetId;
+          renderPage(targetId);
+          return;
+        }
+      }
+
+      if (cardIds.length > 0) renderPage(cardIds[0]);
+    }
+
+    init();
+  </script>
+</body>
+</html>

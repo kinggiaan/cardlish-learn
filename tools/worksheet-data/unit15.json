@@ -1,0 +1,48 @@
+{
+  "unit": 15,
+  "title": "At the football match",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "face",
+        "phonetic": "/feɪs/",
+        "meaning_vi": "khuôn mặt",
+        "image": "images/unit15/face1.png"
+      },
+      {
+        "word": "father",
+        "phonetic": "/ˈfɑːðər/",
+        "meaning_vi": "bố",
+        "image": "images/unit15/father1.png"
+      },
+      {
+        "word": "foot",
+        "phonetic": "/fʊt/",
+        "meaning_vi": "bàn chân",
+        "image": "images/unit15/foot1.png"
+      },
+      {
+        "word": "football",
+        "phonetic": "/ˈfʊtbɔːl/",
+        "meaning_vi": "bóng đá",
+        "image": "images/unit15/football1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Bài 15: Cấu trúc 'Point to your ...'",
+    "examples": [
+      { "en": "Point to your hand.", "vi": "Hãy chỉ vào tay của bạn." },
+      { "en": "Point to your head.", "vi": "Hãy chỉ vào đầu của bạn." },
+      { "en": "Point to your sister.", "vi": "Hãy chỉ vào chị của bạn." },
+      { "en": "Point to your football.", "vi": "Hãy chỉ vào quả bóng đá của bạn." }
+    ]
+  },
+  "phonics": {
+    "letter": "F",
+    "sound": "/f/",
+    "description_vi": "Bài 15: Học cách viết chữ cái F - âm /f/"
+  }
+}

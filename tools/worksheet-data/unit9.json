@@ -1,0 +1,56 @@
+{
+  "unit": 9,
+  "title": "In the Shop",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "clocks",
+        "phonetic": "/klɒks/",
+        "meaning_vi": "những cái đồng hồ",
+        "image": "images/unit9/clocks1.png"
+      },
+      {
+        "word": "locks",
+        "phonetic": "/lɒks/",
+        "meaning_vi": "những cái ổ khóa",
+        "image": "images/unit9/locks1.png"
+      },
+      {
+        "word": "mops",
+        "phonetic": "/mɒps/",
+        "meaning_vi": "những chổi lau nhà",
+        "image": "images/unit9/mops1.png"
+      },
+      {
+        "word": "pots",
+        "phonetic": "/pɒts/",
+        "meaning_vi": "những cái nồi",
+        "image": "images/unit9/pots1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Hỏi & trả lời về số lượng",
+    "examples": [
+      {
+        "en": "How many clocks? - There are 4 clocks.",
+        "vi": "Có bao nhiêu cái đồng hồ? - Có 4 cái đồng hồ."
+      },
+      {
+        "en": "How many mops? - 2.",
+        "vi": "Có bao nhiêu cây lau nhà? - 2 cái."
+      },
+      {
+        "en": "How many locks? - 10 locks.",
+        "vi": "Có bao nhiêu cái khoá? - 10 cái khoá."
+      }
+    ]
+  },
+  "phonics": {
+    "letter": "O",
+    "sound": "/ɒ/",
+    "description_vi": "Học cách viết chữ cái O - âm /ɒ/"
+  }
+}

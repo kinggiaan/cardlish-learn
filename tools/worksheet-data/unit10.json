@@ -1,0 +1,48 @@
+{
+  "unit": 10,
+  "title": "At the zoo",
+  "grade": 1,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "mango",
+        "phonetic": "/ˈmæŋɡoʊ/",
+        "meaning_vi": "quả xoài",
+        "image": "images/unit10/mango1.png"
+      },
+      {
+        "word": "monkey",
+        "phonetic": "/ˈmʌŋki/",
+        "meaning_vi": "con khỉ",
+        "image": "images/unit10/monkey1.png"
+      },
+      {
+        "word": "mother",
+        "phonetic": "/ˈmʌðər/",
+        "meaning_vi": "mẹ",
+        "image": "images/unit10/mother1.png"
+      },
+      {
+        "word": "mouse",
+        "phonetic": "/maʊs/",
+        "meaning_vi": "con chuột",
+        "image": "images/unit10/mouse1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Giới thiệu 1 vật ở xa mình",
+    "examples": [
+      { "en": "That's a mango.", "vi": "Kia là 1 quả xoài." },
+      { "en": "That's a monkey.", "vi": "Kia là 1 con khỉ." },
+      { "en": "That's a mouse.", "vi": "Kia là 1 con chuột." },
+      { "en": "That's a horse.", "vi": "Kia là 1 con ngựa." }
+    ]
+  },
+  "phonics": {
+    "letter": "M",
+    "sound": "/m/",
+    "description_vi": "Bài 10: Học cách viết chữ cái M - âm /m/"
+  }
+}
