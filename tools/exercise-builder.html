@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise Builder — Cardlish</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      min-height: 100vh;
+      font-size: 16px;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      background: #fff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.02em;
+    }
+    .topbar-logo span { color: #16a34a; }
+    .topbar-spacer { flex: 1; }
+    .storage-info {
+      font-size: 13px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .storage-bar { width: 80px; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+    .storage-fill { height: 100%; background: #22c55e; border-radius: 4px; transition: width 0.3s; }
+    .storage-fill.warn { background: #f59e0b; }
+    .storage-fill.danger { background: #ef4444; }
+
+    .btn-topbar {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #fff;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-topbar:hover { background: #f1f5f9; border-color: #94a3b8; color: #1e293b; }
+
+    /* ===== MAIN LAYOUT ===== */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0;
+      min-height: calc(100vh - 57px);
+    }
+
+    /* ===== LEFT: WORKFLOW ===== */
+    .workflow {
+      padding: 28px 32px;
+      overflow-y: auto;
+    }
+
+    /* Step block */
+    .step {
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .step.active { border-color: #3b82f6; }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .step-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .step-sub {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* -- PASTE ZONE -- */
+    .paste-zone {
+      border: 3px dashed #93c5fd;
+      border-radius: 14px;
+      background: #eff6ff;
+      padding: 48px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .paste-zone:hover, .paste-zone.dragover {
+      border-color: #3b82f6;
+      background: #dbeafe;
+    }
+    .paste-icon { font-size: 52px; margin-bottom: 12px; display: block; }
+    .paste-main-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1d4ed8;
+      margin-bottom: 6px;
+    }
+    .paste-hint {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .paste-or {
+      margin: 16px 0 0;
+    }
+    .btn-choose-file {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: #fff;
+      border: 2px solid #93c5fd;
+      border-radius: 10px;
+      color: #2563eb;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-choose-file:hover { background: #eff6ff; border-color: #3b82f6; }
+
+    .btn-paste-clipboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #2563eb;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+    }
+    .btn-paste-clipboard:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.4); }
+    .btn-paste-clipboard:active { transform: translateY(0); }
+
+    /* -- STAGED IMAGES -- */
+    .staged-area {
+      margin-top: 16px;
+    }
+    .staged-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .staged-badge {
+      background: #3b82f6;
+      color: #fff;
+      border-radius: 20px;
+      padding: 2px 9px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .staged-scroll {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      padding-bottom: 4px;
+    }
+
+    .staged-item {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: grab;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+    .staged-item:active { cursor: grabbing; }
+    .staged-item.drag-over { border-color: #3b82f6; box-shadow: 0 0 0 3px #bfdbfe; }
+    .staged-item.dragging { opacity: 0.35; }
+    .staged-item img { width: 100%; height: auto; display: block; }
+
+    .orient-badge {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .staged-item-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f1f5f9;
+    }
+    .staged-num { font-size: 15px; color: #475569; font-weight: 800; }
+    .staged-item-btns { display: flex; gap: 6px; }
+    .staged-item-btns button {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f0;
+      background: #fff;
+      color: #374151;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .staged-item-btns button:hover { background: #e2e8f0; border-color: #cbd5e1; }
+    .staged-item-btns button.del { background: #fee2e2; color: #dc2626; border-color: #fecaca; }
+    .staged-item-btns button.del:hover { background: #fecaca; }
+    .staged-item-btns button:disabled { opacity: 0.25; cursor: default; }
+
+    .staged-empty-msg {
+      font-size: 14px;
+      color: #94a3b8;
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    /* -- FORM -- */
+    .form-row {
+      display: grid;
+      grid-template-columns: 120px 120px 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      color: #1e293b;
+      background: #f8fafc;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .form-group input:focus { border-color: #3b82f6; background: #fff; }
+
+    /* -- SAVE BUTTON -- */
+    .btn-save {
+      width: 100%;
+      padding: 18px;
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.15s, transform 0.1s;
+      box-shadow: 0 4px 14px rgba(22,163,74,0.35);
+    }
+    .btn-save:hover:not(:disabled) { background: #15803d; transform: translateY(-1px); }
+    .btn-save:active:not(:disabled) { transform: translateY(0); }
+    .btn-save:disabled { background: #d1fae5; color: #86efac; box-shadow: none; cursor: not-allowed; }
+
+    /* ===== RIGHT: SAVED LIST ===== */
+    .saved-panel {
+      background: #fff;
+      border-left: 2px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .saved-header {
+      padding: 20px 20px 14px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .saved-title { font-size: 17px; font-weight: 800; color: #1e293b; flex: 1; }
+    .saved-badge {
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .saved-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+    .saved-list::-webkit-scrollbar { width: 5px; }
+    .saved-list::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 3px; }
+
+    /* Lesson group */
+    .lesson-group-lbl {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #3b82f6;
+      padding: 8px 8px 4px;
+    }
+
+    /* Saved card */
+    .saved-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      margin-bottom: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .saved-card:hover { background: #f8fafc; border-color: #e2e8f0; }
+    .saved-card.selected { background: #eff6ff; border-color: #93c5fd; }
+
+    .saved-card-check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+
+    .thumb-stack {
+      width: 52px; height: 40px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .thumb-stack img {
+      position: absolute;
+      border-radius: 5px;
+      border: 1.5px solid #e2e8f0;
+      object-fit: cover;
+    }
+    .thumb-stack img:nth-child(1) { width: 38px; height: 30px; top: 0; left: 0; z-index: 3; }
+    .thumb-stack img:nth-child(2) { width: 34px; height: 27px; top: 4px; left: 8px; z-index: 2; opacity: 0.65; }
+    .thumb-stack img:nth-child(3) { width: 30px; height: 24px; top: 8px; left: 16px; z-index: 1; opacity: 0.4; }
+
+    .saved-card-info { flex: 1; min-width: 0; }
+    .saved-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .saved-card-meta { font-size: 12px; color: #64748b; }
+
+    .saved-card-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+
+    .btn-print-one {
+      padding: 5px 10px;
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 7px;
+      color: #2563eb;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.12s;
+    }
+    .btn-print-one:hover { background: #dbeafe; }
+
+    .btn-del-one {
+      padding: 4px 8px;
+      background: #fff;
+      border: 1.5px solid #fecaca;
+      border-radius: 7px;
+      color: #dc2626;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .btn-del-one:hover { background: #fee2e2; }
+
+    .saved-empty {
+      text-align: center;
+      padding: 40px 16px;
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .saved-empty .big-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+
+    /* Bottom print panel */
+    .print-panel {
+      padding: 14px 16px;
+      border-top: 2px solid #f1f5f9;
+      background: #f8fafc;
+      flex-shrink: 0;
+    }
+
+    .print-sel-info {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .print-sel-info strong { color: #1e293b; font-size: 15px; }
+
+    .layout-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .layout-btn {
+      padding: 8px 4px;
+      border: 2px solid #e2e8f0;
+      border-radius: 9px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.12s;
+    }
+    .layout-btn.active { border-color: #3b82f6; background: #eff6ff; color: #2563eb; }
+    .layout-btn .lbi { font-size: 18px; display: block; margin-bottom: 2px; }
+
+    .btn-print-all {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.3);
+    }
+    .btn-print-all:hover:not(:disabled) { background: #1d4ed8; }
+    .btn-print-all:disabled { background: #bfdbfe; color: #93c5fd; box-shadow: none; cursor: not-allowed; }
+
+    /* ===== VIEWER OVERLAY ===== */
+    .viewer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .viewer-overlay.open { display: flex; }
+
+    .viewer-box {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .viewer-header {
+      padding: 18px 24px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .viewer-header h2 { font-size: 18px; font-weight: 800; flex: 1; }
+    .viewer-close {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.12s;
+    }
+    .viewer-close:hover { background: #fee2e2; border-color: #fecaca; }
+
+    .viewer-grid {
+      padding: 20px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      flex: 1;
+    }
+
+    .viewer-img-item {
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: grab;
+      transition: border-color 0.15s;
+    }
+    .viewer-img-item:active { cursor: grabbing; }
+    .viewer-img-item.drag-over { border-color: #3b82f6; box-shadow: 0 0 0 3px #bfdbfe; }
+    .viewer-img-item.dragging { opacity: 0.35; }
+    .viewer-img-item img { width: 100%; height: auto; display: block; }
+    .viewer-img-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      background: #f8fafc;
+    }
+    .viewer-img-num { font-size: 12px; font-weight: 700; color: #64748b; }
+    .viewer-img-btns { display: flex; gap: 3px; }
+    .viewer-img-btns button {
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      border: 1.5px solid #e2e8f0;
+      background: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.12s;
+    }
+    .viewer-img-btns button:hover { background: #f1f5f9; }
+    .viewer-img-btns button:disabled { opacity: 0.3; cursor: default; }
+
+    .viewer-footer {
+      padding: 16px 20px;
+      border-top: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .viewer-footer-label { font-size: 14px; font-weight: 700; color: #374151; margin-right: 4px; }
+    .viewer-layout-btns { display: flex; gap: 6px; flex: 1; }
+    .vlb {
+      flex: 1;
+      padding: 8px 6px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.12s;
+    }
+    .vlb.active { border-color: #3b82f6; background: #eff6ff; color: #2563eb; }
+
+    .btn-do-print {
+      padding: 12px 24px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 7px;
+      transition: background 0.15s;
+      box-shadow: 0 3px 10px rgba(37,99,235,0.3);
+      white-space: nowrap;
+    }
+    .btn-do-print:hover { background: #1d4ed8; }
+
+    /* ===== TOAST ===== */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e293b;
+      color: #fff;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 9999;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== MODAL ===== */
+    .modal-back { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 500; display: flex; align-items: center; justify-content: center; }
+    .modal-back.hidden { display: none; }
+    .modal-box { background: #fff; border-radius: 18px; padding: 28px; max-width: 400px; width: 90%; }
+    .modal-box h2 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+    .modal-box p { font-size: 15px; color: #475569; margin-bottom: 22px; line-height: 1.6; }
+    .modal-acts { display: flex; gap: 10px; }
+    .btn-cancel { flex: 1; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; background: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.12s; }
+    .btn-cancel:hover { background: #f1f5f9; }
+    .btn-confirm-del { flex: 1; padding: 12px; background: #dc2626; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.12s; }
+    .btn-confirm-del:hover { background: #b91c1c; }
+
+    /* ===== PRINT ===== */
+    #print-area { display: none; }
+    @media print {
+      body > *:not(#print-area) { display: none !important; }
+      #print-area { display: block !important; background: white; color: black; }
+      .pp { padding: 8mm 10mm; break-inside: avoid; height: 277mm; display: flex; flex-direction: column; }
+      .pp:not(:last-child) { break-after: page; }
+      .pp-head { font-size: 11pt; font-weight: 700; border-bottom: 2px solid #000; padding-bottom: 3mm; margin-bottom: 4mm; flex-shrink: 0; }
+      .pp img { max-width: 100%; height: auto; display: block; }
+      .pp-img-wrap { flex: 1; display: flex; align-items: flex-start; justify-content: center; }
+      .pp-smart-grid { flex: 1; display: grid; gap: 4mm; align-content: start; }
+      .pp-smart-grid.pp-cols-1 { grid-template-columns: 1fr; }
+      .pp-smart-grid.pp-cols-2 { grid-template-columns: 1fr 1fr; }
+      .pp-cell { display: flex; flex-direction: column; align-items: center; }
+      .pp-cell img { max-width: 100%; }
+    }
+
+    /* Print preview (on-screen) */
+    .preview-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 300;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .preview-overlay.open { display: block; }
+
+    .preview-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #1e293b;
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .preview-toolbar-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      flex: 1;
+    }
+    .preview-toolbar .btn-topbar { color: #e2e8f0; border-color: #475569; }
+    .preview-toolbar .btn-topbar:hover { background: #334155; }
+    .preview-toolbar .btn-do-print { margin-left: 4px; }
+
+    .preview-page {
+      background: #fff;
+      color: #000;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      padding: 10mm;
+      border-radius: 8px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .preview-page::after {
+      content: attr(data-page-label);
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+    .preview-page .pp-head { font-size: 11pt; font-weight: 700; border-bottom: 2px solid #000; padding-bottom: 3mm; margin-bottom: 4mm; }
+    .preview-page img { max-width: 100%; height: auto; display: block; }
+    .preview-page .pp-img-wrap { display: flex; align-items: flex-start; justify-content: center; }
+    .preview-page .pp-smart-grid { display: grid; gap: 4mm; }
+    .preview-page .pp-smart-grid.pp-cols-1 { grid-template-columns: 1fr; }
+    .preview-page .pp-smart-grid.pp-cols-2 { grid-template-columns: 1fr 1fr; }
+    .preview-page .pp-cell { display: flex; flex-direction: column; align-items: center; }
+    .preview-page .pp-cell img { max-width: 100%; }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">📋 Exercise <span>Builder</span></div>
+  <div class="topbar-spacer"></div>
+  <div class="storage-info">
+    <span id="storage-lbl">0 KB / 5 MB</span>
+    <div class="storage-bar"><div class="storage-fill" id="storage-fill" style="width:0%"></div></div>
+  </div>
+  <button class="btn-topbar" onclick="exportData()">⬇ Xuất backup</button>
+  <button class="btn-topbar" onclick="document.getElementById('import-file').click()">⬆ Nhập backup</button>
+  <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
+  <a href="index.html" class="btn-topbar" style="text-decoration:none">← Về trang Tools</a>
+</div>
+
+<div class="layout">
+
+  <!-- LEFT: WORKFLOW -->
+  <div class="workflow">
+
+    <!-- STEP 1 -->
+    <div class="step" id="step1">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Dán ảnh vào đây</div>
+          <div class="step-sub">Dán từng ảnh một — tất cả sẽ thuộc về 1 bài</div>
+        </div>
+      </div>
+
+      <div class="paste-zone" id="paste-zone"
+        ondragover="onDragOver(event)"
+        ondragleave="onDragLeave(event)"
+        ondrop="onDrop(event)">
+        <span class="paste-icon">🖼️</span>
+        <div class="paste-main-text">Chụp màn hình xong, nhấn nút bên dưới để dán ảnh</div>
+        <div class="paste-hint">
+          Dán nhiều lần để thêm nhiều ảnh vào cùng 1 bài<br>
+          Hoặc kéo thả file ảnh vào đây
+        </div>
+        <div class="paste-or" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-paste-clipboard" onclick="pasteFromClipboard(); event.stopPropagation()">
+            📋 Dán ảnh (Ctrl+V)
+          </button>
+          <button class="btn-choose-file" onclick="document.getElementById('file-in').click(); event.stopPropagation()">
+            📁 Chọn file từ máy tính
+          </button>
+        </div>
+      </div>
+      <input type="file" id="file-in" accept="image/*" multiple style="display:none" onchange="onFileInput(this)">
+
+      <!-- Staged -->
+      <div class="staged-area" id="staged-area" style="display:none">
+        <div class="staged-label">
+          Ảnh đã thêm: <span class="staged-badge" id="staged-badge">0</span>
+          <span style="font-size:13px;color:#94a3b8;font-weight:400;margin-left:4px;">— kéo để đổi thứ tự</span>
+        </div>
+        <div class="staged-scroll" id="staged-scroll"></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Điền thông tin bài học</div>
+          <div class="step-sub">Ghi Lesson và Unit để dễ tìm sau này</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Lesson số</label>
+          <input type="number" id="f-lesson" value="1" min="1" max="99">
+        </div>
+        <div class="form-group">
+          <label>Unit số</label>
+          <input type="number" id="f-unit" value="1" min="1" max="99">
+        </div>
+        <div class="form-group">
+          <label>Tên bài (tuỳ chọn)</label>
+          <input type="text" id="f-name" placeholder="VD: At my birthday party">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Lưu bài</div>
+          <div class="step-sub" id="save-sub">Thêm ảnh ở Bước 1 trước khi lưu</div>
+        </div>
+      </div>
+      <button class="btn-save" id="btn-save" onclick="saveLesson()" disabled>
+        💾 LƯU BÀI
+      </button>
+    </div>
+
+  </div><!-- end workflow -->
+
+  <!-- RIGHT: SAVED LIST -->
+  <div class="saved-panel">
+    <div class="saved-header">
+      <span class="saved-title">📚 Bài đã lưu</span>
+      <span class="saved-badge" id="total-badge">0</span>
+    </div>
+
+    <div class="saved-list" id="saved-list">
+      <div class="saved-empty">
+        <span class="big-icon">📂</span>
+        Chưa có bài nào được lưu.<br>Thêm ảnh và nhấn <strong>Lưu bài</strong> để bắt đầu!
+      </div>
+    </div>
+
+    <!-- Print panel -->
+    <div class="print-panel">
+      <div class="print-sel-info">
+        Đã chọn: <strong id="sel-count">0</strong> bài để in
+      </div>
+
+      <div class="layout-btns">
+        <button class="layout-btn active" id="lb1" onclick="setLayout(1)">
+          <span class="lbi">📄</span>1 ảnh/trang
+        </button>
+        <button class="layout-btn" id="lb2" onclick="setLayout(2)">
+          <span class="lbi">📋</span>2 ảnh/trang
+        </button>
+        <button class="layout-btn" id="lb4" onclick="setLayout(4)">
+          <span class="lbi">🗂</span>4 ảnh/trang
+        </button>
+      </div>
+
+      <button class="btn-print-all" id="btn-print-all" onclick="printSelected()" disabled>
+        🖨 IN CÁC BÀI ĐÃ CHỌN
+      </button>
+    </div>
+  </div>
+
+</div><!-- end layout -->
+
+<!-- VIEWER OVERLAY -->
+<div class="viewer-overlay" id="viewer-overlay" onclick="closeViewer(event)">
+  <div class="viewer-box">
+    <div class="viewer-header">
+      <h2 id="viewer-title">Xem bài</h2>
+      <button class="btn-do-print" style="font-size:13px;padding:8px 16px;" onclick="editViewerLesson()">✏️ Sửa bài này</button>
+      <button class="viewer-close" onclick="closeViewerDirect()">✕</button>
+    </div>
+    <div class="viewer-grid" id="viewer-grid"></div>
+    <div class="viewer-footer">
+      <span class="viewer-footer-label">Layout in:</span>
+      <div class="viewer-layout-btns">
+        <button class="vlb active" id="vlb1" onclick="setLayout(1)">📄 1/trang</button>
+        <button class="vlb" id="vlb2" onclick="setLayout(2)">📋 2/trang</button>
+        <button class="vlb" id="vlb4" onclick="setLayout(4)">🗂 4/trang</button>
+      </div>
+      <button class="btn-do-print" onclick="printCurrentViewer()">🖨 In bài này</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal-back hidden" id="del-modal">
+  <div class="modal-box">
+    <h2>🗑 Xóa bài này?</h2>
+    <p id="del-msg">Bạn có chắc không? Hành động này không thể hoàn tác.</p>
+    <div class="modal-acts">
+      <button class="btn-cancel" onclick="closeDelModal()">Hủy bỏ</button>
+      <button class="btn-confirm-del" onclick="confirmDel()">Xóa luôn</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRINT PREVIEW OVERLAY -->
+<div class="preview-overlay" id="preview-overlay" onclick="if(event.target===this)closePreview()">
+  <div class="preview-toolbar">
+    <span class="preview-toolbar-title" id="preview-title">📄 Xem trước khi in</span>
+    <button class="btn-topbar" onclick="closePreview()">✕ Đóng</button>
+    <button class="btn-do-print" onclick="confirmPrint()">🖨 In ngay</button>
+  </div>
+  <div id="preview-pages"></div>
+</div>
+
+<!-- PRINT AREA -->
+<div id="print-area"></div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ========== STATE ==========
+const KEY = 'eb_v3';
+let lessons = [];
+let staged = [];
+let selectedIds = new Set();
+let currentLayout = 1;
+let viewerId = null;
+let viewerDragSrc = null;
+let pendingDelId = null;
+let stagedDragSrc = null;
+let editingId = null;
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  try { lessons = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { lessons = []; }
+  renderSaved();
+  updateStorage();
+
+  document.addEventListener('paste', e => {
+    const items = e.clipboardData?.items || [];
+    for (const it of items) {
+      if (it.type.startsWith('image/')) {
+        readBlob(it.getAsFile(), addStaged);
+        break;
+      }
+    }
+  });
+});
+
+// ========== IMAGE ==========
+function readBlob(blob, cb) {
+  const r = new FileReader();
+  r.onload = ev => compress(ev.target.result, 1200, 0.88, cb);
+  r.readAsDataURL(blob);
+}
+function compress(src, maxW, q, cb) {
+  const img = new Image();
+  img.onload = () => {
+    let w = img.width, h = img.height;
+    if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    const ratio = w / h;
+    const orient = ratio > 1.3 ? 'ngang' : ratio < 0.77 ? 'dọc' : 'vuông';
+    cb({ dataUrl: c.toDataURL('image/jpeg', q), w, h, ratio, orient });
+  };
+  img.src = src;
+}
+
+// ========== PASTE BUTTON ==========
+async function pasteFromClipboard() {
+  // Try modern Clipboard API first
+  if (navigator.clipboard && navigator.clipboard.read) {
+    try {
+      const items = await navigator.clipboard.read();
+      for (const item of items) {
+        for (const type of item.types) {
+          if (type.startsWith('image/')) {
+            const blob = await item.getType(type);
+            readBlob(blob, addStaged);
+            return;
+          }
+        }
+      }
+      toast('⚠️ Không tìm thấy ảnh trong clipboard. Hãy chụp màn hình (PrtScn) trước rồi thử lại!', 4000);
+    } catch (e) {
+      // Permission denied or not supported — fall back to focus trick
+      focusPaste();
+      toast('💡 Trình duyệt không cho phép đọc clipboard tự động. Nhấn Ctrl + V sau khi click vào vùng xanh bên trên.', 5000);
+    }
+  } else {
+    focusPaste();
+    toast('💡 Hãy nhấn Ctrl + V để dán ảnh.', 3000);
+  }
+}
+
+function focusPaste() {
+  const zone = document.getElementById('paste-zone');
+  zone.style.outline = '3px solid #3b82f6';
+  zone.focus();
+  setTimeout(() => { zone.style.outline = ''; }, 2500);
+}
+
+function onDragOver(e) { e.preventDefault(); document.getElementById('paste-zone').classList.add('dragover'); }
+function onDragLeave(e) { document.getElementById('paste-zone').classList.remove('dragover'); }
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('paste-zone').classList.remove('dragover');
+  Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(f => readBlob(f, addStaged));
+}
+function onFileInput(input) {
+  Array.from(input.files).forEach(f => readBlob(f, addStaged));
+  input.value = '';
+}
+
+// ========== STAGED ==========
+function addStaged(info) {
+  // info = { dataUrl, w, h, ratio, orient }
+  staged.push({
+    id: 'si' + Date.now() + Math.random().toString(36).slice(2,5),
+    dataUrl: info.dataUrl,
+    w: info.w,
+    h: info.h,
+    ratio: info.ratio,
+    orient: info.orient,
+  });
+  renderStaged();
+  toast(`🖼 Đã thêm ảnh ${info.w}×${info.h} (${info.orient})! Dán tiếp hoặc nhấn Lưu.`);
+}
+function removeStaged(id) { staged = staged.filter(s => s.id !== id); renderStaged(); }
+function moveStaged(from, to) {
+  if (to < 0 || to >= staged.length) return;
+  const [x] = staged.splice(from, 1);
+  staged.splice(to, 0, x);
+  renderStaged();
+}
+
+function renderStaged() {
+  const area = document.getElementById('staged-area');
+  const scroll = document.getElementById('staged-scroll');
+  const badge = document.getElementById('staged-badge');
+  const btnSave = document.getElementById('btn-save');
+  const saveSub = document.getElementById('save-sub');
+
+  badge.textContent = staged.length;
+  area.style.display = staged.length ? 'block' : 'none';
+
+  btnSave.disabled = staged.length === 0;
+  const isEditing = !!editingId;
+  btnSave.textContent = staged.length > 0
+    ? (isEditing ? `✅ CẬP NHẬT BÀI (${staged.length} ảnh)` : `💾 LƯU BÀI (${staged.length} ảnh)`)
+    : '💾 LƯU BÀI';
+  btnSave.style.background = isEditing && staged.length > 0 ? '#2563eb' : '';
+  saveSub.textContent = staged.length > 0
+    ? (isEditing ? `✏️ Đang sửa bài — thêm/xóa ảnh rồi nhấn Cập nhật` : `${staged.length} ảnh sẵn sàng — điền thông tin rồi lưu`)
+    : 'Thêm ảnh ở Bước 1 trước khi lưu';
+
+  scroll.innerHTML = staged.map((s, i) => {
+    const orientIcon = s.orient === 'ngang' ? '↔' : s.orient === 'dọc' ? '↕' : '◻';
+    const orientColor = s.orient === 'ngang' ? '#2563eb' : s.orient === 'dọc' ? '#7c3aed' : '#059669';
+    return `
+    <div class="staged-item" id="sti-${s.id}"
+      draggable="true"
+      ondragstart="stDragStart(event,${i})"
+      ondragover="stDragOver(event,${i})"
+      ondragleave="stDragLeave(event,${i})"
+      ondrop="stDrop(event,${i})"
+      ondragend="stDragEnd(event)">
+      <div style="position:relative">
+        <img src="${s.dataUrl}" alt="" style="aspect-ratio:auto;height:auto;">
+        <span class="orient-badge" style="background:${orientColor}">${orientIcon} ${s.orient || '?'}${s.w ? ` ${s.w}×${s.h}` : ''}</span>
+      </div>
+      <div class="staged-item-bar">
+        <span class="staged-num">#${i+1}</span>
+        <div class="staged-item-btns">
+          <button onclick="moveStaged(${i},${i-1})" ${i===0?'disabled':''} title="Lên">↑</button>
+          <button onclick="moveStaged(${i},${i+1})" ${i===staged.length-1?'disabled':''} title="Xuống">↓</button>
+          <button class="del" onclick="removeStaged('${s.id}')" title="Xóa">✕</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function stDragStart(e, i) { stagedDragSrc = i; e.currentTarget.classList.add('dragging'); }
+function stDragOver(e, i) { e.preventDefault(); if (i !== stagedDragSrc) e.currentTarget.classList.add('drag-over'); }
+function stDragLeave(e, i) { e.currentTarget.classList.remove('drag-over'); }
+function stDrop(e, i) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (stagedDragSrc !== null && stagedDragSrc !== i) moveStaged(stagedDragSrc, i);
+  stagedDragSrc = null;
+}
+function stDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.staged-item').forEach(el => el.classList.remove('drag-over'));
+}
+
+// ========== SAVE ==========
+function saveLesson() {
+  if (!staged.length) return;
+  const lesson = parseInt(document.getElementById('f-lesson').value) || 1;
+  const unit   = parseInt(document.getElementById('f-unit').value) || 1;
+  const name   = document.getElementById('f-name').value.trim();
+
+  if (editingId) {
+    // Update existing lesson
+    const bai = lessons.find(b => b.id === editingId);
+    if (bai) {
+      bai.lesson = lesson;
+      bai.unit = unit;
+      bai.name = name;
+      bai.images = staged.map(s => s.dataUrl);
+      bai.imagesMeta = staged.map(s => ({ w: s.w||0, h: s.h||0, ratio: s.ratio||1, orient: s.orient||'?' }));
+    }
+    editingId = null;
+    toast(`✅ Đã cập nhật: Lesson ${lesson} | Unit ${unit}${name?' - '+name:''}`);
+  } else {
+    // Create new lesson
+    const bai = {
+      id: 'bai' + Date.now() + Math.random().toString(36).slice(2,5),
+      lesson, unit, name,
+      images: staged.map(s => s.dataUrl),
+      imagesMeta: staged.map(s => ({ w: s.w||0, h: s.h||0, ratio: s.ratio||1, orient: s.orient||'?' })),
+      createdAt: new Date().toISOString(),
+    };
+    lessons.push(bai);
+    toast(`✅ Đã lưu: Lesson ${lesson} | Unit ${unit}${name?' - '+name:''} (${bai.images.length} ảnh)`);
+  }
+
+  save();
+  staged = [];
+  renderStaged();
+  renderSaved();
+  document.getElementById('f-unit').value = unit + 1;
+}
+
+// ========== SAVED LIST ==========
+function renderSaved() {
+  const list = document.getElementById('saved-list');
+  document.getElementById('total-badge').textContent = lessons.length;
+
+  if (!lessons.length) {
+    list.innerHTML = '<div class="saved-empty"><span class="big-icon">📂</span>Chưa có bài nào được lưu.<br>Thêm ảnh và nhấn <strong>Lưu bài</strong> để bắt đầu!</div>';
+    updateSelCount();
+    return;
+  }
+
+  const grouped = {};
+  lessons.forEach(b => { if (!grouped[b.lesson]) grouped[b.lesson] = []; grouped[b.lesson].push(b); });
+
+  let html = '';
+  Object.keys(grouped).sort((a, b) => +a - +b).forEach(les => {
+    html += `<div class="lesson-group-lbl">📚 Lesson ${les}</div>`;
+    grouped[les].sort((a, b) => a.unit - b.unit || a.createdAt.localeCompare(b.createdAt)).forEach(bai => {
+      const chk = selectedIds.has(bai.id);
+      const label = `Unit ${bai.unit}${bai.name ? ' – ' + bai.name : ''}`;
+      const imgs = bai.images.slice(0, 3);
+      html += `
+        <div class="saved-card${chk?' selected':''}" id="sc-${bai.id}">
+          <input type="checkbox" class="saved-card-check" ${chk?'checked':''} 
+            onchange="toggleSel(event,'${bai.id}')" title="Chọn để in">
+          <div class="thumb-stack" onclick="openViewer('${bai.id}')" style="cursor:pointer">
+            ${imgs.map(img=>`<img src="${img}" alt="">`).join('')}
+          </div>
+          <div class="saved-card-info" onclick="openViewer('${bai.id}')" style="cursor:pointer">
+            <div class="saved-card-title">${label}</div>
+            <div class="saved-card-meta">${bai.images.length} ảnh</div>
+          </div>
+          <div class="saved-card-actions">
+            <button class="btn-print-one" onclick="editLesson('${bai.id}'); event.stopPropagation()">✏️ Sửa</button>
+            <button class="btn-print-one" onclick="printOne('${bai.id}')">🖨 In</button>
+            <button class="btn-del-one" onclick="askDel('${bai.id}')">🗑</button>
+          </div>
+        </div>`;
+    });
+  });
+
+  list.innerHTML = html;
+  updateSelCount();
+}
+
+function toggleSel(e, id) {
+  e.stopPropagation();
+  if (selectedIds.has(id)) selectedIds.delete(id);
+  else selectedIds.add(id);
+  const card = document.getElementById('sc-' + id);
+  if (card) {
+    card.classList.toggle('selected', selectedIds.has(id));
+    card.querySelector('.saved-card-check').checked = selectedIds.has(id);
+  }
+  updateSelCount();
+}
+
+function updateSelCount() {
+  document.getElementById('sel-count').textContent = selectedIds.size;
+  document.getElementById('btn-print-all').disabled = selectedIds.size === 0;
+}
+
+// ========== VIEWER ==========
+function openViewer(id) {
+  viewerId = id;
+  const bai = lessons.find(b => b.id === id);
+  if (!bai) return;
+  document.getElementById('viewer-title').textContent =
+    `Lesson ${bai.lesson} | Unit ${bai.unit}${bai.name?' – '+bai.name:''}  (${bai.images.length} ảnh)`;
+  renderViewerGrid(bai);
+  document.getElementById('viewer-overlay').classList.add('open');
+}
+function closeViewer(e) {
+  if (e.target === document.getElementById('viewer-overlay')) closeViewerDirect();
+}
+function closeViewerDirect() {
+  document.getElementById('viewer-overlay').classList.remove('open');
+  viewerId = null;
+}
+function renderViewerGrid(bai) {
+  document.getElementById('viewer-grid').innerHTML = bai.images.map((img, i) => `
+    <div class="viewer-img-item" id="vi-${i}"
+      draggable="true"
+      ondragstart="vDragStart(event,${i})"
+      ondragover="vDragOver(event,${i})"
+      ondragleave="vDragLeave(event,${i})"
+      ondrop="vDrop(event,${i},'${bai.id}')"
+      ondragend="vDragEnd(event)">
+      <img src="${img}" alt="">
+      <div class="viewer-img-footer">
+        <span class="viewer-img-num">Ảnh #${i+1}</span>
+        <div class="viewer-img-btns">
+          <button onclick="moveViewImg(${i},${i-1},'${bai.id}')" ${i===0?'disabled':''} title="Lên">↑</button>
+          <button onclick="moveViewImg(${i},${i+1},'${bai.id}')" ${i===bai.images.length-1?'disabled':''} title="Xuống">↓</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function moveViewImg(from, to, baiId) {
+  const bai = lessons.find(b => b.id === baiId);
+  if (!bai || to < 0 || to >= bai.images.length) return;
+  const [img] = bai.images.splice(from, 1);
+  bai.images.splice(to, 0, img);
+  save();
+  renderViewerGrid(bai);
+}
+function vDragStart(e,i) { viewerDragSrc=i; e.currentTarget.classList.add('dragging'); }
+function vDragOver(e,i) { e.preventDefault(); if(i!==viewerDragSrc) e.currentTarget.classList.add('drag-over'); }
+function vDragLeave(e,i) { e.currentTarget.classList.remove('drag-over'); }
+function vDrop(e,i,baiId) { e.preventDefault(); e.currentTarget.classList.remove('drag-over'); if(viewerDragSrc!==null&&viewerDragSrc!==i) moveViewImg(viewerDragSrc,i,baiId); viewerDragSrc=null; }
+function vDragEnd(e) { e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.viewer-img-item').forEach(el=>el.classList.remove('drag-over')); }
+
+// ========== LAYOUT ==========
+function setLayout(n) {
+  currentLayout = n;
+  [1,2,4].forEach(x => {
+    document.getElementById('lb'+x)?.classList.toggle('active', x===n);
+    document.getElementById('vlb'+x)?.classList.toggle('active', x===n);
+  });
+}
+
+// ========== EDIT LESSON ==========
+
+function editLesson(id) {
+  const bai = lessons.find(b => b.id === id);
+  if (!bai) return;
+
+  // Close viewer if open
+  closeViewerDirect();
+
+  // Store ID being edited
+  editingId = id;
+
+  // Load data into staging (with ratio info if available)
+  staged = bai.images.map((img, i) => {
+    const meta = bai.imagesMeta?.[i] || {};
+    return {
+      id: 'si_edit_' + i + '_' + Date.now(),
+      dataUrl: img,
+      w: meta.w || 0,
+      h: meta.h || 0,
+      ratio: meta.ratio || 1,
+      orient: meta.orient || '?',
+    };
+  });
+  document.getElementById('f-lesson').value = bai.lesson;
+  document.getElementById('f-unit').value = bai.unit;
+  document.getElementById('f-name').value = bai.name || '';
+
+  renderStaged();
+
+  // Scroll to top
+  document.querySelector('.workflow').scrollTo({ top: 0, behavior: 'smooth' });
+  toast('✏️ Đang chỉnh sửa bài — thêm/xóa/sắp xếp ảnh rồi nhấn Lưu.', 4000);
+}
+
+function editViewerLesson() {
+  if (viewerId) editLesson(viewerId);
+}
+
+// ========== PRINT (with preview) ==========
+let pendingPrintHtml = '';
+
+function printOne(id) {
+  const bai = lessons.find(b => b.id === id);
+  if (bai) showPreview([bai]);
+}
+function printCurrentViewer() {
+  if (!viewerId) return;
+  const bai = lessons.find(b => b.id === viewerId);
+  if (bai) showPreview([bai]);
+}
+function printSelected() {
+  const list = lessons.filter(b => selectedIds.has(b.id))
+    .sort((a,b) => a.lesson-b.lesson || a.unit-b.unit);
+  if (!list.length) return;
+  showPreview(list);
+}
+
+function buildPrintPages(items, n) {
+  let pages = [];
+  if (n === 1) {
+    items.forEach(it => pages.push([it]));
+  } else {
+    // Sort items within each lesson group by ratio for better page layout
+    // (landscape with landscape, portrait with portrait)
+    // But keep lesson headers at the start of their group
+    for (let i = 0; i < items.length; i += n) {
+      pages.push(items.slice(i, i + n));
+    }
+  }
+  return pages;
+}
+
+function renderPageHtml(pageItems, n) {
+  // Calculate max-height per image based on layout
+  // A4 printable area ≈ 257mm height. Minus header ~15mm, margins ~16mm → ~226mm usable
+  const maxHeightMm = n === 1 ? 226 : n === 2 ? 108 : 105; // per image
+  const maxHeightPx = maxHeightMm * 3.78; // approx px for preview
+
+  let inner = '';
+  if (n === 1) {
+    pageItems.forEach(it => {
+      inner += `${it.head ? `<div class="pp-head">${it.head}</div>` : ''}`;
+      inner += `<div class="pp-img-wrap"><img src="${it.img}" style="max-height:${maxHeightMm}mm;width:auto;max-width:100%;"></div>`;
+    });
+  } else {
+    const cols = n === 2 ? 1 : 2;
+    inner += `<div class="pp-smart-grid pp-cols-${cols}">`;
+    pageItems.forEach(it => {
+      inner += `<div class="pp-cell">`;
+      if (it.head) inner += `<div class="pp-head" style="${n===4?'font-size:9pt;margin-bottom:2mm':'font-size:10pt'}">${it.head}</div>`;
+      inner += `<img src="${it.img}" style="max-height:${maxHeightMm}mm;width:auto;max-width:100%;">`;
+      inner += `</div>`;
+    });
+    inner += `</div>`;
+  }
+  return inner;
+}
+
+function showPreview(baiList) {
+  const items = [];
+  baiList.forEach(bai => {
+    const head = `Lesson ${bai.lesson} | Unit ${bai.unit}${bai.name?' – '+bai.name:''}`;
+    bai.images.forEach((img, i) => {
+      const meta = bai.imagesMeta?.[i] || {};
+      items.push({ head: i===0?head:'', img, ratio: meta.ratio||1, orient: meta.orient||'?' });
+    });
+  });
+  const n = currentLayout;
+  const pages = buildPrintPages(items, n);
+
+  // Build preview pages
+  let previewHtml = '';
+  pages.forEach((pageItems, pi) => {
+    previewHtml += `<div class="preview-page" data-page-label="Trang ${pi+1}/${pages.length}">`;
+    previewHtml += renderPageHtml(pageItems, n);
+    previewHtml += `</div>`;
+  });
+
+  // Build print HTML
+  let printHtml = '';
+  pages.forEach(pageItems => {
+    printHtml += `<div class="pp">`;
+    printHtml += renderPageHtml(pageItems, n);
+    printHtml += `</div>`;
+  });
+
+  pendingPrintHtml = printHtml;
+
+  document.getElementById('preview-title').textContent = `📄 Xem trước khi in — ${items.length} ảnh, ${pages.length} trang`;
+  document.getElementById('preview-pages').innerHTML = previewHtml;
+  document.getElementById('preview-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  document.getElementById('preview-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function confirmPrint() {
+  closePreview();
+  document.getElementById('print-area').innerHTML = pendingPrintHtml;
+  setTimeout(() => window.print(), 100);
+}
+
+// ========== DELETE ==========
+function askDel(id) {
+  pendingDelId = id;
+  const bai = lessons.find(b=>b.id===id);
+  document.getElementById('del-msg').textContent =
+    `Bạn có chắc muốn xóa bài "Lesson ${bai?.lesson} | Unit ${bai?.unit}${bai?.name?' – '+bai.name:''}" (${bai?.images?.length||0} ảnh) không? Không thể hoàn tác.`;
+  document.getElementById('del-modal').classList.remove('hidden');
+}
+function closeDelModal() { pendingDelId=null; document.getElementById('del-modal').classList.add('hidden'); }
+function confirmDel() {
+  if (!pendingDelId) return;
+  lessons = lessons.filter(b=>b.id!==pendingDelId);
+  selectedIds.delete(pendingDelId);
+  save();
+  renderSaved();
+  closeDelModal();
+  toast('🗑 Đã xóa bài.');
+}
+document.getElementById('del-modal').addEventListener('click', e=>{
+  if (e.target===document.getElementById('del-modal')) closeDelModal();
+});
+
+// ========== STORAGE ==========
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(lessons)); updateStorage(); }
+  catch(e) { if(e.name==='QuotaExceededError') toast('⚠️ Bộ nhớ đầy! Hãy xuất backup rồi xóa bớt bài.',5000); }
+}
+function updateStorage() {
+  const raw = localStorage.getItem(KEY)||'';
+  const b = new Blob([raw]).size;
+  const pct = Math.min(b/(5*1024*1024)*100,100);
+  document.getElementById('storage-fill').style.width = pct+'%';
+  document.getElementById('storage-fill').className = 'storage-fill'+(pct>80?' danger':pct>60?' warn':'');
+  document.getElementById('storage-lbl').textContent = fmtB(b)+' / 5 MB';
+}
+function fmtB(b){
+  if(b<1024)return b+' B';
+  if(b<1024*1024)return(b/1024).toFixed(0)+' KB';
+  return(b/1024/1024).toFixed(1)+' MB';
+}
+
+// ========== EXPORT / IMPORT ==========
+function exportData() {
+  if(!lessons.length){toast('⚠️ Chưa có bài nào.');return;}
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(lessons,null,2)],{type:'application/json'}));
+  a.download='exercise-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('✅ Đã xuất '+lessons.length+' bài.');
+}
+function importData(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!Array.isArray(data))throw 0;
+      const ex=new Set(lessons.map(b=>b.id));
+      let added=0;
+      data.forEach(b=>{if(!ex.has(b.id)){lessons.push(b);added++;}});
+      save();renderSaved();
+      toast(`✅ Nhập xong: +${added} bài mới, bỏ qua ${data.length-added} bài trùng.`,4000);
+    }catch{toast('❌ File không đúng định dạng.',4000);}
+  };
+  r.readAsText(f);input.value='';
+}
+
+// ========== TOAST ==========
+let _tt;
+function toast(msg,d=3000){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),d);
+}
+</script>
+</body>
+</html>
