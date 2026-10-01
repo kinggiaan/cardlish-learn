@@ -1,0 +1,52 @@
+{
+  "unit": 6,
+  "title": "Our school facilities",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "city", "phonetic": "/ˈsɪti/", "meaning_vi": "thành phố" },
+      { "word": "mountains", "phonetic": "/ˈmaʊntənz/", "meaning_vi": "vùng núi" },
+      { "word": "town", "phonetic": "/taʊn/", "meaning_vi": "thị trấn" },
+      { "word": "village", "phonetic": "/ˈvɪlɪdʒ/", "meaning_vi": "ngôi làng" },
+      { "word": "computer room", "phonetic": "/kəmˈpjuːtə ruːm/", "meaning_vi": "phòng máy tính" },
+      { "word": "garden", "phonetic": "/ˈɡɑːdn/", "meaning_vi": "vườn" },
+      { "word": "playground", "phonetic": "/ˈpleɪɡraʊnd/", "meaning_vi": "sân chơi" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi và trả lời địa điểm trường / số lượng đồ vật",
+    "examples": [
+      { "en": "Where's your school?", "vi": "Trường bạn ở đâu?" },
+      { "en": "It's in the city.", "vi": "Nó ở trong thành phố." },
+      { "en": "It's in Nguyen Trai Street.", "vi": "Nó ở đường Nguyễn Trãi." },
+      { "en": "My school is in Nguyen Trai Street.", "vi": "Trường tôi ở đường Nguyễn Trãi." },
+      { "en": "How many gardens are there at your school?", "vi": "Có bao nhiêu cái vườn ở trong trường của bạn?" },
+      { "en": "There's one garden at my school.", "vi": "Có một cái vườn ở trong trường của tớ." },
+      { "en": "How many buildings are there at your school?", "vi": "Có bao nhiêu toà nhà ở trường của bạn?" },
+      { "en": "There are three.", "vi": "Có 3." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "s",
+        "label": "Cách phát âm s",
+        "examples": [
+          { "word": "gardens", "phonetic": "/ˈɡɑːrdnz/" },
+          { "word": "flowers", "phonetic": "/ˈflaʊərz/" },
+          { "word": "towns", "phonetic": "/taʊnz/" }
+        ]
+      },
+      {
+        "suffix": "es",
+        "label": "Cách phát âm es",
+        "examples": [
+          { "word": "garages", "phonetic": "/ɡəˈrɑːdʒiz/" },
+          { "word": "villages", "phonetic": "/ˈvɪlɪdʒiz/" },
+          { "word": "horses", "phonetic": "/hɔːrsiz/" }
+        ]
+      }
+    ]
+  }
+}

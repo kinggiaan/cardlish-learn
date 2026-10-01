@@ -1,0 +1,54 @@
+{
+  "unit": 8,
+  "title": "My favourite subjects",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "IT (information technology)", "phonetic": "/aɪ ˈtiː/ (/ˌɪnfəˌmeɪʃn tekˈnɒlədʒi/)", "meaning_vi": "môn Tin học, môn Công nghệ thông tin" },
+      { "word": "PE (physical education)", "phonetic": "/ˌpiː ˈiː/ (/ˌfɪzɪkl edʒuˈkeɪʃn/)", "meaning_vi": "môn Thể dục, môn Giáo dục thể chất" },
+      { "word": "English teacher", "phonetic": "/(ˈɪŋɡlɪʃ) ˈtiːtʃə/", "meaning_vi": "giáo viên dạy Tiếng Anh" },
+      { "word": "maths teacher", "phonetic": "/(mæθs) ˈtiːtʃə/", "meaning_vi": "giáo viên dạy Toán" },
+      { "word": "because", "phonetic": "/bɪˈkɒz/", "meaning_vi": "bởi vì" },
+      { "word": "why", "phonetic": "/waɪ/", "meaning_vi": "tại sao" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi về môn học yêu thích và lý do",
+    "examples": [
+      { "en": "What's your favourite subject?", "vi": "Môn học yêu thích của bạn là gì?" },
+      { "en": "It's English.", "vi": "Đó là môn Tiếng Anh." },
+      { "en": "It's Science.", "vi": "Đó là môn Khoa học." },
+      { "en": "Why do you like English?", "vi": "Tại sao bạn thích môn Tiếng Anh?" },
+      { "en": "Because I want to be an English teacher.", "vi": "Bởi vì tớ muốn trở thành giáo viên dạy Tiếng Anh." },
+      { "en": "Why do you like Maths?", "vi": "Vì sao bạn thích môn Toán?" },
+      { "en": "Because I want to be a Maths teacher.", "vi": "Bởi vì tớ muốn trở thành giáo viên dạy Toán." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "ke",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "bike", "phonetic": "/baɪk/" },
+          { "word": "cake", "phonetic": "/keɪk/" },
+          { "word": "take", "phonetic": "/teɪk/" },
+          { "word": "like", "phonetic": "/laɪk/" },
+          { "word": "lake", "phonetic": "/leɪk/" }
+        ]
+      },
+      {
+        "suffix": "te",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "write", "phonetic": "/raɪt/" },
+          { "word": "white", "phonetic": "/waɪt/" },
+          { "word": "invite", "phonetic": "/ɪnˈvaɪt/" },
+          { "word": "plate", "phonetic": "/pleɪt/" },
+          { "word": "skate", "phonetic": "/skeɪt/" }
+        ]
+      }
+    ]
+  }
+}

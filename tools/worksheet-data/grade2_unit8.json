@@ -1,0 +1,44 @@
+{
+  "unit": 8,
+  "title": "Unit 8",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "village",
+        "phonetic": "/ˈvɪlɪdʒ/",
+        "meaning_vi": "ngôi làng",
+        "image": "images/grade2/unit8/village1.png"
+      },
+      {
+        "word": "van",
+        "phonetic": "/væn/",
+        "meaning_vi": "xe tải",
+        "image": "images/grade2/unit8/van1.png"
+      },
+      {
+        "word": "volleyball",
+        "phonetic": "/ˈvɑːlibɔːl/",
+        "meaning_vi": "bóng chuyền",
+        "image": "images/grade2/unit8/volleyball1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'I can... / Can you...?'",
+    "examples": [
+      { "en": "I can count numbers.", "vi": "Mình có thể đếm số." },
+      { "en": "I can spell words.", "vi": "Mình có thể đánh vần từ." },
+      { "en": "I can draw pictures on Tuesday.", "vi": "Mình có thể vẽ tranh vào thứ Ba." },
+      { "en": "Can you draw a van?", "vi": "Bạn có biết vẽ chiếc xe tải không?" },
+      { "en": "Yes, I can.", "vi": "Có." },
+      { "en": "No, I can't.", "vi": "Không." }
+    ]
+  },
+  "phonics": {
+    "letter": "V",
+    "sound": "/v/",
+    "description_vi": "Học phát âm chữ cái V - âm /v/"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "unit": 7,
+  "title": "Unit 7",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "juice",
+        "phonetic": "/dʒuːs/",
+        "meaning_vi": "nước ép",
+        "image": "images/grade2/unit7/juice1.png"
+      },
+      {
+        "word": "jelly",
+        "phonetic": "/ˈdʒeli/",
+        "meaning_vi": "thạch",
+        "image": "images/grade2/unit7/jelly1.png"
+      },
+      {
+        "word": "jam",
+        "phonetic": "/dʒæm/",
+        "meaning_vi": "mứt",
+        "image": "images/grade2/unit7/jam1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'Pass me..., please.' / Mời ăn uống",
+    "examples": [
+      { "en": "Pass me the jam, please.", "vi": "Hãy đưa cho mình lọ mứt." },
+      { "en": "Pass me the juice, please.", "vi": "Hãy đưa cho mình cốc nước ép." },
+      { "en": "Here you are.", "vi": "Của bạn đây." },
+      { "en": "Banana?", "vi": "Bạn ăn chuối không?" },
+      { "en": "No, thank you.", "vi": "Mình không, cảm ơn." },
+      { "en": "Cookie?", "vi": "Bạn ăn bánh quy không?" },
+      { "en": "Yes, please.", "vi": "Mình có." }
+    ]
+  },
+  "phonics": {
+    "letter": "J",
+    "sound": "/dʒ/",
+    "description_vi": "Học phát âm chữ cái J - âm /dʒ/"
+  }
+}

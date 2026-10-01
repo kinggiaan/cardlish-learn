@@ -1,0 +1,53 @@
+{
+  "unit": 11,
+  "title": "My home",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "road", "phonetic": "/rəʊd/", "meaning_vi": "con đường, đường phố" },
+      { "word": "street", "phonetic": "/striːt/", "meaning_vi": "phố, đường phố" },
+      { "word": "big", "phonetic": "/bɪɡ/", "meaning_vi": "to, lớn (kích thước)" },
+      { "word": "busy", "phonetic": "/ˈbɪzi/", "meaning_vi": "bận rộn, nhộn nhịp" },
+      { "word": "live", "phonetic": "/lɪv/", "meaning_vi": "sống" },
+      { "word": "noisy", "phonetic": "/ˈnɔɪzi/", "meaning_vi": "ồn ào, om sòm, huyên náo" },
+      { "word": "quiet", "phonetic": "/ˈkwaɪət/", "meaning_vi": "yên tĩnh, tĩnh mịch" },
+      { "word": "at, in (+ name of the street / road)", "phonetic": "/ət/, /ɪn/", "meaning_vi": "ở, tại" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi và trả lời về địa điểm đang sinh sống / đặc điểm của một nơi",
+    "examples": [
+      { "en": "Where do you live?", "vi": "Bạn sống ở đâu?" },
+      { "en": "I live in Flat 9.", "vi": "Tớ sống ở căn hộ số 9." },
+      { "en": "I live in Ha Noi.", "vi": "Tớ sống ở Hà Nội." },
+      { "en": "I live at 45 Kim Ma Street.", "vi": "Tớ sống ở số nhà 45 phố Kim Mã." },
+      { "en": "What's the street like?", "vi": "Phố đó như thế nào?" },
+      { "en": "It's busy.", "vi": "Nó nhộn nhịp." },
+      { "en": "What's the town like?", "vi": "Thị trấn đó như thế nào?" },
+      { "en": "It's big and pretty.", "vi": "Nó to và đẹp." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "i",
+        "label": "Cách phát âm i = /ɪ/",
+        "examples": [
+          { "word": "big", "phonetic": "/bɪɡ/" },
+          { "word": "chicken", "phonetic": "/ˈtʃɪk.ɪn/" },
+          { "word": "six", "phonetic": "/sɪks/" }
+        ]
+      },
+      {
+        "suffix": "ee",
+        "label": "Cách phát âm ee = /iː/",
+        "examples": [
+          { "word": "bee", "phonetic": "/biː/" },
+          { "word": "meet", "phonetic": "/miːt/" },
+          { "word": "street", "phonetic": "/striːt/" }
+        ]
+      }
+    ]
+  }
+}

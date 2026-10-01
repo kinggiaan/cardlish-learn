@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Trang Tô Màu - Cardlish</title>
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0f0f1a;
+            --surface: #1a1a2e;
+            --surface-2: #252540;
+            --border: #3a3a5c;
+            --text: #e8e8f0;
+            --text-dim: #8888aa;
+            --accent: #7c5bf5;
+            --accent-hover: #9370ff;
+            --accent-glow: rgba(124, 91, 245, 0.3);
+            --success: #4ecdc4;
+            --warning: #f7b731;
+            --danger: #fc5c65;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-icon { font-size: 28px; }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p { color: var(--text-dim); font-size: 13px; }
+
+        /* ===== Layout ===== */
+        .app {
+            display: flex;
+            height: calc(100vh - 72px);
+        }
+
+        /* ===== Sidebar Controls ===== */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-group label span {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            background: var(--surface-2);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-glow);
+            transition: transform 0.15s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            text-align: center;
+        }
+
+        input[type="number"]:focus { border-color: var(--accent); }
+
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        select:focus { border-color: var(--accent); }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #6344cc);
+            color: white;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px var(--accent-glow); }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #38b2ac);
+            color: white;
+        }
+
+        .btn-success:hover { transform: translateY(-2px); }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #e74c3c);
+            color: white;
+        }
+
+        .btn-danger:hover { transform: translateY(-2px); }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover { border-color: var(--accent); background: rgba(124, 91, 245, 0.1); }
+
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 8px; }
+
+        .separator { height: 1px; background: var(--border); margin: 2px 0; }
+
+        /* Toggle */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .toggle-row label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle { position: relative; width: 40px; height: 22px; }
+
+        .toggle input { opacity: 0; width: 0; height: 0; }
+
+        .toggle .slider-toggle {
+            position: absolute;
+            inset: 0;
+            background: var(--surface-2);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle .slider-toggle::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked + .slider-toggle { background: var(--accent); }
+
+        .toggle input:checked + .slider-toggle::before { transform: translateX(18px); background: white; }
+
+        /* ===== Grid layout presets ===== */
+        .layout-presets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .layout-preset {
+            padding: 6px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-dim);
+            transition: all 0.2s;
+        }
+
+        .layout-preset:hover { border-color: var(--accent); color: var(--text); }
+
+        .layout-preset.active {
+            border-color: var(--accent);
+            background: rgba(124, 91, 245, 0.15);
+            color: var(--accent);
+        }
+
+        .layout-preset .num { font-size: 16px; font-weight: 700; display: block; }
+
+        /* ===== Main Area ===== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            padding: 10px 20px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .toolbar .info { color: var(--text-dim); }
+        .toolbar .info strong { color: var(--accent); }
+
+        /* Grid area */
+        .grid-area {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .image-grid {
+            display: grid;
+            gap: 12px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Slot */
+        .slot {
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slot:hover { border-color: var(--accent); background: rgba(124, 91, 245, 0.05); }
+
+        .slot.selected { border-color: var(--accent); border-style: solid; box-shadow: 0 0 0 2px var(--accent-glow); }
+
+        .slot.filled { border-style: solid; border-color: var(--border); cursor: default; }
+
+        .slot.processed { border-color: var(--success); }
+
+        .slot-placeholder {
+            text-align: center;
+            color: var(--text-dim);
+            pointer-events: none;
+        }
+
+        .slot-placeholder .icon { font-size: 28px; display: block; margin-bottom: 4px; }
+
+        .slot-placeholder .text { font-size: 11px; }
+
+        .slot-number {
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-dim);
+            background: var(--surface-2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .slot-remove {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 24px;
+            height: 24px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .slot.filled:hover .slot-remove { display: flex; }
+
+        .slot canvas, .slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Status bar */
+        .status-bar {
+            padding: 6px 20px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            body { background: white !important; }
+            .header, .sidebar, .toolbar, .status-bar { display: none !important; }
+            .app { height: auto !important; }
+            .main { overflow: visible !important; }
+
+            .grid-area {
+                padding: 0 !important;
+                overflow: visible !important;
+            }
+
+            .image-grid {
+                max-width: 100% !important;
+                gap: 4mm !important;
+            }
+
+            .slot {
+                border: 0.5pt solid #ccc !important;
+                border-radius: 2mm !important;
+                background: white !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+
+            .slot-placeholder, .slot-number, .slot-remove { display: none !important; }
+
+            .slot:not(.processed) { display: none !important; }
+
+            .slot canvas {
+                position: absolute !important;
+                inset: 2mm !important;
+                width: calc(100% - 4mm) !important;
+                height: calc(100% - 4mm) !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 8mm;
+            }
+        }
+
+        /* ===== Processing overlay ===== */
+        .processing-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 15, 26, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .processing-overlay.active { display: flex; }
+
+        .processing-spinner { text-align: center; }
+
+        .processing-spinner .spinner {
+            width: 44px;
+            height: 44px;
+            border: 4px solid var(--surface-2);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #fileInput { display: none; }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <span class="header-icon">🎨</span>
+    <div>
+        <h1>Tạo Trang Tô Màu</h1>
+        <p>Dán ảnh từ clipboard → chuyển thành tranh tô màu cho bé</p>
+    </div>
+</div>
+
+<div class="app">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Layout presets -->
+        <div class="control-group">
+            <label>Số ảnh trên trang</label>
+            <div class="layout-presets">
+                <div class="layout-preset" data-count="4" data-cols="2">
+                    <span class="num">4</span>2×2
+                </div>
+                <div class="layout-preset" data-count="6" data-cols="3">
+                    <span class="num">6</span>3×2
+                </div>
+                <div class="layout-preset" data-count="8" data-cols="4">
+                    <span class="num">8</span>4×2
+                </div>
+                <div class="layout-preset" data-count="9" data-cols="3">
+                    <span class="num">9</span>3×3
+                </div>
+                <div class="layout-preset active" data-count="10" data-cols="5">
+                    <span class="num">10</span>5×2
+                </div>
+                <div class="layout-preset" data-count="12" data-cols="4">
+                    <span class="num">12</span>4×3
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Tuỳ chỉnh</label>
+            <div style="display:flex; gap:8px;">
+                <div style="flex:1;">
+                    <input type="number" id="customCols" min="1" max="8" value="5" placeholder="Cột">
+                    <div style="font-size:10px; color:var(--text-dim); text-align:center; margin-top:2px;">Cột</div>
+                </div>
+                <div style="flex:1;">
+                    <input type="number" id="customRows" min="1" max="8" value="2" placeholder="Hàng">
+                    <div style="font-size:10px; color:var(--text-dim); text-align:center; margin-top:2px;">Hàng</div>
+                </div>
+                <button class="btn btn-outline" id="btnApplyCustom" style="flex:0 0 auto; padding:8px 12px; font-size:12px;">OK</button>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Algorithm -->
+        <div class="control-group">
+            <label>Kiểu xử lý</label>
+            <select id="algorithm">
+                <option value="sobel">Sobel (nét viền rõ)</option>
+                <option value="laplacian">Laplacian (chi tiết)</option>
+                <option value="canny">Canny-like (sạch)</option>
+            </select>
+        </div>
+
+        <!-- Blur -->
+        <div class="control-group">
+            <label>Làm mịn <span id="blurVal">2</span></label>
+            <input type="range" id="blur" min="0" max="8" value="2" step="1">
+        </div>
+
+        <!-- Threshold -->
+        <div class="control-group">
+            <label>Ngưỡng nét <span id="thresholdVal">30</span></label>
+            <input type="range" id="threshold" min="5" max="120" value="30" step="1">
+        </div>
+
+        <!-- Line thickness -->
+        <div class="control-group">
+            <label>Độ dày nét <span id="thicknessVal">1</span></label>
+            <input type="range" id="thickness" min="1" max="5" value="1" step="1">
+        </div>
+
+        <!-- Contrast -->
+        <div class="control-group">
+            <label>Tương phản <span id="contrastVal">1.0</span></label>
+            <input type="range" id="contrast" min="0.5" max="3.0" value="1.0" step="0.1">
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="toggle-row">
+            <label>Nét đen / nền trắng</label>
+            <div class="toggle">
+                <input type="checkbox" id="invert" checked>
+                <span class="slider-toggle"></span>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <!-- Actions -->
+        <div class="btn-group">
+            <button class="btn btn-primary" id="btnProcessAll">✨ Xử lý tất cả</button>
+            <button class="btn btn-success" id="btnPrint" disabled>🖨️ In trang A4</button>
+            <button class="btn btn-outline" id="btnFile">📁 Thêm ảnh từ file</button>
+            <button class="btn btn-danger" id="btnClearAll">🗑️ Xoá tất cả</button>
+        </div>
+
+        <input type="file" id="fileInput" accept="image/*" multiple>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <span class="info">
+                Đã dán: <strong id="countFilled">0</strong> / <strong id="countTotal">10</strong> ảnh
+            </span>
+            <span class="info" style="margin-left: auto;">
+                💡 Nhấn vào ô trống → <kbd style="background:var(--surface-2); padding:2px 6px; border-radius:4px;">Ctrl+V</kbd> để dán ảnh
+            </span>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid-area">
+            <div class="image-grid" id="imageGrid"></div>
+        </div>
+
+        <!-- Status -->
+        <div class="status-bar">
+            <span id="statusText">Sẵn sàng — chọn ô rồi dán ảnh (Ctrl+V)</span>
+        </div>
+    </div>
+</div>
+
+<!-- Processing Overlay -->
+<div class="processing-overlay" id="processingOverlay">
+    <div class="processing-spinner">
+        <div class="spinner"></div>
+        <p id="processingText">Đang xử lý ảnh...</p>
+    </div>
+</div>
+
+<!-- Hidden canvases -->
+<canvas id="srcCanvas" style="display:none;"></canvas>
+
+<script>
+// ===== State =====
+const slots = []; // { img: HTMLImageElement|null, dataUrl: string|null, processed: boolean }
+let selectedSlotIndex = 0;
+let gridCols = 5;
+let gridRows = 2;
+
+// ===== DOM =====
+const $ = id => document.getElementById(id);
+const imageGrid = $('imageGrid');
+const processingOverlay = $('processingOverlay');
+const processingText = $('processingText');
+const statusText = $('statusText');
+const countFilled = $('countFilled');
+const countTotal = $('countTotal');
+const srcCanvas = $('srcCanvas');
+const fileInput = $('fileInput');
+
+const sliderBlur = $('blur');
+const sliderThreshold = $('threshold');
+const sliderThickness = $('thickness');
+const sliderContrast = $('contrast');
+const chkInvert = $('invert');
+const selAlgorithm = $('algorithm');
+
+// Slider displays
+sliderBlur.oninput = () => $('blurVal').textContent = sliderBlur.value;
+sliderThreshold.oninput = () => $('thresholdVal').textContent = sliderThreshold.value;
+sliderThickness.oninput = () => $('thicknessVal').textContent = sliderThickness.value;
+sliderContrast.oninput = () => $('contrastVal').textContent = parseFloat(sliderContrast.value).toFixed(1);
+
+// ===== Grid Management =====
+function buildGrid() {
+    const total = gridCols * gridRows;
+    imageGrid.innerHTML = '';
+    imageGrid.style.gridTemplateColumns = `repeat(${gridCols}, 1fr)`;
+
+    // Preserve existing slot data, expand or truncate
+    while (slots.length < total) {
+        slots.push({ img: null, dataUrl: null, processed: false });
+    }
+    // Don't remove slots if we shrink — just hide them
+
+    for (let i = 0; i < total; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'slot' + (i === selectedSlotIndex ? ' selected' : '');
+        slot.dataset.index = i;
+
+        // Slot number
+        const num = document.createElement('div');
+        num.className = 'slot-number';
+        num.textContent = i + 1;
+        slot.appendChild(num);
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'slot-remove';
+        removeBtn.innerHTML = '×';
+        removeBtn.onclick = (e) => { e.stopPropagation(); removeSlot(i); };
+        slot.appendChild(removeBtn);
+
+        if (slots[i].dataUrl) {
+            slot.classList.add('filled');
+            if (slots[i].processed) {
+                slot.classList.add('processed');
+                // Show canvas
+                const canvas = document.createElement('canvas');
+                slot.appendChild(canvas);
+                // Re-render will happen in processAll or we store the canvas data
+                // For now, just show the original as a thumbnail
+                const img = document.createElement('img');
+                img.src = slots[i].dataUrl;
+                img.style.display = 'none';
+                slot.appendChild(img);
+                // Copy canvas data
+                if (slots[i].canvasData) {
+                    requestAnimationFrame(() => {
+                        canvas.width = slots[i].canvasWidth;
+                        canvas.height = slots[i].canvasHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.putImageData(slots[i].canvasData, 0, 0);
+                    });
+                }
+            } else {
+                // Show original image
+                const img = document.createElement('img');
+                img.src = slots[i].dataUrl;
+                slot.appendChild(img);
+            }
+        } else {
+            // Placeholder
+            const ph = document.createElement('div');
+            ph.className = 'slot-placeholder';
+            ph.innerHTML = '<span class="icon">📋</span><span class="text">Ctrl+V</span>';
+            slot.appendChild(ph);
+        }
+
+        slot.addEventListener('click', () => selectSlot(i));
+        imageGrid.appendChild(slot);
+    }
+
+    countTotal.textContent = total;
+    updateCount();
+}
+
+function selectSlot(index) {
+    selectedSlotIndex = index;
+    document.querySelectorAll('.slot').forEach((s, i) => {
+        s.classList.toggle('selected', i === index);
+    });
+    statusText.textContent = `Ô #${index + 1} được chọn — dán ảnh bằng Ctrl+V`;
+}
+
+function removeSlot(index) {
+    slots[index] = { img: null, dataUrl: null, processed: false };
+    buildGrid();
+    statusText.textContent = `Đã xoá ảnh ô #${index + 1}`;
+}
+
+function updateCount() {
+    const total = gridCols * gridRows;
+    const filled = slots.slice(0, total).filter(s => s.dataUrl).length;
+    countFilled.textContent = filled;
+    $('btnPrint').disabled = !slots.some(s => s.processed);
+}
+
+function getNextEmptySlot() {
+    const total = gridCols * gridRows;
+    // Start from selected, then wrap around
+    for (let i = 0; i < total; i++) {
+        const idx = (selectedSlotIndex + i) % total;
+        if (!slots[idx].dataUrl) return idx;
+    }
+    return -1; // all full
+}
+
+// ===== Layout Presets =====
+document.querySelectorAll('.layout-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.layout-preset').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        gridCols = parseInt(btn.dataset.cols);
+        gridRows = parseInt(btn.dataset.count) / gridCols;
+        $('customCols').value = gridCols;
+        $('customRows').value = gridRows;
+        selectedSlotIndex = 0;
+        buildGrid();
+    });
+});
+
+$('btnApplyCustom').addEventListener('click', () => {
+    gridCols = Math.max(1, Math.min(8, parseInt($('customCols').value) || 5));
+    gridRows = Math.max(1, Math.min(8, parseInt($('customRows').value) || 2));
+    $('customCols').value = gridCols;
+    $('customRows').value = gridRows;
+    document.querySelectorAll('.layout-preset').forEach(b => b.classList.remove('active'));
+    selectedSlotIndex = 0;
+    buildGrid();
+});
+
+// ===== Paste from clipboard =====
+document.addEventListener('paste', (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    for (const item of items) {
+        if (item.type.startsWith('image/')) {
+            e.preventDefault();
+            const blob = item.getAsFile();
+            addImageFromBlob(blob);
+            return;
+        }
+    }
+});
+
+// ===== Drag & Drop (on whole grid area) =====
+document.querySelector('.grid-area').addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+document.querySelector('.grid-area').addEventListener('drop', (e) => {
+    e.preventDefault();
+    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    files.forEach(f => addImageFromBlob(f));
+});
+
+// ===== File input =====
+$('btnFile').addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => {
+    Array.from(fileInput.files).forEach(f => addImageFromBlob(f));
+    fileInput.value = '';
+});
+
+// ===== Add image =====
+function addImageFromBlob(blob) {
+    const idx = getNextEmptySlot();
+    if (idx === -1) {
+        statusText.textContent = '⚠️ Tất cả ô đã có ảnh — xoá bớt hoặc tăng số ô';
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        const img = new Image();
+        img.onload = () => {
+            slots[idx] = { img, dataUrl, processed: false, canvasData: null };
+            // Move selection to next empty
+            selectedSlotIndex = idx;
+            buildGrid();
+            const next = getNextEmptySlot();
+            if (next !== -1) selectSlot(next);
+            statusText.textContent = `✅ Đã dán ảnh vào ô #${idx + 1} (${img.naturalWidth}×${img.naturalHeight})`;
+        };
+        img.src = dataUrl;
+    };
+    reader.readAsDataURL(blob);
+}
+
+// ===== Process All =====
+$('btnProcessAll').addEventListener('click', processAll);
+
+async function processAll() {
+    const total = gridCols * gridRows;
+    const toProcess = [];
+    for (let i = 0; i < total; i++) {
+        if (slots[i].dataUrl && slots[i].img) toProcess.push(i);
+    }
+
+    if (toProcess.length === 0) {
+        statusText.textContent = '⚠️ Chưa có ảnh nào để xử lý';
+        return;
+    }
+
+    processingOverlay.classList.add('active');
+
+    for (let n = 0; n < toProcess.length; n++) {
+        const i = toProcess[n];
+        processingText.textContent = `Đang xử lý ảnh ${n + 1}/${toProcess.length}...`;
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+        try {
+            const result = processImage(slots[i].img);
+            slots[i].processed = true;
+            slots[i].canvasData = result.imageData;
+            slots[i].canvasWidth = result.width;
+            slots[i].canvasHeight = result.height;
+        } catch (err) {
+            console.error(`Error processing slot ${i}:`, err);
+        }
+    }
+
+    processingOverlay.classList.remove('active');
+    buildGrid();
+    statusText.textContent = `✅ Đã xử lý ${toProcess.length} ảnh xong!`;
+}
+
+function processImage(img) {
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
+
+    srcCanvas.width = w;
+    srcCanvas.height = h;
+    const ctx = srcCanvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const pixels = imageData.data;
+
+    // 1. Grayscale
+    const gray = new Float32Array(w * h);
+    for (let i = 0; i < w * h; i++) {
+        const idx = i * 4;
+        gray[i] = 0.299 * pixels[idx] + 0.587 * pixels[idx + 1] + 0.114 * pixels[idx + 2];
+    }
+
+    // 2. Contrast
+    const contrastVal = parseFloat(sliderContrast.value);
+    if (contrastVal !== 1.0) {
+        const mean = gray.reduce((a, b) => a + b, 0) / gray.length;
+        for (let i = 0; i < gray.length; i++) {
+            gray[i] = Math.min(255, Math.max(0, mean + (gray[i] - mean) * contrastVal));
+        }
+    }
+
+    // 3. Blur
+    const blurRadius = parseInt(sliderBlur.value);
+    let blurred = gray;
+    if (blurRadius > 0) blurred = gaussianBlur(gray, w, h, blurRadius);
+
+    // 4. Edge detection
+    let edges;
+    switch (selAlgorithm.value) {
+        case 'sobel': edges = sobelEdge(blurred, w, h); break;
+        case 'laplacian': edges = laplacianEdge(blurred, w, h); break;
+        case 'canny': edges = cannyLikeEdge(blurred, w, h); break;
+        default: edges = sobelEdge(blurred, w, h);
+    }
+
+    // 5. Threshold
+    const threshold = parseInt(sliderThreshold.value);
+    const invert = chkInvert.checked;
+    for (let i = 0; i < edges.length; i++) {
+        let v = edges[i] > threshold ? 0 : 255;
+        if (!invert) v = 255 - v;
+        edges[i] = v;
+    }
+
+    // 6. Thicken
+    const thickness = parseInt(sliderThickness.value);
+    let finalEdges = edges;
+    if (thickness > 1) finalEdges = thickenLines(edges, w, h, thickness, invert);
+
+    // Build output ImageData
+    const outData = new ImageData(w, h);
+    for (let i = 0; i < w * h; i++) {
+        const idx = i * 4;
+        outData.data[idx] = finalEdges[i];
+        outData.data[idx + 1] = finalEdges[i];
+        outData.data[idx + 2] = finalEdges[i];
+        outData.data[idx + 3] = 255;
+    }
+
+    return { imageData: outData, width: w, height: h };
+}
+
+// ===== Image Processing Algorithms =====
+function gaussianBlur(data, w, h, radius) {
+    const size = radius * 2 + 1;
+    const kernel = new Float32Array(size);
+    const sigma = radius / 2;
+    let sum = 0;
+    for (let i = 0; i < size; i++) {
+        const x = i - radius;
+        kernel[i] = Math.exp(-(x * x) / (2 * sigma * sigma));
+        sum += kernel[i];
+    }
+    for (let i = 0; i < size; i++) kernel[i] /= sum;
+
+    const temp = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            let val = 0;
+            for (let k = 0; k < size; k++) {
+                const sx = Math.min(w - 1, Math.max(0, x + k - radius));
+                val += data[y * w + sx] * kernel[k];
+            }
+            temp[y * w + x] = val;
+        }
+    }
+
+    const result = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            let val = 0;
+            for (let k = 0; k < size; k++) {
+                const sy = Math.min(h - 1, Math.max(0, y + k - radius));
+                val += temp[sy * w + x] * kernel[k];
+            }
+            result[y * w + x] = val;
+        }
+    }
+    return result;
+}
+
+function sobelEdge(data, w, h) {
+    const edges = new Float32Array(w * h);
+    for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+            const tl = data[(y-1)*w+(x-1)], t = data[(y-1)*w+x], tr = data[(y-1)*w+(x+1)];
+            const l = data[y*w+(x-1)], r = data[y*w+(x+1)];
+            const bl = data[(y+1)*w+(x-1)], b = data[(y+1)*w+x], br = data[(y+1)*w+(x+1)];
+            const gx = -tl - 2*l - bl + tr + 2*r + br;
+            const gy = -tl - 2*t - tr + bl + 2*b + br;
+            edges[y*w+x] = Math.sqrt(gx*gx + gy*gy);
+        }
+    }
+    return edges;
+}
+
+function laplacianEdge(data, w, h) {
+    const edges = new Float32Array(w * h);
+    for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+            const c = data[y*w+x];
+            edges[y*w+x] = Math.abs(data[(y-1)*w+x] + data[(y+1)*w+x] + data[y*w+(x-1)] + data[y*w+(x+1)] - 4*c);
+        }
+    }
+    return edges;
+}
+
+function cannyLikeEdge(data, w, h) {
+    const mag = new Float32Array(w * h);
+    const dir = new Float32Array(w * h);
+
+    for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+            const tl = data[(y-1)*w+(x-1)], t = data[(y-1)*w+x], tr = data[(y-1)*w+(x+1)];
+            const l = data[y*w+(x-1)], r = data[y*w+(x+1)];
+            const bl = data[(y+1)*w+(x-1)], b = data[(y+1)*w+x], br = data[(y+1)*w+(x+1)];
+            const gx = -tl - 2*l - bl + tr + 2*r + br;
+            const gy = -tl - 2*t - tr + bl + 2*b + br;
+            mag[y*w+x] = Math.sqrt(gx*gx + gy*gy);
+            dir[y*w+x] = Math.atan2(gy, gx);
+        }
+    }
+
+    // Non-maximum suppression
+    const nms = new Float32Array(w * h);
+    for (let y = 1; y < h - 1; y++) {
+        for (let x = 1; x < w - 1; x++) {
+            const m = mag[y*w+x];
+            const a = ((dir[y*w+x] * 180 / Math.PI) % 180 + 180) % 180;
+            let n1 = 0, n2 = 0;
+
+            if (a < 22.5 || a >= 157.5) {
+                n1 = mag[y*w+(x-1)]; n2 = mag[y*w+(x+1)];
+            } else if (a < 67.5) {
+                n1 = mag[(y-1)*w+(x+1)]; n2 = mag[(y+1)*w+(x-1)];
+            } else if (a < 112.5) {
+                n1 = mag[(y-1)*w+x]; n2 = mag[(y+1)*w+x];
+            } else {
+                n1 = mag[(y-1)*w+(x-1)]; n2 = mag[(y+1)*w+(x+1)];
+            }
+
+            nms[y*w+x] = (m >= n1 && m >= n2) ? m : 0;
+        }
+    }
+    return nms;
+}
+
+function thickenLines(data, w, h, thickness, invert) {
+    const result = new Float32Array(data);
+    const lineColor = invert ? 0 : 255;
+    const r = Math.floor(thickness / 2);
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            if (data[y*w+x] === lineColor) {
+                for (let dy = -r; dy <= r; dy++) {
+                    for (let dx = -r; dx <= r; dx++) {
+                        const ny = y+dy, nx = x+dx;
+                        if (ny >= 0 && ny < h && nx >= 0 && nx < w) {
+                            result[ny*w+nx] = lineColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+
+// ===== Print =====
+$('btnPrint').addEventListener('click', () => window.print());
+
+// ===== Clear All =====
+$('btnClearAll').addEventListener('click', () => {
+    const total = gridCols * gridRows;
+    for (let i = 0; i < total; i++) {
+        slots[i] = { img: null, dataUrl: null, processed: false };
+    }
+    selectedSlotIndex = 0;
+    buildGrid();
+    statusText.textContent = 'Đã xoá tất cả ảnh';
+});
+
+// ===== Init =====
+buildGrid();
+</script>
+
+</body>
+</html>

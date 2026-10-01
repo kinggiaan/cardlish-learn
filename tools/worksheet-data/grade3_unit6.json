@@ -1,0 +1,52 @@
+{
+  "unit": 6,
+  "title": "In the classroom",
+  "grade": 3,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "bell", "phonetic": "/bel/", "meaning_vi": "cái chuông" },
+      { "word": "pen", "phonetic": "/pen/", "meaning_vi": "bút mực" },
+      { "word": "pencil", "phonetic": "/ˈpensl/", "meaning_vi": "bút chì" },
+      { "word": "red", "phonetic": "/red/", "meaning_vi": "màu đỏ" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Các mẫu câu liên quan đến trường học",
+    "examples": [
+      { "en": "Is this our school?", "vi": "Đây có phải là trường học của chúng ta không?" },
+      { "en": "Yes, it is.", "vi": "Đúng rồi." },
+      { "en": "Is that our classroom?", "vi": "Đó có phải là lớp học của chúng ta không?" },
+      { "en": "No, it isn't.", "vi": "Không phải." },
+      { "en": "Is that your library?", "vi": "Đó là thư viện của các bạn phải không?" },
+      { "en": "Yes, it is.", "vi": "Đúng rồi." },
+      { "en": "Let's go to the gym!", "vi": "Hãy cùng đi đến nhà thể chất nào!" },
+      { "en": "OK. Let's go.", "vi": "Được. Đi nào." },
+      { "en": "No, let's not.", "vi": "Không, chúng mình đừng đi." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "pl",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "play", "phonetic": "/pleɪ/" },
+          { "word": "plane", "phonetic": "/pleɪn/" },
+          { "word": "plate", "phonetic": "/pleɪt/" },
+          { "word": "plus", "phonetic": "/plʌs/" }
+        ]
+      },
+      {
+        "suffix": "cl",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "class", "phonetic": "/klɑːs/" },
+          { "word": "clock", "phonetic": "/klɒk/" },
+          { "word": "clean", "phonetic": "/kliːn/" },
+          { "word": "climb", "phonetic": "/klaɪm/" }
+        ]
+      }
+    ]
+  }
+}

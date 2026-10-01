@@ -1,0 +1,45 @@
+{
+  "unit": 5,
+  "title": "Unit 5",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "question",
+        "phonetic": "/ˈkwestʃən/",
+        "meaning_vi": "câu hỏi",
+        "image": "images/grade2/unit5/question1.png"
+      },
+      {
+        "word": "quiz",
+        "phonetic": "/kwɪz/",
+        "meaning_vi": "câu đố",
+        "image": "images/grade2/unit5/quiz1.png"
+      },
+      {
+        "word": "square",
+        "phonetic": "/skwer/",
+        "meaning_vi": "hình vuông",
+        "image": "images/grade2/unit5/square1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'What are you/he/she doing?'",
+    "examples": [
+      { "en": "What are you doing?", "vi": "Bạn đang làm gì đấy?" },
+      { "en": "I'm doing a quiz.", "vi": "Mình đang giải câu đố." },
+      { "en": "I'm running.", "vi": "Mình đang chạy." },
+      { "en": "What's he doing?", "vi": "Anh ấy đang làm gì đấy?" },
+      { "en": "He's coloring a square.", "vi": "Anh ấy đang tô màu 1 hình vuông." },
+      { "en": "What's she doing?", "vi": "Cô ấy đang làm gì?" },
+      { "en": "She's answering a question.", "vi": "Cô ấy đang trả lời câu hỏi." }
+    ]
+  },
+  "phonics": {
+    "letter": "Q",
+    "sound": "/kw/",
+    "description_vi": "Bài 5: Học phát âm chữ cái Q - âm /kw/"
+  }
+}

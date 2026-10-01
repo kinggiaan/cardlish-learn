@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit Worksheet - Tiếng Anh lớp 1 Global Success</title>
+  <title>Unit Worksheet - Tiếng Anh Global Success</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     /* ===== RESET & BASE ===== */
@@ -22,28 +22,30 @@
     /* ===== A4 PAGE ===== */
     .worksheet {
       width: 210mm;
-      height: 297mm;
+      min-height: 297mm;
       background: #fff;
       padding: 12mm 18mm;
       box-shadow: 0 2px 12px rgba(0,0,0,0.15);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
 
     /* Sections fill available space */
-    .section-vocab { flex: 5; display: flex; flex-direction: column; }
-    .section-grammar { flex: 3; display: flex; flex-direction: column; justify-content: center; }
-    .section-phonics { flex: 4; display: flex; flex-direction: column; }
+    .section-vocab { flex: 0 0 auto; display: flex; flex-direction: column; }
+    .section-grammar { flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; }
+    .section-phonics { flex: 0 0 auto; display: flex; flex-direction: column; }
 
     /* ===== HEADER ===== */
     .unit-title {
       text-align: center;
-      font-size: 18px;
-      font-style: italic;
-      font-weight: 400;
-      margin-bottom: 6px;
-      color: #333;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2.5px solid #2c3e50;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     /* ===== SECTION TITLES ===== */
@@ -114,6 +116,33 @@
       font-style: italic;
     }
 
+    /* ===== VOCAB TABLE (no images) ===== */
+    .vocab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+    }
+
+    .vocab-table th {
+      background: #2c3e50;
+      color: #fff;
+      padding: 6px 10px;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .vocab-table td {
+      padding: 5px 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    .vocab-table tr:nth-child(even) { background: #f8f9fa; }
+
+    .vt-word { font-weight: 700; }
+    .vt-phonetic { font-style: italic; color: #555; }
+    .vt-meaning { color: #c0392b; font-style: italic; }
+
     /* ===== GRAMMAR ===== */
     .grammar-examples {
       margin: 8px 20px;
@@ -152,6 +181,48 @@
       font-style: italic;
     }
 
+    /* Phonics rules (Grade 4+) */
+    .phonics-rule {
+      margin-bottom: 10px;
+    }
+
+    .phonics-rule-num {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .phonics-suffix {
+      display: inline-block;
+      background: #2c3e50;
+      color: #fff;
+      padding: 1px 10px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .phonics-examples {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-left: 20px;
+      margin-top: 2px;
+    }
+
+    .phonics-ex-item {
+      font-size: 13px;
+    }
+
+    .phonics-ex-item strong {
+      color: #2c3e50;
+    }
+
+    .phonics-ex-item i {
+      color: #666;
+    }
+
     .writing-title {
       text-align: center;
       font-size: 15px;
@@ -174,11 +245,11 @@
 
     .writing-grid .guide-word {
       text-align: center;
-      font-size: 22px;
+      font-size: 16px;
       color: #ccc;
       font-weight: 700;
       font-family: 'Roboto', sans-serif;
-      padding: 8px 4px;
+      padding: 5px 4px;
     }
 
     /* ===== SEPARATOR ===== */
@@ -255,8 +326,8 @@
     /* ===== PRINT STYLES ===== */
     @media print {
       @page {
-        size: A4 portrait;
-        margin: 12mm 15mm;
+        size: A4;
+        margin: 12mm 18mm;
       }
 
       body {
@@ -266,7 +337,7 @@
 
       .worksheet {
         width: 100%;
-        min-height: auto;
+        height: auto;
         padding: 0;
         box-shadow: none;
       }
@@ -282,9 +353,19 @@
         print-color-adjust: exact;
       }
 
+      .vocab-table th {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
       .writing-grid td {
         border-color: #666;
       }
+
+      /* Auto page breaks */
+      .section-grammar { page-break-inside: avoid; }
+      .section-phonics { page-break-inside: auto; }
+      .writing-grid tr { page-break-inside: avoid; }
     }
   </style>
 </head>
@@ -292,7 +373,15 @@
 
   <!-- Unit selector (screen only) -->
   <div class="unit-selector" id="unitSelector">
-    <label for="unitSelect">Unit:</label>
+    <label for="gradeSelect">Lớp:</label>
+    <select id="gradeSelect" onchange="onGradeChange()">
+      <option value="1">Lớp 1</option>
+      <option value="2">Lớp 2</option>
+      <option value="3">Lớp 3</option>
+      <option value="4">Lớp 4</option>
+      <option value="5">Lớp 5</option>
+    </select>
+    <label for="unitSelect" style="margin-left:12px">Unit:</label>
     <select id="unitSelect"></select>
     <button onclick="loadSelectedUnit()">Tải</button>
     <button class="btn-print" onclick="window.print()">🖨️ In</button>
@@ -309,23 +398,23 @@
 
     // ===== INIT =====
     async function init() {
-      // Scan for available unit JSON files
-      await populateUnitSelector();
-
-      // Get unit from URL param or default
+      // Get grade and unit from URL params
       const params = new URLSearchParams(window.location.search);
-      const unitNum = params.get('unit') || '9';
+      const grade = params.get('grade') || '1';
+      const unitNum = params.get('unit') || '5';
 
+      document.getElementById('gradeSelect').value = grade;
+      populateUnitSelector(parseInt(grade));
       document.getElementById('unitSelect').value = unitNum;
-      await loadUnit(unitNum);
+      await loadUnit(grade, unitNum);
     }
 
-    // Populate the unit dropdown
-    async function populateUnitSelector() {
+    // Populate the unit dropdown based on grade
+    function populateUnitSelector(grade) {
       const select = document.getElementById('unitSelect');
-
-      // Try units 1-16 (Global Success grade 1 has 16 units)
-      for (let i = 1; i <= 16; i++) {
+      select.innerHTML = '';
+      const maxUnit = grade <= 2 ? 16 : 20; // grades 3-5 may have up to 20 units
+      for (let i = 1; i <= maxUnit; i++) {
         const option = document.createElement('option');
         option.value = i;
         option.textContent = `Unit ${i}`;
@@ -333,32 +422,49 @@
       }
     }
 
+    // When grade changes, update unit list
+    function onGradeChange() {
+      const grade = parseInt(document.getElementById('gradeSelect').value);
+      populateUnitSelector(grade);
+    }
+
     // Load unit from selector
     function loadSelectedUnit() {
+      const grade = document.getElementById('gradeSelect').value;
       const unitNum = document.getElementById('unitSelect').value;
       // Update URL without reload
       const url = new URL(window.location);
+      url.searchParams.set('grade', grade);
       url.searchParams.set('unit', unitNum);
       window.history.pushState({}, '', url);
-      loadUnit(unitNum);
+      loadUnit(grade, unitNum);
+    }
+
+    // Build the JSON filename based on grade
+    function getJsonFilename(grade, unitNum) {
+      if (grade === '1' || grade === 1) {
+        return `unit${unitNum}.json`; // legacy: unit5.json
+      }
+      return `grade${grade}_unit${unitNum}.json`; // new: grade2_unit5.json
     }
 
     // ===== LOAD & RENDER =====
-    async function loadUnit(unitNum) {
+    async function loadUnit(grade, unitNum) {
       const worksheet = document.getElementById('worksheet');
-      worksheet.innerHTML = '<div class="loading">Đang tải dữ liệu Unit ' + unitNum + '...</div>';
+      worksheet.innerHTML = '<div class="loading">Đang tải dữ liệu Lớp ' + grade + ' Unit ' + unitNum + '...</div>';
 
+      const filename = getJsonFilename(grade, unitNum);
       try {
-        const resp = await fetch(`${DATA_BASE}unit${unitNum}.json`);
-        if (!resp.ok) throw new Error(`Chưa có dữ liệu cho Unit ${unitNum}`);
+        const resp = await fetch(`${DATA_BASE}${filename}`);
+        if (!resp.ok) throw new Error(`Chưa có dữ liệu cho Lớp ${grade} Unit ${unitNum}`);
         const data = await resp.json();
         renderWorksheet(data);
-        document.title = `Unit ${data.unit}: ${data.title} - Worksheet`;
+        document.title = `Lớp ${data.grade} - Unit ${data.unit}: ${data.title} - Worksheet`;
       } catch (err) {
         worksheet.innerHTML = `<div class="error">
           <p>⚠️ ${err.message}</p>
           <p style="margin-top:10px; font-size:13px; color:#999;">
-            Hãy tạo file <code>${DATA_BASE}unit${unitNum}.json</code> với dữ liệu bài học.
+            Hãy tạo file <code>${DATA_BASE}${filename}</code> với dữ liệu bài học.
           </p>
         </div>`;
       }
@@ -372,26 +478,42 @@
       let html = '';
 
       // ----- HEADER -----
-      html += `<div class="unit-title">Unit ${data.unit}: ${data.title}</div>`;
+      const gradeLabel = data.grade ? `Lớp ${data.grade} - ` : '';
+      html += `<div class="unit-title">${gradeLabel}Unit ${data.unit}: ${data.title}</div>`;
 
       // ----- VOCABULARY -----
+      const hasImages = data.vocabulary.words.some(w => w.image);
       html += `<div class="section-vocab">`;
       html += `<div class="section-title">VOCABULARY (TỪ VỰNG)</div>`;
-      html += `<div class="vocab-grid">`;
 
-      data.vocabulary.words.forEach((w, i) => {
-        const imgSrc = `${DATA_BASE}${w.image}`;
-        html += `
-          <div class="vocab-card">
-            <img class="card-image" src="${imgSrc}" alt="${w.word}" onerror="this.style.display='none'">
-            <div class="card-word">${w.word}</div>
-            <div class="card-phonetic">${w.phonetic}</div>
-            <div class="card-meaning">${w.meaning_vi}</div>
-          </div>
-        `;
-      });
-
-      html += `</div>`;
+      if (hasImages) {
+        // Grade 1-2: cards with images
+        html += `<div class="vocab-grid">`;
+        data.vocabulary.words.forEach((w, i) => {
+          const imgSrc = `${DATA_BASE}${w.image}`;
+          html += `
+            <div class="vocab-card">
+              <img class="card-image" src="${imgSrc}" alt="${w.word}" onerror="this.style.display='none'">
+              <div class="card-word">${w.word}</div>
+              <div class="card-phonetic">${w.phonetic}</div>
+              <div class="card-meaning">${w.meaning_vi}</div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      } else {
+        // Grade 3+: simple table without images
+        html += `<table class="vocab-table">`;
+        html += `<tr><th>Word</th><th>Pronunciation</th><th>Meaning</th></tr>`;
+        data.vocabulary.words.forEach(w => {
+          html += `<tr>
+            <td class="vt-word">${w.word}</td>
+            <td class="vt-phonetic">${w.phonetic}</td>
+            <td class="vt-meaning">${w.meaning_vi}</td>
+          </tr>`;
+        });
+        html += `</table>`;
+      }
       html += `</div>`; // end section-vocab
 
       // ----- GRAMMAR -----
@@ -412,29 +534,52 @@
       html += `</ul>`;
       html += `</div>`; // end section-grammar
 
-      // ----- PHONICS -----
+      // ----- PHONICS or WRITING PRACTICE -----
       html += `<hr class="section-sep">`;
       html += `<div class="section-phonics">`;
-      html += `<div class="section-title">PHONICS (NGỮ ÂM)</div>`;
-      html += `<div class="phonics-desc">${data.phonics.description_vi}</div>`;
 
-      // Writing practice grid — 4 cols × N rows (1 row per vocab word)
-      html += `<div class="writing-title">Luyện viết</div>`;
-      html += `<table class="writing-grid">`;
+      if (data.phonics && data.phonics.rules) {
+        // Grade 3+: Phonics rules (e.g. pronunciation of s/es)
+        html += `<div class="section-title">PHONICS (HỌC VỀ PHÁT ÂM)</div>`;
+        data.phonics.rules.forEach((rule, idx) => {
+          html += `<div class="phonics-rule">`;
+          html += `<div class="phonics-rule-num">${idx + 1}. ${rule.label} <span class="phonics-suffix">${rule.suffix}</span></div>`;
+          html += `<div class="phonics-examples">`;
+          rule.examples.forEach(ex => {
+            html += `<span class="phonics-ex-item"><strong>${ex.word}</strong> <i>${ex.phonetic}</i></span>`;
+          });
+          html += `</div></div>`;
+        });
+      } else if (data.phonics && data.phonics.letter) {
+        // Grade 1-2: Single letter phonics + writing grid
+        html += `<div class="section-title">PHONICS (NGỮ ÂM)</div>`;
+        html += `<div class="phonics-desc">${data.phonics.description_vi}</div>`;
 
-      const words = data.vocabulary.words;
-      for (let r = 0; r < words.length; r++) {
-        html += `<tr>`;
-        // First cell: guide word (faded)
-        html += `<td class="guide-word">${words[r].word}</td>`;
-        // 3 empty cells for practice
-        html += `<td></td>`;
-        html += `<td></td>`;
-        html += `<td></td>`;
-        html += `</tr>`;
+        // Writing practice grid
+        html += `<div class="writing-title">Luyện viết</div>`;
+        html += `<table class="writing-grid">`;
+        const words = data.vocabulary.words;
+        for (let r = 0; r < words.length; r++) {
+          html += `<tr>`;
+          html += `<td class="guide-word">${words[r].word}</td>`;
+          html += `<td></td><td></td><td></td>`;
+          html += `</tr>`;
+        }
+        html += `</table>`;
+      } else {
+        // No phonics: writing vocab practice
+        html += `<div class="writing-title">Luyện viết từ vựng</div>`;
+        html += `<table class="writing-grid">`;
+        const words = data.vocabulary.words;
+        for (let r = 0; r < words.length; r++) {
+          html += `<tr>`;
+          html += `<td class="guide-word">${words[r].word}</td>`;
+          html += `<td></td><td></td><td></td>`;
+          html += `</tr>`;
+        }
+        html += `</table>`;
       }
 
-      html += `</table>`;
       html += `</div>`; // end section-phonics
 
       worksheet.innerHTML = html;

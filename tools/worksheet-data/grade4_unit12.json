@@ -1,0 +1,55 @@
+{
+  "unit": 12,
+  "title": "Jobs",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "actor", "phonetic": "/ˈæktə/", "meaning_vi": "diễn viên (nam)" },
+      { "word": "farmer", "phonetic": "/ˈfɑːmə/", "meaning_vi": "nông dân" },
+      { "word": "nurse", "phonetic": "/nɜːs/", "meaning_vi": "y tá, điều dưỡng viên" },
+      { "word": "office worker", "phonetic": "/ˈɒfɪs wɜːkə/", "meaning_vi": "nhân viên văn phòng" },
+      { "word": "policeman", "phonetic": "/pəˈliːsmən/", "meaning_vi": "cảnh sát (nam)" },
+      { "word": "factory", "phonetic": "/ˈfæktri/", "meaning_vi": "nhà máy" },
+      { "word": "farm", "phonetic": "/fɑːm/", "meaning_vi": "trang trại" },
+      { "word": "hospital", "phonetic": "/ˈhɒspɪtl/", "meaning_vi": "bệnh viện" },
+      { "word": "nursing home", "phonetic": "/ˈnɜːsɪŋ həʊm/", "meaning_vi": "viện điều dưỡng" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi và trả lời về công việc và địa điểm làm việc",
+    "examples": [
+      { "en": "What does he do?", "vi": "Anh ấy làm nghề gì?" },
+      { "en": "He is a doctor.", "vi": "Anh ấy là một bác sĩ." },
+      { "en": "He's a farmer.", "vi": "Anh ấy là nông dân." },
+      { "en": "What does she do?", "vi": "Chị ấy làm gì?" },
+      { "en": "She is a student.", "vi": "Chị ấy là học sinh." },
+      { "en": "Where does he work?", "vi": "Anh ấy làm việc ở đâu?" },
+      { "en": "He works at a factory.", "vi": "Anh ấy làm việc ở một nhà máy." },
+      { "en": "Where does she work?", "vi": "Cô ấy làm việc ở đâu?" },
+      { "en": "She works in a hospital.", "vi": "Cô ấy làm việc ở một bệnh viện." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "ar",
+        "label": "Cách phát âm ar = /ɑːr/",
+        "examples": [
+          { "word": "farmer", "phonetic": "/ˈfɑːr.mɚ/" },
+          { "word": "garden", "phonetic": "/ˈɡɑːr.dən/" },
+          { "word": "large", "phonetic": "/lɑːrdʒ/" }
+        ]
+      },
+      {
+        "suffix": "ur",
+        "label": "Cách phát âm ur = /ɜːr/",
+        "examples": [
+          { "word": "church", "phonetic": "/tʃɜːrtʃ/" },
+          { "word": "nurse", "phonetic": "/nɜːrs/" },
+          { "word": "surf", "phonetic": "/sɜːrf/" }
+        ]
+      }
+    ]
+  }
+}

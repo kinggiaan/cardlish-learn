@@ -1,0 +1,51 @@
+{
+  "unit": 7,
+  "title": "Classroom instructions",
+  "grade": 3,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "close", "phonetic": "/kləʊz/", "meaning_vi": "đóng, gấp (sách)" },
+      { "word": "come in", "phonetic": "/kʌm ɪn/", "meaning_vi": "đi vào" },
+      { "word": "go out", "phonetic": "/ɡəʊ ˈaʊt/", "meaning_vi": "đi ra" },
+      { "word": "sit down", "phonetic": "/sɪt ˈdaʊn/", "meaning_vi": "ngồi xuống" },
+      { "word": "speak", "phonetic": "/spiːk/", "meaning_vi": "nói" },
+      { "word": "stand up", "phonetic": "/stænd ˈʌp/", "meaning_vi": "đứng lên" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Các câu mệnh lệnh lớp học",
+    "examples": [
+      { "en": "Close your book, please!", "vi": "Hãy đóng sách lại nào!" },
+      { "en": "Speak English, please!", "vi": "Hãy nói tiếng Anh!" },
+      { "en": "May I go out?", "vi": "Em ra ngoài được không ạ?" },
+      { "en": "Yes, you can.", "vi": "Được." },
+      { "en": "May I speak Vietnamese?", "vi": "Em nói tiếng Việt được không ạ?" },
+      { "en": "No, you can't.", "vi": "Không được." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "sp",
+        "label": "Cách phát âm - âm /sp/",
+        "examples": [
+          { "word": "speak", "phonetic": "/spiːk/" },
+          { "word": "spell", "phonetic": "/spel/" },
+          { "word": "sport", "phonetic": "/spɔːt/" },
+          { "word": "spoon", "phonetic": "/spuːn/" }
+        ]
+      },
+      {
+        "suffix": "st",
+        "label": "Cách phát âm - âm /st/",
+        "examples": [
+          { "word": "stand", "phonetic": "/stænd/" },
+          { "word": "stop", "phonetic": "/stɒp/" },
+          { "word": "student", "phonetic": "/ˈstjuːdənt/" },
+          { "word": "star", "phonetic": "/stɑːr/" }
+        ]
+      }
+    ]
+  }
+}

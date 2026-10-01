@@ -1,0 +1,53 @@
+{
+  "unit": 10,
+  "title": "Our summer holidays",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "beach", "phonetic": "/biːtʃ/", "meaning_vi": "bãi biển" },
+      { "word": "campsite", "phonetic": "/ˈkæmpsaɪt/", "meaning_vi": "địa điểm cắm trại" },
+      { "word": "countryside", "phonetic": "/ˈkʌntrisaɪd/", "meaning_vi": "nông thôn, vùng quê" },
+      { "word": "Bangkok", "phonetic": "/bæŋˈkɒk/", "meaning_vi": "Băng Cốc (thủ đô của nước Thái Lan)" },
+      { "word": "Sydney", "phonetic": "/ˈsɪdni/", "meaning_vi": "Xít-ni (thành phố của nước Ô-xtơ-rây-li-a)" },
+      { "word": "Tokyo", "phonetic": "/ˈtəʊkiəʊ/", "meaning_vi": "Tô-ki-ô (thủ đô của nước Nhật)" },
+      { "word": "last", "phonetic": "/lɑːst/", "meaning_vi": "trước, lần trước" },
+      { "word": "yesterday", "phonetic": "/ˈjestədeɪ/", "meaning_vi": "ngày hôm qua" },
+      { "word": "at, on, in (+ place)", "phonetic": "/ət/, /ɒn/, /ɪn/", "meaning_vi": "ở (+ địa điểm)" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi về địa điểm trong quá khứ (Were you...? / Where were you...?)",
+    "examples": [
+      { "en": "Were you on the beach yesterday?", "vi": "Bạn đã ở trên bãi biển hôm qua phải không?" },
+      { "en": "Yes, I was.", "vi": "Đúng, tớ đã ở đó." },
+      { "en": "Were you in the mountains last week?", "vi": "Bạn đã ở trên những dãy núi tuần trước có phải không?" },
+      { "en": "No, I wasn't. I was in the countryside.", "vi": "Không, tớ không ở đó. Tớ đã ở vùng quê." },
+      { "en": "Where were you last week?", "vi": "Bạn đã ở đâu tuần trước?" },
+      { "en": "I was in the school library.", "vi": "Tớ đã ở trong thư viện của trường." },
+      { "en": "Where were you last weekend?", "vi": "Bạn đã ở đâu cuối tuần trước?" },
+      { "en": "I was on the beach.", "vi": "Tớ đã ở trên bãi biển." },
+      { "en": "Where were you yesterday?", "vi": "Bạn đã ở đâu hôm qua?" },
+      { "en": "I was at school.", "vi": "Tớ đã ở trường." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "ere",
+        "label": "Cách phát âm ere = /ɜːr/",
+        "examples": [
+          { "word": "were", "phonetic": "/wɜːr/" }
+        ]
+      },
+      {
+        "suffix": "ere",
+        "label": "Cách phát âm ere = /er/",
+        "examples": [
+          { "word": "where", "phonetic": "/wer/" },
+          { "word": "there", "phonetic": "/ðer/" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "unit": 10,
+  "title": "Unit 10",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "zoo",
+        "phonetic": "/zuː/",
+        "meaning_vi": "vườn thú",
+        "image": "images/grade2/unit10/zoo2.png"
+      },
+      {
+        "word": "zebu",
+        "phonetic": "/ˈziːbuː/",
+        "meaning_vi": "bò u",
+        "image": "images/grade2/unit10/zebu1.png"
+      },
+      {
+        "word": "zebra",
+        "phonetic": "/ˈziːbrə/",
+        "meaning_vi": "ngựa vằn",
+        "image": "images/grade2/unit10/zebra1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc diễn tả sở thích 'Do you like...?'",
+    "examples": [
+      { "en": "Do you like the zoo?", "vi": "Bạn có thích sở thú không?" },
+      { "en": "Yes, I do.", "vi": "Mình có." },
+      { "en": "No, I don't.", "vi": "Mình không." },
+      { "en": "Do you like the zebra?", "vi": "Bạn có thích ngựa vằn không?" },
+      { "en": "Do you like the zebu?", "vi": "Bạn có thích bò zebu không?" }
+    ]
+  },
+  "phonics": {
+    "letter": "Z",
+    "sound": "/z/",
+    "description_vi": "Học phát âm chữ cái Z - âm /z/"
+  }
+}

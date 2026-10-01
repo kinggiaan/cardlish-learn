@@ -1,0 +1,53 @@
+{
+  "unit": 8,
+  "title": "My school things",
+  "grade": 3,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "book", "phonetic": "/bʊk/", "meaning_vi": "quyển sách" },
+      { "word": "eraser", "phonetic": "/ɪˈreɪzə/", "meaning_vi": "cục tẩy" },
+      { "word": "notebook", "phonetic": "/ˈnəʊtbʊk/", "meaning_vi": "vở viết" },
+      { "word": "pen", "phonetic": "/pen/", "meaning_vi": "bút" },
+      { "word": "pencil", "phonetic": "/ˈpensl/", "meaning_vi": "bút chì" },
+      { "word": "pencil case", "phonetic": "/ˈpensl keɪs/", "meaning_vi": "hộp bút" },
+      { "word": "ruler", "phonetic": "/ˈruːlə/", "meaning_vi": "thước kẻ" },
+      { "word": "school bag", "phonetic": "/ˈskuːl bæɡ/", "meaning_vi": "cặp sách" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Nói sở hữu với động từ HAVE",
+    "examples": [
+      { "en": "I have a pen.", "vi": "Cô có 1 cái bút." },
+      { "en": "I have an eraser.", "vi": "Em có 1 cục tẩy." },
+      { "en": "Do you have a pencil?", "vi": "Bạn có 1 cái bút chì không?" },
+      { "en": "Yes, I do.", "vi": "Có." },
+      { "en": "Do you have a ruler?", "vi": "Bạn có 1 cái thước kẻ không?" },
+      { "en": "No, I don't.", "vi": "Không, tớ không có." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "oo",
+        "label": "Cách phát âm oo = /ʊ/",
+        "examples": [
+          { "word": "book", "phonetic": "/bʊk/" },
+          { "word": "notebook", "phonetic": "/ˈnəʊtbʊk/" },
+          { "word": "look", "phonetic": "/lʊk/" },
+          { "word": "good", "phonetic": "/ɡʊd/" }
+        ]
+      },
+      {
+        "suffix": "a",
+        "label": "Cách phát âm a = /eɪ/",
+        "examples": [
+          { "word": "case", "phonetic": "/keɪs/" },
+          { "word": "name", "phonetic": "/neɪm/" },
+          { "word": "lake", "phonetic": "/leɪk/" },
+          { "word": "game", "phonetic": "/ɡeɪm/" }
+        ]
+      }
+    ]
+  }
+}

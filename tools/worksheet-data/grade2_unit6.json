@@ -1,0 +1,45 @@
+{
+  "unit": 6,
+  "title": "Unit 6",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "box",
+        "phonetic": "/bɑːks/",
+        "meaning_vi": "cái hộp",
+        "image": "images/grade2/unit6/box1.png"
+      },
+      {
+        "word": "fox",
+        "phonetic": "/fɑːks/",
+        "meaning_vi": "con cáo",
+        "image": "images/grade2/unit6/fox1.png"
+      },
+      {
+        "word": "ox",
+        "phonetic": "/ɑːks/",
+        "meaning_vi": "con bò",
+        "image": "images/grade2/unit6/ox1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'Is there...? / There is... / There isn't...'",
+    "examples": [
+      { "en": "Is there a chicken?", "vi": "Có con gà không?" },
+      { "en": "Is there an ox?", "vi": "Có con bò không?" },
+      { "en": "Is there a fox?", "vi": "Có con cáo không?" },
+      { "en": "There is a fox in the box.", "vi": "Có 1 con cáo ở trong hộp." },
+      { "en": "There isn't an ox on the farm.", "vi": "Không có con bò nào ở nông trại." },
+      { "en": "Yes, there is.", "vi": "Có." },
+      { "en": "No, there isn't.", "vi": "Không có." }
+    ]
+  },
+  "phonics": {
+    "letter": "X",
+    "sound": "/ks/",
+    "description_vi": "Học phát âm chữ cái X - âm /ks/"
+  }
+}

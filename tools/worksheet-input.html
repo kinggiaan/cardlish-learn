@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhập dữ liệu Worksheet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* --- Form Grid --- */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group.half { grid-column: span 2; }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96,165,250,0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* --- Section Card --- */
+    .section-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-card h2 .emoji { font-size: 20px; }
+
+    .hint {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 12px;
+      border-left: 3px solid #60a5fa;
+      font-family: 'Consolas', monospace;
+      line-height: 1.8;
+    }
+
+    .hint strong { color: #94a3b8; }
+
+    /* --- Buttons --- */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 24px 0;
+    }
+
+    .btn {
+      padding: 12px 32px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #e2e8f0;
+    }
+    .btn-secondary:hover { background: #475569; }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+    .btn-success:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(16,185,129,0.4);
+    }
+
+    /* --- Output --- */
+    .output-area {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .output-area h3 {
+      font-size: 14px;
+      color: #10b981;
+      margin-bottom: 8px;
+    }
+
+    .output-area pre {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 12px;
+      color: #a5f3fc;
+      overflow-x: auto;
+      max-height: 300px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+
+    /* --- Status Toast --- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: #ef4444; }
+
+    /* --- Quick template buttons --- */
+    .template-btns {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .template-btn {
+      padding: 6px 14px;
+      background: #334155;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      color: #94a3b8;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .template-btn:hover { background: #475569; color: #e2e8f0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📝 Nhập dữ liệu Worksheet</h1>
+  <p class="subtitle">Paste dữ liệu từ tienganh123.com → Tự động tạo JSON + Worksheet</p>
+
+  <!-- Unit Info -->
+  <div class="section-card">
+    <h2><span class="emoji">📚</span> Thông tin Unit</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Lớp</label>
+        <input type="number" id="grade" value="2" min="1" max="5">
+      </div>
+      <div class="form-group">
+        <label>Unit</label>
+        <input type="number" id="unit" value="1" min="1" max="20">
+      </div>
+      <div class="form-group half">
+        <label>Tên Unit (English)</label>
+        <input type="text" id="title" placeholder="Family">
+      </div>
+    </div>
+  </div>
+
+  <!-- Vocabulary -->
+  <div class="section-card">
+    <h2><span class="emoji">🔤</span> Vocabulary</h2>
+    <div class="hint">
+      <strong>Mỗi dòng 1 từ, phân cách bằng dấu |</strong><br>
+      word | /phiên âm/ | nghĩa tiếng Việt<br>
+      <br>
+      <strong>Ví dụ:</strong><br>
+      face | /feɪs/ | khuôn mặt<br>
+      father | /ˈfɑːðər/ | bố<br>
+      foot | /fʊt/ | bàn chân
+    </div>
+    <div class="form-group full">
+      <textarea id="vocab" rows="6" placeholder="face | /feɪs/ | khuôn mặt&#10;father | /ˈfɑːðər/ | bố&#10;foot | /fʊt/ | bàn chân&#10;football | /ˈfʊtbɔːl/ | bóng đá"></textarea>
+    </div>
+  </div>
+
+  <!-- Grammar -->
+  <div class="section-card">
+    <h2><span class="emoji">📐</span> Grammar</h2>
+    <div class="hint">
+      <strong>Dòng 1: Tiêu đề ngữ pháp</strong><br>
+      <strong>Các dòng sau: câu EN | câu VI</strong><br>
+      <br>
+      <strong>Ví dụ:</strong><br>
+      Cấu trúc 'Point to your ...'<br>
+      Point to your hand. | Hãy chỉ vào tay của bạn.<br>
+      Point to your head. | Hãy chỉ vào đầu của bạn.
+    </div>
+    <div class="form-group full">
+      <textarea id="grammar" rows="5" placeholder="Cấu trúc 'Point to your ...'&#10;Point to your hand. | Hãy chỉ vào tay của bạn.&#10;Point to your head. | Hãy chỉ vào đầu của bạn."></textarea>
+    </div>
+  </div>
+
+  <!-- Phonics -->
+  <div class="section-card">
+    <h2><span class="emoji">🔊</span> Phonics</h2>
+    <div class="hint">
+      <strong>Chữ cái | âm IPA | mô tả</strong><br>
+      <strong>Ví dụ:</strong> F | /f/ | Học cách viết chữ cái F - âm /f/
+    </div>
+    <div class="form-group full">
+      <textarea id="phonics" rows="2" placeholder="F | /f/ | Học cách viết chữ cái F - âm /f/"></textarea>
+    </div>
+  </div>
+
+  <!-- Image URLs (optional) -->
+  <div class="section-card">
+    <h2><span class="emoji">🖼️</span> Ảnh minh họa (tuỳ chọn)</h2>
+    <div class="hint">
+      <strong>Mỗi dòng: word | URL ảnh</strong><br>
+      <strong>Ví dụ:</strong><br>
+      face | https://www.tienganh123.com/file/global_success/grade1/unit15/vocab/face1.png<br>
+      <br>
+      Nếu bỏ trống → worksheet sẽ không có ảnh (vẫn hoạt động bình thường)
+    </div>
+    <div class="form-group full">
+      <textarea id="images" rows="3" placeholder="(Tuỳ chọn) face | https://...face1.png&#10;father | https://...father1.png"></textarea>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="generateJSON()">⚡ Tạo JSON</button>
+    <button class="btn btn-success" onclick="saveAndOpen()">💾 Lưu & Mở Worksheet</button>
+    <button class="btn btn-secondary" onclick="clearAll()">🗑️ Xóa hết</button>
+  </div>
+
+  <!-- Output -->
+  <div class="output-area" id="outputArea">
+    <h3>✅ JSON đã tạo:</h3>
+    <pre id="jsonOutput"></pre>
+    <div class="btn-row" style="margin-top: 12px;">
+      <button class="btn btn-secondary" onclick="copyJSON()">📋 Copy JSON</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function parseVocab(text) {
+    if (!text.trim()) return [];
+    return text.trim().split('\n').filter(l => l.trim()).map(line => {
+      const parts = line.split('|').map(s => s.trim());
+      return {
+        word: parts[0] || '',
+        phonetic: parts[1] || '',
+        meaning_vi: parts[2] || ''
+      };
+    });
+  }
+
+  function parseGrammar(text) {
+    if (!text.trim()) return { title_vi: '', examples: [] };
+    const lines = text.trim().split('\n').filter(l => l.trim());
+    const title_vi = lines[0] || '';
+    const examples = lines.slice(1).map(line => {
+      const parts = line.split('|').map(s => s.trim());
+      return { en: parts[0] || '', vi: parts[1] || '' };
+    });
+    return { title_vi, examples };
+  }
+
+  function parsePhonics(text) {
+    if (!text.trim()) return { letter: '', sound: '', description_vi: '' };
+    const parts = text.trim().split('|').map(s => s.trim());
+    return {
+      letter: parts[0] || '',
+      sound: parts[1] || '',
+      description_vi: parts[2] || ''
+    };
+  }
+
+  function parseImages(text) {
+    if (!text.trim()) return {};
+    const map = {};
+    text.trim().split('\n').filter(l => l.trim()).forEach(line => {
+      const parts = line.split('|').map(s => s.trim());
+      if (parts.length >= 2) map[parts[0].toLowerCase()] = parts[1];
+    });
+    return map;
+  }
+
+  function buildJSON() {
+    const grade = parseInt(document.getElementById('grade').value) || 1;
+    const unit = parseInt(document.getElementById('unit').value) || 1;
+    const title = document.getElementById('title').value.trim();
+    const words = parseVocab(document.getElementById('vocab').value);
+    const grammar = parseGrammar(document.getElementById('grammar').value);
+    const phonics = parsePhonics(document.getElementById('phonics').value);
+    const imageMap = parseImages(document.getElementById('images').value);
+
+    // Add image paths to words
+    const wordsWithImages = words.map(w => {
+      const imgUrl = imageMap[w.word.toLowerCase()];
+      const result = { ...w };
+      if (imgUrl) {
+        // Convert URL to local path
+        const filename = imgUrl.split('/').pop();
+        result.image = `images/grade${grade}/unit${unit}/${filename}`;
+        result._remoteUrl = imgUrl; // keep for downloading
+      }
+      return result;
+    });
+
+    return {
+      unit,
+      title,
+      grade,
+      curriculum: 'Global Success',
+      vocabulary: { words: wordsWithImages },
+      grammar,
+      phonics
+    };
+  }
+
+  function generateJSON() {
+    try {
+      const data = buildJSON();
+      const json = JSON.stringify(data, (key, val) => key === '_remoteUrl' ? undefined : val, 2);
+      document.getElementById('jsonOutput').textContent = json;
+      document.getElementById('outputArea').style.display = 'block';
+      showToast('✅ JSON đã tạo thành công!');
+      // Store for later use
+      window._lastJSON = json;
+      window._lastData = data;
+    } catch (e) {
+      showToast('❌ Lỗi: ' + e.message, true);
+    }
+  }
+
+  async function saveAndOpen() {
+    try {
+      const data = buildJSON();
+      const grade = data.grade;
+      const unit = data.unit;
+      const json = JSON.stringify(data, (key, val) => key === '_remoteUrl' ? undefined : val, 2);
+
+      // Save JSON via download
+      const blob = new Blob([json], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `grade${grade}_unit${unit}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+
+      // Show download commands for images
+      const remoteUrls = data.vocabulary.words
+        .filter(w => w._remoteUrl)
+        .map(w => `Invoke-WebRequest -Uri "${w._remoteUrl}" -OutFile "tools/worksheet-data/images/grade${grade}/unit${unit}/${w._remoteUrl.split('/').pop()}" -UseBasicParsing`);
+
+      if (remoteUrls.length > 0) {
+        const imgCmds = `mkdir -p tools/worksheet-data/images/grade${grade}/unit${unit}\n` + remoteUrls.join('\n');
+        document.getElementById('jsonOutput').textContent = json + '\n\n# === Lệnh tải ảnh (paste vào terminal) ===\n' + imgCmds;
+      } else {
+        document.getElementById('jsonOutput').textContent = json;
+      }
+      document.getElementById('outputArea').style.display = 'block';
+
+      showToast(`✅ Đã tải file grade${grade}_unit${unit}.json! Đặt vào tools/worksheet-data/`);
+    } catch (e) {
+      showToast('❌ Lỗi: ' + e.message, true);
+    }
+  }
+
+  function copyJSON() {
+    const text = document.getElementById('jsonOutput').textContent;
+    navigator.clipboard.writeText(text);
+    showToast('📋 Đã copy!');
+  }
+
+  function clearAll() {
+    document.getElementById('vocab').value = '';
+    document.getElementById('grammar').value = '';
+    document.getElementById('phonics').value = '';
+    document.getElementById('images').value = '';
+    document.getElementById('title').value = '';
+    document.getElementById('outputArea').style.display = 'none';
+    showToast('🗑️ Đã xóa hết!');
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => t.className = 'toast', 2500);
+  }
+</script>
+
+</body>
+</html>

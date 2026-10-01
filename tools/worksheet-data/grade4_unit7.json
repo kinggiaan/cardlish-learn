@@ -1,0 +1,51 @@
+{
+  "unit": 7,
+  "title": "Our timetables",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "art", "phonetic": "/ɑːt/", "meaning_vi": "môn Mĩ thuật" },
+      { "word": "English", "phonetic": "/ˈɪŋɡlɪʃ/", "meaning_vi": "môn Tiếng Anh" },
+      { "word": "history and geography", "phonetic": "/ˈhɪstri ænd dʒiˈɒɡrəfi/", "meaning_vi": "môn Lịch sử và Địa lí" },
+      { "word": "maths", "phonetic": "/mæθs/", "meaning_vi": "môn Toán, toán học" },
+      { "word": "music", "phonetic": "/ˈmjuːzɪk/", "meaning_vi": "môn Âm nhạc" },
+      { "word": "science", "phonetic": "/ˈsaɪəns/", "meaning_vi": "môn Khoa học" },
+      { "word": "Vietnamese", "phonetic": "/ˌviːetnəˈmiːz/", "meaning_vi": "môn Tiếng Việt" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi và trả lời về môn học",
+    "examples": [
+      { "en": "What subjects do you have today?", "vi": "Hôm nay bạn học những môn gì?" },
+      { "en": "I have Vietnamese, Maths and English.", "vi": "Tớ học môn Tiếng Việt, Toán, và Tiếng Anh." },
+      { "en": "I have Maths and IT.", "vi": "Tớ học môn Toán và Tin Học." },
+      { "en": "When do you have PE?", "vi": "Khi nào bạn có môn Thể dục?" },
+      { "en": "I have PE on Mondays, Wednesdays and Fridays.", "vi": "Mình có môn Thể dục vào thứ 2, thứ 4 và thứ 6." },
+      { "en": "When do you have English?", "vi": "Khi nào bạn có môn Tiếng Anh?" },
+      { "en": "I have English on Tuesdays, Wednesdays and Fridays.", "vi": "Mình có môn Tiếng Anh vào thứ 3, thứ 4 và thứ 6." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "se",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "cheese", "phonetic": "/tʃiːz/" },
+          { "word": "Chinese", "phonetic": "/tʃaɪˈniːz/" },
+          { "word": "Vietnamese", "phonetic": "/ˌvjet.nəˈmiːz/" }
+        ]
+      },
+      {
+        "suffix": "ce",
+        "label": "Cách phát âm",
+        "examples": [
+          { "word": "nice", "phonetic": "/naɪs/" },
+          { "word": "juice", "phonetic": "/dʒuːs/" },
+          { "word": "science", "phonetic": "/ˈsaɪ.əns/" }
+        ]
+      }
+    ]
+  }
+}

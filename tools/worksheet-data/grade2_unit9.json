@@ -1,0 +1,43 @@
+{
+  "unit": 9,
+  "title": "Unit 9",
+  "grade": 2,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      {
+        "word": "yogurt",
+        "phonetic": "/ˈjəʊɡərt/",
+        "meaning_vi": "sữa chua",
+        "image": "images/grade2/unit9/yogurt1.png"
+      },
+      {
+        "word": "yam",
+        "phonetic": "/jæm/",
+        "meaning_vi": "củ khoai sọ",
+        "image": "images/grade2/unit9/yam1.png"
+      },
+      {
+        "word": "yo-yo",
+        "phonetic": "/ˈjəʊ jəʊ/",
+        "meaning_vi": "cái yo-yo",
+        "image": "images/grade2/unit9/yoyo1.png"
+      }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cấu trúc 'What do you want? / I want...'",
+    "examples": [
+      { "en": "What do you want?", "vi": "Bạn muốn gì?" },
+      { "en": "I want some yogurt.", "vi": "Tôi muốn 1 ít sữa chua." },
+      { "en": "I want an apple.", "vi": "Mình muốn 1 quả táo." },
+      { "en": "I want a crown.", "vi": "Mình muốn 1 cái vương miện." },
+      { "en": "I want 13 crowns.", "vi": "Mình muốn 13 cái vương miện." }
+    ]
+  },
+  "phonics": {
+    "letter": "Y",
+    "sound": "/j/",
+    "description_vi": "Học phát âm chữ cái Y - âm /j/"
+  }
+}

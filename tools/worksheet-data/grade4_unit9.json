@@ -1,0 +1,55 @@
+{
+  "unit": 9,
+  "title": "Our sports day",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "June", "phonetic": "/dʒuːn/", "meaning_vi": "tháng Sáu" },
+      { "word": "July", "phonetic": "/dʒuˈlaɪ/", "meaning_vi": "tháng Bảy" },
+      { "word": "August", "phonetic": "/ɔːˈɡʌst/", "meaning_vi": "tháng Tám" },
+      { "word": "September", "phonetic": "/sepˈtembə/", "meaning_vi": "tháng Chín" },
+      { "word": "October", "phonetic": "/ɒkˈtəʊbə/", "meaning_vi": "tháng Mười" },
+      { "word": "November", "phonetic": "/nəʊˈvembə/", "meaning_vi": "tháng Mười Một" },
+      { "word": "December", "phonetic": "/dɪˈsembə/", "meaning_vi": "tháng Mười Hai" },
+      { "word": "sports day", "phonetic": "/ˈspɔːts deɪ/", "meaning_vi": "ngày hội thể thao" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi về tháng nào và khi nào diễn ra ngày hội thể thao",
+    "examples": [
+      { "en": "Is your sports day in May too?", "vi": "Ngày hội thể thao của các bạn cũng vào tháng 5 có phải không?" },
+      { "en": "No, it isn't. It's in April.", "vi": "Không phải. Nó diễn ra vào tháng 4." },
+      { "en": "Is your sports day in June?", "vi": "Ngày hội thể thao của các bạn vào tháng 6 có phải không?" },
+      { "en": "Yes, it is.", "vi": "Đúng vậy." },
+      { "en": "When's your sports day?", "vi": "Ngày hội thể thao của bạn là khi nào?" },
+      { "en": "It's in October.", "vi": "Nó diễn ra vào tháng 10." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "y",
+        "label": "Cách phát âm y = /i/",
+        "examples": [
+          { "word": "body", "phonetic": "/ˈbɑː.di/" },
+          { "word": "cherry", "phonetic": "/ˈtʃer.i/" },
+          { "word": "happy", "phonetic": "/ˈhæp.i/" },
+          { "word": "January", "phonetic": "/ˈdʒæn.ju.er.i/" },
+          { "word": "February", "phonetic": "/ˈfeb.ruː.er.i/" }
+        ]
+      },
+      {
+        "suffix": "y",
+        "label": "Cách phát âm y = /aɪ/",
+        "examples": [
+          { "word": "my", "phonetic": "/maɪ/" },
+          { "word": "cycle", "phonetic": "/ˈsaɪ.kəl/" },
+          { "word": "fly", "phonetic": "/flaɪ/" },
+          { "word": "July", "phonetic": "/dʒʊˈlaɪ/" },
+          { "word": "sky", "phonetic": "/skaɪ/" }
+        ]
+      }
+    ]
+  }
+}

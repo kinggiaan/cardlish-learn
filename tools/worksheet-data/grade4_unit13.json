@@ -1,0 +1,52 @@
+{
+  "unit": 13,
+  "title": "Appearance",
+  "grade": 4,
+  "curriculum": "Global Success",
+  "vocabulary": {
+    "words": [
+      { "word": "big", "phonetic": "/bɪɡ/", "meaning_vi": "to, lớn (kích thước)" },
+      { "word": "short", "phonetic": "/ʃɔːt/", "meaning_vi": "thấp, ngắn" },
+      { "word": "slim", "phonetic": "/slɪm/", "meaning_vi": "mảnh mai" },
+      { "word": "tall", "phonetic": "/tɔːl/", "meaning_vi": "cao" },
+      { "word": "eyes", "phonetic": "/aɪ/", "meaning_vi": "mắt" },
+      { "word": "face", "phonetic": "/feɪs/", "meaning_vi": "khuôn mặt" },
+      { "word": "hair", "phonetic": "/heə/", "meaning_vi": "tóc" },
+      { "word": "long", "phonetic": "/lɒŋ/", "meaning_vi": "dài" },
+      { "word": "round", "phonetic": "/raʊnd/", "meaning_vi": "tròn" }
+    ]
+  },
+  "grammar": {
+    "title_vi": "Cách hỏi và trả lời về ngoại hình",
+    "examples": [
+      { "en": "What does she look like?", "vi": "Chị ấy trông như thế nào?" },
+      { "en": "She's slim.", "vi": "Chị ấy trông mảnh khảnh." },
+      { "en": "She looks young.", "vi": "Chị ấy trông trẻ trung." },
+      { "en": "What does he look like?", "vi": "Anh ấy trông như thế nào?" },
+      { "en": "He has a round face.", "vi": "Anh ấy có một khuôn mặt tròn." },
+      { "en": "He looks tall.", "vi": "Anh ấy trông cao." }
+    ]
+  },
+  "phonics": {
+    "rules": [
+      {
+        "suffix": "l",
+        "label": "Cách phát âm l = /l/",
+        "examples": [
+          { "word": "long", "phonetic": "/lɑːŋ/" },
+          { "word": "live", "phonetic": "/lɪv/" },
+          { "word": "look", "phonetic": "/lʊk/" }
+        ]
+      },
+      {
+        "suffix": "r",
+        "label": "Cách phát âm r = /r/",
+        "examples": [
+          { "word": "round", "phonetic": "/raʊnd/" },
+          { "word": "road", "phonetic": "/roʊd/" },
+          { "word": "read", "phonetic": "/riːd/" }
+        ]
+      }
+    ]
+  }
+}
